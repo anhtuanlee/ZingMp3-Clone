@@ -1,0 +1,34 @@
+.wrapper {
+    max-width: 440px;
+    :hover {
+        background-color: var(--hover-blur-bg);
+    }
+}
+// Account
+.user_account {
+    display: flex;
+    flex: 1;
+    padding: 8px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.avatar {
+    width: 52px;
+    height: 52px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.user_info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.name_singer {
+    font-size: 14px;
+}
+.sub_title {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--text-secondary);
+}

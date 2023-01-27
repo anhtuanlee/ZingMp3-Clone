@@ -1,0 +1,22 @@
+.wrapper {
+    display: flex;
+}
+.sidbar {
+    height: calc(100vh - 90px);
+    width: 240px;
+    background-color:#231b2e;
+}
+.main_page {
+    background-color:var(--primary);
+    flex: 1;
+    width: calc(100% - 0px);
+    padding: 0 60px;
+}
+.control_music {
+    border-top: 1px solid var(--border-player);
+    position: fixed;
+    bottom: 0;
+    background-color: var(--primary);
+    width: 100%;
+    height: 90px;
+}

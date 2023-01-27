@@ -1,0 +1,78 @@
+.wrapper {
+    width: 440px;
+}
+.search_input {
+    position: relative;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    border-radius: 20px;
+    justify-content: center;
+    background-color: #2e2739;
+    input {
+        width: 95%;
+        font-size: 14px;
+        background-clip: padding-box;
+        background-color: transparent;
+        border: 0;
+        height: 34px;
+        padding: 5px 0;
+        margin-left: 34px;
+        line-height: 34px;
+    }
+    input::placeholder {
+        color: var(--search-text);
+    }
+    &:focus-within:has(input:focus) {
+        // chi focus khi input duoc focus
+        background-color: var(--primary-bg);
+        border-bottom-left-radius: unset;
+        border-bottom-right-radius: unset;
+    }
+}
+.button_search {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: 0;
+    margin-left: 10px;
+    font-size: 20px;
+    transform: translateY(-50%);
+}
+.button_close {
+    position: absolute;
+    right: 0;
+    margin-right: 20px;
+    top: 50%;
+    font-size: 18px;
+    transform: translateY(-50%);
+}
+.result_search {
+    position: absolute;
+    overflow: hidden;
+    width: 440px;
+    overflow-y: scroll;
+    max-height: calc(100vh - 180px);
+    min-height: 0;
+    background-color: var(--primary-bg);
+    z-index: 5;
+    display: block;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    box-shadow: 0 4px 6px 0 rgb(32 33 36 / 28%);
+    padding: 13px 10px;
+    color: var(--text-primary);
+}
+
+// custom scrollbar in search result
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 0 6px rgb(0 0 0 / 50%);
+}
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset #fff;
+    border-radius: 4px;
+}

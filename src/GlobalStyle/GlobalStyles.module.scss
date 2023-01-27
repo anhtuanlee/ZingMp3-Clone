@@ -1,0 +1,33 @@
+:root {
+    //color
+    --primary: #170f23;
+    --border-player: hsla(0, 0%, 100%, 0.1);
+    --text-primary: #fff;
+    --button-hide: #595362;
+    --search-text: #dadada;
+    --primary-bg: #34224f;
+    --text-secondary: hsla(0, 0%, 100%, 0.5);
+    --hover-blur-bg: hsla(0,0%,100%,0.1)
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+//font family
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800');
+html {
+    font-size: 14px;
+}
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text-primary);
+}
+
+a[href],
+input {
+    outline: none;
+    text-decoration: none;
+    color: var(--text-primary);
+}
