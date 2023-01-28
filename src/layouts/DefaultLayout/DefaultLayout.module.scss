@@ -4,12 +4,11 @@
 .sidbar {
     height: calc(100vh - 90px);
     width: 240px;
-    background-color:#231b2e;
+    background-color: #231b2e;
 }
 .main_page {
-    background-color:var(--primary);
-    flex: 1;
-    width: calc(100% - 0px);
+    background-color:var(--primary)  ;
+    flex: 1; 
     padding: 0 60px;
 }
 .control_music {

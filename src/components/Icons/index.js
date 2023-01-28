@@ -1,3 +1,1 @@
-export  { ButtonTheme } from "./Icons";
- 
- 
+export * from './Icons';

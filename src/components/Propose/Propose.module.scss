@@ -1,13 +1,20 @@
-.wrapper {
-    max-width: 440px;
-    :hover {
+.wrapper { 
+    width: 100%;
+    height: 68px;   
+    &:hover {
         background-color: var(--hover-blur-bg);
     }
 }
+.icon_dot {
+    font-size: 4px;
+    padding: 0 4px;
+}
+.follower {
+    font-size: 12px;
+}
 // Account
 .user_account {
-    display: flex;
-    flex: 1;
+    display: flex; 
     padding: 8px 10px;
     border-radius: 4px;
     cursor: pointer;
@@ -26,9 +33,45 @@
 }
 .name_singer {
     font-size: 14px;
+    font-weight: 500;
 }
 .sub_title {
+    display: flex;
+    align-items: center;
     font-size: 12px;
+    font-weight: 400;
+    color: var(--text-secondary);
+}
+//Song
+.song_container {
+    display: flex;
+    flex: 1;
+    padding: 8px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.img_song {
+    width: 52px;
+    height: 52px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+.song_info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.song_name {
+    font-size: 14px;
+    font-weight: 500;
+
+    &:hover {
+        color: #854ea3;
+    }
+}
+.singer {
+    font-size: 14px;
     font-weight: 400;
     color: var(--text-secondary);
 }

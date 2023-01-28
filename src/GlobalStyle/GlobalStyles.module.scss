@@ -6,8 +6,9 @@
     --button-hide: #595362;
     --search-text: #dadada;
     --primary-bg: #34224f;
+    --primary-blur-bg: #2e2739;
     --text-secondary: hsla(0, 0%, 100%, 0.5);
-    --hover-blur-bg: hsla(0,0%,100%,0.1)
+    --hover-blur-bg: hsla(0, 0%, 100%, 0.1);
 }
 * {
     margin: 0;
@@ -26,8 +27,10 @@ body {
 }
 
 a[href],
+button,
 input {
     outline: none;
     text-decoration: none;
     color: var(--text-primary);
+    border: 1px solid transparent;
 }

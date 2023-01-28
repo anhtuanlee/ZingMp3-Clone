@@ -8,7 +8,7 @@
     align-items: center;
     border-radius: 20px;
     justify-content: center;
-    background-color: #2e2739;
+    background-color: var( --primary-blur-bg);
     input {
         width: 95%;
         font-size: 14px;
@@ -48,22 +48,20 @@
     transform: translateY(-50%);
 }
 .result_search {
-    position: absolute;
-    overflow: hidden;
     width: 440px;
-    overflow-y: scroll;
+    padding-right: 8px;
     max-height: calc(100vh - 180px);
-    min-height: 0;
+    overflow: overlay;
     background-color: var(--primary-bg);
-    z-index: 5;
-    display: block;
+    z-index: 1;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     box-shadow: 0 4px 6px 0 rgb(32 33 36 / 28%);
     padding: 13px 10px;
-    color: var(--text-primary);
-}
 
+    color: var(--text-primary);
+} 
+ 
 // custom scrollbar in search result
 ::-webkit-scrollbar {
     width: 6px;

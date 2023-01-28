@@ -1,0 +1,23 @@
+.wrapper {
+    background-color: var(--primary-bg);
+    border-radius: 8px;
+    box-shadow: 0 0 5px 0 rgb(0 0 0 / 20%);
+    width: 240px;
+    overflow: overlay;
+    height: 400px;
+    z-index: 101;
+}
+.menu_items {
+    padding: 10px 0;
+}
+.item {
+    padding: 12px 20px 12px 17px;
+    height: 44px;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--search-text);
+    &:hover {
+        background-color: var(--hover-blur-bg);
+        color: var(--text-primary);
+    }
+}
