@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './Button.module.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const cx = classNames.bind(styles);
 
 function Button({
+    onClick,
     // type
     circle,
     primary,
@@ -15,34 +15,44 @@ function Button({
     // Icons,
     Icons,
     LeftIcons,
-    RightIcons,
+    RightIcons = false,
     //element
-    href,
-    to,
+    href = false,
+    to = false,
     children,
+    //css ,
+    className,
     ...passProps
 }) {
-    const classnames = cx('wrapper', { primary, circle, text }, sizes);
-    const Comp = 'button';
+    const classnames = cx(
+        'wrapper',
+        { primary, circle, text },
+        sizes,
+        className,
+    );
+    let Comp = 'button';
     const props = { ...passProps };
     if (href) {
-        props.href = href;
         Comp = 'a';
+        props.href = href;
     } else if (to) {
-        props.to = to;
         Comp = Link;
+        props.to = to;
     }
     return (
-        <Comp className={classnames} {...props}>
-            <span className={cx('left_icon')}>
-                {LeftIcons && <LeftIcons />}
-            </span>
-            {Icons && <Icons />}
-            {children}
-
-            <span className={cx('right_icon')}>
-                {RightIcons && <RightIcons />}
-            </span>
+        <Comp className={classnames} {...props} onClick={onClick}>
+            {LeftIcons && (
+                <span className={cx('left_icon')}>
+                    <LeftIcons />
+                </span>
+            )}
+            {Icons && <Icons className={cx('main_icon')} />}
+            <span>{children}</span>
+            {RightIcons && (
+                <span className={cx('right_icon')}>
+                    <RightIcons />
+                </span>
+            )}
         </Comp>
     );
 }

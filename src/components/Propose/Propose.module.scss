@@ -3,6 +3,8 @@
     height: 68px;   
     &:hover {
         background-color: var(--hover-blur-bg);
+        border-radius: 4px;
+
     }
 }
 .icon_dot {

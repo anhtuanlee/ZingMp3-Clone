@@ -1,10 +1,20 @@
-import { faGear, faGem } from '@cseitz/fontawesome-svg-light';
+import {
+    faArrowRightFromBracket,
+    faArrowUpFromBracket,
+    faBan,
+    faCircleInfo,
+    faCirclePlay,
+    faFileLines,
+    faGear,
+    faGem,
+    faPhone, faRectangleAd, faStandardDefinition
+} from '@cseitz/fontawesome-svg-light';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import images from '../../assets';
 import Image from '../Image';
 
 export const ButtonTheme = () => {
-    return <Image src={images.iconTheme} icon/>;
+    return <Image src={images.iconTheme} icon />;
 };
 export const DowloadIcon = () => {
     return (
@@ -33,7 +43,7 @@ export const DowloadIcon = () => {
 export const Setting = () => {
     return <FontAwesomeIcon icon={faGear} />;
 };
-export const VIP = () => {
+export const IconsVIP = () => {
     return <FontAwesomeIcon icon={faGem} />;
 };
 export const Private = () => {
@@ -221,3 +231,33 @@ export const Mv = () => {
         </svg>
     );
 };
+
+export const Upload = () => {
+    return <FontAwesomeIcon icon={faArrowUpFromBracket} />;
+};
+
+export const LogOut = () => {
+    return <FontAwesomeIcon icon={faArrowRightFromBracket} />;
+};
+export const Block = () => {
+    return <FontAwesomeIcon icon={faBan} />;
+};
+export const Quality = () => {
+    return <FontAwesomeIcon icon={faStandardDefinition} />;
+};
+export const Info = () => {
+    return <FontAwesomeIcon icon={faCircleInfo} />;
+};
+export const ThemeMusic = () => {
+    return <FontAwesomeIcon icon={faCirclePlay} />;
+};
+export const Phone = () => {
+    return <FontAwesomeIcon icon={faPhone} />;
+};
+export const Ads = () => {
+    return <FontAwesomeIcon icon={faRectangleAd} />;
+};
+export const Dieukhoan = () => {
+    return <FontAwesomeIcon icon={faFileLines} />;
+};
+ 

@@ -1,6 +1,6 @@
 import { privateRoutes } from './routes';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { DefaultLayout } from './layouts/'; 
+import { DefaultLayout } from './layouts/';
 function App() {
     return (
         <Router>
@@ -12,7 +12,7 @@ function App() {
                         return (
                             <Route
                                 path={route.path}
-                                key={index} 
+                                key={index}
                                 element={
                                     <Layout>
                                         <Comp />

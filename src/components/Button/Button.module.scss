@@ -1,5 +1,8 @@
 .wrapper {
     background-color: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
     &.wrapper {
         margin-right: 12px;
     }
@@ -8,7 +11,6 @@
 //Type button
 .primary {
     border-radius: 999px;
-    font-weight: 500;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -35,6 +37,7 @@
         filter: brightness(0.9);
     }
 }
+
 // Sizes
 .normal {
     font-size: 14px;
@@ -45,12 +48,15 @@
 // Custom Icons
 
 .left_icon,
+.main_icon,
 .right_icon {
-    display: flex;
+    width: 20px;
+    height: 20px; 
+    font-size: 18px;
 }
 .left_icon {
-    margin-right: 8px;
+    margin-right: 10px;
 }
 .right_icon {
-    margin-left: 8px;
-}
+    margin-left: 10px;
+} 

@@ -2,10 +2,9 @@
     box-shadow: 0 3px 5px var(--primary);
     position: fixed;
     border-bottom: solid 1px transparent;
-    height: 70px; 
-    display: flex;
-    align-items: center;
-    min-width: calc(100% - 240px);
+    height: 70px;  
+    padding: 15px 0;
+    min-width: calc(100% - 400px);
 }
 .inner {
     display: flex;

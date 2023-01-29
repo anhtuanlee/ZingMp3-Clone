@@ -4,20 +4,43 @@
     box-shadow: 0 0 5px 0 rgb(0 0 0 / 20%);
     width: 240px;
     overflow: overlay;
-    height: 400px;
     z-index: 101;
 }
 .menu_items {
     padding: 10px 0;
 }
-.item {
+.items {
     padding: 12px 20px 12px 17px;
     height: 44px;
-    font-size: 14px;
-    font-weight: 400;
-    color: var(--search-text);
+
     &:hover {
         background-color: var(--hover-blur-bg);
+    }
+}
+.icon {
+    color: var(--search-text);
+}
+.item_title {
+    font-size: 14px;
+    color: var(--search-text);
+    font-weight: 500;
+}
+
+//custom border on button menu
+.spederate {
+    border-top: 1px solid #493961;
+    width: 100%;
+}
+.textblur {
+    .icon {
+        color: var(--text-blur);
+    }
+    .item_title {
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--text-blur);
+    }
+    &:hover span {
         color: var(--text-primary);
     }
 }
