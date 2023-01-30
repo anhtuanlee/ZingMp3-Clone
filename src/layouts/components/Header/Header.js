@@ -48,6 +48,7 @@ function Header() {
         {
             title: 'Danh sách chặn',
             icon: Block,
+            to: '/block',
         },
         {
             title: 'Chất lượng nhạc',
@@ -86,21 +87,29 @@ function Header() {
             icon: Info,
             textblur: true,
             spederate: true,
+            href: 'http://google.com',
+
         },
         {
             title: 'Liên hệ',
             icon: Phone,
             textblur: true,
+            href: 'http://google.com',
+
         },
         {
             title: 'Quảng cáo',
             icon: Ads,
             textblur: true,
+            href: 'http://google.com',
+
         },
         {
             title: 'Thỏa thuận sử dụng',
             icon: Dieukhoan,
             textblur: true,
+            href: 'http://google.com',
+
         },
     ];
     return (
@@ -125,12 +134,16 @@ function Header() {
                     <Button primary LeftIcons={DowloadIcon} sizes="normal">
                         Dowload
                     </Button>
-                    <Button circle Icons={ButtonTheme} />
+                    <Button circle Icons={ButtonTheme} extraTitle={'Chủ đề'} />
 
-                    <Button circle Icons={IconsVIP} />
+                    <Button
+                        circle
+                        Icons={IconsVIP}
+                        extraTitle={'Nâng cấp VIP'}
+                    />
 
                     <Menu items={MENU_SETTING}>
-                        <Button circle Icons={Setting} />
+                        <Button circle Icons={Setting} extraTitle={'Cài đặt'} />
                     </Menu>
 
                     <Menu items={MENU_USER} visible={false}>

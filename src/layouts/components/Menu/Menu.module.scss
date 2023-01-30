@@ -9,10 +9,9 @@
 .menu_items {
     padding: 10px 0;
 }
-.items {
-    padding: 12px 20px 12px 17px;
+.items { 
     height: 44px;
-
+    position: relative;
     &:hover {
         background-color: var(--hover-blur-bg);
     }
