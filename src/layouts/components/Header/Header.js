@@ -40,6 +40,7 @@ function Header() {
         {
             title: 'Đăng Xuất',
             icon: LogOut,
+            type: 'logout',
             spederate: true,
             to: '/logout',
         },
@@ -47,8 +48,8 @@ function Header() {
     const MENU_SETTING = [
         {
             title: 'Danh sách chặn',
-            icon: Block,
-            to: '/block',
+            icon: Block, 
+            type: 'logout',
         },
         {
             title: 'Chất lượng nhạc',
@@ -88,30 +89,39 @@ function Header() {
             textblur: true,
             spederate: true,
             href: 'http://google.com',
-
         },
         {
             title: 'Liên hệ',
             icon: Phone,
             textblur: true,
             href: 'http://google.com',
-
         },
         {
             title: 'Quảng cáo',
             icon: Ads,
             textblur: true,
             href: 'http://google.com',
-
         },
         {
             title: 'Thỏa thuận sử dụng',
             icon: Dieukhoan,
             textblur: true,
             href: 'http://google.com',
-
         },
     ];
+    const onHandle = (item) => {
+        switch (item.type) {
+            case 'language':
+                console.log('2222');
+                break;
+            case 'logout':
+                console.log('logout');
+                break;
+            default:
+                console.log('Bug');
+        }
+    };
+
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
@@ -142,7 +152,7 @@ function Header() {
                         extraTitle={'Nâng cấp VIP'}
                     />
 
-                    <Menu items={MENU_SETTING}>
+                    <Menu items={MENU_SETTING} onHandle={onHandle}>
                         <Button circle Icons={Setting} extraTitle={'Cài đặt'} />
                     </Menu>
 

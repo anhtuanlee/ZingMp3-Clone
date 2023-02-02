@@ -1,42 +1,56 @@
 import Tippy from '@tippyjs/react/headless';
-import styles from './Menu.module.scss';
 import classNames from 'classnames/bind';
-import MenuPropper from './MenuPropper';
 import { useState } from 'react';
+import styles from './Menu.module.scss';
+import MenuItem from './MenuItem';
 
 const cx = classNames.bind(styles);
+const defaultFn = () => {};
 function Menu({
-    items,
+    onHandle = defaultFn,
+    items = [],
     extraTitle,
     children,
-    visible = true,
-
+    visible = false,
+    nestest,
     ...props
 }) {
-    const [visiblecheck, setVisible] = useState(false);
+    const [visiblecheck, setVisible] = useState(false); /* 
+    const [currentItem, setCurrentItem] = useState([{ data: items }]); */
+    const currentItem = [{ data: items }];
+    const lastItemMenu = currentItem[currentItem.length - 1];
+
     const handleClick = () => {
-        setVisible(!visiblecheck);
+        if (!nestest) {
+            setVisible(!visiblecheck);
+        }
     };
     const handleClickOutSide = () => {
         setVisible(false);
     };
-    console.log(items)
+    //render lists menu
+    const listRender = nestest ? nestest : lastItemMenu;
+
+    const resultSetting = listRender.data.map((item, index) => {
+        return <MenuItem key={index} data={item} onHandle={onHandle} />;
+    });
     const handleResult = (attrs) => {
         return (
             <div className={cx('wrapper')} {...attrs} tabIndex="-1">
-                <MenuPropper data={items} />
+                <ul className={cx('menu_items')}>{resultSetting}</ul>
             </div>
         );
     };
     return (
         <Tippy
             interactive
-            visible={visiblecheck}
-            onClickOutside={handleClickOutSide}
+            appendTo={document.body}
+            visible={visible || visiblecheck}
             offset={[-80, 10]}
             delay={[1000, 100]}
             placement="bottom"
             {...props}
+            onClickOutside={handleClickOutSide}
             render={handleResult}
         >
             <span onClick={handleClick}>{children}</span>

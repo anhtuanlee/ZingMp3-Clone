@@ -1,14 +1,16 @@
-import { Link } from 'react-router-dom';
-import classNames from 'classnames/bind';
-import styles from './Button.module.scss';
 import Tippy from '@tippyjs/react';
+import Headless from '@tippyjs/react/headless';
+import classNames from 'classnames/bind';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import 'tippy.js/dist/tippy.css';
 import Menu from '../../layouts/components/Menu';
+import styles from './Button.module.scss';
 
 const cx = classNames.bind(styles);
 
 function Button({
-    onClick,
+    onHandle,
     // type
     circle,
     primary,
@@ -30,13 +32,13 @@ function Button({
     className,
     ...passProps
 }) {
+    const [visiblecheck, setVisiblecheck] = useState(); // state visible
     const classnames = cx(
         'wrapper',
         { primary, circle, text },
         sizes,
         className,
     );
-
     let Comp = 'button';
     const props = { ...passProps };
     if (href) {
@@ -45,11 +47,12 @@ function Button({
     } else if (to) {
         props.to = to;
         Comp = Link;
-    } 
+    }
+
     {
-        return extraTitle ? (
-            <Tippy duration={[100, 0]} content={extraTitle} >
-                <Comp className={classnames} {...props} onClick={onClick}>
+        return extraTitle ? ( // when have extraTitlte, content will be extraTitle
+            <Tippy duration={[100, 0]} content={extraTitle}>
+                <Comp className={classnames} {...props} onClick={onHandle}>
                     {LeftIcons && (
                         <span className={cx('left_icon')}>
                             <LeftIcons />
@@ -65,8 +68,34 @@ function Button({
                 </Comp>
             </Tippy>
         ) : (
-           /*  <Menu items={nestest}> */
-                <Comp className={classnames} {...props} onClick={onClick}>
+            <Headless
+                // use tippy render when have nestest
+                offset={[-160, 20]}
+                render={(attrs) => {
+                    return (
+                        <div className={cx('menu')} {...attrs} tabIndex="-1">
+                            <Menu nestest={nestest} visible={visiblecheck} />
+                        </div>
+                    );
+                }}
+            >
+                <Comp
+                    onMouseEnter={() => {
+                        // custom mouse move around button parent
+                        if (nestest) {
+                            setVisiblecheck(true);
+                        }
+                    }}
+                    onMouseLeave={() => {
+                        // custom mouse move around button parent
+                        if (nestest) {
+                            setVisiblecheck(false);
+                        }
+                    }}
+                    className={classnames}
+                    {...props}
+                    onClick={onHandle}
+                >
                     {LeftIcons && (
                         <span className={cx('left_icon')}>
                             <LeftIcons />
@@ -80,7 +109,7 @@ function Button({
                         </span>
                     )}
                 </Comp>
-           /*  </Menu> */
+            </Headless>
         );
     }
 }

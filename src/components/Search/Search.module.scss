@@ -8,7 +8,7 @@
     align-items: center;
     border-radius: 20px;
     justify-content: center;
-    background-color: var( --primary-blur-bg);
+    background-color: var(--primary-blur-bg);
     input {
         width: 95%;
         font-size: 14px;
@@ -17,17 +17,15 @@
         border: 0;
         height: 34px;
         padding: 5px 0;
-        margin-left: 34px;
+        margin: 0 35px ;
         line-height: 34px;
     }
     input::placeholder {
         color: var(--search-text);
     }
-    &:focus-within:has(input:focus) {
-        // chi focus khi input duoc focus
-        background-color: var(--primary-bg);
-        border-bottom-left-radius: unset;
-        border-bottom-right-radius: unset;
+    input:not(:focus) .search_input {
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
     }
 }
 .button_search {
@@ -46,6 +44,7 @@
     top: 50%;
     font-size: 18px;
     transform: translateY(-50%);
+    color: var(--text-primary)
 }
 .result_search {
     width: 440px;
@@ -58,10 +57,17 @@
     border-bottom-right-radius: 20px;
     box-shadow: 0 4px 6px 0 rgb(32 33 36 / 28%);
     padding: 13px 10px;
-
     color: var(--text-primary);
-} 
- 
+}
+// handle input have tippy  
+.isCollap {
+    background-color: var(--primary-bg);
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+.result_title {
+    padding: 0 10px 10px 8px;
+}
 // custom scrollbar in search result
 ::-webkit-scrollbar {
     width: 6px;

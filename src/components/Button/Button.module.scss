@@ -1,8 +1,10 @@
 .wrapper {
-    background-color: transparent;   padding: 12px 20px 12px 17px;
+    background-color: transparent;
+    padding: 12px 20px 12px 17px;
     cursor: pointer;
     display: flex;
     align-items: center;
+    max-width: 240px;
     &.wrapper {
         margin-right: 12px;
     }
@@ -38,7 +40,9 @@
         filter: brightness(0.9);
     }
 }
-
+.text {
+    width: 240px;
+}
 // Sizes
 .normal {
     font-size: 14px;
@@ -61,3 +65,4 @@
 .right_icon {
     margin-left: 10px;
 }
+ 

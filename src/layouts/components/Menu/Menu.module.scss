@@ -9,7 +9,7 @@
 .menu_items {
     padding: 10px 0;
 }
-.items { 
+.items {
     height: 44px;
     position: relative;
     &:hover {
@@ -36,10 +36,11 @@
     }
     .item_title {
         font-size: 14px;
-        font-weight: 500;
+        font-weight: 400;
         color: var(--text-blur);
     }
     &:hover span {
         color: var(--text-primary);
+        font-weight: 400;
     }
 }

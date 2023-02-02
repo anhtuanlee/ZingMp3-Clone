@@ -27,22 +27,33 @@ body {
     color: var(--text-primary);
 }
 
-a[href],
+a[href], 
 button,
 input {
     outline: none;
     text-decoration: none;
     color: var(--text-primary);
-    border: 1px solid transparent;
-} 
- 
+    border: 1px solid transparent; 
+}
+li {
+    list-style-type: none;
+}
 .tippy-content {
-     background-color: #333;
-     padding: 3px 5px 5px 5px; 
-     border-radius: 4px;
-     font-size: 12px;
+    background-color: #333;
+    padding: 3px 5px 5px 5px;
+    border-radius: 4px;
+    font-size: 12px;
 }
 .tippy-box[data-pl4cem5nt^='bottom'] > .tippy-arrow:before {
     color: #333;
     top: -8px;
+}
+
+.is-collap {
+    background-color: var(--primary-bg);
+    border-bottom-left-radius: unset;
+    border-bottom-right-radius: unset;
+    :focus-within:has(input:focus) {
+        background-color: var(--primary-bg);
+    }
 }
