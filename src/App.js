@@ -7,7 +7,7 @@ function App() {
             <div className="App">
                 <Routes>
                     {privateRoutes.map((route, index) => {
-                        const Layout = DefaultLayout;
+                        const Layout = route.layout || DefaultLayout;
                         const Comp = route.component;
                         return (
                             <Route

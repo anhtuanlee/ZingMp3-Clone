@@ -17,7 +17,7 @@
         border: 0;
         height: 34px;
         padding: 5px 0;
-        margin: 0 35px ;
+        margin: 0 35px;
         line-height: 34px;
     }
     input::placeholder {
@@ -44,7 +44,7 @@
     top: 50%;
     font-size: 18px;
     transform: translateY(-50%);
-    color: var(--text-primary)
+    color: var(--text-primary);
 }
 .result_search {
     width: 440px;
@@ -59,14 +59,14 @@
     padding: 13px 10px;
     color: var(--text-primary);
 }
-// handle input have tippy  
+// handle input have tippy
 .isCollap {
     background-color: var(--primary-bg);
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
 }
 .result_title {
-    padding: 0 10px 10px 8px;
+    padding: 0 10px 15px 10px;
 }
 // custom scrollbar in search result
 ::-webkit-scrollbar {

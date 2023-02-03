@@ -1,4 +1,6 @@
+import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
+
 import Button from '../../../components/Button/Button';
 import styles from './Menu.module.scss';
 
@@ -6,7 +8,6 @@ const cx = classNames.bind(styles);
 
 function MenuItem({ data, onHandle }) {
     const classes = cx('items', {
-        spederate: data.spederate,
         textblur: data.textblur,
     });
     return (
@@ -20,11 +21,15 @@ function MenuItem({ data, onHandle }) {
                 href={data.href}
                 title={data.title}
                 nestest={data.children}
+                spederate={data.spederate}
             >
                 <span className={cx('item_title')}>{data.title}</span>
             </Button>
         </div>
     );
 }
-
+MenuItem.propTypes = {
+    data: PropTypes.object,
+    onHandle: PropTypes.func,
+};
 export default MenuItem;

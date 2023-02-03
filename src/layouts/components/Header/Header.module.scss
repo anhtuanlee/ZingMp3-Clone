@@ -2,9 +2,10 @@
     box-shadow: 0 3px 5px var(--primary);
     position: fixed;
     border-bottom: solid 1px transparent;
-    height: 70px;  
+    height: 70px;
     padding: 15px 0;
     min-width: calc(100% - 400px);
+     
 }
 .inner {
     display: flex;
@@ -40,9 +41,16 @@
     background-color: var(--text-primary);
     object-fit: cover;
     display: flex;
-    align-items: center; 
+    align-items: center;
     justify-content: center;
     &:hover {
         filter: brightness(0.9);
     }
+}
+
+//custom header_account
+.wrapper_header_account {
+    box-shadow: none;
+    padding: 0 60px; 
+    display: flex;
 }

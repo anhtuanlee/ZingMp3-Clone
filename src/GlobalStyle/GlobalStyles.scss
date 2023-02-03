@@ -10,6 +10,8 @@
     --text-secondary: hsla(0, 0%, 100%, 0.5);
     --hover-blur-bg: hsla(0, 0%, 100%, 0.1);
     --text-blur: #756a87;
+    --sidebar-bg: #231b2e;
+    --purple-primary: #9b4de0;
 }
 * {
     margin: 0;
@@ -27,13 +29,16 @@ body {
     color: var(--text-primary);
 }
 
-a[href], 
 button,
 input {
     outline: none;
     text-decoration: none;
     color: var(--text-primary);
-    border: 1px solid transparent; 
+    border: 1px solid transparent;
+}
+a[href] {
+    text-decoration: none;
+    color: var(--text-primary);
 }
 li {
     list-style-type: none;

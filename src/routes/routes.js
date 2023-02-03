@@ -1,19 +1,47 @@
-import Home from '../pages/Home';
-import Mymusic from '../pages/Mymusic';
-import NewUpdate from '../pages/NewUpdate/NewUpdate';
+import config from '../config/routes';
 
 export const publicRoutes = [];
 export const privateRoutes = [
     {
-        path: '/',
-        component: Home,
+        path: config.home.path,
+        component: config.home.component,
     },
     {
-        path: '/mymusic',
-        component: Mymusic,
+        path: config.mymusic.path,
+        component: config.mymusic.component,
+    },
+
+    {
+        path: config.account.path,
+        component: config.account.component,
+        layout: config.account.layout,
     },
     {
-        path: '/moi-cap-nhat', 
-        component: NewUpdate
+        path: config.zingchart.path,
+        component: config.zingchart.component,
+    },
+    {
+        path: config.radio.path,
+        component: config.radio.component,
+    },
+    {
+        path: config.newupdate.path,
+        component: config.newupdate.component,
+    },
+    {
+        path: config.following.path,
+        component: config.following.component,
+    },
+    {
+        path: config.category.path,
+        component: config.category.component,
+    },
+    {
+        path: config.top100.path,
+        component: config.top100.component,
+    },
+    {
+        path: config.videogenre.path,
+        component: config.videogenre.component,
     },
 ];

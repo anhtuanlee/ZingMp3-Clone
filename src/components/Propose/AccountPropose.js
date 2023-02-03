@@ -1,16 +1,15 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
-import styles from './Propose.module.scss';
+import { Link } from 'react-router-dom';
 import Images from '../../components/Image';
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
-import useDebounce from '../../hooks/useDebounce';
+import styles from './Propose.module.scss';
+import PropTypes from 'prop-types';
 const cx = classNames.bind(styles);
-function AccountPropose({ data = [] }) {
+function AccountPropose({ data = [], random = 0 }) {
     // random image of singer
-    const random = Math.floor(Math.random() * data.length);
-    const result = data[random]; 
- 
+    const result = data[random];
+
     // fix word not synce
     const datacate = result.category.split(' ');
     const category = datacate.map((item) => {
@@ -30,7 +29,7 @@ function AccountPropose({ data = [] }) {
         'https://placehold.jp/3d4070/ffffff/150x150.png?text=No_Image';
 
     return (
-        <div className={cx('wrapper')}>
+        <Link className={cx('wrapper')} to={`/${result.slug_name_singer}`}>
             <div className={cx('user_account')}>
                 <Images
                     className={cx('avatar')}
@@ -54,8 +53,11 @@ function AccountPropose({ data = [] }) {
                     </div>
                 </div>
             </div>
-        </div>
+        </Link>
     );
 }
-
+AccountPropose.propTypes = {
+    data: PropTypes.array,
+    random: PropTypes.number,
+};
 export default AccountPropose;

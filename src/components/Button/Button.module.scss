@@ -1,13 +1,11 @@
 .wrapper {
     background-color: transparent;
-    padding: 12px 20px 12px 17px;
     cursor: pointer;
     display: flex;
     align-items: center;
+    padding: 8px 25px; 
     max-width: 240px;
-    &.wrapper {
-        margin-right: 12px;
-    }
+  
 }
 
 //Type button
@@ -18,8 +16,9 @@
     justify-content: center;
     background-color: var(--primary-blur-bg);
     padding: 10px 24px;
+    margin-right: 12px;
     color: #c273ed;
-
+    padding: 12px 20px 12px 17px;
     &:hover {
         color: #af68d5;
     }
@@ -35,13 +34,14 @@
     width: 40px;
     height: 40px;
     background-color: var(--primary-blur-bg);
-
     &:hover {
         filter: brightness(0.9);
     }
 }
 .text {
-    width: 240px;
+    width: 240px; 
+    height: 44px;
+    padding: 12px 20px 12px 17px;
 }
 // Sizes
 .normal {
@@ -65,4 +65,8 @@
 .right_icon {
     margin-left: 10px;
 }
- 
+//custom border on button menu
+.spederate {
+    border-top: 1px solid #493961;
+    width: 100%;
+}

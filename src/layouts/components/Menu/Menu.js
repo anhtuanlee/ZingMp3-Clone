@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import Tippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
-import { useState } from 'react';
+import PropTypes from 'prop-types';
+
 import styles from './Menu.module.scss';
 import MenuItem from './MenuItem';
 
@@ -9,7 +11,6 @@ const defaultFn = () => {};
 function Menu({
     onHandle = defaultFn,
     items = [],
-    extraTitle,
     children,
     visible = false,
     nestest,
@@ -57,5 +58,11 @@ function Menu({
         </Tippy>
     );
 }
-
+Menu.propTypes = {
+    onHandle: PropTypes.func,
+    items: PropTypes.array,
+    children: PropTypes.node,
+    visible: PropTypes.bool,
+    nestest: PropTypes.object,
+};
 export default Menu;

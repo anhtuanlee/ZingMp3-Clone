@@ -2,7 +2,7 @@ import images from '../../assets';
 import classNames from 'classnames/bind';
 import styles from './Image.module.scss';
 import { useState } from 'react';
-
+import PropTypes from 'prop-types';
 const cx = classNames.bind(styles);
 function Images({ src, icon, imgError, alt, ...props }) {
     const [defaultImg, setDefaultImg] = useState('');
@@ -22,5 +22,10 @@ function Images({ src, icon, imgError, alt, ...props }) {
         />
     );
 }
-
+Images.propTypes = {
+    src: PropTypes.string,
+    icon: PropTypes.bool,
+    imgError: PropTypes.string,
+    alt: PropTypes.string,
+};
 export default Images;

@@ -1,6 +1,6 @@
 function NewUpdate() {
     return (  
-        <h2>NewUpdate Pages</h2>
+        <h2>NewSong Pages</h2>
     );
 }
 

@@ -20,6 +20,11 @@
     padding: 8px 10px;
     border-radius: 4px;
     cursor: pointer;
+    &:hover {
+        background-color: var(--hover-blur-bg);
+        border-radius: 4px;
+
+    }
 }
 .avatar {
     width: 52px;
@@ -57,7 +62,8 @@
     height: 52px;
     object-fit: cover;
     border-radius: 4px;
-    margin-right: 10px;
+    margin-right: 10px; 
+    display: block !important;
 }
 .song_info {
     display: flex;

@@ -4,12 +4,16 @@
 .sidbar {
     height: calc(100vh - 90px);
     width: 240px;
+    background-color: var(--sidebar-bg);
 }
 .main_page {
-    background-color:var(--primary)  ;
-    flex: 1; 
-    padding: 0 60px;
-    height: 2000px;
+    background-color: var(--primary);
+    flex: 1;
+    .header_main_page {
+        width: 100%;
+        height: 300px;
+        background-color: rgba(41, 21, 71, 0.8);
+    }
 }
 .control_music {
     border-top: 1px solid var(--border-player);
@@ -19,3 +23,5 @@
     width: 100%;
     height: 90px;
 }
+
+//style config

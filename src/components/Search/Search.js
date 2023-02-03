@@ -1,24 +1,27 @@
+import { useEffect, useState } from 'react';
 import { faSearch, faXmark } from '@cseitz/fontawesome-svg-light';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import classNames from 'classnames/bind';
-import { useEffect, useRef, useState } from 'react';
-import styles from './Search.module.scss';
-
 import Tippy from '@tippyjs/react/headless';
+import classNames from 'classnames/bind';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import useDebounce from '../../hooks';
+import styles from './Search.module.scss';
 import { SearchApi } from '../../services';
-import { MusicPropose, AccountPropose } from '../Propose';
+import { AccountPropose, MusicPropose } from '../Propose';
+
 const cx = classNames.bind(styles);
 
 function Search() {
     const [value, setValue] = useState('');
     const [searchResult, setSearchResult] = useState([]);
+    const [randomValue, setRandomValue] = useState(0);
     const [visible, setVisible] = useState(false);
     const debounce = useDebounce(value, 500);
-    const inputRef = useRef();
     useEffect(() => {
         const Fetch = async () => {
             const result = await SearchApi(debounce).then((data) => {
+                const random = Math.floor(Math.random() * data.length);
+                setRandomValue(random);
                 setSearchResult(data);
             });
             return result;
@@ -40,7 +43,9 @@ function Search() {
     const handleClear = () => {
         setValue('');
         setSearchResult([]);
+        setVisible(true);
     };
+
     return (
         <Tippy
             interactive
@@ -63,6 +68,7 @@ function Search() {
                         {searchResult.length > 0 && (
                             <AccountPropose
                                 data={searchResult ? searchResult : undefined}
+                                random={randomValue}
                             />
                         )}
                         {searchResult.map((item, index) => {
@@ -89,11 +95,15 @@ function Search() {
                         onChange={(e) => handleType(e)}
                         placeholder="Tìm kiếm bài hát, nghệ sĩ, lời bài hát..."
                     />
-                    {value !== '' ? <FontAwesomeIcon
+                    {value !== '' ? (
+                        <FontAwesomeIcon
                             icon={faXmark}
                             onClick={handleClear}
                             className={cx('button_close')}
-                        /> : <></>}
+                        />
+                    ) : (
+                        <></>
+                    )}
                 </div>
             </div>
         </Tippy>

@@ -1,7 +1,7 @@
-import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import classNames from 'classnames/bind';
-import Button from '../../../components/Button/Button';
 import {
     Ads,
     Block,
@@ -17,13 +17,16 @@ import {
     ThemeMusic,
     Upload,
 } from '../../../components/Icons';
+
+import Button from '../../../components/Button/Button';
 import Image from '../../../components/Image';
 import Search from '../../../components/Search';
 import Menu from '../Menu';
 import styles from './Header.module.scss';
+
 const cx = classNames.bind(styles);
 
-function Header() {
+function Header({ styles }) {
     const MENU_USER = [
         {
             title: 'Nâng cấp VIP',
@@ -48,7 +51,7 @@ function Header() {
     const MENU_SETTING = [
         {
             title: 'Danh sách chặn',
-            icon: Block, 
+            icon: Block,
             type: 'logout',
         },
         {
@@ -123,7 +126,7 @@ function Header() {
     };
 
     return (
-        <header className={cx('wrapper')}>
+        <header className={cx('wrapper', styles)}>
             <div className={cx('inner')}>
                 <div className={cx('button_controls_left')}>
                     <div>
@@ -167,5 +170,7 @@ function Header() {
         </header>
     );
 }
-
+Header.propTypes = {
+    styles: PropTypes.string,
+};
 export default Header;
