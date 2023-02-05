@@ -7,6 +7,7 @@ import styles from './Propose.module.scss';
 import PropTypes from 'prop-types';
 const cx = classNames.bind(styles);
 function AccountPropose({ data = [], random = 0 }) {
+    console.log(data)
     // random image of singer
     const result = data[random];
 

@@ -62,3 +62,35 @@ li {
         background-color: var(--primary-bg);
     }
 }
+
+.arrow {
+    width: 24px;
+    padding: 15px;
+    height: 24px;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    fill: #fff;
+    background-color: hsla(0, 0%, 100%, 0.15);
+    cursor: pointer;
+    z-index: 9999;
+
+    &:hover {
+        background-color: hsla(0, 0%, 100%, 0.11);
+    }
+}
+
+.arrow--left {
+    left: 5px;
+}
+
+.arrow--right {
+    left: auto;
+    right: 5px;
+}
+
+.arrow--disabled {
+    fill: rgba(255, 255, 255, 0.5);
+}

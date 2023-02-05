@@ -1,5 +1,5 @@
-import classNames from 'classnames/bind';
-import Controls from '../../components/Controls';
+import classNames from 'classnames/bind'; 
+import Controls from '../components/Controls';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import styles from './AccountLayout.module.scss';

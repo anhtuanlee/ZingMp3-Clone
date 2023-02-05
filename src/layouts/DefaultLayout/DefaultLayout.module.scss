@@ -6,10 +6,10 @@
     width: 240px;
 }
 .main_page {
-    background-color:var(--primary)  ;
-    flex: 1; 
+    background-color: var(--primary);
     padding: 0 60px;
     height: 2000px;
+    width: calc(100% - 240px);
 }
 .control_music {
     border-top: 1px solid var(--border-player);

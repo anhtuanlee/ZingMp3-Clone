@@ -1,0 +1,17 @@
+.wrapper {
+    width: 100% !important;
+    padding-top: 32px;
+}
+.card_banners img{ 
+    border-radius: 8px;
+    .slide-right {
+        -webkit-animation: slide-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+                animation: slide-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    }
+}
+.banner_items {
+    width: 100%;
+    padding-bottom: 56,25%; 
+}
+ 
+  

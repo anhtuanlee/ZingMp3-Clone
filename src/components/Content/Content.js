@@ -1,10 +1,7 @@
+import SliderSlick from '../../layouts/components/Sliderslick';
+
 function Content({ children }) {
-    return (
-        <h2>
-            ContentPage
-            {children}
-        </h2>
-    );
+    return <div>{children}</div>;
 }
 
 export default Content;

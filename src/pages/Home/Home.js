@@ -1,7 +1,7 @@
+import SliderSlick from '../../layouts/components/Sliderslick';
+
 function Home() {
-    return (  
-        <h2>Home Pages</h2>
-    );
+    return <SliderSlick />;
 }
 
 export default Home;
