@@ -30,6 +30,7 @@ function SliderSlick() {
     const [sliderRef, instanceRef] = useKeenSlider(
         {
             loop: true,
+            mode: 'free',
             slides: {
                 perView: 3,
                 spacing: 15,
@@ -40,7 +41,7 @@ function SliderSlick() {
             (slider) => {
                 let timeout;
                 let mouseOver = false;
-                function clearNextTimeout() {
+                function clearNextTimeout() { 
                     clearTimeout(timeout);
                 }
                 function nextTimeout() {
@@ -66,7 +67,9 @@ function SliderSlick() {
                 });
                 slider.on('dragStarted', clearNextTimeout);
                 slider.on('animationEnded', nextTimeout);
+                slider.on('animationStarted', nextTimeout);
                 slider.on('updated', nextTimeout);
+                slider.on('destroyed', clearNextTimeout); // cleanup function
             },
         ],
     );

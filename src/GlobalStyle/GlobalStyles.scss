@@ -12,6 +12,7 @@
     --text-blur: #756a87;
     --sidebar-bg: #231b2e;
     --purple-primary: #9b4de0;
+    --link-text-hover: #c273ed;
 }
 * {
     margin: 0;
@@ -47,7 +48,7 @@ li {
     background-color: #333;
     padding: 3px 5px 5px 5px;
     border-radius: 4px;
-    font-size: 12px;
+    font-size: 12px; 
 }
 .tippy-box[data-pl4cem5nt^='bottom'] > .tippy-arrow:before {
     color: #333;

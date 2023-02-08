@@ -11,11 +11,13 @@ import PropTypes from 'prop-types';
 const cx = classNames.bind(styles);
 
 function Button({
-    onHandle,
+    onHandle ,
     // type
     circle,
     primary,
     text,
+    circle_hide,
+    border,
     //sizes
     sizes,
     // Icons,
@@ -37,7 +39,7 @@ function Button({
     const [visiblecheck, setVisiblecheck] = useState(); // state visible
     const classnames = cx(
         'wrapper',
-        { primary, circle, text, spederate },
+        { primary, circle, text, spederate, circle_hide, border },
         sizes,
         className,
     );

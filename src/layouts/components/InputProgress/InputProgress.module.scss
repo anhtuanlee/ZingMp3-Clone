@@ -1,0 +1,27 @@
+.progress_input {
+    width: 100%;
+    -webkit-appearance: none;
+    background-color: grey;
+    height: 3px;
+    background-image: linear-gradient(#fff, #fff);
+    background-repeat: no-repeat; 
+    border: none;
+    &:hover {
+        border-radius: 100px;
+        padding: 3px 0; 
+        cursor: pointer;
+    }
+}
+
+::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 0px;
+    width: 0px;
+    background-color: var(--text-primary);
+    transition: linear 0.1s;
+    border-radius: 50%;
+}
+.progress_input:hover::-webkit-slider-thumb {
+    padding: 6px;
+    transition: linear 0.1s;
+}

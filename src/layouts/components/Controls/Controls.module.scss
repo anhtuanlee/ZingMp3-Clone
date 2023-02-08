@@ -1,0 +1,113 @@
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+// controls left
+.player_control_left {
+    display: flex;
+}
+.media_img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.item_img {
+    width: 64px;
+    height: 64px;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-right: 10px;
+}
+.media_content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.item_title {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.36;
+    text-overflow: clip;
+    overflow: visible;
+    display: flex;
+    align-items: center;
+    padding-right: 10px;
+}
+.item_subtitle {
+    font-weight: 400;
+    font-size: 12px;
+    margin-top: 1px;
+    color: var(--text-secondary);
+    padding-right: 10px;
+}
+.media_custom {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
+.btn_controls {
+    width: 16px;
+    height: 16px;
+}
+//controls centerplayer_controls_center
+.player_controls_center {
+    flex-grow: 1;
+    max-width: 40vw;
+}
+.player_controls_center_container {
+   
+}
+.controls {
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    height: 50px;
+
+    
+}
+.progress_full {
+}
+.time_start {
+    margin: 0 10px;
+}
+.time_end {
+    margin: 0 10px;
+}
+.duration_bar {
+    display: flex;
+}
+.progress_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    background-color: transparent;
+}
+
+
+//controls right
+
+.player_control_right {
+}
+.player_controls_right_container {
+}
+.controls_item {
+}
+.controls_item {
+}
+.controls_item {
+}
+.controls_item {
+}
+
+// custom input progress
+
+ ::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 20px;
+    width: 20px;
+    background-color: red;
+    border-radius: 50%;
+ }

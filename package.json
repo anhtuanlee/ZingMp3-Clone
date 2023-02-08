@@ -28,6 +28,8 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.6.1",
     "react-scripts": "5.0.1",
+    "redux": "^4.2.1",
+    "redux-devtools-extension": "^2.13.9",
     "web-vitals": "^2.1.4",
     "zingmp3-api-full": "^1.0.14"
   },

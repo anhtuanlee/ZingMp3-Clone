@@ -4,8 +4,8 @@
     border-bottom: solid 1px transparent;
     height: 70px;
     padding: 15px 0;
-    min-width: calc(100% - 400px);
-     
+    min-width: calc(100% - 400px); 
+     z-index: 1;
 }
 .inner {
     display: flex;
