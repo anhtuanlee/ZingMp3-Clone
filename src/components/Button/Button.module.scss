@@ -65,6 +65,13 @@
         color: var(--link-text-hover    )
     }
 }
+.disable {
+    opacity: .7;
+    cursor: no-drop; 
+    width: auto;
+    height: auto;
+    padding: 4px;
+}
 // Sizes
 .normal {
     font-size: 14px;

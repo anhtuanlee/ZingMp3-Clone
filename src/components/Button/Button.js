@@ -18,6 +18,7 @@ function Button({
     text,
     circle_hide,
     border,
+    disable,
     //sizes
     sizes,
     // Icons,
@@ -39,7 +40,7 @@ function Button({
     const [visiblecheck, setVisiblecheck] = useState(); // state visible
     const classnames = cx(
         'wrapper',
-        { primary, circle, text, spederate, circle_hide, border },
+        { primary, circle, text, spederate, circle_hide, border,disable },
         sizes,
         className,
     );

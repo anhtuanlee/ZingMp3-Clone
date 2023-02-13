@@ -5,9 +5,15 @@ import { Link } from 'react-router-dom';
 import Images from '../../components/Image';
 import styles from './Propose.module.scss';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { songs } from '../../redux/actions';
+import { useEffect } from 'react';
 const cx = classNames.bind(styles);
 function AccountPropose({ data = [], random = 0 }) {
-    console.log(data)
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(songs(data));
+    }, []);
     // random image of singer
     const result = data[random];
 

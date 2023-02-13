@@ -15,6 +15,7 @@ import {
     faShuffle,
     faStandardDefinition,
     faVolume,
+    faVolumeXmark,
 } from '@cseitz/fontawesome-svg-light';
 import { faCirclePause, faPlayCircle } from '@cseitz/fontawesome-svg-thin';
 import {
@@ -214,7 +215,7 @@ export const Star = () => {
 
 export const Mv = () => {
     return (
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+        <svg width="25" height="25" viewBox="0 0 20 20" fill="currentColor">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -261,4 +262,7 @@ export const Multi = () => {
 };
 export const Volumn = () => {
     return <FontAwesomeIcon icon={faVolume} />;
+};
+export const VolumnOff = () => {
+    return <FontAwesomeIcon icon={faVolumeXmark} />;
 };

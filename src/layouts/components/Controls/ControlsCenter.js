@@ -1,3 +1,5 @@
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './Controls.module.scss';
 import classNames from 'classnames/bind';
 import {
@@ -9,15 +11,38 @@ import {
     Repeat,
 } from '../../../components/Icons';
 import Button from '../../../components/Button';
-import { useState } from 'react';
 import InputProgress from '../InputProgress';
-
+import { playMusic, pauseMusic, nextMusic } from '../../../redux/actions';
+import { isPlaying, times, songs, currentIndex } from '../../../redux/selector';
+import { useTimes } from '../../../hooks';
 const cx = classNames.bind(styles);
 
-function ControlsCenter() {
-    const [isPlaying, setIsPlaying] = useState(false);
+function ControlsCenter({ audioRef }) {
+    const dispatch = useDispatch();
+    const isPlay = useSelector(isPlaying);
+    const time = useSelector(times);
 
-    const CONTROL_BTNS = [
+    let index = useSelector(currentIndex); 
+    //Songs
+    const songsPlay = useSelector(songs);
+    //times display
+    const timeRemain = useTimes(time.currentTime);
+    const timeDuration = useTimes(time.duration);
+    const [timePlay, settimePlay] = useState(); 
+    useEffect(() => {
+        //time update
+        settimePlay(timeRemain);
+    }, [timeRemain]);
+
+    // play pause
+    useEffect(() => {
+        if (isPlay) {
+            audioRef.current.play();
+        } else {
+            audioRef.current.pause();
+        }
+    }, [isPlay]);
+    const CONTROL_BTNS_CENTER = [
         {
             data: [
                 {
@@ -26,12 +51,13 @@ function ControlsCenter() {
                 },
                 {
                     icon: Prev,
+                    type: 'prev'
                 },
                 {
-                    icon: isPlaying ? Play : Pause,
+                    icon: isPlay ? Pause : Play,
                     border: true,
                     circle_hide: true,
-                    type: 'play',
+                    type: isPlay ? 'play' : 'pause',
                 },
 
                 {
@@ -45,21 +71,61 @@ function ControlsCenter() {
             ],
         },
     ];
+
     // custom handle with type
     const handle = (type) => {
         switch (type) {
             case 'play':
-                return isPlaying ? setIsPlaying(false) : setIsPlaying(true);
+                dispatch(playMusic(isPlay ? false : true));
+                break;
+            case 'pause':
+                dispatch(pauseMusic(isPlay ? false : true));
                 break;
             case 'next':
-                console.log('next');
+                if (index < songsPlay.length - 1) {
+                    index++;
+                    dispatch(nextMusic(index));
+                    dispatch(playMusic(true));
+                    setTimeout(function () {
+                        // fix bug audioRef pending cant next
+                        audioRef.current.play();
+                    }, 0);
+                } else {
+                    index = 0;
+                    dispatch(nextMusic(index));
+                    dispatch(playMusic(true));
+                    setTimeout(function () {
+                        // fix bug audioRef pending cant next
+                        audioRef.current.play();
+                    }, 0);
+                }
+
+                break;
+            case 'prev':
+                if (index > 0) {
+                    index--;
+                    dispatch(nextMusic(index));
+                    dispatch(playMusic(true));
+                    setTimeout(function () {
+                        // fix bug audioRef pending cant next
+                        audioRef.current.play();
+                    }, 0);
+                } else {
+                    index = songsPlay.length - 1;
+                    dispatch(nextMusic(index));
+                    dispatch(playMusic(true));
+                    setTimeout(function () {
+                        // fix bug audioRef pending cant next
+                        audioRef.current.play();
+                    }, 0);
+                } 
                 break;
             default:
                 console.log('default');
         }
     };
 
-    const lastData = CONTROL_BTNS[CONTROL_BTNS.length - 1].data;
+    const lastData = CONTROL_BTNS_CENTER[CONTROL_BTNS_CENTER.length - 1].data;
 
     const renderControlsBtn = lastData.map((btn, index) => {
         const isCircleHide = btn.circle_hide;
@@ -81,11 +147,15 @@ function ControlsCenter() {
                 <div className={cx('controls')}>{renderControlsBtn}</div>
                 <div className={cx('progress_full')}>
                     <div className={cx('duration_bar')}>
-                        <span className={cx('time_start')}>0:00</span>
+                        <span className={cx('time_start')}>{timePlay} </span>
                         <div className={cx('progress_container')}>
-                            <InputProgress max={100} step={1} />
+                            <InputProgress
+                                max={100}
+                                step={1}
+                                audioRef={audioRef}
+                            />
                         </div>
-                        <span className={cx('time_end')}>0:00 </span>
+                        <span className={cx('time_end')}>{timeDuration}</span>
                     </div>
                 </div>
             </div>

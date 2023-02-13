@@ -3,6 +3,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 20px;
+    height: 90px;
 }
 // controls left
 .player_control_left {
@@ -57,23 +58,23 @@
     max-width: 40vw;
 }
 .player_controls_center_container {
-   
 }
 .controls {
     display: flex;
     align-items: center;
-    justify-content: center; 
+    justify-content: center;
     height: 50px;
-
-    
 }
 .progress_full {
 }
+ 
 .time_start {
     margin: 0 10px;
+    width: 50px;
 }
 .time_end {
     margin: 0 10px;
+    width: 50px;
 }
 .duration_bar {
     display: flex;
@@ -86,28 +87,24 @@
     background-color: transparent;
 }
 
-
 //controls right
 
 .player_control_right {
+    display: flex;
+    flex-direction: row;
+    margin-right: 20px;
 }
+
 .player_controls_right_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.controls_item {
+.controls_item :hover .player_input_vol {
+    padding: 20px;
 }
-.controls_item {
+.player_input_vol {
+    display: flex;
+    align-items: center;
+    width: 80px;
 }
-.controls_item {
-}
-.controls_item {
-}
-
-// custom input progress
-
- ::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    height: 20px;
-    width: 20px;
-    background-color: red;
-    border-radius: 50%;
- }

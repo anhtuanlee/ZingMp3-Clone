@@ -4,11 +4,11 @@
     background-color: grey;
     height: 3px;
     background-image: linear-gradient(#fff, #fff);
-    background-repeat: no-repeat; 
+    background-repeat: no-repeat;
     border: none;
     &:hover {
         border-radius: 100px;
-        padding: 3px 0; 
+        padding: 3px 0;
         cursor: pointer;
     }
 }
@@ -24,4 +24,14 @@
 .progress_input:hover::-webkit-slider-thumb {
     padding: 6px;
     transition: linear 0.1s;
+}
+
+// hover vol input
+.blur_input {
+    padding: 3px 0;
+    border-radius: 50px;
+}
+.blur_input::-webkit-slider-thumb {
+        width: 13px;
+        height: 13px;
 }

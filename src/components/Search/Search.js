@@ -4,7 +4,7 @@ import Tippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import useDebounce from '../../hooks';
+import { useDebounce } from '../../hooks';
 import styles from './Search.module.scss';
 import { SearchApi } from '../../services';
 import { AccountPropose, MusicPropose } from '../Propose';

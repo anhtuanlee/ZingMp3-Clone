@@ -1,11 +1,12 @@
 .wrapper {
-    box-shadow: 0 3px 5px var(--primary);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
     position: fixed;
     border-bottom: solid 1px transparent;
     height: 70px;
     padding: 15px 0;
-    min-width: calc(100% - 400px); 
-     z-index: 1;
+    min-width: calc(100% - 400px);
+    z-index: 1;
+    backdrop-filter: blur(50px);
 }
 .inner {
     display: flex;
@@ -51,6 +52,6 @@
 //custom header_account
 .wrapper_header_account {
     box-shadow: none;
-    padding: 0 60px; 
+    padding: 0 60px;
     display: flex;
 }
