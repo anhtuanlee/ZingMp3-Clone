@@ -49,7 +49,7 @@ li {
     background-color: #333;
     padding: 3px 5px 5px 5px;
     border-radius: 4px;
-    font-size: 12px; 
+    font-size: 12px;
 }
 .tippy-box[data-pl4cem5nt^='bottom'] > .tippy-arrow:before {
     color: #333;
@@ -95,4 +95,14 @@ li {
 
 .arrow--disabled {
     fill: rgba(255, 255, 255, 0.5);
+}
+//custom button volume same
+svg.svg-inline--fa.fa-volume {
+    width: 23.5px;
+    height: 20px;
+}
+svg.svg-inline--fa.fa-volume-xmark {
+    margin-left: 2px;
+    width: 23px;
+    height: 20px;
 }

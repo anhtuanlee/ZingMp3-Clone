@@ -1,5 +1,11 @@
-export const isPlaying = (state) => state.isPlaying;
-export const times = (state) => state.times;
-export const songCurrent = (state) => state.songCurrent; 
-export const songs = (state) => state.songs
-export const currentIndex = (state) => state.currentIndex
+//controls
+export const isPlayingSelector = (state) => state.status.isPlaying;
+export const isRepeatSelector = (state) => state.status.isRepeat;
+export const isRandomSelector = (state) => state.status.isRandom;
+export const isLoadingSelector = (state) => state.status.isLoading;
+export const isVolumeSelector = (state) => state.status.isVolume;
+//feature
+export const songCurrentSelector = (state) => state.feature.songCurrent;
+export const currentIndexSelector = (state) => state.feature.currentIndex;
+export const dataSongsSelector = (state) => state.feature.dataSongs;
+export const timesSelector = (state) => state.feature.times;

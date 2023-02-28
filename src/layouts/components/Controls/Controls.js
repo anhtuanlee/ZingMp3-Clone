@@ -10,7 +10,7 @@ function Controls({ audioRef }) {
         <div className={cx('wrapper')}>
             <ControlsLeft />
             <ControlsCenter audioRef={audioRef} />
-            <ControlsRight />
+            <ControlsRight audioRef={audioRef} />
         </div>
     );
 }

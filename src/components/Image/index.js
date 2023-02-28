@@ -16,7 +16,7 @@ function Images({ src, icon, imgError, alt, ...props }) {
         <img
             className={classes}
             alt={alt}
-            src={defaultImg || src}
+            src={src ? src : defaultImg}
             {...props}
             onError={handleErrorImg}
         />

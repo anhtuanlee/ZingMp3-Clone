@@ -8,6 +8,8 @@ import { useDebounce } from '../../hooks';
 import styles from './Search.module.scss';
 import { SearchApi } from '../../services';
 import { AccountPropose, MusicPropose } from '../Propose';
+import { useDispatch } from 'react-redux';
+import { loading } from '../../redux/actions';
 
 const cx = classNames.bind(styles);
 
@@ -17,19 +19,20 @@ function Search() {
     const [randomValue, setRandomValue] = useState(0);
     const [visible, setVisible] = useState(false);
     const debounce = useDebounce(value, 500);
+
+    const dispatch = useDispatch();
     useEffect(() => {
-        const Fetch = async () => {
+        const Fetch = async () => { 
             const result = await SearchApi(debounce).then((data) => {
                 const random = Math.floor(Math.random() * data.length);
                 setRandomValue(random);
-                setSearchResult(data);
+                setSearchResult(data); 
             });
             return result;
         };
         Fetch();
     }, [debounce]);
-    if (visible === true) {
-    }
+
     // handle Event
     const handleType = (e) => {
         setValue(e.target.value);

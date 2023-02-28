@@ -1,22 +1,17 @@
 import { faCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Images from '../../components/Image';
 import styles from './Propose.module.scss';
-import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
-import { songs } from '../../redux/actions';
-import { useEffect } from 'react';
 const cx = classNames.bind(styles);
-function AccountPropose({ data = [], random = 0 }) {
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(songs(data));
-    }, []);
-    // random image of singer
-    const result = data[random];
 
+function AccountPropose({ data = [], random = 0 }) {
+    //custom loading when loading data
+
+    // random image of
+    const result = data[random];
     // fix word not synce
     const datacate = result.category.split(' ');
     const category = datacate.map((item) => {

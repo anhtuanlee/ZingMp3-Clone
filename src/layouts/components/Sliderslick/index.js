@@ -29,8 +29,8 @@ function SliderSlick() {
 
     const [sliderRef, instanceRef] = useKeenSlider(
         {
-            loop: true,
-            mode: 'free',
+            loop: true, 
+            drag: false ,
             slides: {
                 perView: 3,
                 spacing: 15,

@@ -1,8 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import styles from './Controls.module.scss';
 import classNames from 'classnames/bind';
+import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Button from '../../../components/Button';
 import {
+    Loading,
     Next,
     Pause,
     Play,
@@ -10,54 +12,99 @@ import {
     Random,
     Repeat,
 } from '../../../components/Icons';
-import Button from '../../../components/Button';
-import InputProgress from '../InputProgress';
-import { playMusic, pauseMusic, nextMusic } from '../../../redux/actions';
-import { isPlaying, times, songs, currentIndex } from '../../../redux/selector';
 import { useTimes } from '../../../hooks';
+import {
+    currentSong,
+    loading,
+    pauseMusic,
+    playMusic,
+    randomSong,
+    repeatSong,
+    setCurrentID,
+} from '../../../redux/actions';
+import {
+    currentIndexSelector,
+    dataSongsSelector,
+    isLoadingSelector,
+    isPlayingSelector,
+    isRandomSelector,
+    isRepeatSelector,
+    timesSelector,
+} from '../../../redux/selector';
+import InputProgress from '../InputProgress';
+import styles from './Controls.module.scss';
 const cx = classNames.bind(styles);
 
 function ControlsCenter({ audioRef }) {
     const dispatch = useDispatch();
-    const isPlay = useSelector(isPlaying);
-    const time = useSelector(times);
-
-    let index = useSelector(currentIndex); 
-    //Songs
-    const songsPlay = useSelector(songs);
+    const _isPlay = useSelector(isPlayingSelector);
+    const _isRepeat = useSelector(isRepeatSelector);
+    const _isRandom = useSelector(isRandomSelector);
+    const _isLoading = useSelector(isLoadingSelector);
+    const time = useSelector(timesSelector);
+    let index = useSelector(currentIndexSelector);
+    const _dataSongs = useSelector(dataSongsSelector);
     //times display
+
     const timeRemain = useTimes(time.currentTime);
     const timeDuration = useTimes(time.duration);
-    const [timePlay, settimePlay] = useState(); 
+    const [timePlay, settimePlay] = useState();
+    const [randomIndex, setRandomIndex] = useState([]);
+    const list = new Set(randomIndex);
+    const handleRandom = () => {
+        let random;
+        const songsLength = _dataSongs.length;
+        do {
+            random = Math.ceil(Math.random() * _dataSongs.length);
+            setRandomIndex((prev) => [...prev, random]);
+        } while (list.has(random));
+        index = random;
+        setRandomIndex((prev) => [...prev, index]);
+
+        if (list.size === songsLength - 1) {
+            setRandomIndex([]);
+        }
+    };
+
+    //time update
     useEffect(() => {
-        //time update
         settimePlay(timeRemain);
+        localStorage.setItem('currentTime', JSON.stringify(time.currentTime));
     }, [timeRemain]);
 
     // play pause
     useEffect(() => {
-        if (isPlay) {
-            audioRef.current.play();
-        } else {
-            audioRef.current.pause();
+        if (audioRef) {
+            if (_isPlay) {
+                audioRef.current.play();
+            } else {
+                audioRef.current.pause();
+            }
         }
-    }, [isPlay]);
+    }, [_isPlay]);
+
     const CONTROL_BTNS_CENTER = [
         {
             data: [
                 {
                     icon: Random,
-                    extraTitle: 'Bật phát ngẫu nhiên',
+                    active: _isRandom ? true : false,
+                    extraTitle: _isRandom
+                        ? 'Tắt phát ngẫu nhiên'
+                        : 'Bật phát ngẫu nhiên',
+                    type: 'random',
                 },
                 {
                     icon: Prev,
-                    type: 'prev'
+                    type: 'prev',
                 },
                 {
-                    icon: isPlay ? Pause : Play,
+                    icon: _isPlay && !_isLoading ? Pause : Play,
+                    iconLoading: _isLoading ? Loading : undefined,
                     border: true,
+                    borderFixPlay: _isPlay ? false : true,
                     circle_hide: true,
-                    type: isPlay ? 'play' : 'pause',
+                    type: _isPlay ? 'play' : 'pause',
                 },
 
                 {
@@ -66,59 +113,56 @@ function ControlsCenter({ audioRef }) {
                 },
                 {
                     icon: Repeat,
-                    extraTitle: 'Bật phát lại tất cả',
+                    active: _isRepeat ? true : false,
+                    extraTitle: !_isRepeat
+                        ? 'Bật phát lại một bài'
+                        : 'Tắt phát lại',
+                    type: 'repeat',
                 },
             ],
         },
     ];
-
     // custom handle with type
     const handle = (type) => {
         switch (type) {
             case 'play':
-                dispatch(playMusic(isPlay ? false : true));
+                dispatch(playMusic(_isPlay ? false : true));
+                dispatch(loading(false));
+                console.log(time.currentTime)
                 break;
             case 'pause':
-                dispatch(pauseMusic(isPlay ? false : true));
+                dispatch(pauseMusic(_isPlay ? false : true));
+                dispatch(loading(false));
+                console.log(time.currentTime)
+
                 break;
             case 'next':
-                if (index < songsPlay.length - 1) {
-                    index++;
-                    dispatch(nextMusic(index));
-                    dispatch(playMusic(true));
-                    setTimeout(function () {
-                        // fix bug audioRef pending cant next
-                        audioRef.current.play();
-                    }, 0);
+                if (index < _dataSongs.length - 1) {
+                    _isRandom ? handleRandom() : index++;
                 } else {
                     index = 0;
-                    dispatch(nextMusic(index));
-                    dispatch(playMusic(true));
-                    setTimeout(function () {
-                        // fix bug audioRef pending cant next
-                        audioRef.current.play();
-                    }, 0);
                 }
+
+                dispatch(playMusic(true));
+                dispatch(setCurrentID(index));
+                dispatch(currentSong(index));
 
                 break;
             case 'prev':
                 if (index > 0) {
-                    index--;
-                    dispatch(nextMusic(index));
-                    dispatch(playMusic(true));
-                    setTimeout(function () {
-                        // fix bug audioRef pending cant next
-                        audioRef.current.play();
-                    }, 0);
+                    _isRandom ? handleRandom() : index--;
                 } else {
-                    index = songsPlay.length - 1;
-                    dispatch(nextMusic(index));
-                    dispatch(playMusic(true));
-                    setTimeout(function () {
-                        // fix bug audioRef pending cant next
-                        audioRef.current.play();
-                    }, 0);
-                } 
+                    index = _dataSongs.length - 1;
+                }
+                dispatch(playMusic(true));
+                dispatch(setCurrentID(index));
+                dispatch(currentSong(index));
+                break;
+            case 'repeat':
+                dispatch(repeatSong(!_isRepeat));
+                break;
+            case 'random':
+                dispatch(randomSong(!_isRandom));
                 break;
             default:
                 console.log('default');
@@ -126,16 +170,18 @@ function ControlsCenter({ audioRef }) {
     };
 
     const lastData = CONTROL_BTNS_CENTER[CONTROL_BTNS_CENTER.length - 1].data;
-
     const renderControlsBtn = lastData.map((btn, index) => {
         const isCircleHide = btn.circle_hide;
         return (
             <Button
                 circle_hide={isCircleHide ? false : true}
                 border={btn?.border}
+                borderFixPlay={btn?.borderFixPlay} // fix play center
                 extraTitle={btn.extraTitle}
-                Icons={btn.icon}
+                isLoading={btn.iconLoading ? true : false}
+                Icons={btn.iconLoading || btn.icon}
                 key={index}
+                active={btn.active}
                 onHandle={() => handle(btn.type)}
             />
         );
@@ -152,6 +198,7 @@ function ControlsCenter({ audioRef }) {
                             <InputProgress
                                 max={100}
                                 step={1}
+                                audioType={true}
                                 audioRef={audioRef}
                             />
                         </div>
@@ -162,5 +209,7 @@ function ControlsCenter({ audioRef }) {
         </div>
     );
 }
-
+ControlsCenter.propTypes = {
+    audioRef: PropTypes.object,
+};
 export default ControlsCenter;

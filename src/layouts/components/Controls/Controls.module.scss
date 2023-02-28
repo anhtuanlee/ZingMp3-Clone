@@ -8,6 +8,7 @@
 // controls left
 .player_control_left {
     display: flex;
+    width: 30%;
 }
 .media_img {
     display: flex;
@@ -67,7 +68,7 @@
 }
 .progress_full {
 }
- 
+
 .time_start {
     margin: 0 10px;
     width: 50px;
@@ -93,6 +94,8 @@
     display: flex;
     flex-direction: row;
     margin-right: 20px;
+    justify-content: flex-end;
+    width: 30%;
 }
 
 .player_controls_right_container {

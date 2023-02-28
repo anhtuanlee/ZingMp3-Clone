@@ -4,11 +4,17 @@ import { Mic, Multi, Mv, Volumn, VolumnOff } from '../../../components/Icons';
 import InputProgress from '../InputProgress';
 import Button from '../../../components/Button/Button';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { volume } from '../../../redux/actions';
+import { isVolumeSelector } from '../../../redux/selector';
 const cx = classNames.bind(styles);
 
-function ControlsRight() {
-    const [isVol, setIsVol] = useState(true);
+function ControlsRight({ audioRef }) {
     const [style, setStyles] = useState(false);
+    const _isVolume = useSelector(isVolumeSelector);
+    const [isVol, setIsVol] = useState(true);
+    const dispatch = useDispatch();
+
     const CONTROL_BTNS_RIGHT = [
         {
             data: [
@@ -25,16 +31,17 @@ function ControlsRight() {
                     extraTitle: 'Chế độ cửa sổ',
                 },
                 {
-                    icon: isVol ? Volumn : VolumnOff,
-                    type: 'vol',
+                    icon: _isVolume ? Volumn : VolumnOff,
+                    type: 'volume',
                 },
             ],
         },
     ];
     const handle = (action) => {
         switch (action) {
-            case 'vol':
-                setIsVol(!isVol);
+            case 'volume':
+                setIsVol(!isVol); 
+                dispatch(volume(!isVol));
                 break;
             default:
                 console.log(3);
@@ -79,7 +86,12 @@ function ControlsRight() {
                 {renderBtnsRight()}
             </div>
             <div className={cx('player_input_vol')}>
-                <InputProgress classes={classes} />
+                <InputProgress
+                    classes={classes}
+                    volumeType={true}
+                    max={10}
+                    audioRef={audioRef}
+                />
             </div>
         </div>
     );

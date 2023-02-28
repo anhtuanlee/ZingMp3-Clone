@@ -16,8 +16,10 @@ function DefaultLayout({ children }) {
                 <Sidebar />
             </div>
             <div className={cx('main_page')}>
-                <Header />
-                <div style={{ marginTop: 70 }}>
+                <div className={cx('header')}>
+                    <Header />
+                </div>
+                <div className={cx('content')}>
                     {children}
                     <Content />
                 </div>

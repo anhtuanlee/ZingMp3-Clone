@@ -1,3 +1,4 @@
+import { faLoader } from '@cseitz/fontawesome-svg-duotone';
 import {
     faArrowRightFromBracket,
     faArrowUpFromBracket,
@@ -15,17 +16,17 @@ import {
     faShuffle,
     faStandardDefinition,
     faVolume,
-    faVolumeXmark,
+    faVolumeXmark
 } from '@cseitz/fontawesome-svg-light';
-import { faCirclePause, faPlayCircle } from '@cseitz/fontawesome-svg-thin';
 import {
-    faHeart, 
-    faWindowRestore,
+    faHeart,
+    faWindowRestore
 } from '@fortawesome/free-regular-svg-icons';
 import {
     faBackwardStep,
     faForwardStep,
     faPause,
+    faPlay
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import images from '../../assets';
@@ -247,11 +248,14 @@ export const Repeat = () => {
     return <FontAwesomeIcon icon={faRepeat} />;
 };
 export const Play = () => {
-    return <FontAwesomeIcon icon={faPlayCircle} />;
+    return <FontAwesomeIcon icon={faPlay} />;
 };
 
 export const Pause = () => {
-    return <FontAwesomeIcon icon={faCirclePause} />;
+    return <FontAwesomeIcon icon={faPause} />;
+};
+export const Loading = () => {
+    return <FontAwesomeIcon icon={faLoader} />;
 };
 export const Mic = () => {
     return <FontAwesomeIcon icon={faMicrophone} />;

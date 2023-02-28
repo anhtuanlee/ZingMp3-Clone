@@ -4,9 +4,15 @@
     border-bottom: solid 1px transparent;
     height: 70px;
     padding: 15px 0;
-    min-width: calc(100% - 400px);
+    width: calc(100% - 240px);
     z-index: 1;
+    padding: 15px 60px;
     backdrop-filter: blur(50px);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+
+    ::before {
+        width: 100%;
+    }
 }
 .inner {
     display: flex;

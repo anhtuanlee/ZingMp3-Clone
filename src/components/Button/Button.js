@@ -11,14 +11,16 @@ import PropTypes from 'prop-types';
 const cx = classNames.bind(styles);
 
 function Button({
-    onHandle ,
+    onHandle,
     // type
     circle,
     primary,
     text,
     circle_hide,
     border,
+    borderFixPlay,
     disable,
+    active,
     //sizes
     sizes,
     // Icons,
@@ -34,13 +36,25 @@ function Button({
     nestest,
     //css ,
     spederate = false,
+    isLoading,
     className,
     ...passProps
 }) {
     const [visiblecheck, setVisiblecheck] = useState(); // state visible
     const classnames = cx(
         'wrapper',
-        { primary, circle, text, spederate, circle_hide, border,disable },
+        {
+            primary,
+            circle,
+            text,
+            spederate,
+            isLoading,
+            circle_hide,
+            border,
+            borderFixPlay,
+            disable,
+            active,
+        },
         sizes,
         className,
     );
@@ -52,8 +66,7 @@ function Button({
     } else if (to) {
         props.to = to;
         Comp = Link;
-    }
-
+    } 
     return extraTitle ? ( // when have extraTitlte, content will be extraTitle
         <Tippy duration={[100, 0]} content={extraTitle}>
             <Comp className={classnames} {...props} onClick={onHandle}>
