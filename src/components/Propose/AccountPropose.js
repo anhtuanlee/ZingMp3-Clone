@@ -2,16 +2,22 @@ import { faCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Images from '../../components/Image';
+import { dataSongs, playMusic } from '../../redux/actions';
+import { getSingerData } from '../../services';
 import styles from './Propose.module.scss';
 const cx = classNames.bind(styles);
 
-function AccountPropose({ data = [], random = 0 }) {
+function AccountPropose({ data = [], onHandle }) {
+    const dispatch = useDispatch();
+    const [singerData, setSingerData] = useState([]);
     //custom loading when loading data
 
     // random image of
-    const result = data[random];
+    const result = data[0];
     // fix word not synce
     const datacate = result.category.split(' ');
     const category = datacate.map((item) => {
@@ -20,19 +26,30 @@ function AccountPropose({ data = [], random = 0 }) {
     });
 
     //favorite
-    const favorite = Math.floor(
-        result.favorite / 1000 > 1000
-            ? result.favorite / 1000000
-            : result.favorite / 1000,
-    );
-
+    const favorite = result.favorite / 1000;
     const imgs = result.image_music;
     const imgError =
         'https://placehold.jp/3d4070/ffffff/150x150.png?text=No_Image';
 
+    useEffect(() => {
+        const slug_singer_name = result.slug_name_singer;
+        const fetchDataSingers = async () => {
+            const dataResult = await getSingerData(slug_singer_name).then(
+                (data) => {
+                    setSingerData(data);
+                },
+            );
+            return dataResult;
+        };
+        fetchDataSingers();
+    }, [data]);
     return (
-        <Link className={cx('wrapper')} to={`/${result.slug_name_singer}`}>
-            <div className={cx('user_account')}>
+        <Link
+            className={cx('wrapper')}
+            state={singerData}
+            to={`/${result.slug_name_singer}`}
+        >
+            <div className={cx('user_account')} onClick={onHandle}>
                 <Images
                     className={cx('avatar')}
                     src={imgs}
@@ -50,7 +67,12 @@ function AccountPropose({ data = [], random = 0 }) {
                             className={cx('icon_dot')}
                         />
                         <span className={cx('follower')}>
-                            {`${favorite}${favorite < 10 ? 'M' : 'K'} quan tâm`}
+                            {`${ // handle custom render favorrite
+                                favorite > 1000
+                                    ? (favorite / 1000).toString().slice(0, 3) +
+                                      'M'
+                                    : favorite.toString().slice(0, 4) + 'K'
+                            } quan tâm`}
                         </span>
                     </div>
                 </div>

@@ -8,18 +8,11 @@
 
 .main_page {
     background-color: var(--primary);
-    height: 2000px;
+    height: 2000px; 
     width: calc(100% - 240px);
 }
 .content {
     padding: 0 60px;
     margin-top: 70px;
 }
-.control_music {
-    border-top: 1px solid var(--border-player);
-    position: fixed;
-    bottom: 0;
-    background-color: var(--primary);
-    width: 100%;
-    height: 90px;
-}
+

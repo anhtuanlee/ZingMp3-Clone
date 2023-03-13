@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 import Images from '../Image';
 
 const cx = classNames.bind(styles);
-function MusicPropose({ data = {} }) {
+function MusicPropose({ data = {}, onHandle }) {
     const imgs = data.image_music;
     const imgError =
         'https://placehold.jp/3d4070/ffffff/150x150.png?text=No_Image';
 
     return (
         <div className={cx('wrapper')}>
-            <div className={cx('song_container')}>
+            <div className={cx('song_container')} onClick={onHandle}>
                 <Images
                     className={cx('img_song')}
                     src={imgs ? imgs : imgError}

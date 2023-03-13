@@ -1,32 +1,28 @@
 import { useEffect, useState } from 'react';
 import { faSearch, faXmark } from '@cseitz/fontawesome-svg-light';
 import Tippy from '@tippyjs/react/headless';
-import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { useDebounce } from '../../hooks';
-import styles from './Search.module.scss';
 import { SearchApi } from '../../services';
 import { AccountPropose, MusicPropose } from '../Propose';
-import { useDispatch } from 'react-redux';
-import { loading } from '../../redux/actions';
+ 
+
+import classNames from 'classnames/bind';
+import styles from './Search.module.scss';
 
 const cx = classNames.bind(styles);
 
 function Search() {
     const [value, setValue] = useState('');
     const [searchResult, setSearchResult] = useState([]);
-    const [randomValue, setRandomValue] = useState(0);
     const [visible, setVisible] = useState(false);
     const debounce = useDebounce(value, 500);
 
-    const dispatch = useDispatch();
     useEffect(() => {
-        const Fetch = async () => { 
+        const Fetch = async () => {
             const result = await SearchApi(debounce).then((data) => {
-                const random = Math.floor(Math.random() * data.length);
-                setRandomValue(random);
-                setSearchResult(data); 
+                value && setSearchResult(data);
             });
             return result;
         };
@@ -36,13 +32,17 @@ function Search() {
     // handle Event
     const handleType = (e) => {
         setValue(e.target.value);
+        if (!e.target.value) {
+            setSearchResult([]);
+        }
     };
     const handleFocus = () => {
         setVisible(true);
     };
-    const handleMouseOut = () => {
+    const handleOffResult = () => {
         setVisible(false);
     };
+
     const handleClear = () => {
         setValue('');
         setSearchResult([]);
@@ -53,7 +53,7 @@ function Search() {
         <Tippy
             interactive
             visible={visible}
-            onClickOutside={handleMouseOut}
+            onClickOutside={handleOffResult}
             offset={[0, 0]}
             render={(attrs) => {
                 return (
@@ -70,12 +70,18 @@ function Search() {
                         </h4>
                         {searchResult.length > 0 && (
                             <AccountPropose
+                                onHandle={handleOffResult}
                                 data={searchResult ? searchResult : undefined}
-                                random={randomValue}
                             />
                         )}
                         {searchResult.map((item, index) => {
-                            return <MusicPropose data={item} key={index} />;
+                            return (
+                                <MusicPropose
+                                    data={item}
+                                    key={index}
+                                    onHandle={handleOffResult}
+                                />
+                            );
                         })}
                     </div>
                 );

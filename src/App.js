@@ -1,6 +1,7 @@
 import { privateRoutes } from './routes';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { DefaultLayout } from './layouts/';
+import Controls from './layouts/components/Controls';
 function App() {
     return (
         <Router>
@@ -14,9 +15,14 @@ function App() {
                                 path={route.path}
                                 key={index}
                                 element={
-                                    <Layout>
-                                        <Comp />
-                                    </Layout>
+                                    <div>
+                                        <Layout>
+                                            <Comp />
+                                        </Layout>
+                                        <div className="control_music" >
+                                            <Controls />
+                                        </div>
+                                    </div>
                                 }
                             />
                         );

@@ -1,25 +1,19 @@
-import styles from './Controls.module.scss';
 import classNames from 'classnames/bind';
-import Images from '../../../components/Image';
+import { useSelector } from 'react-redux';
 import Button from '../../../components/Button';
 import { Heart, More } from '../../../components/Icons';
-import { useSelector } from 'react-redux';
-import { currentIndexSelector, dataSongsSelector, songCurrentSelector } from '../../../redux/selector';
-import { useEffect } from 'react';
+import Images from '../../../components/Image';
+import { songCurrentSelector } from '../../../redux/selector';
+import styles from './Controls.module.scss';
 const cx = classNames.bind(styles);
 
 function ControlsLeft() {
-    const dataUser = useSelector(dataSongsSelector);
-    const _currentIndex = useSelector(currentIndexSelector);
-    const _currentSong = useSelector(songCurrentSelector) 
-    const currentUser = dataUser[_currentIndex]; 
-   
-    
+    const _currentSong = useSelector(songCurrentSelector); 
     return (
         <div className={cx('player_control_left')}>
             <div className={cx('media_Images')}>
                 <figure className={cx('item_img')}>
-                    <Images src={_currentSong?.image_music} />
+                    <Images src={_currentSong && _currentSong?.image_music} />
                 </figure>
             </div>
             <div className={cx('media_content')}>

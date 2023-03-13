@@ -1,5 +1,4 @@
 .wrapper {
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
     position: fixed;
     border-bottom: solid 1px transparent;
     height: 70px;
@@ -8,10 +7,21 @@
     z-index: 1;
     padding: 15px 60px;
     backdrop-filter: blur(50px);
+    background: linear-gradient(
+        transparent,
+        transparent 50%,
+        var(--layout-header-bg) 50%,
+        var(--layout-header-bg)
+    );
+    background-size: 100% 200%;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+    transition: background-position 0.4s;
 
-    ::before {
-        width: 100%;
+    &.isScroll {
+        backdrop-filter: blur(50px);
+        background-position: -100% -100%;
+        transition: background-position 0.4s;
+        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
     }
 }
 .inner {

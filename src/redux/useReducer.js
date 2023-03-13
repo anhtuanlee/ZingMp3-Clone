@@ -1,5 +1,13 @@
-import { CURRENT_ID, CURRENT_TIME, DURATION, SONG_RECENT } from '../config/localStorages';
-import { dataSongs } from './actions';
+import {
+    CURRENT_ID_STORAGE,
+    CURRENT_TIME_STORAGE,
+    DATA_SONGS,
+    DURATION_STORAGE,
+    SONG_RECENT_STORAGE,
+    VOLUME_STORAGE,
+    _isRandom,
+    _isRepeat
+} from '../config/localStorages';
 import {
     CONTROL_LOADING,
     CONTROL_NEXT,
@@ -7,33 +15,34 @@ import {
     CONTROL_PLAY,
     CONTROL_PREV,
     CONTROL_RANDOM,
-    CONTROL_REPEAT,
-    CONTROL_VOLUME,
+    CONTROL_REPEAT, CONTROL_VOLUME,
     CURRENT_INDEX,
     PLAYLIST_SONGS,
+    SONG_CURRENT,
     TIME_DISPLAY,
+    VOLUME
 } from './constant';
 
-console.log(DURATION);
 const initState = {
     status: {
         isPlaying: false,
-        isRepeat: false,
-        isRandom: false,
-        isLoading: false,
+        isRepeat: _isRepeat ?? false,
+        isRandom: _isRandom ?? false,
+        isLoading: false, 
         isVolume:
             JSON.parse(localStorage.getItem('current_Volume')) > 0
                 ? true
                 : false,
     },
     feature: {
-        currentIndex: CURRENT_ID ? CURRENT_ID : 0,
-        dataSongs: [],
-        songCurrent: SONG_RECENT ? SONG_RECENT : {},
+        currentIndex: CURRENT_ID_STORAGE ?? 0,
+        dataSongs: DATA_SONGS ?? [],
+        volume: VOLUME_STORAGE ?? 0,
+        songCurrent: SONG_RECENT_STORAGE ?? {},
         musicFavorite: {},
         times: {
-            currentTime: CURRENT_TIME,
-            duration: DURATION,
+            currentTime: CURRENT_TIME_STORAGE ? CURRENT_TIME_STORAGE : 0,
+            duration: DURATION_STORAGE ? DURATION_STORAGE : 0,
         },
     },
 };
@@ -81,6 +90,7 @@ export const rootReducer = (state = initState, action) => {
                     isLoading: action.payload,
                 },
             };
+
         case CONTROL_VOLUME:
             return {
                 ...state,
@@ -89,12 +99,12 @@ export const rootReducer = (state = initState, action) => {
                     isVolume: action.payload,
                 },
             };
-        case 'songcurrent': 
+        case SONG_CURRENT:
             return {
                 ...state,
                 feature: {
                     ...state.feature,
-                    songCurrent: state.feature.dataSongs[action.payload],
+                    songCurrent: action.payload,
                 },
             };
         //feature
@@ -137,6 +147,14 @@ export const rootReducer = (state = initState, action) => {
                 feature: {
                     ...state.feature,
                     dataSongs: action.payload,
+                },
+            };
+        case VOLUME:
+            return {
+                ...state,
+                feature: {
+                    ...state.feature,
+                    volume: action.payload,
                 },
             };
         default:

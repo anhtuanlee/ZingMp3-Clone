@@ -15,7 +15,6 @@ import {
 import { useTimes } from '../../../hooks';
 import {
     currentSong,
-    loading,
     pauseMusic,
     playMusic,
     randomSong,
@@ -41,47 +40,35 @@ function ControlsCenter({ audioRef }) {
     const _isRepeat = useSelector(isRepeatSelector);
     const _isRandom = useSelector(isRandomSelector);
     const _isLoading = useSelector(isLoadingSelector);
-    const time = useSelector(timesSelector);
+    const _times = useSelector(timesSelector);
     let index = useSelector(currentIndexSelector);
     const _dataSongs = useSelector(dataSongsSelector);
     //times display
 
-    const timeRemain = useTimes(time.currentTime);
-    const timeDuration = useTimes(time.duration);
-    const [timePlay, settimePlay] = useState();
+    const timeRemain = useTimes(_times.currentTime);
+    const timeDuration = useTimes(_times.duration);
     const [randomIndex, setRandomIndex] = useState([]);
-    const list = new Set(randomIndex);
-    const handleRandom = () => {
-        let random;
-        const songsLength = _dataSongs.length;
-        do {
-            random = Math.ceil(Math.random() * _dataSongs.length);
-            setRandomIndex((prev) => [...prev, random]);
-        } while (list.has(random));
-        index = random;
-        setRandomIndex((prev) => [...prev, index]);
-
-        if (list.size === songsLength - 1) {
-            setRandomIndex([]);
-        }
-    };
-
-    //time update
-    useEffect(() => {
-        settimePlay(timeRemain);
-        localStorage.setItem('currentTime', JSON.stringify(time.currentTime));
-    }, [timeRemain]);
+    const list = new Set(randomIndex); // List save random index and reset at full
 
     // play pause
     useEffect(() => {
         if (audioRef) {
             if (_isPlay) {
+                audioRef.current.muted = false;
                 audioRef.current.play();
             } else {
                 audioRef.current.pause();
             }
         }
     }, [_isPlay]);
+
+    useEffect(() => {
+        localStorage.setItem('isRandom', JSON.stringify(_isRandom));
+    }, [_isRandom]);
+
+    useEffect(() => {
+        localStorage.setItem('isRepeat', JSON.stringify(_isRepeat));
+    }, [_isRepeat]);
 
     const CONTROL_BTNS_CENTER = [
         {
@@ -102,7 +89,6 @@ function ControlsCenter({ audioRef }) {
                     icon: _isPlay && !_isLoading ? Pause : Play,
                     iconLoading: _isLoading ? Loading : undefined,
                     border: true,
-                    borderFixPlay: _isPlay ? false : true,
                     circle_hide: true,
                     type: _isPlay ? 'play' : 'pause',
                 },
@@ -122,19 +108,30 @@ function ControlsCenter({ audioRef }) {
             ],
         },
     ];
+    //handle
+    const handleRandom = () => {
+        let random;
+        const songsLength = _dataSongs.length;
+        do {
+            random = Math.ceil(Math.random() * _dataSongs.length);
+            setRandomIndex((prev) => [...prev, random]);
+        } while (list.has(random));
+        index = random;
+        setRandomIndex((prev) => [...prev, index]);
+
+        if (list.size === songsLength - 1) {
+            setRandomIndex([]);
+        }
+    };
+
     // custom handle with type
     const handle = (type) => {
         switch (type) {
             case 'play':
                 dispatch(playMusic(_isPlay ? false : true));
-                dispatch(loading(false));
-                console.log(time.currentTime)
                 break;
             case 'pause':
                 dispatch(pauseMusic(_isPlay ? false : true));
-                dispatch(loading(false));
-                console.log(time.currentTime)
-
                 break;
             case 'next':
                 if (index < _dataSongs.length - 1) {
@@ -145,7 +142,7 @@ function ControlsCenter({ audioRef }) {
 
                 dispatch(playMusic(true));
                 dispatch(setCurrentID(index));
-                dispatch(currentSong(index));
+                dispatch(currentSong(_dataSongs[index]));
 
                 break;
             case 'prev':
@@ -156,7 +153,7 @@ function ControlsCenter({ audioRef }) {
                 }
                 dispatch(playMusic(true));
                 dispatch(setCurrentID(index));
-                dispatch(currentSong(index));
+                dispatch(currentSong(_dataSongs[index]));
                 break;
             case 'repeat':
                 dispatch(repeatSong(!_isRepeat));
@@ -193,7 +190,7 @@ function ControlsCenter({ audioRef }) {
                 <div className={cx('controls')}>{renderControlsBtn}</div>
                 <div className={cx('progress_full')}>
                     <div className={cx('duration_bar')}>
-                        <span className={cx('time_start')}>{timePlay} </span>
+                        <span className={cx('time_start')}>{timeRemain} </span>
                         <div className={cx('progress_container')}>
                             <InputProgress
                                 max={100}

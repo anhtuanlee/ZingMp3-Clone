@@ -9,3 +9,4 @@ export const songCurrentSelector = (state) => state.feature.songCurrent;
 export const currentIndexSelector = (state) => state.feature.currentIndex;
 export const dataSongsSelector = (state) => state.feature.dataSongs;
 export const timesSelector = (state) => state.feature.times;
+export const volumeSelector = (state) => state.feature.volume

@@ -1,18 +1,27 @@
 :root {
     //color
+    --primary-blur: #170f2387;
     --primary: #170f23;
-    --border-player: hsla(0, 0%, 100%, 0.1);
+    --primary-bg: #34224f;
+    --purple-primary: #9b4de0;
+    --primary-blur-bg: #2e2739;
+    --sidebar-bg: #231b2e;
+    --bg-loading: #25212b57;
+    --layout-header-bg: rgba(23, 15, 35, 0.666);
+    
     --text-primary: #fff;
+    --text-blur: #756a87;
+    --text-secondary: hsla(0, 0%, 100%, 0.5);
+
     --button-hide: #595362;
     --search-text: #dadada;
-    --primary-bg: #34224f;
-    --primary-blur-bg: #2e2739;
-    --text-secondary: hsla(0, 0%, 100%, 0.5);
+    
+
     --hover-blur-bg: hsla(0, 0%, 100%, 0.1);
-    --text-blur: #756a87;
-    --sidebar-bg: #231b2e;
-    --purple-primary: #9b4de0;
     --link-text-hover: #c273ed;
+
+    --border-player: hsla(0, 0%, 100%, 0.1);
+    --border-secondary: hsla(0, 0%, 100%, 0.05);
 }
 * {
     margin: 0;
@@ -29,6 +38,15 @@ body {
     font-family: 'Inter', sans-serif;
     color: var(--text-primary);
     overflow: overlay;
+}
+// controls_container
+.control_music {
+    border-top: 1px solid var(--border-player);
+    position: fixed;
+    bottom: 0;
+    background-color: var(--primary);
+    width: 100%;
+    height: 90px;
 }
 
 button,
@@ -105,4 +123,9 @@ svg.svg-inline--fa.fa-volume-xmark {
     margin-left: 2px;
     width: 23px;
     height: 20px;
+}
+
+// fix icons local
+svg.svg-inline--fa.fa-play {
+    padding-left: 4px;
 }

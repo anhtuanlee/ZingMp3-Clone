@@ -23,10 +23,13 @@ import Image from '../../../components/Image';
 import Search from '../../../components/Search';
 import Menu from '../Menu';
 import styles from './Header.module.scss';
+import { useEffect, useState } from 'react';
 
 const cx = classNames.bind(styles);
 
 function Header({ styles }) {
+    const [scrollY, setScrollY] = useState(0);
+
     const MENU_USER = [
         {
             title: 'Nâng cấp VIP',
@@ -124,9 +127,18 @@ function Header({ styles }) {
                 console.log('Bug');
         }
     };
+    useEffect(() => {
+        // handle Scroll Header
+        const handleScroll = () => setScrollY(window.scrollY);
 
+        window.addEventListener('scroll', handleScroll);
+
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
     return (
-        <header className={cx('wrapper', styles)}>
+        <header
+            className={cx('wrapper', styles, scrollY > 133 ? 'isScroll' : '')}
+        >
             <div className={cx('inner')}>
                 <div className={cx('button_controls_left')}>
                     <div>

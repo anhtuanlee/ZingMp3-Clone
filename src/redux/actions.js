@@ -10,6 +10,9 @@ import {
     PLAYLIST_SONGS,
     CURRENT_INDEX,
     CONTROL_LOADING,
+    SONG_CURRENT,
+    VOLUME,
+    CONTROL_SETUP,
 } from './constant';
 
 export const playMusic = (data) => {
@@ -61,6 +64,7 @@ export const loading = (data) => {
         payload: data,
     };
 };
+
 //feature
 export const setTimes = (currentTime, duration) => {
     return {
@@ -77,13 +81,19 @@ export const dataSongs = (data) => {
 };
 export const currentSong = (data) => {
     return {
-        type: 'songcurrent',
-        payload:data
-    }
-}
+        type: SONG_CURRENT,
+        payload: data,
+    };
+};
 export const setCurrentID = (data) => {
     return {
         type: CURRENT_INDEX,
         payload: data,
+    };
+};
+export const currentVolume = (vol) => {
+    return {
+        type: VOLUME,
+        payload: vol,
     };
 };

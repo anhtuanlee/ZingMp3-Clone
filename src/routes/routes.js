@@ -21,8 +21,8 @@ export const privateRoutes = [
         component: config.zingchart.component,
     },
     {
-        path: config.radio.path,
-        component: config.radio.component,
+        path: config.album.path,
+        component: config.album.component, 
     },
     {
         path: config.newupdate.path,

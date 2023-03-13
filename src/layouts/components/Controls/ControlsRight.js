@@ -1,19 +1,18 @@
-import styles from './Controls.module.scss';
 import classNames from 'classnames/bind';
-import { Mic, Multi, Mv, Volumn, VolumnOff } from '../../../components/Icons';
-import InputProgress from '../InputProgress';
-import Button from '../../../components/Button/Button';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Button from '../../../components/Button/Button';
+import { Mic, Multi, Mv, Volumn, VolumnOff } from '../../../components/Icons';
 import { volume } from '../../../redux/actions';
 import { isVolumeSelector } from '../../../redux/selector';
+import InputProgress from '../InputProgress';
+import styles from './Controls.module.scss';
 const cx = classNames.bind(styles);
 
 function ControlsRight({ audioRef }) {
-    const [style, setStyles] = useState(false);
-    const _isVolume = useSelector(isVolumeSelector);
-    const [isVol, setIsVol] = useState(true);
-    const dispatch = useDispatch();
+    const [style, setStyles] = useState(false); 
+    const _isVolume = useSelector(isVolumeSelector); 
+    const dispatch = useDispatch(); 
 
     const CONTROL_BTNS_RIGHT = [
         {
@@ -39,12 +38,11 @@ function ControlsRight({ audioRef }) {
     ];
     const handle = (action) => {
         switch (action) {
-            case 'volume':
-                setIsVol(!isVol); 
-                dispatch(volume(!isVol));
+            case 'volume': 
+                dispatch(volume(_isVolume ? false : true));  
                 break;
             default:
-                console.log(3);
+                console.log('default');
         }
     };
 

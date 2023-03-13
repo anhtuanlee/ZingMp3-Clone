@@ -1,5 +1,4 @@
-import classNames from 'classnames/bind'; 
-import Controls from '../components/Controls';
+import classNames from 'classnames/bind';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import styles from './AccountLayout.module.scss';
@@ -12,14 +11,8 @@ function AccountLayout({ children }) {
                 <Sidebar />
             </div>
             <div className={cx('main_page')}>
-                <Header styles={'wrapper_header_account'} />
-                <div className={cx('header_main_page')}>
-                    <h3>Account</h3>
-                    {children}
-                </div>
-            </div>
-            <div className={cx('control_music')}>
-                <Controls />
+                <Header styles={cx('header_main_page')} />
+                <div>{children}</div>
             </div>
         </div>
     );

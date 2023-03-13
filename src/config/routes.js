@@ -1,14 +1,14 @@
 import Home from '../pages/Home';
 import Mymusic from '../pages/Mymusic';
 import NewUpdate from '../pages/NewUpdate';
-import Account from '../pages/Account';
 import { AccountLayout } from '../layouts';
-import Zingchart from '../pages/Zingchart';
-import Radio from '../pages/Radio';
+import Zingchart from '../pages/Zingchart'; 
 import Following from '../pages/Following';
 import Category from '../pages/Category';
 import Top100 from '../pages/Top100';
 import Mv from '../pages/Mv';
+import AccountPage from '../pages/Account/Account';
+import Album from '../pages/Album';
 
 const config = {
     home: {
@@ -17,41 +17,41 @@ const config = {
     },
     mymusic: {
         component: Mymusic,
-        path: '/mymusic',
+        path: 'mymusic',
     },
 
     account: {
-        component: Account,
-        path: '/:account',
+        component: AccountPage,
+        path: ':nickname',
         layout: AccountLayout,
     },
     zingchart: {
         component: Zingchart,
-        path: '/zing-chart',
+        path: 'zing-chart',
     },
-    radio: {
-        component: Radio,
-        path: '/radio',
+    album: {
+        component: Album,
+        path: ':nickname/album',
     },
     newupdate: {
         component: NewUpdate,
-        path: '/newupdate',
+        path: 'newupdate',
     },
     following: {
         component: Following,
-        path: '/following',
+        path: 'following',
     },
     category: {
         component: Category,
-        path: '/category',
+        path: 'category',
     },
     top100: {
         component: Top100,
-        path: '/top100',
+        path: 'top100',
     },
     videogenre: {
         component: Mv,
-        path: '/the-loai-video',
+        path: 'the-loai-video',
     },
 };
 export default config;

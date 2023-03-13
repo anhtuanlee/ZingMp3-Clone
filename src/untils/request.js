@@ -1,8 +1,7 @@
 import axios from 'axios';
 
 export const request = axios.create({
-    baseURL: process.env.REACT_APP_URL_ZING,
-    timeout: '2000',
+    baseURL: process.env.REACT_APP_URL_ZING, 
 });
 export const get = async (path, options = {}) => {
     const res = await request.get(path, options);
