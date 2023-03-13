@@ -1,0 +1,88 @@
+.song_item_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid var(--border-secondary);
+    border-radius: 5px;
+
+    &:hover {
+        background-color: var(--hover-blur-bg);
+    }
+    &:hover .image_song_item img {
+        opacity: 0.6;
+    }
+    &.isActive {
+        background-color: var(--hover-blur-bg);
+        position: relative;
+    }
+    &.isActive .icon_inner_avatar {
+        opacity: 1;
+    }
+    &.isActive .image_song_item img {
+        opacity: 0.6;
+    }
+
+    &:hover .icon_inner_avatar {
+        opacity: 1;
+    }
+}
+.songs_item_left {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    .image_song_item {
+        width: 40px;
+        height: 40px;
+        position: relative;
+        cursor: pointer;
+
+        & img {
+            border-radius: 4px;
+        }
+    }
+    .title_song_item {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.6;
+        margin-left: 10px;
+        .name_song_item {
+            font-size: 14px;
+            color: var(--text-primary);
+            font-weight: 500;
+            padding: 0 4px;
+        }
+        .name_singer_item {
+            font-size: 12px;
+            color: var(--text-secondary);
+            padding: 0 4px;
+            font-weight: 500;
+        }
+    }
+    .icon_inner_avatar {
+        position: absolute;
+        font-size: 18px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        color: var(--text-primary);
+    }
+}
+
+.song_item_right {
+    padding-right: 5px;
+    display: flex;
+    align-items: center;
+    .items_hover {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .item_format_time {
+        margin-right: 10px;
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--text-secondary);
+    }
+}

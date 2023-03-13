@@ -6,7 +6,7 @@ import {
     SONG_RECENT_STORAGE,
     VOLUME_STORAGE,
     _isRandom,
-    _isRepeat
+    _isRepeat,
 } from '../config/localStorages';
 import {
     CONTROL_LOADING,
@@ -15,12 +15,13 @@ import {
     CONTROL_PLAY,
     CONTROL_PREV,
     CONTROL_RANDOM,
-    CONTROL_REPEAT, CONTROL_VOLUME,
+    CONTROL_REPEAT,
+    CONTROL_VOLUME,
     CURRENT_INDEX,
     PLAYLIST_SONGS,
     SONG_CURRENT,
     TIME_DISPLAY,
-    VOLUME
+    VOLUME,
 } from './constant';
 
 const initState = {
@@ -28,17 +29,17 @@ const initState = {
         isPlaying: false,
         isRepeat: _isRepeat ?? false,
         isRandom: _isRandom ?? false,
-        isLoading: false, 
+        isLoading: false,
         isVolume:
             JSON.parse(localStorage.getItem('current_Volume')) > 0
                 ? true
                 : false,
     },
     feature: {
-        currentIndex: CURRENT_ID_STORAGE ?? 0,
         dataSongs: DATA_SONGS ?? [],
         volume: VOLUME_STORAGE ?? 0,
-        songCurrent: SONG_RECENT_STORAGE ?? {},
+        songCurrent: SONG_RECENT_STORAGE ?? {} ,
+        currentIndex: CURRENT_ID_STORAGE ?? 0,
         musicFavorite: {},
         times: {
             currentTime: CURRENT_TIME_STORAGE ? CURRENT_TIME_STORAGE : 0,

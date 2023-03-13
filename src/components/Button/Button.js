@@ -21,6 +21,7 @@ function Button({
     borderFixPlay,
     disable,
     active,
+    effectHover,
     //sizes
     sizes,
     // Icons,
@@ -54,6 +55,7 @@ function Button({
             borderFixPlay,
             disable,
             active,
+            effectHover
         },
         sizes,
         className,
@@ -66,7 +68,7 @@ function Button({
     } else if (to) {
         props.to = to;
         Comp = Link;
-    } 
+    }
     return extraTitle ? ( // when have extraTitlte, content will be extraTitle
         <Tippy duration={[100, 0]} content={extraTitle}>
             <Comp className={classnames} {...props} onClick={onHandle}>

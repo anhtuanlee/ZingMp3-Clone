@@ -1,121 +1,27 @@
-import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
+import PropTypes from 'prop-types';
 import {
-    Ads,
-    Block,
-    ButtonTheme,
-    Dieukhoan,
-    DowloadIcon,
-    IconsVIP,
-    Info,
-    LogOut,
-    Phone,
-    Quality,
-    Setting,
-    ThemeMusic,
-    Upload,
+    ButtonTheme, DowloadIcon,
+    IconsVIP, Setting
 } from '../../../components/Icons';
 
+import { useEffect, useState } from 'react';
 import Button from '../../../components/Button/Button';
 import Image from '../../../components/Image';
 import Search from '../../../components/Search';
+import { MENU_SETTING_HEADER, MENU_USER_HEADER } from '../../../redux/constant';
 import Menu from '../Menu';
 import styles from './Header.module.scss';
-import { useEffect, useState } from 'react';
+import Images from '../../../components/Image';
 
 const cx = classNames.bind(styles);
 
 function Header({ styles }) {
     const [scrollY, setScrollY] = useState(0);
 
-    const MENU_USER = [
-        {
-            title: 'Nâng cấp VIP',
-            icon: IconsVIP,
-        },
-        {
-            title: 'Mua code VIP',
-            icon: IconsVIP,
-        },
-        {
-            title: 'Tải lên',
-            icon: Upload,
-        },
-        {
-            title: 'Đăng Xuất',
-            icon: LogOut,
-            type: 'logout',
-            spederate: true,
-            to: '/logout',
-        },
-    ];
-    const MENU_SETTING = [
-        {
-            title: 'Danh sách chặn',
-            icon: Block,
-            type: 'logout',
-        },
-        {
-            title: 'Chất lượng nhạc',
-            icon: Quality,
-            children: {
-                data: [
-                    {
-                        title: 'SQ•128',
-                        content:
-                            'Giảm sử dụng dữ liệu cho các kết nối chậm hơn',
-                    },
-                    {
-                        title: 'HQ•320',
-                        content:
-                            'Kết hợp tốt trong việc sử dụng dữ liệu và âm thanh',
-                    },
-                ],
-            },
-        },
-        {
-            title: 'Giao diện',
-            icon: ThemeMusic,
-            children: {
-                data: [
-                    {
-                        title: 'Luôn phát toàn màn hình',
-                    },
-                    {
-                        title: 'Hiệu ứng',
-                    },
-                ],
-            },
-        },
-        {
-            title: 'Giới thiệu',
-            icon: Info,
-            textblur: true,
-            spederate: true,
-            href: 'http://google.com',
-        },
-        {
-            title: 'Liên hệ',
-            icon: Phone,
-            textblur: true,
-            href: 'http://google.com',
-        },
-        {
-            title: 'Quảng cáo',
-            icon: Ads,
-            textblur: true,
-            href: 'http://google.com',
-        },
-        {
-            title: 'Thỏa thuận sử dụng',
-            icon: Dieukhoan,
-            textblur: true,
-            href: 'http://google.com',
-        },
-    ];
-    const onHandle = (item) => {
+    const onHandle = (item) => { 
         switch (item.type) {
             case 'language':
                 console.log('2222');
@@ -167,12 +73,12 @@ function Header({ styles }) {
                         extraTitle={'Nâng cấp VIP'}
                     />
 
-                    <Menu items={MENU_SETTING} onHandle={onHandle}>
+                    <Menu items={MENU_SETTING_HEADER} onHandle={onHandle}>
                         <Button circle Icons={Setting} extraTitle={'Cài đặt'} />
                     </Menu>
 
-                    <Menu items={MENU_USER} visible={false}>
-                        <Image
+                    <Menu items={MENU_USER_HEADER} visible={false}>
+                        <Images
                             className={cx('avatar')}
                             src="https://2.bp.blogspot.com/-gnXUMwRHkaI/WE1VCAktNhI/AAAAAAAAjfs/CZk6jUipKXgvOKc821Rnz-fwXT0QhLEuACEw/s1600/15085502_591915637681021_5420424684372040797_n.jpg"
                         />

@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import styles from '../Account.module.scss';
+import styles from './WaveSong.module.scss';
 
 const cx = classNames.bind(styles);
 function WaveSong() {

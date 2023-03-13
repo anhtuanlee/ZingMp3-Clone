@@ -6,22 +6,21 @@ import Images from '../../../components/Image';
 import { playMusic } from '../../../redux/actions';
 import { isPlayingSelector } from '../../../redux/selector';
 import styles from '../Account.module.scss';
+import Button from '../../../components/Button';
 const cx = classNames.bind(styles);
 
 function HeaderPageSinger({ data = [] }) {
-    const dispatch = useDispatch(); 
+    const dispatch = useDispatch();
     const _isPlay = useSelector(isPlayingSelector);
 
-    const [follower, setFollower] = useState();  
-    const singer_info = data[data.length - 1];  
-    
+    const [follower, setFollower] = useState();
+    const singer_info = data[data.length - 1];
+
     useEffect(() => {
         const follower = singer_info.favorite.toString();
-        const result = follower.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, '.');
+        const result = follower.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, '.'); // add dot between 3 num
         setFollower(result);
     }, [singer_info.favorite]);
-
-  
 
     const handleTogglePlaySong = () => {
         dispatch(playMusic(!_isPlay));
@@ -38,12 +37,11 @@ function HeaderPageSinger({ data = [] }) {
                     <div className={cx('singer_name')}>
                         <h1> {singer_info?.name_singer}</h1>
 
-                        <button
-                            className={cx('icon_toggle_songs')}
-                            onClick={handleTogglePlaySong}
-                        >
-                            {_isPlay ? <Pause /> : <Play />}
-                        </button>
+                        <Button
+                            Icons={_isPlay ? Pause : Play}
+                            effectHover // effect type
+                            onHandle={handleTogglePlaySong}
+                        />
                     </div>
                     <span className={cx('extra_title')}>
                         {follower} người quan tâm

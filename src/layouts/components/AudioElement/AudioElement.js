@@ -25,8 +25,7 @@ function AudioElement(props, ref) {
     const _currentSong = useSelector(songCurrentSelector);
     let _currentIndex = useSelector(currentIndexSelector);
 
-    const currentSongSlugName = _dataSongs[_currentIndex]?.slug_name_music;
-
+    const currentSongSlugName = _dataSongs[_currentIndex]?.slug_name_music; 
     const renderListSongs = _dataSongs.map((item) => {
         return item.src_music;
     });
@@ -52,8 +51,7 @@ function AudioElement(props, ref) {
             }
         } else {
             _currentIndex = 0;
-        }
-        ref && ref.current.play();
+        } 
         dispatch(setCurrentID(_currentIndex));
         dispatch(currentSong(_currentIndex));
     };
@@ -61,7 +59,7 @@ function AudioElement(props, ref) {
     useEffect(() => { // get newSong
         const Fetch = async () => {
             const result = await newSongApi().then((data) => {
-                if(_dataSongs.length === 0) {
+                if(_dataSongs.length === 0 || _currentSong === undefined) {
                     dispatch(dataSongs(data)); 
                     dispatch(currentSong(data[_currentIndex]))
                 }
@@ -87,7 +85,7 @@ function AudioElement(props, ref) {
             }
         };
         fetch();
-    }, [_currentSong.slug_name_music]);
+    }, [_currentIndex]);
 
     useEffect(() => {
         localStorage.setItem('songRecent', JSON.stringify(_currentSong));

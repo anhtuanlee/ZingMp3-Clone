@@ -16,21 +16,19 @@ import {
     faShuffle,
     faStandardDefinition,
     faVolume,
-    faVolumeXmark
+    faVolumeXmark,
 } from '@cseitz/fontawesome-svg-light';
-import {
-    faHeart,
-    faWindowRestore
-} from '@fortawesome/free-regular-svg-icons';
+import { faHeart, faWindowRestore } from '@fortawesome/free-regular-svg-icons';
 import {
     faBackwardStep,
     faForwardStep,
     faPause,
-    faPlay
+    faPlay,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import images from '../../assets';
 import Image from '../Image';
+import WaveSong from './WaveSong';
 
 export const ButtonTheme = () => {
     return <Image src={images.iconTheme} icon />;
@@ -57,7 +55,7 @@ export const DowloadIcon = () => {
             ></path>
         </svg>
     );
-}; 
+};
 export const Setting = () => {
     return <FontAwesomeIcon icon={faGear} />;
 };
@@ -269,4 +267,7 @@ export const Volumn = () => {
 };
 export const VolumnOff = () => {
     return <FontAwesomeIcon icon={faVolumeXmark} />;
+};
+export const WaveSongPlay   = () => {
+    return <WaveSong />;
 };
