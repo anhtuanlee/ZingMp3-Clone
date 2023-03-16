@@ -5,6 +5,7 @@ import {
     DURATION_STORAGE,
     SONG_RECENT_STORAGE,
     VOLUME_STORAGE,
+    _idActiveSidebar,
     _isRandom,
     _isRepeat,
 } from '../config/localStorages';
@@ -18,6 +19,7 @@ import {
     CONTROL_REPEAT,
     CONTROL_VOLUME,
     CURRENT_INDEX,
+    ID_ACTIVE_SIDEBAR,
     PLAYLIST_SONGS,
     SONG_CURRENT,
     TIME_DISPLAY,
@@ -30,21 +32,21 @@ const initState = {
         isRepeat: _isRepeat ?? false,
         isRandom: _isRandom ?? false,
         isLoading: false,
-        isVolume:
-            JSON.parse(localStorage.getItem('current_Volume')) > 0
-                ? true
-                : false,
+        isVolume: VOLUME_STORAGE > 0 ? true : false,
     },
     feature: {
         dataSongs: DATA_SONGS ?? [],
         volume: VOLUME_STORAGE ?? 0,
-        songCurrent: SONG_RECENT_STORAGE ?? {} ,
+        songCurrent: SONG_RECENT_STORAGE ?? {},
         currentIndex: CURRENT_ID_STORAGE ?? 0,
         musicFavorite: {},
         times: {
             currentTime: CURRENT_TIME_STORAGE ? CURRENT_TIME_STORAGE : 0,
             duration: DURATION_STORAGE ? DURATION_STORAGE : 0,
         },
+    },
+    sidebar: {
+        idActive: _idActiveSidebar || 1 ,
     },
 };
 
@@ -156,6 +158,15 @@ export const rootReducer = (state = initState, action) => {
                 feature: {
                     ...state.feature,
                     volume: action.payload,
+                },
+            };
+        // SideBar
+        case ID_ACTIVE_SIDEBAR:
+            return {
+                ...state,
+                sidebar: {
+                    ...state.sidebar,
+                    idActive: action.payload,
                 },
             };
         default:

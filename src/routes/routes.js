@@ -22,11 +22,12 @@ export const privateRoutes = [
     },
     {
         path: config.album.path,
-        component: config.album.component, 
+        component: config.album.component,
     },
     {
         path: config.newupdate.path,
         component: config.newupdate.component,
+        layout: config.newupdate.layout,
     },
     {
         path: config.following.path,
@@ -43,5 +44,9 @@ export const privateRoutes = [
     {
         path: config.videogenre.path,
         component: config.videogenre.component,
+    },
+     {
+        path: config.errorpage.path,
+        component: config.errorpage.component,
     },
 ];

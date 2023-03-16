@@ -1,17 +1,14 @@
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PlayListSong from '../../../Feature/PlayListSong';
 import styles from '../Account.module.scss';
-import { getSingerData } from '../../../services';
-import { useState } from 'react';
 const cx = classNames.bind(styles);
 
 function ContentPageSinger({ data }) {
     const dataSlice = data.slice(0, 6); // slice render 6 song
-    const [dataFullSong, setDataFullSong] = useState([]);
-    const { nickname } = useParams();
+    const userSinger = data[data.length - 1].slug_name_singer 
     const resultRenderLeft = () => {
         if (dataSlice) {
             const result = dataSlice.map((song, index) => {
@@ -47,27 +44,19 @@ function ContentPageSinger({ data }) {
             return result;
         }
     };
-    const handleSendDataFullSong = () => {
-        const fetch = async () => {
-            const result = await getSingerData(nickname).then((data) => {
-                setDataFullSong(data);
-            });
-            return result;
-        };
-        fetch();
-    };
+
     return (
         <div className={cx('content_account_page')}>
             <div className={cx('container_songs_popular')}>
                 {/* title_section */}
                 <div className={cx('title_section')}>
                     <h3 className={cx('title_main')}>Bài Hát Nổi Bật</h3>
-                    <span className={cx('list_songs_section')}>
-                        <Link to="album" state={data}>
-                            <span onClick={handleSendDataFullSong}>TẤT CẢ</span>
-                        </Link>
-                        <FontAwesomeIcon icon={faChevronRight} />
-                    </span>
+                    <Link to="album" state={userSinger}> {/* clean code */}
+                        <span className={cx('list_songs_section')}>
+                            <span>TẤT CẢ</span>
+                            <FontAwesomeIcon icon={faChevronRight} />
+                        </span>
+                    </Link>
                 </div>
                 {/* list songs */}
                 <div className={cx('list_songs')}>

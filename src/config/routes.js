@@ -1,14 +1,16 @@
-import Home from '../pages/Home';
-import Mymusic from '../pages/Mymusic';
-import NewUpdate from '../pages/NewUpdate';
-import { AccountLayout } from '../layouts';
-import Zingchart from '../pages/Zingchart'; 
-import Following from '../pages/Following';
-import Category from '../pages/Category';
-import Top100 from '../pages/Top100';
-import Mv from '../pages/Mv';
+import { useLocation } from 'react-router-dom';
+import { AccountLayout, NewSongLayout } from '../layouts';
 import AccountPage from '../pages/Account/Account';
 import Album from '../pages/Album';
+import Category from '../pages/Category';
+import Error from '../pages/Error';
+import Following from '../pages/Following';
+import Home from '../pages/Home';
+import Mv from '../pages/Mv';
+import Mymusic from '../pages/Mymusic';
+import NewSongs from '../pages/NewSongs';
+import Top100 from '../pages/Top100';
+import Zingchart from '../pages/Zingchart';
 
 const config = {
     home: {
@@ -34,8 +36,9 @@ const config = {
         path: ':nickname/album',
     },
     newupdate: {
-        component: NewUpdate,
-        path: 'newupdate',
+        component: NewSongs,
+        path: 'new-songs',
+        layout: NewSongLayout,
     },
     following: {
         component: Following,
@@ -52,6 +55,10 @@ const config = {
     videogenre: {
         component: Mv,
         path: 'the-loai-video',
+    },
+    errorpage: {
+        component: Error,
+        path: '*',
     },
 };
 export default config;

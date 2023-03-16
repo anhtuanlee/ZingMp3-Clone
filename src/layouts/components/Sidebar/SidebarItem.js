@@ -1,15 +1,15 @@
 import classNames from 'classnames/bind';
+import { useState } from 'react';
 import Button from '../../../components/Button';
 import styles from './Sidebar.module.scss';
 
 const cx = classNames.bind(styles);
-function SidebarItem({ data, isActive, onClick }) {
-    // nhận isActive để xác định xem giá trị đó có trùng với khi Click hay không. Nếu trùng thì nó mới thêm 'active'
-
+function SidebarItem({ data, onClick, isActive, dataset }) {
     return (
         <li
-            className={cx('sidebar_item', isActive ? 'active' : '')}
+            className={cx('sidebar_item', isActive ? 'isActive' : '')}
             onClick={onClick}
+            data-index={dataset}
         >
             <Button
                 LeftIcons={data.icon}

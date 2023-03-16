@@ -42,10 +42,10 @@
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    width: 32px;
-    height: 32px;
+    width: 35px;
+    height: 35px;
     font-size: 20px;
-    padding: 10px;
+    padding: 15px;
     margin: 0 10px;
     &:hover {
         filter: brightness(0.9);
@@ -91,17 +91,18 @@
 }
 .effectHover {
     font-size: 23px;
-    margin-left: 20px;
+    margin-left: 10px;
     border: none;
     outline: none;
-    width: 52px;
-    height: 52px;
+    padding: 10px;
+    width: 40px;
+    height: 40px;
     border-radius: 100px;
     color: var(--purple-primary);
     position: relative;
     display: flex;
     align-items: center;
-    justify-content: center; 
+    justify-content: center;
     background-color: var(--text-primary);
     z-index: 0;
     &:hover {
@@ -130,24 +131,36 @@
         border-radius: 100px;
     }
 }
-// Sizes 
+// Sizes
 .small {
     padding: 0;
     width: 34px;
     height: 34px;
     font-size: 16px;
+    margin: 0 5px;
 }
 .normal {
     font-size: 14px;
     font-weight: 600;
     height: 40px;
+    padding: 20px;
 }
 .medium {
     padding: 16px !important;
     width: 38px;
     height: 38px;
-    margin: 0 4px;
     font-size: 18px;
+}
+.large {
+    width: 52px;
+    height: 52px;
+}
+.big {
+    font-size: 18px;
+    font-weight: 700;
+    padding:  18px;
+    color: var(--text-primary);
+    border-radius: 10px;
 }
 // Custom Icons
 

@@ -1,0 +1,44 @@
+.wrapper { 
+    margin-bottom: 90px;
+    .header_section {
+        display: flex;
+        align-items: center;
+        font-size: 40px;
+    }
+    .content_section {
+        margin-top: 30px;
+        .songs_playlist {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .song_title_rank {
+            color: var(--text-secondary);
+            font-size: 15px;
+            flex: 0;
+        }
+        .number_title {
+            flex: 0;
+            -webkit-text-stroke: 1.5px var(--text-secondary);
+            color: var(--text-secondary);
+            font-size: 32px;
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            justify-content: center;
+            min-width: 38px;
+        }
+        .song_section {
+            flex: 2;
+        }
+    }
+}
+
+.loading {
+    width: 100%;
+    height: calc(100vh - 240px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-loading);
+    opacity: 0.5;
+}

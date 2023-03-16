@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { faSearch, faXmark } from '@cseitz/fontawesome-svg-light';
 import Tippy from '@tippyjs/react/headless';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDebounce } from '../../hooks';
 import { SearchApi } from '../../services';
 import { AccountPropose, MusicPropose } from '../Propose';
- 
 
 import classNames from 'classnames/bind';
 import styles from './Search.module.scss';
@@ -21,10 +20,12 @@ function Search() {
 
     useEffect(() => {
         const Fetch = async () => {
-            const result = await SearchApi(debounce).then((data) => {
-                value && setSearchResult(data);
-            });
-            return result;
+            if (value) {
+                const result = await SearchApi(debounce).then((data) => {
+                    value && setSearchResult(data);
+                });
+                return result;
+            }
         };
         Fetch();
     }, [debounce]);
@@ -32,6 +33,7 @@ function Search() {
     // handle Event
     const handleType = (e) => {
         setValue(e.target.value);
+
         if (!e.target.value) {
             setSearchResult([]);
         }
@@ -119,4 +121,4 @@ function Search() {
     );
 }
 
-export default Search;
+export default React.memo(Search);

@@ -42,7 +42,12 @@
     font-size: 12px;
     margin-top: 1px;
     color: var(--text-secondary);
-    padding-right: 10px;
+    padding-right: 10px; 
+
+    &:hover {
+        color:var(--link-text-hover);
+        text-decoration: underline;
+    }
 }
 .media_custom {
     display: flex;

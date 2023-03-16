@@ -1,11 +1,9 @@
 .song_item_container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     padding: 10px;
     border-bottom: 1px solid var(--border-secondary);
     border-radius: 5px;
-
     &:hover {
         background-color: var(--hover-blur-bg);
     }
@@ -26,6 +24,12 @@
     &:hover .icon_inner_avatar {
         opacity: 1;
     }
+}
+.container_song_section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 }
 .songs_item_left {
     display: flex;
@@ -57,6 +61,11 @@
             color: var(--text-secondary);
             padding: 0 4px;
             font-weight: 500;
+
+            &:hover {
+                text-decoration: underline;
+                color: var(--link-text-hover);
+            }
         }
     }
     .icon_inner_avatar {
@@ -85,4 +94,42 @@
         font-weight: 500;
         color: var(--text-secondary);
     }
+}
+
+.song_prefix {
+    width: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.number_title {
+    -webkit-text-stroke: 1.5px var(--text-primary);
+    opacity: 0.7;
+    font-weight: 600;
+    color: rgba(74, 144, 226, 0);
+    font-size: 32px;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    justify-content: center;
+    min-width: 38px;
+
+    .is-top-rank-1,
+    .is-top-rank-2,
+    .is-top-rank-3 {
+        color: rgba(74, 144, 226, 0);
+    }
+
+    &.is-top-rank-1 {
+        -webkit-text-stroke-color: #4a90e2;
+    }
+    &.is-top-rank-2 {
+        -webkit-text-stroke-color: #50e3c2;
+    }
+    &.is-top-rank-3 {
+        -webkit-text-stroke-color: #e35050;
+    }
+}
+.song_title_rank {
+    color: var(--text-secondary);
+    font-size: 15px;
 }

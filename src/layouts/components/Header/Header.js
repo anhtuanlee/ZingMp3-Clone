@@ -3,11 +3,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 import {
-    ButtonTheme, DowloadIcon,
-    IconsVIP, Setting
+    ButtonTheme,
+    DowloadIcon,
+    IconsVIP,
+    Setting,
 } from '../../../components/Icons';
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '../../../components/Button/Button';
 import Image from '../../../components/Image';
 import Search from '../../../components/Search';
@@ -21,7 +23,7 @@ const cx = classNames.bind(styles);
 function Header({ styles }) {
     const [scrollY, setScrollY] = useState(0);
 
-    const onHandle = (item) => { 
+    const onHandle = (item) => {
         switch (item.type) {
             case 'language':
                 console.log('2222');
@@ -91,4 +93,4 @@ function Header({ styles }) {
 Header.propTypes = {
     styles: PropTypes.string,
 };
-export default Header;
+export default  React.memo(Header);

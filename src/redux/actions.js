@@ -13,6 +13,7 @@ import {
     SONG_CURRENT,
     VOLUME,
     CONTROL_SETUP,
+    ID_ACTIVE_SIDEBAR,
 } from './constant';
 
 export const playMusic = (data) => {
@@ -95,5 +96,11 @@ export const currentVolume = (vol) => {
     return {
         type: VOLUME,
         payload: vol,
+    };
+};
+export const activeSidebar = (id) => {
+    return {
+        type: ID_ACTIVE_SIDEBAR,
+        payload: id,
     };
 };

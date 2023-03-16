@@ -1,3 +1,4 @@
+import images from '../assets';
 import Button from '../components/Button';
 import {
     Ads,
@@ -13,6 +14,15 @@ import {
     Quality,
     ThemeMusic,
     Upload,
+    Category,
+    Chart,
+    Discover,
+    Following,
+    Mv,
+    NewSong,
+    Private,
+    Radio,
+    Star,
 } from '../components/Icons';
 
 // controls
@@ -30,6 +40,11 @@ export const CURRENT_INDEX = 'current-index';
 export const PLAYLIST_SONGS = 'playlist';
 export const SONG_CURRENT = 'songcurrent';
 export const VOLUME = 'volume';
+
+//sidebar
+export const ID_ACTIVE_SIDEBAR = 'id_active_sidebar'
+
+
 
 // MENU action and button
 export const MENU_ACTIONS_RIGHT = [
@@ -150,3 +165,69 @@ export const renderFeatureRight = (onHandle) => {
     });
     return result;
 };
+export const SIDEBAR_MENU = [
+    {
+        title: 'Cá nhân',
+        icon: Private,
+        to: '/mymusic',
+    },
+    {
+        title: 'Khám Phá',
+        icon: Discover,
+        to: '/',
+    },
+    {
+        title: '#zingchart',
+        icon: Chart,
+        to: '/zing-chart',
+    },
+    {
+        title: 'Radio',
+        icon: Radio,
+        to: '/',
+    },
+    {
+        title: 'Theo Dõi',
+        icon: Following,
+        to: '/following',
+    },
+    {
+        title: 'Nhạc Mới',
+        icon: NewSong,
+        spederate: true,
+        to: '/new-songs',
+    },
+    {
+        title: 'Thể Loại',
+        icon: Category,
+        to: '/category',
+    },
+    {
+        title: 'Top 100',
+        icon: Star,
+        to: '/',
+    },
+    {
+        title: 'MV',
+        icon: Mv,
+        to: '/the-loai-video',
+    },
+];
+export const BANNER_SLIDERS = [
+    {
+        banner: images.bannerSlider[0],
+        to: 'new-songs',
+    },
+    {
+        banner: images.bannerSlider[1],
+        to: '/',
+    },
+    {
+        banner: images.bannerSlider[2],
+        to: '/',
+    },
+    {
+        banner: images.bannerSlider[3],
+        to: '/',
+    },
+];

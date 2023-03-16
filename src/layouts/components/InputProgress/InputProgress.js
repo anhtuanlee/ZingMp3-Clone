@@ -64,7 +64,7 @@ function InputProgress({
         return {
             ...style,
             backgroundSize: `${
-                ((audioType ? valueTime : _isVolume ? valueVolume : 0) * 100) /
+                ((audioType ? valueTime ? valueTime : 0 : _isVolume ? valueVolume : 0) * 100) /
                 max
             }% 100%`,
         };

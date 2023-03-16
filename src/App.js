@@ -19,12 +19,12 @@ function App() {
                                         <Layout>
                                             <Comp />
                                         </Layout>
-                                        <div className="control_music" >
+                                        <div className="control_music">
                                             <Controls />
                                         </div>
                                     </div>
                                 }
-                            />
+                            ></Route>
                         );
                     })}
                 </Routes>

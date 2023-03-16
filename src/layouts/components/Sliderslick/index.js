@@ -1,25 +1,24 @@
-import images from '../../../assets';
-import Images from '../../../components/Image';
+import 'keen-slider/keen-slider.min.css';
 import React, { useState } from 'react';
 import { useKeenSlider } from 'keen-slider/react';
-import 'keen-slider/keen-slider.min.css';
 import { Link } from 'react-router-dom';
-
-import Arrow from './Arrow';
 import styles from './Sliderslick.module.scss';
 import classNames from 'classnames/bind';
 
+import Images from '../../../components/Image';
+import { BANNER_SLIDERS } from '../../../redux/constant';
+import Arrow from './Arrow';
+
 const cx = classNames.bind(styles);
 function SliderSlick() {
-    const img = images.bannerSlider;
     const [arrowShow, setArrowShow] = useState(false);
-    const renderBanner = img.map((item, index) => {
+    const renderBanner = BANNER_SLIDERS.map((item, index) => {
         return (
             <div className={cx('card_banners')} key={index}>
                 <div className={`keen-slider__slide number-slide${index + 1}`}>
-                    <Link to="/">
+                    <Link to={item.to}>
                         <figure className={cx('banner_items')}>
-                            <Images src={item} />
+                            <Images src={item.banner} />
                         </figure>
                     </Link>
                 </div>
@@ -29,8 +28,8 @@ function SliderSlick() {
 
     const [sliderRef, instanceRef] = useKeenSlider(
         {
-            loop: true, 
-            drag: false ,
+            loop: true,
+            drag: false,
             slides: {
                 perView: 3,
                 spacing: 15,
@@ -41,7 +40,7 @@ function SliderSlick() {
             (slider) => {
                 let timeout;
                 let mouseOver = false;
-                function clearNextTimeout() { 
+                function clearNextTimeout() {
                     clearTimeout(timeout);
                 }
                 function nextTimeout() {
@@ -81,7 +80,6 @@ function SliderSlick() {
                     <Arrow
                         left
                         onClick={(e) => {
-                            console.log(sliderRef.current);
                             e.stopPropagation() || instanceRef.current.prev();
                         }}
                     />

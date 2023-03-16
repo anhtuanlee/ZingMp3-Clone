@@ -1,0 +1,66 @@
+.wrapper {
+    position: relative;
+    padding: 0;
+    height: calc(100vh - 160px);
+
+    .box1,
+    .box2,
+    .box3 {
+        position: absolute;
+        inset: 0;
+    }
+    .box1 {
+        background: url('https://cdn1.hoanghamobile.com/tin-tuc/wp-content/uploads/2020/08/Zingmp3-1.jpg')
+            top/cover no-repeat;
+    }
+    .box2 {
+        background-image: linear-gradient(
+            180deg,
+            hsla(0, 0%, 100%, 0) 40%,
+            var(--primary)
+        );
+        z-index: 3;
+    }
+    .box3 {
+        opacity: 0.8;
+        z-index: 4;
+        background-image: linear-gradient(
+            180deg,
+            var(--primary),
+            var(--primary)
+        );
+    }
+
+    @import url('https://fonts.googleapis.com/css?family=Montserrat:300');
+
+    .content {
+        color: var(--text-primary);
+        font-family: 'Montserrat', sans-serif;
+        font-size: 16px;
+        position: relative;
+        z-index: 22222; 
+        transform: translate(20%,20%);
+        h1 {
+            font-size: 30vh;
+        }
+        h2 span {
+            font-size: 4rem;
+            font-weight: 600;
+        }
+        a:link,
+        a:visited {
+            text-decoration: none;
+            color: var(--text-secondary);
+        }
+        h3 a:hover {
+            text-decoration: none;
+
+            color: var(--link-text-hover);
+            cursor: pointer;
+        }
+        .btn-return {
+            margin-top: 20px;
+            display: inline-flex;
+        }
+    }
+}

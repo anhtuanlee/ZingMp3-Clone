@@ -1,5 +1,5 @@
-function Account() {
-    return <h3>Account Pages</h3>;
+function Mv() {
+    return <h3>Mv Pages</h3>;
 }
 
-export default Account;
+export default Mv;

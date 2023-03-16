@@ -25,8 +25,8 @@ function ActionRight() {
                     Icons={item.icon}
                     key={index}
                     extraTitle={item.title}
-                    circle_hide
-                    sizes="medium"
+                    circle_hide   
+                    sizes='small'
                     onHandle={() => onHandle(item)}
                 />
             );

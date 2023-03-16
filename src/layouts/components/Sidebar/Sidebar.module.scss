@@ -34,7 +34,7 @@
         border-left: 3px solid transparent;
     }
 }
-.sidebar_item.active a {
+.sidebar_item.isActive a {
     background-color: var(--hover-blur-bg);
     color: var(--text-primary) !important;
     border-left: 3px solid var(--purple-primary);

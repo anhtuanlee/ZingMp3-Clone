@@ -8,9 +8,9 @@
     width: 50px;
     height: 18px;
     .block {
-        width: 0.22rem;
+        width: 4px;
         background: white;
-        margin-left: 2px;
+        margin-left: 1.5px;
         animation: movement 0.8s ease infinite 0s;
     }
     .block:nth-child(1) {

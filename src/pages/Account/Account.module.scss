@@ -5,7 +5,7 @@
 .header_account_page {
     height: 300px;
     .header_box {
-        padding: 0 60px;
+        padding: var(--padding-section);
     }
     padding-top: 135px;
     .box_singer {
@@ -46,7 +46,7 @@
     .container_songs_popular {
         width: 100%;
         background-color: var(--primary);
-        padding: 0 60px;
+        padding: var(--padding-section);
     }
     .title_section {
         display: flex;

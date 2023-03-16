@@ -31,24 +31,8 @@ function AccountPropose({ data = [], onHandle }) {
     const imgError =
         'https://placehold.jp/3d4070/ffffff/150x150.png?text=No_Image';
 
-    useEffect(() => {
-        const slug_singer_name = result.slug_name_singer;
-        const fetchDataSingers = async () => {
-            const dataResult = await getSingerData(slug_singer_name).then(
-                (data) => {
-                    setSingerData(data);
-                },
-            );
-            return dataResult;
-        };
-        fetchDataSingers();
-    }, [data]);
     return (
-        <Link
-            className={cx('wrapper')}
-            state={singerData}
-            to={`/${result.slug_name_singer}`}
-        >
+        <Link className={cx('wrapper')} to={`/${result.slug_name_singer}`} state={result.slug_name_singer}>
             <div className={cx('user_account')} onClick={onHandle}>
                 <Images
                     className={cx('avatar')}
@@ -67,7 +51,8 @@ function AccountPropose({ data = [], onHandle }) {
                             className={cx('icon_dot')}
                         />
                         <span className={cx('follower')}>
-                            {`${ // handle custom render favorrite
+                            {`${
+                                // handle custom render favorrite
                                 favorite > 1000
                                     ? (favorite / 1000).toString().slice(0, 3) +
                                       'M'

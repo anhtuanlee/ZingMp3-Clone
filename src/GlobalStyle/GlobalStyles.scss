@@ -12,16 +12,17 @@
     --text-primary: #fff;
     --text-blur: #756a87;
     --text-secondary: hsla(0, 0%, 100%, 0.5);
+    --link-text-hover: #c273edb7;
 
     --button-hide: #595362;
     --search-text: #dadada;
     
 
     --hover-blur-bg: hsla(0, 0%, 100%, 0.1);
-    --link-text-hover: #c273ed;
 
     --border-player: hsla(0, 0%, 100%, 0.1);
     --border-secondary: hsla(0, 0%, 100%, 0.05);
+    --padding-section: 0 60px ;
 }
 * {
     margin: 0;
@@ -47,6 +48,7 @@ body {
     background-color: var(--primary);
     width: 100%;
     height: 90px;
+    z-index: 99999;
 }
 
 button,

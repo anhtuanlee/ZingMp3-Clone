@@ -15,3 +15,7 @@ export const DATA_SONGS = JSON.parse(localStorage.getItem('listSongsData'));
 
 export const _isRepeat = JSON.parse(localStorage.getItem('isRepeat'));
 export const _isRandom = JSON.parse(localStorage.getItem('isRandom'));
+
+export const _idActiveSidebar = JSON.parse(
+    localStorage.getItem('idActiveSidebar'),
+); 

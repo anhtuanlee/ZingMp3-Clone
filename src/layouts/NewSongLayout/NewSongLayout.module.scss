@@ -1,0 +1,54 @@
+.wrapper {
+    display: flex;
+}
+.sidbar {
+    height: calc(100vh - 90px);
+    width: 240px;
+}
+
+.main_page {
+    position: relative;
+    width: calc(100% - 240px);
+    height: 100%;
+    background-color: var(--primary);
+    .box {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 380px;
+        background: url(https://zjs.zmdcdn.me/zmp3-desktop/releases/v1.9.9/static/media/new-release-bg.73d8f976.jpg)
+            top/cover no-repeat;
+    }
+    .box-1 {
+        z-index: 3;
+    }
+    .box-2 {
+        background-image: linear-gradient(
+            180deg,
+            hsla(0, 0%, 100%, 0) 37%,
+            var(--primary)
+        );
+        z-index: 3;
+    }
+    .box-3 {
+        opacity: 0.8;
+        z-index: 4;
+        background-image: linear-gradient(
+            180deg,
+            var(--primary),
+            var(--primary)
+        );
+    }
+}
+.header {
+    box-shadow: none;
+    border: none;
+}
+.content {
+    padding: var(--padding-section);
+    margin-top: 70px;
+    position: relative;
+    z-index: 222;
+}

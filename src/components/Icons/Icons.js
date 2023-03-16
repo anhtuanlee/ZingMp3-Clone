@@ -14,9 +14,8 @@ import {
     faRectangleAd,
     faRepeat,
     faShuffle,
-    faStandardDefinition,
-    faVolume,
-    faVolumeXmark,
+    faStandardDefinition, faVolume,
+    faVolumeXmark
 } from '@cseitz/fontawesome-svg-light';
 import { faHeart, faWindowRestore } from '@fortawesome/free-regular-svg-icons';
 import {
@@ -24,6 +23,7 @@ import {
     faForwardStep,
     faPause,
     faPlay,
+    faSubtract
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import images from '../../assets';
@@ -268,6 +268,9 @@ export const Volumn = () => {
 export const VolumnOff = () => {
     return <FontAwesomeIcon icon={faVolumeXmark} />;
 };
-export const WaveSongPlay   = () => {
+export const WaveSongPlay = () => {
     return <WaveSong />;
+};
+export const SubTract = () => {
+    return <FontAwesomeIcon icon={faSubtract} />;
 };

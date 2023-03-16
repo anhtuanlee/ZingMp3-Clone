@@ -25,7 +25,7 @@ function AudioElement(props, ref) {
     const _currentSong = useSelector(songCurrentSelector);
     let _currentIndex = useSelector(currentIndexSelector);
 
-    const currentSongSlugName = _dataSongs[_currentIndex]?.slug_name_music; 
+    const currentSongSlugName = _dataSongs[_currentIndex]?.slug_name_music;
     const renderListSongs = _dataSongs.map((item) => {
         return item.src_music;
     });
@@ -51,25 +51,27 @@ function AudioElement(props, ref) {
             }
         } else {
             _currentIndex = 0;
-        } 
+        }
         dispatch(setCurrentID(_currentIndex));
         dispatch(currentSong(_currentIndex));
     };
 
-    useEffect(() => { // get newSong
+    useEffect(() => {
+        // get newSong
         const Fetch = async () => {
-            const result = await newSongApi().then((data) => {
-                if(_dataSongs.length === 0 || _currentSong === undefined) {
-                    dispatch(dataSongs(data)); 
-                    dispatch(currentSong(data[_currentIndex]))
-                }
-            });
-            return result;
+            if (_dataSongs.length === 0 || _currentSong === undefined) {
+                const result = await newSongApi().then((data) => {
+                    dispatch(dataSongs(data));
+                    dispatch(currentSong(data[_currentIndex]));
+                });
+                return result;
+            }
         };
 
         Fetch();
     }, []);
-    useEffect(() => { // get music api 
+    useEffect(() => {
+        // get music api
         const fetch = async () => {
             if (currentSongSlugName) {
                 dispatch(loading(true));

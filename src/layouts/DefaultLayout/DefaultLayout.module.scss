@@ -3,16 +3,15 @@
 }
 .sidbar {
     height: calc(100vh - 90px);
-    width: 240px;
+    width: 240px; 
 }
 
 .main_page {
-    background-color: var(--primary);
-    height: 2000px; 
+    background-color: var(--primary); 
     width: calc(100% - 240px);
+    
 }
-.content {
-    padding: 0 60px;
+.content { 
     margin-top: 70px;
 }
 
