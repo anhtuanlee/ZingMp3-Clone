@@ -4,11 +4,17 @@ import styles from './InputProgress.module.scss';
 import PropTypes from 'prop-types';
 import { currentVolume, volume } from '../../../redux/actions';
 import {
+    isLoadingSelector,
     isVolumeSelector,
+    songCurrentSelector,
     timesSelector,
     volumeSelector,
 } from '../../../redux/selector';
 import { useDispatch, useSelector } from 'react-redux';
+import {
+    CURRENT_TIME_STORAGE,
+    SONG_RECENT_STORAGE,
+} from '../../../config/localStorages';
 const cx = classNames.bind(styles);
 
 function InputProgress({
@@ -25,21 +31,20 @@ function InputProgress({
     const _times = useSelector(timesSelector);
     const _isVolume = useSelector(isVolumeSelector);
     const volumeCurrent = useSelector(volumeSelector);
+    const _songCurrent = useSelector(songCurrentSelector);
     const progressRef = useRef();
 
     const [valueTime, setValue] = useState(() => {
-        const seekTime = JSON.parse(localStorage.getItem('currentTime'));
-        const duration = JSON.parse(
-            localStorage.getItem('songRecent'),
-        )?.seconds;
-        const percentValue = Math.floor((seekTime / duration) * 100);
+        const percentValue = Math.floor(
+            (CURRENT_TIME_STORAGE / SONG_RECENT_STORAGE?.seconds) * 100,
+        );
         return percentValue ? percentValue : 0;
     });
-
+    const [inputEffectLoading, setInputEffectLoading] = useState();
+    const _isLoading = useSelector(isLoadingSelector);
     const [valueVolume, setValueVolume] = useState(() => {
         return volumeCurrent * 10;
     });
-
     const handleTypeInput = (e) => {
         if (audioRef) {
             if (audioType) {
@@ -60,37 +65,43 @@ function InputProgress({
             }
         }
     };
-    const setBackgroundSizes = () => {
-        return {
+
+    useEffect(() => {
+        setInputEffectLoading({
             ...style,
             backgroundSize: `${
-                ((audioType ? valueTime ? valueTime : 0 : _isVolume ? valueVolume : 0) * 100) /
+                ((audioType
+                    ? valueTime
+                        ? valueTime
+                        : 0
+                    : _isVolume
+                    ? valueVolume
+                    : 0) *
+                    100) /
                 max
             }% 100%`,
-        };
-    };
-
+        });
+    }, [valueTime, valueVolume, _isLoading]);
     // seektime play
     useEffect(() => {
         if (audioRef) {
             const percentValue = String(
-                Math.floor((_times.currentTime / _times.duration) * 100),
+                Math.floor((_times.currentTime / _songCurrent.seconds) * 100),
             );
             if (percentValue !== null) {
                 setValue(percentValue);
+            } else {
+                setValue(0);
             }
         }
     }, [_times.currentTime]);
     useEffect(() => {
         if (audioRef) {
-            const recentValue = JSON.parse(localStorage.getItem('currentTime'));
-
-            if (recentValue !== null) {
-                audioRef.current.currentTime = String(recentValue);
+            if (CURRENT_TIME_STORAGE !== null) {
+                audioRef.current.currentTime = CURRENT_TIME_STORAGE;
             }
         }
     }, []);
-
     // seek volume
     useEffect(() => {
         if (audioRef) {
@@ -116,12 +127,20 @@ function InputProgress({
     return (
         <input
             type="range"
-            value={audioType ? valueTime : _isVolume ? valueVolume : 0}
+            value={
+                audioType
+                    ? valueTime
+                        ? valueTime
+                        : 0
+                    : _isVolume
+                    ? valueVolume
+                    : 0
+            }
             max={max}
             min={min}
             step={step}
             onInput={(e) => handleTypeInput(e)}
-            style={setBackgroundSizes()}
+            style={inputEffectLoading}
             className={cx('progress_input', classes)}
             ref={progressRef}
         />

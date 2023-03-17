@@ -5,7 +5,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { ButtonEffectPlay } from '../../components/Button';
 import PlayListSong from '../../Feature/PlayListSong';
 import { activeSidebar } from '../../redux/actions';
-import { getSingerData } from '../../services';
+import { getSingerDataApi } from '../../services';
 import Loading from '../Loading';
 import styles from './Album.module.scss';
 const cx = classNames.bind(styles);
@@ -20,7 +20,7 @@ function Album() {
         const fetch = async () => {
             if (dataFullSongs.length === 0) {
                 try {
-                    const result = await getSingerData(nickname).then(
+                    const result = await getSingerDataApi(nickname).then(
                         (dataFullSong) => {
                             setDataSinger(dataFullSong);
                             setCurrentSinger(

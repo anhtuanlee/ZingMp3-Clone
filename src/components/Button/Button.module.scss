@@ -55,10 +55,16 @@
 .active {
     color: var(--purple-primary);
 }
-.text {
-    width: 240px;
-    height: 44px;
-    padding: 12px 20px 12px 17px;
+.text { 
+    padding: 5px 24px;
+    font-size: 12px;
+    margin: 0;
+    margin-right: 15px;
+    background-color: transparent;
+    border-radius: 100px;
+    border: 1px solid var(--border-player);
+    text-transform: uppercase;
+    font-weight: 400;
 }
 .border {
     font-size: 18px;
@@ -156,11 +162,12 @@
     height: 52px;
 }
 .big {
-    font-size: 18px;
+    font-size: 25px;
     font-weight: 700;
-    padding:  18px;
+    padding: 18px;
     color: var(--text-primary);
-    border-radius: 10px;
+    border-radius: 20px;
+    margin: 0 5px;
 }
 // Custom Icons
 
@@ -190,4 +197,9 @@
     to {
         transform: rotate(360deg);
     }
+}
+
+// add isActive button component 
+.isActive {
+    background-color: var(--purple-primary); 
 }

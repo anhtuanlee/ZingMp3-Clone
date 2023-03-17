@@ -1,5 +1,6 @@
 import { useLocation } from 'react-router-dom';
 import { AccountLayout, NewSongLayout } from '../layouts';
+import MainPageLayout from '../layouts/MainPageLayout';
 import AccountPage from '../pages/Account/Account';
 import Album from '../pages/Album';
 import Category from '../pages/Category';
@@ -10,12 +11,14 @@ import Mv from '../pages/Mv';
 import Mymusic from '../pages/Mymusic';
 import NewSongs from '../pages/NewSongs';
 import Top100 from '../pages/Top100';
+import Trending from '../pages/Trending';
 import Zingchart from '../pages/Zingchart';
 
 const config = {
     home: {
         component: Home,
         path: '/',
+        layout: MainPageLayout,
     },
     mymusic: {
         component: Mymusic,
@@ -55,6 +58,10 @@ const config = {
     videogenre: {
         component: Mv,
         path: 'the-loai-video',
+    },
+    trending: {
+        component: Trending,
+        path: 'top-trending',
     },
     errorpage: {
         component: Error,

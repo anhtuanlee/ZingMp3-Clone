@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { activeSidebar } from '../../redux/actions';
-import { getSingerData } from '../../services';
+import { getSingerDataApi } from '../../services';
 import Loading from '../Loading';
 import styles from './Account.module.scss';
 import ContentPageSinger from './ContentPageSinger/ContentPageSinger';
@@ -19,7 +19,7 @@ function AccountPage() {
     useEffect(() => {
         const fetch = async () => {
             try {
-                const result = await getSingerData(nickname).then((data) => {
+                const result = await getSingerDataApi(nickname,6).then((data) => {
                     setDataSinger(data);
                 });
                 return result;

@@ -31,7 +31,7 @@ function AudioElement(props, ref) {
     });
     //Event
     const handleTimeUpdate = (e) => {
-        dispatch(setTimes(e.target.currentTime, e.target.duration));
+        dispatch(setTimes(e.target.currentTime));
         localStorage.setItem(
             'currentTime',
             JSON.stringify(e.target.currentTime),
@@ -87,7 +87,7 @@ function AudioElement(props, ref) {
             }
         };
         fetch();
-    }, [_currentIndex]);
+    }, [currentSongSlugName]);
 
     useEffect(() => {
         localStorage.setItem('songRecent', JSON.stringify(_currentSong));

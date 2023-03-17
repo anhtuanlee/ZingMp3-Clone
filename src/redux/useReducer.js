@@ -1,13 +1,10 @@
 import {
     CURRENT_ID_STORAGE,
-    CURRENT_TIME_STORAGE,
-    DATA_SONGS,
-    DURATION_STORAGE,
-    SONG_RECENT_STORAGE,
+    CURRENT_TIME_STORAGE, DATA_SONGS_RECENT, SONG_RECENT_STORAGE,
     VOLUME_STORAGE,
     _idActiveSidebar,
     _isRandom,
-    _isRepeat,
+    _isRepeat
 } from '../config/localStorages';
 import {
     CONTROL_LOADING,
@@ -23,7 +20,7 @@ import {
     PLAYLIST_SONGS,
     SONG_CURRENT,
     TIME_DISPLAY,
-    VOLUME,
+    VOLUME
 } from './constant';
 
 const initState = {
@@ -35,14 +32,13 @@ const initState = {
         isVolume: VOLUME_STORAGE > 0 ? true : false,
     },
     feature: {
-        dataSongs: DATA_SONGS ?? [],
+        dataSongs: DATA_SONGS_RECENT ?? [],
         volume: VOLUME_STORAGE ?? 0,
         songCurrent: SONG_RECENT_STORAGE ?? {},
         currentIndex: CURRENT_ID_STORAGE ?? 0,
         musicFavorite: {},
         times: {
-            currentTime: CURRENT_TIME_STORAGE ? CURRENT_TIME_STORAGE : 0,
-            duration: DURATION_STORAGE ? DURATION_STORAGE : 0,
+            currentTime: CURRENT_TIME_STORAGE ? CURRENT_TIME_STORAGE : 0, 
         },
     },
     sidebar: {

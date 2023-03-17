@@ -1,17 +1,28 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import SliderSlick from '../../layouts/components/Sliderslick'; 
+import SliderSlick from '../../layouts/components/Sliderslick';
 import { activeSidebar } from '../../redux/actions';
+import Content from '../../components/Content';
+import classNames from 'classnames/bind';
+import styles from './Home.module.scss';
 
+const cx = classNames.bind(styles);
 function Home() {
-    const [showSlider, setShowSlider] = useState(false);
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     useEffect(() => {
-        setShowSlider(true);
-        dispatch(activeSidebar(1))
+        dispatch(activeSidebar(1));
     }, []);
 
-    return <div>{showSlider && <SliderSlick />}</div>;
+    return (
+        <div className={cx('wrapper')}>
+            <div className={cx('slider_slick')}>
+                <SliderSlick />
+            </div>
+            <div className={cx('content_container')}>
+                <Content />
+            </div>
+        </div>
+    );
 }
 
 export default Home;

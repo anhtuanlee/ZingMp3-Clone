@@ -4,7 +4,7 @@ export const publicRoutes = [];
 export const privateRoutes = [
     {
         path: config.home.path,
-        component: config.home.component,
+        component: config.home.component, 
     },
     {
         path: config.mymusic.path,
@@ -45,8 +45,12 @@ export const privateRoutes = [
         path: config.videogenre.path,
         component: config.videogenre.component,
     },
-     {
+    {
         path: config.errorpage.path,
         component: config.errorpage.component,
+    },
+    {
+        path: config.trending.path,
+        component: config.trending.component,
     },
 ];

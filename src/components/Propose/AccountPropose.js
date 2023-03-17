@@ -6,8 +6,9 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Images from '../../components/Image';
+import { useConvertNumber } from '../../hooks/useConvertNumber';
 import { dataSongs, playMusic } from '../../redux/actions';
-import { getSingerData } from '../../services';
+import { getSingerDataApi } from '../../services';
 import styles from './Propose.module.scss';
 const cx = classNames.bind(styles);
 
@@ -24,15 +25,18 @@ function AccountPropose({ data = [], onHandle }) {
         const result = item.charAt(0).toUpperCase() + item.slice(1) + ' ';
         return result;
     });
-
+    const favorite = useConvertNumber(result.favorite);
     //favorite
-    const favorite = result.favorite / 1000;
     const imgs = result.image_music;
     const imgError =
         'https://placehold.jp/3d4070/ffffff/150x150.png?text=No_Image';
 
     return (
-        <Link className={cx('wrapper')} to={`/${result.slug_name_singer}`} state={result.slug_name_singer}>
+        <Link
+            className={cx('wrapper')}
+            to={`/${result.slug_name_singer}`}
+            state={result.slug_name_singer}
+        >
             <div className={cx('user_account')} onClick={onHandle}>
                 <Images
                     className={cx('avatar')}
@@ -51,13 +55,7 @@ function AccountPropose({ data = [], onHandle }) {
                             className={cx('icon_dot')}
                         />
                         <span className={cx('follower')}>
-                            {`${
-                                // handle custom render favorrite
-                                favorite > 1000
-                                    ? (favorite / 1000).toString().slice(0, 3) +
-                                      'M'
-                                    : favorite.toString().slice(0, 4) + 'K'
-                            } quan tâm`}
+                            {favorite} quan tâm 
                         </span>
                     </div>
                 </div>

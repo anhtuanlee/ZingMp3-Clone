@@ -133,3 +133,23 @@
     color: var(--text-secondary);
     font-size: 15px;
 }
+
+// styles trending
+.isTrendingMusic {
+    max-height: 80px;
+
+    .image_song_item {
+        width: 60px;
+        height: 60px; 
+        cursor: pointer;
+
+        & img {
+            border-radius: 4px;
+        }
+    }
+    .song_trending_favorite {
+        font-size: 12px;
+        color: var(--text-secondary);
+        padding: 0 5px;
+    }
+}

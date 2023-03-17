@@ -7,7 +7,7 @@ import styles from '../Account.module.scss';
 const cx = classNames.bind(styles);
 
 function ContentPageSinger({ data }) {
-    const dataSlice = data.slice(0, 6); // slice render 6 song
+    const dataSlice = data ; // slice render 6 song
     const userSinger = data[data.length - 1].slug_name_singer 
     const resultRenderLeft = () => {
         if (dataSlice) {

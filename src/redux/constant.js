@@ -2,28 +2,17 @@ import images from '../assets';
 import Button from '../components/Button';
 import {
     Ads,
-    Block,
-    Dieukhoan,
-    Heart,
+    Block, Category,
+    Chart, Dieukhoan, Discover,
+    Following, Heart,
     IconsVIP,
-    Info,
-    LogOut,
+    Info, LogOut,
     Mic,
-    More,
-    Phone,
-    Quality,
-    ThemeMusic,
-    Upload,
-    Category,
-    Chart,
-    Discover,
-    Following,
-    Mv,
-    NewSong,
-    Private,
-    Radio,
-    Star,
+    More, Mv,
+    NewSong, Phone, Private, Quality, Radio, Star, ThemeMusic,
+    Upload
 } from '../components/Icons';
+
 
 // controls
 export const CONTROL_PLAY = 'control/play';
@@ -42,9 +31,7 @@ export const SONG_CURRENT = 'songcurrent';
 export const VOLUME = 'volume';
 
 //sidebar
-export const ID_ACTIVE_SIDEBAR = 'id_active_sidebar'
-
-
+export const ID_ACTIVE_SIDEBAR = 'id_active_sidebar';
 
 // MENU action and button
 export const MENU_ACTIONS_RIGHT = [
@@ -231,3 +218,33 @@ export const BANNER_SLIDERS = [
         to: '/',
     },
 ];
+
+// select national trending
+export const KPOP_NATIONAL = 'kpop';
+export const VPOP_NATIONAL = 'vpop';
+export const USUK_NATIONAL = 'usuk';
+export const ALL_NATIONAL = 'all';
+
+export const BUTTON_RENDER_SELECT_NATIONAL = [
+    {
+        title: 'TẤT CẢ',
+
+        type: ALL_NATIONAL,
+    },
+    {
+        title: 'VIỆT NAM',
+
+        type: VPOP_NATIONAL,
+    },
+    {
+        title: 'HÀN QUỐC',
+
+        type: KPOP_NATIONAL,
+    },
+    {
+        title: 'ÂU MỸ',
+
+        type: USUK_NATIONAL,
+    },
+];
+ 

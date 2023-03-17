@@ -1,9 +1,12 @@
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Play, SubTract, WaveSongPlay } from '../components/Icons';
 import Images from '../components/Image';
+import { useConvertNumber } from '../hooks/useConvertNumber';
 import {
     currentSong,
     dataSongs,
@@ -16,7 +19,13 @@ import styles from './PlayListSong.module.scss';
 
 const cx = classNames.bind(styles);
 
-function PlayListSong({ data = [], song, index, rank }) {
+function PlayListSong({
+    data = [],
+    song,
+    index,
+    rank,
+    isTrendingMusic = false, // styles off class
+}) {
     const dispatch = useDispatch();
     const _songCurrent = useSelector(songCurrentSelector);
     const _isPlaying = useSelector(isPlayingSelector);
@@ -24,6 +33,7 @@ function PlayListSong({ data = [], song, index, rank }) {
     const [isHover, setIsHover] = useState(false);
     const [element, setElement] = useState('');
 
+    const favoriteRender = useConvertNumber(song.favorite);
     const handleConfig = (data, song, index, e) => {
         if (song._id === _songCurrent._id) {
             dispatch(playMusic(!_isPlaying));
@@ -80,6 +90,7 @@ function PlayListSong({ data = [], song, index, rank }) {
             className={cx(
                 'song_item_container',
                 _songCurrent._id === song?._id ? 'isActive' : '',
+                { isTrendingMusic },
             )}
             key={index}
             data-index={index}
@@ -110,19 +121,30 @@ function PlayListSong({ data = [], song, index, rank }) {
                         <h4 className={cx('name_song_item')}>
                             {song.name_music}
                         </h4>
-                        <Link to={`/${song.slug_name_singer}`} state={song.slug_name_singer}>
-                            {' '}
+                        <Link
+                            to={`/${song.slug_name_singer}`}
+                            state={song.slug_name_singer}
+                        >
                             {/* clean code */}
                             <span className={cx('name_singer_item')}>
                                 {song.name_singer}
                             </span>
                         </Link>
+
+                        {/* favorite of trending music */}
+                        {isTrendingMusic && (
+                            <span className={cx('song_trending_favorite')}>
+                                <FontAwesomeIcon icon={faHeart} />{' '}
+                                 {favoriteRender}
+                            </span>
+                        )}
                     </div>
                 </div>
                 <div className={cx('song_item_right')}>
                     {isHover && element === index.toString() ? ( // check element current ===  element hover will use effect
                         <div className={cx('items_hover')}>
-                            <ActionRight />
+                            <ActionRight isTrendingMusic={isTrendingMusic} /> 
+                            {/* check  */}
                         </div>
                     ) : (
                         <div className={cx('item_format_time')}>

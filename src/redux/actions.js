@@ -67,10 +67,10 @@ export const loading = (data) => {
 };
 
 //feature
-export const setTimes = (currentTime, duration) => {
+export const setTimes = (currentTime) => {
     return {
         type: TIME_DISPLAY,
-        payload: { currentTime, duration },
+        payload: { currentTime },
     };
 };
 

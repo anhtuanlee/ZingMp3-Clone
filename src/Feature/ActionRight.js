@@ -1,7 +1,9 @@
 import { MENU_ACTIONS_RIGHT } from '../redux/constant';
 import Button from '../components/Button';
 
-function ActionRight() {
+function ActionRight({
+    isTrendingMusic /* check isTrendingMusic will not render mic and like */,
+}) {
     const onHandle = (item) => {
         // handle Action Right
         switch (item.type) {
@@ -20,16 +22,31 @@ function ActionRight() {
     };
     const RenderFeatureRight = () => {
         const result = MENU_ACTIONS_RIGHT.map((item, index) => {
-            return (
-                <Button
-                    Icons={item.icon}
-                    key={index}
-                    extraTitle={item.title}
-                    circle_hide   
-                    sizes='small'
-                    onHandle={() => onHandle(item)}
-                />
-            );
+            if (!isTrendingMusic) {
+                return (
+                    <Button
+                        Icons={item.icon}
+                        key={index}
+                        extraTitle={item.title}
+                        circle_hide
+                        sizes="small"
+                        onHandle={() => onHandle(item)}
+                    />
+                );
+            } else {
+                if (item.type === 'more') {
+                    return (
+                        <Button
+                            Icons={item.icon}
+                            key={index}
+                            extraTitle={item.title}
+                            circle_hide
+                            sizes="big"
+                            onHandle={() => onHandle(item)}
+                        />
+                    );
+                }
+            }
         });
         return result;
     };

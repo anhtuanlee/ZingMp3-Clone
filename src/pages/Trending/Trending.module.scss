@@ -1,0 +1,30 @@
+.wrapper {
+    padding: var(--padding-section);
+    padding-bottom: 120px;
+}
+.title_header {
+    display: flex;
+    align-items: center;
+    padding: 16px 0;
+    margin-bottom: 5px;
+
+    .title_header_section {
+        margin-right: 10px;
+    }
+}
+.buttons_seclect_national {
+    margin: 20px 0;
+    display: flex;
+
+   
+}
+.loading {
+    width: 100%;
+    height: calc(100vh - 160px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-loading);
+    opacity: 0.5;
+}
+
