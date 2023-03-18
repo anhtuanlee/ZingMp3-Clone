@@ -2,7 +2,7 @@ import { MENU_ACTIONS_RIGHT } from '../redux/constant';
 import Button from '../components/Button';
 
 function ActionRight({
-    isTrendingMusic /* check isTrendingMusic will not render mic and like */,
+    trendingContent /* check trendingContent will not render mic and like */,
 }) {
     const onHandle = (item) => {
         // handle Action Right
@@ -22,7 +22,7 @@ function ActionRight({
     };
     const RenderFeatureRight = () => {
         const result = MENU_ACTIONS_RIGHT.map((item, index) => {
-            if (!isTrendingMusic) {
+            if (!trendingContent) {
                 return (
                     <Button
                         Icons={item.icon}

@@ -135,12 +135,12 @@
 }
 
 // styles trending
-.isTrendingMusic {
+.trendingContent {
     max-height: 80px;
 
     .image_song_item {
         width: 60px;
-        height: 60px; 
+        height: 60px;
         cursor: pointer;
 
         & img {
@@ -153,3 +153,4 @@
         padding: 0 5px;
     }
 }
+

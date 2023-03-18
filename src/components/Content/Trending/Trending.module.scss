@@ -1,75 +1,29 @@
 .wrapper {
-}
-.title_section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center; 
-
-    span {
-        color: var(--text-secondary);
-        font-size: 12px;
-        font-weight: 500; 
+    .title_section {
         display: flex;
+        justify-content: space-between;
         align-items: center;
-        .chevon_right{ 
-            font-size: 16px;
-            padding: 5px;
-        }
-    }
-    
-}
-.container_list_song {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    column-gap: 20px;  
-    margin-top: 20px;
-}
 
-.song_item {
-    padding: 10px; 
-    max-height: 80px;
-    display: grid;
-    grid-template-columns: 1fr 3fr 1fr;
-    grid-template-areas:
-        'avatar song  more'
-        'avatar singer more'
-        'avatar favorite more ';
-    border-radius: 4px;
-    &:hover {
-        background-color: var(--hover-blur-bg);
-    }
-    .song_avatar {
-        grid-area: avatar;
-        padding-right: 10px;
-        .song_avatar_img {
-            width: 60px;
-            height: 60px;
-            border-radius: 5px;
+        span {
+            color: var(--text-secondary);
+            font-size: 12px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            .chevon_right {
+                font-size: 16px;
+                padding: 5px;
+            }
         }
     }
 
-    .song_name {
-        grid-area: song;
-        font-size: 14px;
-        font-weight: 600;
-    }
-    .song_singer {
-        grid-area: singer;
-        font-size: 12px;
-        color: var(--text-secondary);
-    }
-    .song_title_favorite {
-        grid-area: favorite;
-        color: var(--text-secondary);
-        font-size: 12px;
-    }
-    .btn_more {
-        grid-area: more;
+    .button_select_national {
         display: flex;
-        align-items: center;
-        justify-content: center; 
-        &:hover {
-            color: var(--hover-blur-bg)
-        }
+        padding: 20px 0;
+    }
+    .container_list_song {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: 20px;
     }
 }

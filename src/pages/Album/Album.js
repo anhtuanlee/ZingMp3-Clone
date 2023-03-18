@@ -1,9 +1,9 @@
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { ButtonEffectPlay } from '../../components/Button';
-import PlayListSong from '../../Feature/PlayListSong';
+import { renderFullListSong } from '../../Feature/HandleEvent/handleEvent';
 import { activeSidebar } from '../../redux/actions';
 import { getSingerDataApi } from '../../services';
 import Loading from '../Loading';
@@ -15,7 +15,8 @@ function Album() {
     const [currentSinger, setCurrentSinger] = useState('');
     const { nickname } = useParams();
     const navigate = useNavigate();
-    const dispatch = useDispatch();  
+    const dispatch = useDispatch();
+    
     useEffect(() => {
         const fetch = async () => {
             if (dataFullSongs.length === 0) {
@@ -44,19 +45,6 @@ function Album() {
         dispatch(activeSidebar(null)); // not active sidebar
     }, []);
 
-    const renderFullListSong = () => {
-        const renderAllSong = dataFullSongs.map((song, index) => {
-            return (
-                <PlayListSong
-                    data={dataFullSongs}
-                    song={song}
-                    index={index}
-                    key={index}
-                />
-            );
-        });
-        return renderAllSong;
-    };
     return dataFullSongs.length === 0 ? (
         <div className={cx('loading')}>
             <Loading />
@@ -64,14 +52,17 @@ function Album() {
     ) : (
         <div className={cx('wrapper')}>
             <h2 className={cx('title_header')}>
-                <span className={cx('title_header_section')} onClick={() => navigate('..')}>
+                <span
+                    className={cx('title_header_section')}
+                    onClick={() => navigate('..')}
+                >
                     {currentSinger} - Tất Cả Bài Hát
                 </span>
                 <ButtonEffectPlay sizes="small" />
             </h2>
 
             <div className={cx('container_listsong_full')}>
-                {renderFullListSong()}
+                {renderFullListSong(dataFullSongs)}
             </div>
         </div>
     );

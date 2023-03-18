@@ -71,17 +71,11 @@
     }
 
     .list_songs {
-        display: flex;
-        flex-wrap: nowrap;
-        padding: 0 1px;
+        display: grid; 
+        grid-template-columns: repeat(2,1fr); 
+        column-gap: 28px;
     } 
-    .playlist_songs_left,
-    .playlist_songs_right {
-        display: flex;
-        flex-direction: column;
-        width: 50%;
-        padding: 0 14px;
-    }
+    
 }
 
 // loading animation page

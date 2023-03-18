@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Play, SubTract, WaveSongPlay } from '../components/Icons';
 import Images from '../components/Image';
-import { useConvertNumber } from '../hooks/useConvertNumber';
+import { useConvertNumber } from '../hooks/';
 import {
     currentSong,
     dataSongs,
@@ -24,7 +24,7 @@ function PlayListSong({
     song,
     index,
     rank,
-    isTrendingMusic = false, // styles off class
+    trendingContent = false, // styles off class
 }) {
     const dispatch = useDispatch();
     const _songCurrent = useSelector(songCurrentSelector);
@@ -90,7 +90,7 @@ function PlayListSong({
             className={cx(
                 'song_item_container',
                 _songCurrent._id === song?._id ? 'isActive' : '',
-                { isTrendingMusic },
+                { trendingContent },
             )}
             key={index}
             data-index={index}
@@ -132,7 +132,7 @@ function PlayListSong({
                         </Link>
 
                         {/* favorite of trending music */}
-                        {isTrendingMusic && (
+                        {trendingContent && (
                             <span className={cx('song_trending_favorite')}>
                                 <FontAwesomeIcon icon={faHeart} />{' '}
                                  {favoriteRender}
@@ -143,7 +143,7 @@ function PlayListSong({
                 <div className={cx('song_item_right')}>
                     {isHover && element === index.toString() ? ( // check element current ===  element hover will use effect
                         <div className={cx('items_hover')}>
-                            <ActionRight isTrendingMusic={isTrendingMusic} /> 
+                            <ActionRight trendingContent={trendingContent} /> 
                             {/* check  */}
                         </div>
                     ) : (

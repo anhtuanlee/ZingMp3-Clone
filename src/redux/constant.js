@@ -2,17 +2,28 @@ import images from '../assets';
 import Button from '../components/Button';
 import {
     Ads,
-    Block, Category,
-    Chart, Dieukhoan, Discover,
-    Following, Heart,
+    Block,
+    Category,
+    Chart,
+    Dieukhoan,
+    Discover,
+    Following,
+    Heart,
     IconsVIP,
-    Info, LogOut,
+    Info,
+    LogOut,
     Mic,
-    More, Mv,
-    NewSong, Phone, Private, Quality, Radio, Star, ThemeMusic,
-    Upload
+    More,
+    Mv,
+    NewSong,
+    Phone,
+    Private,
+    Quality,
+    Radio,
+    Star,
+    ThemeMusic,
+    Upload,
 } from '../components/Icons';
-
 
 // controls
 export const CONTROL_PLAY = 'control/play';
@@ -224,7 +235,7 @@ export const KPOP_NATIONAL = 'kpop';
 export const VPOP_NATIONAL = 'vpop';
 export const USUK_NATIONAL = 'usuk';
 export const ALL_NATIONAL = 'all';
-
+export const LOBAl = 'lobal';
 export const BUTTON_RENDER_SELECT_NATIONAL = [
     {
         title: 'TẤT CẢ',
@@ -246,5 +257,10 @@ export const BUTTON_RENDER_SELECT_NATIONAL = [
 
         type: USUK_NATIONAL,
     },
+    {
+        title: 'QUỐC TẾ',
+        type: LOBAl,
+    },
 ];
+
  

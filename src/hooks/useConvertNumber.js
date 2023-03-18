@@ -1,6 +1,6 @@
 
 
-export const useConvertNumber = (favorite) => {
+const useConvertNumber = (favorite) => {
     let result;
     if (favorite / 1000000000 >= 1) {
         result = (favorite / 1000000000).toString().slice(0, 4) + 'B';
@@ -15,3 +15,5 @@ export const useConvertNumber = (favorite) => {
     }
     return result;
 };
+
+export default useConvertNumber
