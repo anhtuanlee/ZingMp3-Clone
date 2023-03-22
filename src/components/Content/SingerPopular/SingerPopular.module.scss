@@ -1,0 +1,33 @@
+.wrapper { 
+}
+
+.title_section {
+    margin: 20px 0;
+}
+.container_singer_popular {
+    display: flex;
+    gap: 28px;
+    margin-top: 20px;
+    .item {
+        width: 20%;
+
+        .item_title {
+            font-size: 14px;
+            padding: 10px 0;
+            border-radius: 4px;
+
+            &:hover {
+                color: var(--link-text-hover); 
+            }
+        }
+        .item_extra_title {
+            font-size: 14px;
+            color: var(--text-secondary);
+
+            &:hover {
+                color: var(--link-text-hover);
+                text-decoration: underline;
+            }
+        }
+    }
+}

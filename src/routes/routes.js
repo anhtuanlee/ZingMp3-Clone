@@ -4,7 +4,7 @@ export const publicRoutes = [];
 export const privateRoutes = [
     {
         path: config.home.path,
-        component: config.home.component, 
+        component: config.home.component,
     },
     {
         path: config.mymusic.path,
@@ -23,6 +23,10 @@ export const privateRoutes = [
     {
         path: config.album.path,
         component: config.album.component,
+    },
+    {
+        path: config.albumSinger.path,
+        component: config.albumSinger.component,
     },
     {
         path: config.newupdate.path,

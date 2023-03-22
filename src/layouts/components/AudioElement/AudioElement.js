@@ -22,13 +22,11 @@ function AudioElement(props, ref) {
     const _isRepeat = useSelector(isRepeatSelector);
     const _isPlay = useSelector(isPlayingSelector);
     const _dataSongs = useSelector(dataSongsSelector);
-    const _currentSong = useSelector(songCurrentSelector);
+    const _songCurrent = useSelector(songCurrentSelector);
     let _currentIndex = useSelector(currentIndexSelector);
 
     const currentSongSlugName = _dataSongs[_currentIndex]?.slug_name_music;
-    const renderListSongs = _dataSongs.map((item) => {
-        return item.src_music;
-    });
+
     //Event
     const handleTimeUpdate = (e) => {
         dispatch(setTimes(e.target.currentTime));
@@ -43,7 +41,7 @@ function AudioElement(props, ref) {
         }
     };
     const handleEndMusic = () => {
-        if (_currentIndex < renderListSongs.length - 1) {
+        if (_currentIndex < _dataSongs.length - 1) {
             if (_isRepeat) {
                 _currentIndex = _currentIndex;
             } else {
@@ -53,17 +51,23 @@ function AudioElement(props, ref) {
             _currentIndex = 0;
         }
         dispatch(setCurrentID(_currentIndex));
-        dispatch(currentSong(_currentIndex));
+        dispatch(currentSong(_dataSongs[_currentIndex]));
     };
 
     useEffect(() => {
         // get newSong
         const Fetch = async () => {
-            if (_dataSongs.length === 0 || _currentSong === undefined) {
+            if (_dataSongs.length === 0 || _songCurrent === undefined) {
                 const result = await newSongApi().then((data) => {
                     dispatch(dataSongs(data));
                     dispatch(currentSong(data[_currentIndex]));
+
+                    localStorage.setItem(
+                        'songRecent',
+                        JSON.stringify(data[_currentIndex]),
+                    );
                 });
+
                 return result;
             }
         };
@@ -77,7 +81,11 @@ function AudioElement(props, ref) {
                 dispatch(loading(true));
                 const resultSong = await getMusicName(currentSongSlugName).then(
                     (data) => {
-                        if (data._id !== _currentSong._id) {
+                        if (
+                            data._id !== _songCurrent._id &&
+                            data._id !== '616c5aecfb6ad80023fc77c7' &&
+                            data._id !== '634850bc4880840023e41685' // song same slug_name_music
+                        ) {
                             dispatch(currentSong(data));
                         }
                         dispatch(loading(false));
@@ -90,13 +98,15 @@ function AudioElement(props, ref) {
     }, [currentSongSlugName]);
 
     useEffect(() => {
-        localStorage.setItem('songRecent', JSON.stringify(_currentSong));
-    }, [_currentSong]);
+        if (_songCurrent) {
+            localStorage.setItem('songRecent', JSON.stringify(_songCurrent));
+        }
+    }, [_songCurrent]);
 
     return (
         <audio
             ref={ref}
-            src={_currentSong?.src_music}
+            src={_songCurrent?.src_music}
             onTimeUpdate={(e) => handleTimeUpdate(e)}
             onEnded={handleEndMusic}
             onCanPlay={handleCanPlay}

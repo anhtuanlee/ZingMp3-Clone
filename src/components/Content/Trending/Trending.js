@@ -18,7 +18,7 @@ function Trending() {
     const [paramsFilter, setParamsFilter] = useState(ALL_NATIONAL);
     const [dataSelect, setDataSelect] = useState([]);
     const dataSliceRenderRender = dataSelect.slice(0, 12); // slice 12 song to render in content
-    const trendingContent = true;
+    const HomePageTrending = true;
     const onHandleSelectNational = (item) => {
         // handle Select National
         const selectNational = handleSelectButtonNational(item);
@@ -63,7 +63,7 @@ function Trending() {
                 {renderFullListSong(
                     dataSliceRenderRender,
                     undefined,
-                    trendingContent,
+                    HomePageTrending,
                 )}
             </div>
         </div>

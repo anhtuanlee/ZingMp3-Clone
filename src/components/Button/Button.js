@@ -22,6 +22,8 @@ function Button({
     disable,
     active,
     effectHover,
+    effectHoverReverse,
+    border_nothover,
     //sizes
     sizes,
     // Icons,
@@ -52,10 +54,12 @@ function Button({
             isLoading,
             circle_hide,
             border,
+            border_nothover,
             borderFixPlay,
             disable,
             active,
-            effectHover
+            effectHover,
+            effectHoverReverse,
         },
         sizes,
         className,

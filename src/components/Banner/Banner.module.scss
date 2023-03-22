@@ -1,0 +1,29 @@
+.item_card {
+    position: relative;
+    .item_img {
+        overflow: hidden;
+        border-radius: 5px;
+        img {
+            transition: all linear 0.35s;
+        }
+    }
+
+    .item_action_hover {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        z-index: 99;
+        .size_icon {
+            font-size: 18px;
+        }
+    }
+}
+.isHover img{
+    transform: scale(1.1);
+    transition: all linear 0.35s;
+    opacity: 0.7;
+}

@@ -4,6 +4,8 @@ export const isRepeatSelector = (state) => state.status.isRepeat;
 export const isRandomSelector = (state) => state.status.isRandom;
 export const isLoadingSelector = (state) => state.status.isLoading;
 export const isVolumeSelector = (state) => state.status.isVolume;
+export const slugDataBannerSelector = (state) => state.status.slugNameDataBanner;
+export const isRequirePlaySelector = (state) => state.status.isRequirePlay;
 //feature
 export const songCurrentSelector = (state) => state.feature.songCurrent;
 export const currentIndexSelector = (state) => state.feature.currentIndex;

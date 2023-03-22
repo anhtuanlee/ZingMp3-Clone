@@ -16,18 +16,21 @@ function Album() {
     const { nickname } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    
+    console.log(nickname);
+
     useEffect(() => {
         const fetch = async () => {
             if (dataFullSongs.length === 0) {
                 try {
                     const result = await getSingerDataApi(nickname).then(
                         (dataFullSong) => {
-                            setDataSinger(dataFullSong);
-                            setCurrentSinger(
-                                dataFullSong[dataFullSong.length - 1]
-                                    .name_singer,
-                            );
+                            if (Array.isArray(dataFullSong)) {
+                                setDataSinger(dataFullSong);
+                                setCurrentSinger(
+                                    dataFullSong[dataFullSong.length - 1]
+                                        .name_singer,
+                                );
+                            }
                         },
                     );
                     return result;

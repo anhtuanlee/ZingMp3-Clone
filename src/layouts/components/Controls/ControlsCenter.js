@@ -15,6 +15,7 @@ import {
 import { useTimes } from '../../../hooks';
 import {
     currentSong,
+    dataSongs,
     pauseMusic,
     playMusic,
     randomSong,
@@ -42,7 +43,7 @@ function ControlsCenter({ audioRef }) {
     const _isRandom = useSelector(isRandomSelector);
     const _isLoading = useSelector(isLoadingSelector);
     const _times = useSelector(timesSelector);
-    const _currentSong = useSelector(songCurrentSelector);
+    const _songCurrent = useSelector(songCurrentSelector);
     let index = useSelector(currentIndexSelector);
     const _dataSongs = useSelector(dataSongsSelector);
     //times display
@@ -66,8 +67,8 @@ function ControlsCenter({ audioRef }) {
                 } else {
                     index = 0;
                 }
-
                 dispatch(playMusic(true));
+                dispatch(dataSongs(_dataSongs));
                 dispatch(setCurrentID(index));
                 dispatch(currentSong(_dataSongs[index]));
 
@@ -79,6 +80,7 @@ function ControlsCenter({ audioRef }) {
                     index = _dataSongs.length - 1;
                 }
                 dispatch(playMusic(true));
+                dispatch(dataSongs(_dataSongs));
                 dispatch(setCurrentID(index));
                 dispatch(currentSong(_dataSongs[index]));
                 break;
@@ -200,7 +202,7 @@ function ControlsCenter({ audioRef }) {
                             />
                         </div>
                         <span className={cx('time_end')}>
-                            {_currentSong.time_format}
+                            {_songCurrent?.time_format}
                         </span>
                     </div>
                 </div>

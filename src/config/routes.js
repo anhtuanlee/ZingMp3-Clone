@@ -3,6 +3,7 @@ import { AccountLayout, NewSongLayout } from '../layouts';
 import MainPageLayout from '../layouts/MainPageLayout';
 import AccountPage from '../pages/Account/Account';
 import Album from '../pages/Album';
+import AlbumSinger from '../pages/AlbumSinger';
 import Category from '../pages/Category';
 import Error from '../pages/Error';
 import Following from '../pages/Following';
@@ -37,6 +38,10 @@ const config = {
     album: {
         component: Album,
         path: ':nickname/album',
+    },
+    albumSinger: {
+        component: AlbumSinger,
+        path: 'album/:nickname',
     },
     newupdate: {
         component: NewSongs,

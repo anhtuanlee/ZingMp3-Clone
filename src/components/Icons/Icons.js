@@ -4,8 +4,7 @@ import {
     faArrowUpFromBracket,
     faBan,
     faCircleInfo,
-    faCirclePlay,
-    faEllipsis,
+    faCirclePlay, 
     faFileLines,
     faGear,
     faGem,
@@ -20,6 +19,7 @@ import {
 import { faHeart, faWindowRestore } from '@fortawesome/free-regular-svg-icons';
 import {
     faBackwardStep,
+    faEllipsis,
     faForwardStep,
     faPause,
     faPlay,

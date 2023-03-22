@@ -38,7 +38,7 @@ export const handleFilterSongTrending = (data, paramsFilter) => {
     });
     return dataFilter;
 };
-export const renderFullListSong = (data, isRank, trendingContent) => {
+export const renderFullListSong = (data, isRank, HomePageTrending) => {
     if (data) {
         const renderAllSong = data.map((song, index) => {
             return (
@@ -48,7 +48,7 @@ export const renderFullListSong = (data, isRank, trendingContent) => {
                     index={index}
                     key={index}
                     rank={isRank}
-                    trendingContent={trendingContent}
+                    HomePageTrending={HomePageTrending}
                 />
             );
         });
@@ -73,11 +73,37 @@ export const handleSelectButtonNational = (item) => {
 export const renderButtonSelect = (
     paramsFilter,
     onHandleSelectNational,
-    isPage, // check page Trending will havent LOBAL
+    isTrendingPage, // check page Trending will havent LOBAL
 ) => {
     // render button select national
     const result = BUTTON_RENDER_SELECT_NATIONAL.map((item, index) => {
-        if (isPage) {
+        // clean code
+        const isLocal = item.type === LOBAl;
+        const isKPopOrUSUK =
+            item.type === KPOP_NATIONAL || item.type === USUK_NATIONAL;
+        const shouldRender = isTrendingPage ? !isLocal : !isKPopOrUSUK;
+
+        if (shouldRender) {
+            return (
+                <div key={index}>
+                    <Button
+                        className={item.type === paramsFilter ? 'isActive' : ''}
+                        onHandle={() => onHandleSelectNational(item)}
+                        text
+                    >
+                        {item.title}
+                    </Button>
+                </div>
+            );
+        }
+
+        return null;
+    });
+    return result;
+};
+/*  const result = BUTTON_RENDER_SELECT_NATIONAL.map((item, index) => {
+    code kieu ga
+        if (isTrendingPage) {
             if (item.type !== LOBAl) {
                 return (
                     <div key={index}>
@@ -110,7 +136,4 @@ export const renderButtonSelect = (
                 );
             }
         }
-    });
-
-    return result;
-};
+    }); */

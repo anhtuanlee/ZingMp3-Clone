@@ -12,8 +12,9 @@ import {
     CONTROL_LOADING,
     SONG_CURRENT,
     VOLUME,
-    CONTROL_SETUP,
     ID_ACTIVE_SIDEBAR,
+    CONTROL_CHECKDATABANNER,
+    CONTROL_REQUIREPLAY,
 } from './constant';
 
 export const playMusic = (data) => {
@@ -65,7 +66,18 @@ export const loading = (data) => {
         payload: data,
     };
 };
-
+export const slugNameCheck = (id) => {
+    return {
+        type: CONTROL_CHECKDATABANNER,
+        payload: id,
+    };
+};
+export const requirePlay = (data) => {
+    return {
+        type: CONTROL_REQUIREPLAY,
+        payload: data,
+    };
+};
 //feature
 export const setTimes = (currentTime) => {
     return {

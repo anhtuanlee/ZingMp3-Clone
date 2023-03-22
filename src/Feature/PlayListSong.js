@@ -1,7 +1,7 @@
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Play, SubTract, WaveSongPlay } from '../components/Icons';
@@ -12,9 +12,14 @@ import {
     dataSongs,
     playMusic,
     setCurrentID,
+    slugNameCheck,
 } from '../redux/actions';
-import { isPlayingSelector, songCurrentSelector } from '../redux/selector';
-import ActionRight from './ActionRight';
+import {
+    isPlayingSelector,
+    slugDataBannerSelector,
+    songCurrentSelector,
+} from '../redux/selector';
+import { ActionBtnAlbum } from './ActionBtnAlbum';
 import styles from './PlayListSong.module.scss';
 
 const cx = classNames.bind(styles);
@@ -24,29 +29,30 @@ function PlayListSong({
     song,
     index,
     rank,
-    trendingContent = false, // styles off class
+    HomePageTrending = false, // styles off class
 }) {
     const dispatch = useDispatch();
     const _songCurrent = useSelector(songCurrentSelector);
-    const _isPlaying = useSelector(isPlayingSelector);
-
+    const _isPlaying = useSelector(isPlayingSelector); 
     const [isHover, setIsHover] = useState(false);
     const [element, setElement] = useState('');
 
     const favoriteRender = useConvertNumber(song.favorite);
     const handleConfig = (data, song, index, e) => {
-        if (song._id === _songCurrent._id) {
-            dispatch(playMusic(!_isPlaying));
-        } else {
-            dispatch(playMusic(true));
-        }
-        dispatch(dataSongs(data));
-        dispatch(currentSong(data[index]));
-        dispatch(setCurrentID(index));
+        if (data) {
+            if (song._id === _songCurrent._id) {
+                dispatch(playMusic(!_isPlaying));
+            } else {
+                dispatch(playMusic(true));
+            }
+            dispatch(dataSongs(data));
+            dispatch(currentSong(data[index]));
+            dispatch(setCurrentID(index));
 
-        localStorage.setItem('listSongsData', JSON.stringify(data));
-        localStorage.setItem('songRecent', JSON.stringify(data[index]));
-        localStorage.setItem('currentIndex', JSON.stringify(index));
+            localStorage.setItem('listSongsData', JSON.stringify(data));
+            localStorage.setItem('songRecent', JSON.stringify(data[index]));
+            localStorage.setItem('currentIndex', JSON.stringify(index));
+        }
     };
 
     const handlePlaySong = (data, song, index) => {
@@ -85,12 +91,13 @@ function PlayListSong({
             </div>
         );
     };
+
     return (
         <div
             className={cx(
                 'song_item_container',
-                _songCurrent._id === song?._id ? 'isActive' : '',
-                { trendingContent },
+                _songCurrent?._id === song?._id ? 'isActive' : '',
+                { HomePageTrending },
             )}
             key={index}
             data-index={index}
@@ -110,7 +117,7 @@ function PlayListSong({
                     >
                         <Images src={song?.image_music} />
                         <span className={cx('icon_inner_avatar')}>
-                            {_songCurrent._id === song._id && _isPlaying ? (
+                            {_songCurrent?._id === song?._id && _isPlaying ? (
                                 <WaveSongPlay />
                             ) : (
                                 <Play />
@@ -132,10 +139,10 @@ function PlayListSong({
                         </Link>
 
                         {/* favorite of trending music */}
-                        {trendingContent && (
+                        {HomePageTrending && (
                             <span className={cx('song_trending_favorite')}>
-                                <FontAwesomeIcon icon={faHeart} />{' '}
-                                 {favoriteRender}
+                                <FontAwesomeIcon icon={faHeart} />
+                                {favoriteRender}
                             </span>
                         )}
                     </div>
@@ -143,7 +150,10 @@ function PlayListSong({
                 <div className={cx('song_item_right')}>
                     {isHover && element === index.toString() ? ( // check element current ===  element hover will use effect
                         <div className={cx('items_hover')}>
-                            <ActionRight trendingContent={trendingContent} /> 
+                            <ActionBtnAlbum
+                                HomePageTrending={HomePageTrending}
+                                playlistSong={true}
+                            />
                             {/* check  */}
                         </div>
                     ) : (

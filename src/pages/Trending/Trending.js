@@ -25,7 +25,7 @@ function Trending() {
     const [paramsFilter, setParamsFilter] = useState(() => {
         return searchParams.get('_filter'); // will return params first when reload page with data was set
     });
-    const isPage = true; // check page or content
+    const isTrendingPage = true; // check page or content
 
     const onHandleSelectNational = (item) => {
         const selectNational = handleSelectButtonNational(item);
@@ -82,7 +82,7 @@ function Trending() {
                 {renderButtonSelect(
                     paramsFilter,
                     onHandleSelectNational,
-                    isPage,
+                    isTrendingPage,
                 )}
             </div>
             <div className={cx('container_listsong_full')}>

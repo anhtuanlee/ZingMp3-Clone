@@ -1,12 +1,15 @@
 import {
     CURRENT_ID_STORAGE,
-    CURRENT_TIME_STORAGE, DATA_SONGS_RECENT, SONG_RECENT_STORAGE,
+    CURRENT_TIME_STORAGE,
+    DATA_SONGS_RECENT,
+    SONG_RECENT_STORAGE,
     VOLUME_STORAGE,
     _idActiveSidebar,
     _isRandom,
-    _isRepeat
+    _isRepeat,
 } from '../config/localStorages';
 import {
+    CONTROL_CHECKDATABANNER,
     CONTROL_LOADING,
     CONTROL_NEXT,
     CONTROL_PAUSE,
@@ -14,13 +17,14 @@ import {
     CONTROL_PREV,
     CONTROL_RANDOM,
     CONTROL_REPEAT,
+    CONTROL_REQUIREPLAY,
     CONTROL_VOLUME,
     CURRENT_INDEX,
     ID_ACTIVE_SIDEBAR,
     PLAYLIST_SONGS,
     SONG_CURRENT,
     TIME_DISPLAY,
-    VOLUME
+    VOLUME,
 } from './constant';
 
 const initState = {
@@ -30,19 +34,22 @@ const initState = {
         isRandom: _isRandom ?? false,
         isLoading: false,
         isVolume: VOLUME_STORAGE > 0 ? true : false,
+        slugNameDataBanner: false,
+        isRequirePlay: false,
     },
     feature: {
         dataSongs: DATA_SONGS_RECENT ?? [],
         volume: VOLUME_STORAGE ?? 0,
-        songCurrent: SONG_RECENT_STORAGE ?? {},
+        songCurrent:
+            SONG_RECENT_STORAGE ?? {},
         currentIndex: CURRENT_ID_STORAGE ?? 0,
         musicFavorite: {},
         times: {
-            currentTime: CURRENT_TIME_STORAGE ? CURRENT_TIME_STORAGE : 0, 
+            currentTime: CURRENT_TIME_STORAGE ? CURRENT_TIME_STORAGE : 0,
         },
     },
     sidebar: {
-        idActive: _idActiveSidebar || 1 ,
+        idActive: _idActiveSidebar || 1,
     },
 };
 
@@ -89,6 +96,22 @@ export const rootReducer = (state = initState, action) => {
                     isLoading: action.payload,
                 },
             };
+        case CONTROL_CHECKDATABANNER:
+            return {
+                ...state,
+                status: {
+                    ...state.status,
+                    slugNameDataBanner: action.payload,
+                },
+            };
+        case CONTROL_REQUIREPLAY:
+            return {
+                ...state,
+                status: {
+                    ...state.status,
+                    isRequirePlay: action.payload,
+                },
+            };
 
         case CONTROL_VOLUME:
             return {
@@ -106,6 +129,7 @@ export const rootReducer = (state = initState, action) => {
                     songCurrent: action.payload,
                 },
             };
+
         //feature
         case CURRENT_INDEX:
             return {

@@ -12,13 +12,14 @@
     --text-primary: #fff;
     --text-blur: #756a87;
     --text-secondary: hsla(0, 0%, 100%, 0.5);
-    --link-text-hover: #c273edb7;
+    --link-text-hover: #c273ed;
 
     --button-hide: #595362;
     --search-text: #dadada;
     
 
     --hover-blur-bg: hsla(0, 0%, 100%, 0.1);
+    --hover-blur-bg-button: hsla(0, 0%, 100%, 0.4);
 
     --border-player: hsla(0, 0%, 100%, 0.1);
     --border-secondary: hsla(0, 0%, 100%, 0.05);
@@ -48,7 +49,7 @@ body {
     background-color: var(--primary);
     width: 100%;
     height: 90px;
-    z-index: 99999;
+    z-index: 999;
 }
 
 button,

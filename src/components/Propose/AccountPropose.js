@@ -18,6 +18,7 @@ function AccountPropose({ data = [] }) {
         const result = item.charAt(0).toUpperCase() + item.slice(1) + ' ';
         return result;
     });
+    console.log(result)
     const favorite = useConvertNumber(result.favorite);
     //favorite
     const imgs = result.image_music;

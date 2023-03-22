@@ -40,8 +40,7 @@ function InputProgress({
         );
         return percentValue ? percentValue : 0;
     });
-    const [inputEffectLoading, setInputEffectLoading] = useState();
-    const _isLoading = useSelector(isLoadingSelector);
+
     const [valueVolume, setValueVolume] = useState(() => {
         return volumeCurrent * 10;
     });
@@ -66,8 +65,8 @@ function InputProgress({
         }
     };
 
-    useEffect(() => {
-        setInputEffectLoading({
+    const setBackgroundSizes = () => {
+        return {
             ...style,
             backgroundSize: `${
                 ((audioType
@@ -80,13 +79,13 @@ function InputProgress({
                     100) /
                 max
             }% 100%`,
-        });
-    }, [valueTime, valueVolume, _isLoading]);
+        };
+    };
     // seektime play
     useEffect(() => {
         if (audioRef) {
             const percentValue = String(
-                Math.floor((_times.currentTime / _songCurrent.seconds) * 100),
+                Math.floor((_times.currentTime / _songCurrent?.seconds) * 100),
             );
             if (percentValue !== null) {
                 setValue(percentValue);
@@ -109,7 +108,7 @@ function InputProgress({
                 audioRef.current.volume = valueVolume / 10;
             } else {
                 audioRef.current.volume = 0;
-                if (!_isVolume && valueVolume === 0) {
+                if (!_isVolume && valueVolume < 0.1) {
                     // check _isVolume false and valueVolume < 0.1 when _isVolume change will setValue = 0.1
                     setValueVolume(1);
                 } else {
@@ -140,7 +139,7 @@ function InputProgress({
             min={min}
             step={step}
             onInput={(e) => handleTypeInput(e)}
-            style={inputEffectLoading}
+            style={setBackgroundSizes()}
             className={cx('progress_input', classes)}
             ref={progressRef}
         />
