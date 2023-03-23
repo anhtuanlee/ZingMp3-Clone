@@ -13,6 +13,8 @@
     &.isActive {
         background-color: var(--hover-blur-bg);
         position: relative;
+        transition: all ease .5s ;
+        
     }
     &.isActive .icon_inner_avatar {
         opacity: 1;

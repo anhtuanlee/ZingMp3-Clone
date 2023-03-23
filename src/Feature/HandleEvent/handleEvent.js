@@ -38,9 +38,14 @@ export const handleFilterSongTrending = (data, paramsFilter) => {
     });
     return dataFilter;
 };
-export const renderFullListSong = (data, isRank, HomePageTrending) => {
-    if (data) {
-        const renderAllSong = data.map((song, index) => {
+export const renderFullListSong = (
+    data,
+    isRank,
+    HomePageTrending,
+    containerRef,
+) => {
+    if (data) { 
+    const renderAllSong = data.map((song, index) => {
             return (
                 <PlayListSong
                     data={data}
@@ -49,6 +54,7 @@ export const renderFullListSong = (data, isRank, HomePageTrending) => {
                     key={index}
                     rank={isRank}
                     HomePageTrending={HomePageTrending}
+                    ref={containerRef}
                 />
             );
         });

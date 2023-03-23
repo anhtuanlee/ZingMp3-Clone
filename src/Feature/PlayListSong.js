@@ -1,7 +1,7 @@
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Play, SubTract, WaveSongPlay } from '../components/Icons';
@@ -12,32 +12,32 @@ import {
     dataSongs,
     playMusic,
     setCurrentID,
-    slugNameCheck,
 } from '../redux/actions';
-import {
-    isPlayingSelector,
-    slugDataBannerSelector,
-    songCurrentSelector,
-} from '../redux/selector';
+import { isPlayingSelector, songCurrentSelector } from '../redux/selector';
 import { ActionBtnAlbum } from './ActionBtnAlbum';
 import styles from './PlayListSong.module.scss';
-
+import { animateScroll as scroll } from 'react-scroll';
+import React from 'react';
 const cx = classNames.bind(styles);
 
-function PlayListSong({
-    data = [],
-    song,
-    index,
-    rank,
-    HomePageTrending = false, // styles off class
-}) {
+function PlayListSong(
+    {
+        data = [],
+        song,
+        index,
+        rank,
+        HomePageTrending = false, // styles off class
+    },
+    ref,
+) {
     const dispatch = useDispatch();
     const _songCurrent = useSelector(songCurrentSelector);
-    const _isPlaying = useSelector(isPlayingSelector); 
+    const _isPlaying = useSelector(isPlayingSelector);
     const [isHover, setIsHover] = useState(false);
     const [element, setElement] = useState('');
-
+    const songItemRef = useRef();
     const favoriteRender = useConvertNumber(song.favorite);
+
     const handleConfig = (data, song, index, e) => {
         if (data) {
             if (song._id === _songCurrent._id) {
@@ -54,7 +54,6 @@ function PlayListSong({
             localStorage.setItem('currentIndex', JSON.stringify(index));
         }
     };
-
     const handlePlaySong = (data, song, index) => {
         // click avatar or Wavesong will playsong
         return handleConfig(data, song, index);
@@ -92,8 +91,21 @@ function PlayListSong({
         );
     };
 
+    useEffect(() => {
+        // effect scroll with react-scroll
+        if (_songCurrent._id === song._id) {
+            scroll.scrollTo(songItemRef.current.offsetTop - 250, {
+                containerId: ref?.current?.id,
+                duration: 2000,
+                delay: 500,
+                smooth: 'easeOutCubic',
+            });
+        }
+    }, [_songCurrent]);
+
     return (
         <div
+            ref={songItemRef}
             className={cx(
                 'song_item_container',
                 _songCurrent?._id === song?._id ? 'isActive' : '',
@@ -167,4 +179,4 @@ function PlayListSong({
     );
 }
 
-export default PlayListSong;
+export default React.forwardRef(PlayListSong);

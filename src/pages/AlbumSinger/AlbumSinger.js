@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import {
@@ -17,6 +17,7 @@ import {
     slugDataBannerSelector,
     songCurrentSelector,
 } from '../../redux/selector';
+import { Scroller } from 'react-scroll';
 
 import { Banner } from '../../components/Banner';
 import { ButtonEffectPlay } from '../../components/Button';
@@ -40,8 +41,8 @@ function AlbumSinger() {
 
     const [dataFullSongs, setDataSinger] = useState([]);
     const [dataInAlbum, setDataInAlbum] = useState({});
-    const timer = useDate(dataInAlbum?.createdAt);
-
+    const timer = useDate(dataInAlbum?.createdAt);  
+    const containerRef = useRef();
     const slugNameSingerCurrent = _songCurrent?.slug_name_singer;
     const slugCategoryCurrent = _songCurrent?.slug_category;
 
@@ -57,8 +58,7 @@ function AlbumSinger() {
             dispatch(setCurrentID(randomID));
             dispatch(requirePlay(false));
         }
-    };
-
+    }; 
     // banner singer popular
     useEffect(() => {
         if (!isBannerAlbumHot) {
@@ -117,9 +117,10 @@ function AlbumSinger() {
                     const newDataFillter = dataBannerAlbum
                         .reverse()
                         .slice(0, 29);
+                    console.log(newDataFillter)
                     setDataSinger(newDataFillter);
                     setDataInAlbum(newDataFillter[newDataFillter.length - 1]);
-                    handlReqirePlayFromBanner(dataBannerAlbum);
+                    handlReqirePlayFromBanner(newDataFillter);
                 });
                 return result;
             };
@@ -134,6 +135,7 @@ function AlbumSinger() {
             navigate('..');
         }
         dispatch(activeSidebar(null));
+        window.scrollTo(0,0) 
     }, []);
 
     return dataFullSongs.length === 0 ? (
@@ -177,7 +179,14 @@ function AlbumSinger() {
                         <span>ALBUM</span>
                         <span>THỜI GIAN</span>
                     </div>
-                    {renderFullListSong(dataFullSongs)}
+                    <div className={cx('list_song')} ref={containerRef} id='container'>
+                        {renderFullListSong(
+                            dataFullSongs,
+                            undefined,
+                            undefined,
+                            containerRef,
+                        )}
+                    </div>
                 </div>
             </div>
         </div>

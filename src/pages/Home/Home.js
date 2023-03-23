@@ -14,6 +14,7 @@ function Home() {
     const navigate = useNavigate();
     useEffect(() => {
         dispatch(activeSidebar(1));
+        window.scrollTo(0,0)
     }, []);
     const _songCurrent = useSelector(songCurrentSelector);
     useEffect(() => {
