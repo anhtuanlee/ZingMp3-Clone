@@ -8,9 +8,9 @@ import {
     handleFilterSongTrending,
     handleSelectButtonNational,
     renderButtonSelect,
-    renderFullListSong,
+    renderFullListSong
 } from '../../Feature/HandleEvent/handleEvent';
-import { activeSidebar } from '../../redux/actions';
+import { sidebarSlice } from '../../redux/sliceReducer';
 import { getTrendingDataApi } from '../../services';
 import Loading from '../Loading';
 import styles from './Trending.module.scss';
@@ -36,10 +36,7 @@ function Trending() {
     };
 
     useEffect(() => {
-        const dataFilter = handleFilterSongTrending(
-            dataApiReturn,
-            paramsFilter,
-        );
+        const dataFilter = handleFilterSongTrending(dataApiReturn, paramsFilter);
         setDataSelect(dataFilter);
         setParamsFilter(paramsFilter);
     }, [paramsFilter]);
@@ -60,7 +57,7 @@ function Trending() {
     }, [searchParams]);
 
     useEffect(() => {
-        dispatch(activeSidebar(null)); // not active
+        dispatch(sidebarSlice.actions.setIdSidebarActive(null)); // not active
     }, []);
 
     return dataApiReturn.length === 0 ? (
@@ -79,11 +76,7 @@ function Trending() {
                 <ButtonEffectPlay sizes="medium" />
             </h2>
             <div className={cx('buttons_seclect_national')}>
-                {renderButtonSelect(
-                    paramsFilter,
-                    onHandleSelectNational,
-                    isTrendingPage,
-                )}
+                {renderButtonSelect(paramsFilter, onHandleSelectNational, isTrendingPage)}
             </div>
             <div className={cx('container_listsong_full')}>
                 {renderFullListSong(dataSelect)}

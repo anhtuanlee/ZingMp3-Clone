@@ -95,7 +95,7 @@ export const renderButtonSelect = (
                     <Button
                         className={item.type === paramsFilter ? 'isActive' : ''}
                         onHandle={() => onHandleSelectNational(item)}
-                        text
+                        text_border
                     >
                         {item.title}
                     </Button>

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { ButtonEffectPlay } from '../../components/Button';
 import { renderFullListSong } from '../../Feature/HandleEvent/handleEvent';
-import { activeSidebar } from '../../redux/actions';
+import { sidebarSlice } from '../../redux/sliceReducer';
 import { newSongApi } from '../../services';
 import Loading from '../Loading';
 import styles from './NewSongs.module.scss';
@@ -15,14 +15,12 @@ function NewUpdate() {
     const isRank = true;
     useEffect(() => {
         const fetchNewSong = async () => {
-            const result = await newSongApi(100).then((data) =>
-                setDataNewSong(data),
-            );
+            const result = await newSongApi(100).then((data) => setDataNewSong(data));
             return result;
         };
         fetchNewSong();
 
-        dispatch(activeSidebar(5));
+        dispatch(sidebarSlice.actions.setIdSidebarActive(5));
     }, []);
 
     return (
@@ -37,7 +35,7 @@ function NewUpdate() {
                 </div>
             ) : (
                 <div className={cx('content_section')}>
-                    {renderFullListSong(dataNewSong,isRank)}
+                    {renderFullListSong(dataNewSong, isRank)}
                 </div>
             )}
         </div>

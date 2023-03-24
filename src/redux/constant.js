@@ -24,28 +24,6 @@ import {
     Upload,
 } from '../components/Icons';
 
-// controls
-export const CONTROL_PLAY = 'control/play';
-export const CONTROL_PAUSE = 'control/pause';
-export const CONTROL_NEXT = 'control/next';
-export const CONTROL_PREV = 'control/prev';
-export const CONTROL_RANDOM = 'control/random';
-export const CONTROL_REPEAT = 'control/repeat';
-export const CONTROL_LOADING = 'control/loading';
-export const CONTROL_VOLUME = 'control/volume';
-export const CONTROL_CHECKDATABANNER = 'control/check_databanner';
-export const CONTROL_REQUIREPLAY = 'control/requirePlay';
-
-// feature
-export const TIME_DISPLAY = 'times';
-export const CURRENT_INDEX = 'current-index';
-export const PLAYLIST_SONGS = 'playlist';
-export const SONG_CURRENT = 'songcurrent';
-export const VOLUME = 'volume';
-
-//sidebar
-export const ID_ACTIVE_SIDEBAR = 'id_active_sidebar';
-
 // MENU action and button
 export const MENU_ACTIONS_RIGHT = [
     {
@@ -97,8 +75,7 @@ export const MENU_SETTING_HEADER = [
                 },
                 {
                     title: 'HQ•320',
-                    content:
-                        'Kết hợp tốt trong việc sử dụng dữ liệu và âm thanh',
+                    content: 'Kết hợp tốt trong việc sử dụng dữ liệu và âm thanh',
                 },
             ],
         },
@@ -219,7 +196,7 @@ export const BANNER_SLIDERS = [
     },
     {
         banner: images.bannerSlider[2],
-        to: '/',
+        to: '/top-trending?_filter=kpop',
     },
     {
         banner: images.bannerSlider[3],

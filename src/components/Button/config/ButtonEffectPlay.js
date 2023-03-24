@@ -1,38 +1,27 @@
 import { useDispatch, useSelector } from 'react-redux';
-import {
-    currentSong,
-    dataSongs,
-    playMusic,
-    setCurrentID,
-} from '../../../redux/actions';
-import { isPlayingSelector } from '../../../redux/selector';
+import { combinedStatusSelector } from '../../../redux/selector';
+import { featureSlice, statusSlice } from '../../../redux/sliceReducer';
 import { Pause, Play } from '../../Icons';
 import Button from '../Button';
-
-export const ButtonEffectPlay = ({
-    children,
-    sizes,
-    data,
-    isSlugNameFromLocation,
-}) => {
+export const ButtonEffectPlay = ({ children, sizes, data, isSlugNameFromLocation }) => {
     const dispatch = useDispatch();
-    const _isPlaying = useSelector(isPlayingSelector);
+    const { isPlaying } = useSelector(combinedStatusSelector);
     const handleTogglePlaySong = () => {
         if (data) {
             // data from banner singer
             const randomIndex = Math.floor(Math.random() * data?.length);
             if (isSlugNameFromLocation) {
                 //if same currentSong and data from banner will toggle
-                dispatch(playMusic(!_isPlaying));
+                dispatch(statusSlice.actions.isPlayingChange(!isPlaying));
             } else {
                 // if songcurrent playing not same slugname with banner song will set data, currentIndex again
-                dispatch(dataSongs(data));
-                dispatch(playMusic(true));
-                dispatch(setCurrentID(randomIndex));
-                dispatch(currentSong(data[randomIndex]));
+                dispatch(statusSlice.actions.isPlayingChange(true));
+                dispatch(featureSlice.actions.setDataSongs(data));
+                dispatch(featureSlice.actions.setCurrentID(randomIndex));
+                dispatch(featureSlice.actions.setSongCurrent(data[randomIndex]));
             }
         } else {
-            dispatch(playMusic(!_isPlaying));
+            dispatch(statusSlice.actions.isPlayingChange(!isPlaying));
         }
     };
     return (
@@ -40,14 +29,14 @@ export const ButtonEffectPlay = ({
             sizes={sizes}
             LeftIcons={
                 data
-                    ? _isPlaying && isSlugNameFromLocation
-                        ? _isPlaying
+                    ? isPlaying && isSlugNameFromLocation
+                        ? isPlaying
                             ? Pause
                             : Play
                         : Play
                     : undefined
             }
-            Icons={!data ? (_isPlaying ? Pause : Play) : undefined} // with noraml button in title
+            Icons={!data ? (isPlaying ? Pause : Play) : undefined} // with noraml button in title
             effectHoverReverse // effect type
             onHandle={handleTogglePlaySong}
         >

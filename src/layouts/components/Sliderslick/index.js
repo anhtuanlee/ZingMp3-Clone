@@ -16,7 +16,7 @@ function SliderSlick() {
         return (
             <div className={cx('card_banners')} key={index}>
                 <div className={`keen-slider__slide number-slide${index + 1}`}>
-                    <Link to={item.to}>
+                    <Link to={item.to} >
                         <figure className={cx('banner_items')}>
                             <Images src={item.banner} />
                         </figure>

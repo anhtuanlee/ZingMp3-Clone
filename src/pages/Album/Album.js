@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ButtonEffectPlay } from '../../components/Button';
 import { renderFullListSong } from '../../Feature/HandleEvent/handleEvent';
-import { activeSidebar } from '../../redux/actions';
+import { sidebarSlice } from '../../redux/sliceReducer';
 import { getSingerDataApi } from '../../services';
 import Loading from '../Loading';
 import styles from './Album.module.scss';
@@ -27,8 +27,7 @@ function Album() {
                             if (Array.isArray(dataFullSong)) {
                                 setDataSinger(dataFullSong);
                                 setCurrentSinger(
-                                    dataFullSong[dataFullSong.length - 1]
-                                        .name_singer,
+                                    dataFullSong[dataFullSong.length - 1].name_singer,
                                 );
                             }
                         },
@@ -45,7 +44,7 @@ function Album() {
     }, [nickname]);
 
     useEffect(() => {
-        dispatch(activeSidebar(null)); // not active sidebar
+        dispatch(sidebarSlice.actions.setIdSidebarActive(null)); // not active sidebar
     }, []);
 
     return dataFullSongs.length === 0 ? (

@@ -49,6 +49,7 @@ function Menu({
             visible={visible || visiblecheck}
             offset={[-80, 10]}
             delay={[1000, 100]}
+            zIndex={99999}
             placement="bottom"
             {...props}
             onClickOutside={handleClickOutSide}

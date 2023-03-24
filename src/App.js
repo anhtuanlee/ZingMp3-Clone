@@ -1,7 +1,7 @@
-import { privateRoutes } from './routes';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { DefaultLayout } from './layouts/';
 import Controls from './layouts/components/Controls';
+import { privateRoutes } from './routes';
 function App() {
     return (
         <Router>

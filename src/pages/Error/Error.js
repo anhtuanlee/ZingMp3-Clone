@@ -1,15 +1,15 @@
-import React, { useEffect } from 'react';
 import classNames from 'classnames/bind';
-import styles from './Error.module.scss';
-import Button from '../../components/Button';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { activeSidebar } from '../../redux/actions';
-const cx = classNames.bind(styles); 
-function ErrorPage() { 
+import { Link } from 'react-router-dom';
+import Button from '../../components/Button';
+import { sidebarSlice } from '../../redux/sliceReducer';
+import styles from './Error.module.scss';
+const cx = classNames.bind(styles);
+function ErrorPage() {
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(activeSidebar(null));
+        dispatch(sidebarSlice.actions.setIdSidebarActive(null));
     }, []);
     return (
         <div className={cx('wrapper')}>
@@ -20,8 +20,8 @@ function ErrorPage() {
             <div className={cx('content')}>
                 <h1>:(</h1>
                 <h2>
-                    A <span>404</span> error occured, Page not found, check the
-                    URL and try again.
+                    A <span>404</span> error occured, Page not found, check the URL and
+                    try again.
                 </h2>
                 <h3 className={cx('btn-return')}>
                     <Link to="/">

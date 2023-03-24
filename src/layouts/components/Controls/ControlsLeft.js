@@ -4,31 +4,31 @@ import { Link } from 'react-router-dom';
 import Button from '../../../components/Button';
 import { Heart, More } from '../../../components/Icons';
 import Images from '../../../components/Image';
-import { songCurrentSelector } from '../../../redux/selector';
+import { combinedStatusSelector } from '../../../redux/selector';
 import styles from './Controls.module.scss';
 const cx = classNames.bind(styles);
 
 function ControlsLeft() {
-    const _songCurrent = useSelector(songCurrentSelector);
+    const {songCurrent} = useSelector(combinedStatusSelector);
     return (
         <div className={cx('player_control_left')}>
             <div className={cx('media_Images')}>
                 <figure className={cx('item_img')}>
-                    <Images src={_songCurrent && _songCurrent?.image_music} />
+                    <Images src={songCurrent && songCurrent?.image_music} />
                 </figure>
             </div>
             <div className={cx('media_content')}>
                 <span className={cx('item_title')}>
-                    {_songCurrent?.name_music}
+                    {songCurrent?.name_music}
                 </span>
                 <Link
-                    to={`/${_songCurrent?.slug_name_singer}`}
-                    state={_songCurrent?.slug_name_singer}
+                    to={`/${songCurrent?.slug_name_singer}`}
+                    state={songCurrent?.slug_name_singer}
                 >
                     
                     {/* clean after */}
                     <h3 className={cx('item_subtitle')}>
-                        {_songCurrent?.name_singer}
+                        {songCurrent?.name_singer}
                     </h3>
                 </Link>
             </div>  

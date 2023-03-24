@@ -1,20 +1,11 @@
-import { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
-import styles from './InputProgress.module.scss';
 import PropTypes from 'prop-types';
-import { currentVolume, volume } from '../../../redux/actions';
-import {
-    isLoadingSelector,
-    isVolumeSelector,
-    songCurrentSelector,
-    timesSelector,
-    volumeSelector,
-} from '../../../redux/selector';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-    CURRENT_TIME_STORAGE,
-    SONG_RECENT_STORAGE,
-} from '../../../config/localStorages';
+import { CURRENT_TIME_STORAGE, SONG_RECENT_STORAGE } from '../../../config/localStorages';
+import { combinedStatusSelector } from '../../../redux/selector';
+import { featureSlice, statusSlice } from '../../../redux/sliceReducer';
+import styles from './InputProgress.module.scss';
 const cx = classNames.bind(styles);
 
 function InputProgress({
@@ -28,10 +19,7 @@ function InputProgress({
     volumeType,
 }) {
     const dispatch = useDispatch();
-    const _times = useSelector(timesSelector);
-    const _isVolume = useSelector(isVolumeSelector);
-    const volumeCurrent = useSelector(volumeSelector);
-    const _songCurrent = useSelector(songCurrentSelector);
+    const { times, isVolume, songCurrent, volume } = useSelector(combinedStatusSelector);
     const progressRef = useRef();
 
     const [valueTime, setValue] = useState(() => {
@@ -42,20 +30,21 @@ function InputProgress({
     });
 
     const [valueVolume, setValueVolume] = useState(() => {
-        return volumeCurrent * 10;
+        return volume * 10;
     });
     const handleTypeInput = (e) => {
         if (audioRef) {
             if (audioType) {
                 setValue(e.target.value);
                 audioRef.current.currentTime = Math.floor(
-                    (progressRef.current.value / 100) *
-                        audioRef.current.duration,
+                    (progressRef.current.value / 100) * audioRef.current.duration,
                 );
             } else if (volumeType) {
                 setValueVolume(e.target.value);
-                dispatch(volume(e.target.value > 0 ? true : false));
-                dispatch(currentVolume(e.target.value / 10));
+                dispatch(
+                    statusSlice.actions.isVolumeChange(e.target.value > 0 ? true : false),
+                );
+                dispatch(featureSlice.actions.setVolume(e.target.value / 10));
                 audioRef.current.volume = e.target.value / 10;
                 localStorage.setItem(
                     'current_Volume',
@@ -69,13 +58,7 @@ function InputProgress({
         return {
             ...style,
             backgroundSize: `${
-                ((audioType
-                    ? valueTime
-                        ? valueTime
-                        : 0
-                    : _isVolume
-                    ? valueVolume
-                    : 0) *
+                ((audioType ? (valueTime ? valueTime : 0) : isVolume ? valueVolume : 0) *
                     100) /
                 max
             }% 100%`,
@@ -85,7 +68,7 @@ function InputProgress({
     useEffect(() => {
         if (audioRef) {
             const percentValue = String(
-                Math.floor((_times.currentTime / _songCurrent?.seconds) * 100),
+                Math.floor((times.currentTime / songCurrent?.seconds) * 100),
             );
             if (percentValue !== null) {
                 setValue(percentValue);
@@ -93,7 +76,7 @@ function InputProgress({
                 setValue(0);
             }
         }
-    }, [_times.currentTime]);
+    }, [times.currentTime]);
     useEffect(() => {
         if (audioRef) {
             if (CURRENT_TIME_STORAGE !== null) {
@@ -104,37 +87,29 @@ function InputProgress({
     // seek volume
     useEffect(() => {
         if (audioRef) {
-            if (_isVolume) {
+            if (isVolume) {
                 audioRef.current.volume = valueVolume / 10;
             } else {
                 audioRef.current.volume = 0;
-                if (!_isVolume && valueVolume < 0.1) {
-                    // check _isVolume false and valueVolume < 0.1 when _isVolume change will setValue = 0.1
+                if (!isVolume && valueVolume < 0.1) {
+                    // check isVolume false and valueVolume < 0.1 when isVolume change will setValue = 0.1
                     setValueVolume(1);
                 } else {
                     audioRef.current.volume = 0;
                 }
             }
-            dispatch(currentVolume(audioRef.current.volume));
+            dispatch(featureSlice.actions.setVolume(audioRef.current.volume));
 
             localStorage.setItem(
                 'current_Volume',
                 JSON.stringify(audioRef.current.volume),
             );
         }
-    }, [_isVolume]);
+    }, [isVolume]);
     return (
         <input
             type="range"
-            value={
-                audioType
-                    ? valueTime
-                        ? valueTime
-                        : 0
-                    : _isVolume
-                    ? valueVolume
-                    : 0
-            }
+            value={audioType ? (valueTime ? valueTime : 0) : isVolume ? valueVolume : 0}
             max={max}
             min={min}
             step={step}

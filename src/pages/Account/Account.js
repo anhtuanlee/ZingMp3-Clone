@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { activeSidebar } from '../../redux/actions';
+import { sidebarSlice } from '../../redux/sliceReducer';
 import { getSingerDataApi } from '../../services';
 import Loading from '../Loading';
 import styles from './Account.module.scss';
@@ -12,14 +12,14 @@ import HeaderPageSinger from './HeaderPageSinger/HeaderPageSinger';
 const cx = classNames.bind(styles);
 function AccountPage() {
     const { nickname } = useParams(); // getApi from
-    const [dataSinger, setDataSinger] = useState([]); 
+    const [dataSinger, setDataSinger] = useState([]);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     useEffect(() => {
         const fetch = async () => {
             try {
-                const result = await getSingerDataApi(nickname,6).then((data) => {
+                const result = await getSingerDataApi(nickname, 6).then((data) => {
                     setDataSinger(data);
                 });
                 return result;
@@ -33,7 +33,7 @@ function AccountPage() {
     }, [nickname]);
 
     useEffect(() => {
-        dispatch(activeSidebar(null)); // not active sidebar
+        dispatch(sidebarSlice.actions.setIdSidebarActive(null)); // not active sidebar
     }, []);
 
     return dataSinger.length === 0 && nickname ? (

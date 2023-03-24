@@ -1,23 +1,17 @@
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
-import { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { animateScroll as scroll } from 'react-scroll';
 import { Play, SubTract, WaveSongPlay } from '../components/Icons';
 import Images from '../components/Image';
 import { useConvertNumber } from '../hooks/';
-import {
-    currentSong,
-    dataSongs,
-    playMusic,
-    setCurrentID,
-} from '../redux/actions';
-import { isPlayingSelector, songCurrentSelector } from '../redux/selector';
+import { combinedStatusSelector } from '../redux/selector';
+import { featureSlice, statusSlice } from '../redux/sliceReducer';
 import { ActionBtnAlbum } from './ActionBtnAlbum';
 import styles from './PlayListSong.module.scss';
-import { animateScroll as scroll } from 'react-scroll';
-import React from 'react';
 const cx = classNames.bind(styles);
 
 function PlayListSong(
@@ -31,8 +25,7 @@ function PlayListSong(
     ref,
 ) {
     const dispatch = useDispatch();
-    const _songCurrent = useSelector(songCurrentSelector);
-    const _isPlaying = useSelector(isPlayingSelector);
+    const { songCurrent, isPlaying } = useSelector(combinedStatusSelector);
     const [isHover, setIsHover] = useState(false);
     const [element, setElement] = useState('');
     const songItemRef = useRef();
@@ -40,18 +33,14 @@ function PlayListSong(
 
     const handleConfig = (data, song, index, e) => {
         if (data) {
-            if (song._id === _songCurrent._id) {
-                dispatch(playMusic(!_isPlaying));
+            if (song._id === songCurrent._id) {
+                dispatch(statusSlice.actions.isPlayingChange(!isPlaying));
             } else {
-                dispatch(playMusic(true));
+                dispatch(statusSlice.actions.isPlayingChange(true));
             }
-            dispatch(dataSongs(data));
-            dispatch(currentSong(data[index]));
-            dispatch(setCurrentID(index));
-
-            localStorage.setItem('listSongsData', JSON.stringify(data));
-            localStorage.setItem('songRecent', JSON.stringify(data[index]));
-            localStorage.setItem('currentIndex', JSON.stringify(index));
+            dispatch(featureSlice.actions.setDataSongs(data));
+            dispatch(featureSlice.actions.setSongCurrent(data[index]));
+            dispatch(featureSlice.actions.setCurrentID(index));
         }
     };
     const handlePlaySong = (data, song, index) => {
@@ -93,7 +82,7 @@ function PlayListSong(
 
     useEffect(() => {
         // effect scroll with react-scroll
-        if (_songCurrent._id === song._id) {
+        if (songCurrent._id === song._id) {
             scroll.scrollTo(songItemRef.current.offsetTop - 250, {
                 containerId: ref?.current?.id,
                 duration: 2000,
@@ -101,21 +90,19 @@ function PlayListSong(
                 smooth: 'easeOutCubic',
             });
         }
-    }, [_songCurrent]);
+    }, [songCurrent]);
 
     return (
         <div
             ref={songItemRef}
             className={cx(
                 'song_item_container',
-                _songCurrent?._id === song?._id ? 'isActive' : '',
+                songCurrent?._id === song?._id ? 'isActive' : '',
                 { HomePageTrending },
             )}
             key={index}
             data-index={index}
-            onDoubleClick={(e) =>
-                handleDubleClickPlaySong(e, data, song, index)
-            }
+            onDoubleClick={(e) => handleDubleClickPlaySong(e, data, song, index)}
             onMouseOver={(e) => handleHoverMusic(e, index)}
             onMouseLeave={handleLeaveMusic}
         >
@@ -129,7 +116,7 @@ function PlayListSong(
                     >
                         <Images src={song?.image_music} />
                         <span className={cx('icon_inner_avatar')}>
-                            {_songCurrent?._id === song?._id && _isPlaying ? (
+                            {songCurrent?._id === song?._id && isPlaying ? (
                                 <WaveSongPlay />
                             ) : (
                                 <Play />
@@ -137,9 +124,7 @@ function PlayListSong(
                         </span>
                     </figure>
                     <div className={cx('title_song_item')}>
-                        <h4 className={cx('name_song_item')}>
-                            {song.name_music}
-                        </h4>
+                        <h4 className={cx('name_song_item')}>{song.name_music}</h4>
                         <Link
                             to={`/${song.slug_name_singer}`}
                             state={song.slug_name_singer}
@@ -169,9 +154,7 @@ function PlayListSong(
                             {/* check  */}
                         </div>
                     ) : (
-                        <div className={cx('item_format_time')}>
-                            {song.time_format}
-                        </div>
+                        <div className={cx('item_format_time')}>{song.time_format}</div>
                     )}
                 </div>
             </div>

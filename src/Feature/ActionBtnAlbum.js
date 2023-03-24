@@ -1,20 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
-import {
-    currentSong,
-    dataSongs,
-    playMusic,
-    requirePlay,
-    setCurrentID,
-} from '../redux/actions';
-import {
-    isPlayingSelector,
-    slugDataBannerSelector,
-    songCurrentSelector,
-} from '../redux/selector';
+import { combinedStatusSelector } from '../redux/selector';
 
 import Button from '../components/Button';
 import { Heart, More, Play } from '../components/Icons';
 import WaveSong from '../components/Icons/WaveSong';
+import { featureSlice, statusSlice } from '../redux/sliceReducer';
 
 export const ActionBtnAlbum = ({
     item,
@@ -25,27 +15,26 @@ export const ActionBtnAlbum = ({
     playlistSong,
 }) => {
     const dispatch = useDispatch();
-    const _slugDataBanner = useSelector(slugDataBannerSelector); // slug_name in item
-    const _isPlaying = useSelector(isPlayingSelector);
-    const _songCurrent = useSelector(songCurrentSelector);
-    const isSlugCategory = _slugDataBanner === item?.slug_category;
-    const isSlugNameSinger = _slugDataBanner === item?.slug_name_singer;
-    const isSlugCategoryCurrent =
-        _songCurrent?.slug_category === item?.slug_category;
+    const { slugDataBanner, isPlaying, songCurrent } =
+        useSelector(combinedStatusSelector); // slug_name in
+
+    const isSlugCategory = slugDataBanner === item?.slug_category;
+    const isSlugNameSinger = slugDataBanner === item?.slug_name_singer;
+    const isSlugCategoryCurrent = songCurrent?.slug_category === item?.slug_category;
     const isSlugNameSingerCurrent =
-        _songCurrent?.slug_name_singer === item?.slug_name_singer;
+        songCurrent?.slug_name_singer === item?.slug_name_singer;
 
     const BUTTON_HOVER = [
         {
             extraTitle: 'Thêm vào thư viện',
             icon: Heart,
-            circle_hide: true,
+            circle: true,
             type: 'like',
         },
         {
             icon:
-                (isSlugCategory && isSlugCategoryCurrent && _isPlaying) ||
-                (isSlugNameSinger && isSlugNameSingerCurrent && _isPlaying)
+                (isSlugCategory && isSlugCategoryCurrent && isPlaying) ||
+                (isSlugNameSinger && isSlugNameSingerCurrent && isPlaying)
                     ? WaveSong
                     : Play,
             border: true,
@@ -55,10 +44,10 @@ export const ActionBtnAlbum = ({
         {
             extraTitle: 'Khác',
             icon: More,
-            circle_hide: true,
+            circle: true,
             type: 'more',
         },
-    ]; 
+    ];
     const onHandle = (e, btn) => {
         if (
             (isSlugCategory && isSlugCategoryCurrent) ||
@@ -73,7 +62,7 @@ export const ActionBtnAlbum = ({
                     break;
                 case 'play':
                     console.log('play1');
-                    return dispatch(playMusic(!_isPlaying));
+                    return dispatch(statusSlice.actions.isPlayingChange(!isPlaying));
                 case 'more':
                     console.log('morexx');
                     break;
@@ -84,24 +73,24 @@ export const ActionBtnAlbum = ({
             switch (btn.type) {
                 case 'play':
                     if (isLivingAlbum) {
-                        const randomID = Math.floor(
-                            Math.random() * data?.length,
-                        );
+                        const randomID = Math.floor(Math.random() * data?.length);
                         /*check action in home page  ? if true will update data new song , if false will request play and 
                         dispath data to album
                          */
                         if (data.length > 0) {
                             return (
-                                dispatch(setCurrentID(randomID)) &&
-                                dispatch(currentSong(data[randomID])) &&
-                                dispatch(dataSongs(data)) &&
-                                dispatch(playMusic(true))
+                                dispatch(featureSlice.actions.setCurrentID(randomID)) &&
+                                dispatch(
+                                    featureSlice.actions.setSongCurrent(data[randomID]),
+                                ) &&
+                                dispatch(featureSlice.actions.setDataSongs(data)) &&
+                                dispatch(statusSlice.actions.isPlayingChange(true))
                             );
                         }
                     } else {
                         console.log('play_require');
 
-                        return dispatch(requirePlay(true));
+                        return dispatch(statusSlice.actions.isRequirePlayChange(true));
                     }
                 case 'like':
                     console.log('like2');
@@ -127,7 +116,7 @@ export const ActionBtnAlbum = ({
                             <Button
                                 Icons={btn.icon}
                                 extraTitle={btn.extraTitle}
-                                circle_hide={btn.circle_hide}
+                                circle={btn.circle}
                                 border_nothover={btn.border_nothover}
                                 title={item?.title}
                                 onHandle={(e) => onHandle(e, btn)}
@@ -141,7 +130,7 @@ export const ActionBtnAlbum = ({
                         <Button
                             Icons={btn.icon}
                             extraTitle={btn.extraTitle}
-                            circle_hide={btn.circle_hide}
+                            circle={btn.circle}
                             border_nothover={btn.border_nothover}
                             title={item?.title}
                             onHandle={(e) => onHandle(e, btn)}
@@ -157,7 +146,7 @@ export const ActionBtnAlbum = ({
                         <Button
                             Icons={btn.icon}
                             extraTitle={btn.extraTitle}
-                            circle_hide={btn.circle_hide}
+                            circle={btn.circle}
                             border_nothover={btn.border_nothover}
                             title={item?.title}
                             onHandle={(e) => onHandle(e, btn)}

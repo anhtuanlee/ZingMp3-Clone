@@ -3,17 +3,16 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../../components/Button/Button';
 import { Multi, Mv, Volumn, VolumnOff } from '../../../components/Icons';
-import { volume } from '../../../redux/actions';
-import { isVolumeSelector } from '../../../redux/selector';
+import { combinedStatusSelector } from '../../../redux/selector';
+import { statusSlice } from '../../../redux/sliceReducer';
 import InputProgress from '../InputProgress';
 import styles from './Controls.module.scss';
 const cx = classNames.bind(styles);
 
 function ControlsRight({ audioRef }) {
     const [style, setStyles] = useState(false);
-    const _isVolume = useSelector(isVolumeSelector);
+    const { isVolume } = useSelector(combinedStatusSelector);
     const dispatch = useDispatch();
-
     const CONTROL_BTNS_RIGHT = [
         {
             data: [
@@ -27,7 +26,7 @@ function ControlsRight({ audioRef }) {
                     extraTitle: 'Chế độ cửa sổ',
                 },
                 {
-                    icon: _isVolume ? Volumn : VolumnOff,
+                    icon: isVolume ? Volumn : VolumnOff,
                     type: 'volume',
                 },
             ],
@@ -36,7 +35,7 @@ function ControlsRight({ audioRef }) {
     const handle = (action) => {
         switch (action) {
             case 'volume':
-                dispatch(volume(!_isVolume));
+                dispatch(statusSlice.actions.isVolumeChange(!isVolume));
                 break;
             default:
                 console.log('default');

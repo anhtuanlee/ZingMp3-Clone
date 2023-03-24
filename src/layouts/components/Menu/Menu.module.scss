@@ -7,13 +7,16 @@
     z-index: 101;
 }
 .menu_items {
-    padding: 10px 0;
+    padding: 10px 8px;
 }
 .items {
     height: 44px;
     position: relative;
+    display: flex;
+    align-items: center;
     &:hover {
         background-color: var(--hover-blur-bg);
+        border-radius: 4px;
     }
 }
 .icon {
@@ -24,7 +27,6 @@
     color: var(--search-text);
     font-weight: 500;
 }
-
 
 .textblur {
     .icon {

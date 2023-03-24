@@ -32,9 +32,9 @@
     font-size: 18px;
     width: 40px;
     height: 40px;
-    background-color: var(--primary-blur-bg);
     &:hover {
         filter: brightness(0.9);
+        background-color: var(--hover-blur-bg-button);
     }
 }
 .circle_hide {
@@ -49,13 +49,21 @@
     margin: 0 10px;
     &:hover {
         filter: brightness(0.9);
-        background-color: var(--hover-blur-bg-button);
+        background-color: var(--hover-blur-bg);
     }
 }
 .active {
     color: var(--purple-primary);
 }
 .text {
+    padding: 5px 24px;
+    font-size: 12px;
+    margin: 0;
+    margin-right: 15px;
+    background-color: transparent;
+    font-weight: 400;
+}
+.text_border {
     padding: 5px 24px;
     font-size: 12px;
     margin: 0;

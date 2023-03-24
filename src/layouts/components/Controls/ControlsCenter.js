@@ -13,82 +13,75 @@ import {
     Repeat,
 } from '../../../components/Icons';
 import { useTimes } from '../../../hooks';
-import {
-    currentSong,
-    dataSongs,
-    pauseMusic,
-    playMusic,
-    randomSong,
-    repeatSong,
-    setCurrentID,
-} from '../../../redux/actions';
-import {
-    currentIndexSelector,
-    dataSongsSelector,
-    isLoadingSelector,
-    isPlayingSelector,
-    isRandomSelector,
-    isRepeatSelector,
-    songCurrentSelector,
-    timesSelector,
-} from '../../../redux/selector';
+import { combinedStatusSelector } from '../../../redux/selector';
+import { featureSlice, statusSlice } from '../../../redux/sliceReducer';
 import InputProgress from '../InputProgress';
 import styles from './Controls.module.scss';
 const cx = classNames.bind(styles);
 
 function ControlsCenter({ audioRef }) {
     const dispatch = useDispatch();
-    const _isPlay = useSelector(isPlayingSelector);
-    const _isRepeat = useSelector(isRepeatSelector);
-    const _isRandom = useSelector(isRandomSelector);
-    const _isLoading = useSelector(isLoadingSelector);
-    const _times = useSelector(timesSelector);
-    const _songCurrent = useSelector(songCurrentSelector);
-    let index = useSelector(currentIndexSelector);
-    const _dataSongs = useSelector(dataSongsSelector);
+    const { isPlaying, isRandom, isRepeat, dataSongs, isLoading, times, songCurrent } =
+        useSelector(combinedStatusSelector);
+    let { currentIndex } = useSelector(combinedStatusSelector);
     //times display
 
-    const timeRemain = useTimes(_times.currentTime);
+    const timeRemain = useTimes(times.currentTime);
     const [randomIndex, setRandomIndex] = useState([]);
-    const list = new Set(randomIndex); // List save random index and reset at full
+    const list = new Set(randomIndex); // List save random currentIndex and reset at full
+
+    //handleChangeIndex main
+    const handleSetIndexChange = (currentIndex) => {
+        dispatch(statusSlice.actions.isPlayingChange(true));
+        dispatch(featureSlice.actions.setCurrentID(currentIndex));
+        dispatch(featureSlice.actions.setSongCurrent(dataSongs[currentIndex]));
+    };
+    //handle random
+    const handleRandom = (currentIndex) => {
+        let random;
+        const songsLength = dataSongs.length;
+        do {
+            random = Math.ceil(Math.random() * dataSongs.length);
+            setRandomIndex((prev) => [...prev, random]);
+        } while (list.has(random));
+        currentIndex = random;
+        setRandomIndex((prev) => [...prev, currentIndex]);
+
+        if (list.size === songsLength - 1) {
+            setRandomIndex([]);
+        }
+    };
 
     // custom handle with type
     const handleControlMain = (type) => {
         switch (type) {
             case 'play':
-                dispatch(playMusic(_isPlay ? false : true));
+                dispatch(statusSlice.actions.isPlayingChange(isPlaying ? false : true));
                 break;
             case 'pause':
-                dispatch(pauseMusic(_isPlay ? false : true));
+                dispatch(statusSlice.actions.isPlayingChange(isPlaying ? false : true));
                 break;
             case 'next':
-                if (index < _dataSongs.length - 1) {
-                    _isRandom ? handleRandom() : index++;
+                if (currentIndex < dataSongs.length - 1) {
+                    isRandom ? handleRandom(currentIndex) : currentIndex++;
                 } else {
-                    index = 0;
+                    currentIndex = 0;
                 }
-                dispatch(playMusic(true));
-                dispatch(dataSongs(_dataSongs));
-                dispatch(setCurrentID(index));
-                dispatch(currentSong(_dataSongs[index]));
-
+                handleSetIndexChange(currentIndex);
                 break;
             case 'prev':
-                if (index > 0) {
-                    _isRandom ? handleRandom() : index--;
+                if (currentIndex > 0) {
+                    isRandom ? handleRandom(currentIndex) : currentIndex--;
                 } else {
-                    index = _dataSongs.length - 1;
+                    currentIndex = dataSongs.length - 1;
                 }
-                dispatch(playMusic(true));
-                dispatch(dataSongs(_dataSongs));
-                dispatch(setCurrentID(index));
-                dispatch(currentSong(_dataSongs[index]));
+                handleSetIndexChange(currentIndex);
                 break;
             case 'repeat':
-                dispatch(repeatSong(!_isRepeat));
+                dispatch(statusSlice.actions.isRepeatChange(!isRepeat));
                 break;
             case 'random':
-                dispatch(randomSong(!_isRandom));
+                dispatch(statusSlice.actions.isRandomChange(!isRandom));
                 break;
             default:
                 console.log('default');
@@ -100,10 +93,8 @@ function ControlsCenter({ audioRef }) {
             data: [
                 {
                     icon: Random,
-                    active: _isRandom ? true : false,
-                    extraTitle: _isRandom
-                        ? 'Tắt phát ngẫu nhiên'
-                        : 'Bật phát ngẫu nhiên',
+                    active: isRandom ? true : false,
+                    extraTitle: isRandom ? 'Tắt phát ngẫu nhiên' : 'Bật phát ngẫu nhiên',
                     type: 'random',
                 },
                 {
@@ -111,11 +102,11 @@ function ControlsCenter({ audioRef }) {
                     type: 'prev',
                 },
                 {
-                    icon: _isPlay && !_isLoading ? Pause : Play,
-                    iconLoading: _isLoading ? Loading : undefined,
+                    icon: isPlaying && !isLoading ? Pause : Play,
+                    iconLoading: isLoading ? Loading : undefined,
                     border: true,
                     circle_hide: true,
-                    type: _isPlay ? 'play' : 'pause',
+                    type: isPlaying ? 'play' : 'pause',
                 },
 
                 {
@@ -124,10 +115,8 @@ function ControlsCenter({ audioRef }) {
                 },
                 {
                     icon: Repeat,
-                    active: _isRepeat ? true : false,
-                    extraTitle: !_isRepeat
-                        ? 'Bật phát lại một bài'
-                        : 'Tắt phát lại',
+                    active: isRepeat ? true : false,
+                    extraTitle: !isRepeat ? 'Bật phát lại một bài' : 'Tắt phát lại',
                     type: 'repeat',
                 },
             ],
@@ -136,41 +125,25 @@ function ControlsCenter({ audioRef }) {
     // play pause
     useEffect(() => {
         if (audioRef) {
-            if (_isPlay) {
+            if (isPlaying) {
                 audioRef.current.muted = false;
                 audioRef.current.play();
             } else {
                 audioRef.current.pause();
             }
         }
-    }, [_isPlay]);
+    }, [isPlaying]);
 
     useEffect(() => {
-        localStorage.setItem('isRandom', JSON.stringify(_isRandom));
-    }, [_isRandom]);
+        localStorage.setItem('isRandom', JSON.stringify(isRandom));
+    }, [isRandom]);
 
     useEffect(() => {
-        localStorage.setItem('isRepeat', JSON.stringify(_isRepeat));
-    }, [_isRepeat]);
-
-    //handle
-    const handleRandom = () => {
-        let random;
-        const songsLength = _dataSongs.length;
-        do {
-            random = Math.ceil(Math.random() * _dataSongs.length);
-            setRandomIndex((prev) => [...prev, random]);
-        } while (list.has(random));
-        index = random;
-        setRandomIndex((prev) => [...prev, index]);
-
-        if (list.size === songsLength - 1) {
-            setRandomIndex([]);
-        }
-    };
+        localStorage.setItem('isRepeat', JSON.stringify(isRepeat));
+    }, [isRepeat]);
 
     const lastData = CONTROL_BTNS_CENTER[CONTROL_BTNS_CENTER.length - 1].data;
-    const renderControlsBtn = lastData.map((btn, index) => {
+    const renderControlsBtn = lastData.map((btn, currentIndex) => {
         const isCircleHide = btn.circle_hide;
         return (
             <Button
@@ -180,7 +153,7 @@ function ControlsCenter({ audioRef }) {
                 extraTitle={btn.extraTitle}
                 isLoading={btn.iconLoading ? true : false}
                 Icons={btn.iconLoading || btn.icon}
-                key={index}
+                key={currentIndex}
                 active={btn.active}
                 onHandle={() => handleControlMain(btn.type)}
             />
@@ -201,9 +174,7 @@ function ControlsCenter({ audioRef }) {
                                 audioRef={audioRef}
                             />
                         </div>
-                        <span className={cx('time_end')}>
-                            {_songCurrent?.time_format}
-                        </span>
+                        <span className={cx('time_end')}>{songCurrent?.time_format}</span>
                     </div>
                 </div>
             </div>

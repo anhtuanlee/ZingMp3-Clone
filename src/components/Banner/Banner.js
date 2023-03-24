@@ -3,9 +3,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ActionBtnAlbum } from '../../Feature/ActionBtnAlbum';
 import {
-    isPlayingSelector,
-    slugDataBannerSelector,
-    songCurrentSelector,
+    combinedStatusSelector
 } from '../../redux/selector';
 import Images from '../Image';
 import styles from './Banner.module.scss';
@@ -16,21 +14,21 @@ const cx = classNames.bind(styles);
 function Banner({ item, index, data, isLivingAlbum, singleBtn }) {
     const [indexHover, setIndexHover] = useState(false);
     const [isHover, setIsHover] = useState(false);
-    const _slugDataBanner = useSelector(slugDataBannerSelector); // slug_name in item
-    const _isPlaying = useSelector(isPlayingSelector);
-    const _songCurrent = useSelector(songCurrentSelector);
-
-    const isSlugCategory = _slugDataBanner === item?.slug_category;
-    const isSlugNameSinger = _slugDataBanner === item?.slug_name_singer;
+    const { slugDataBanner, isPlaying, songCurrent } = useSelector(
+        combinedStatusSelector,
+    );
+    
+    const isSlugCategory = slugDataBanner === item?.slug_category;
+    const isSlugNameSinger = slugDataBanner === item?.slug_name_singer;
     const isSlugCategoryCurrent =
-        _songCurrent?.slug_category === item?.slug_category;
+        songCurrent?.slug_category === item?.slug_category;
     const isSlugNameSingerCurrent =
-        _songCurrent?.slug_name_singer === item?.slug_name_singer;
+        songCurrent?.slug_name_singer === item?.slug_name_singer;
 
     const isCategoryMatch =
-        isSlugCategory && isSlugCategoryCurrent && _isPlaying;
+        isSlugCategory && isSlugCategoryCurrent && isPlaying;
     const isSingerMatch =
-        isSlugNameSinger && isSlugNameSingerCurrent && _isPlaying;
+        isSlugNameSinger && isSlugNameSingerCurrent && isPlaying;
 
     const handleHover = () => {
         if (!isHover) {
@@ -51,27 +49,27 @@ function Banner({ item, index, data, isLivingAlbum, singleBtn }) {
     });
 
     useEffect(() => {
-        // check when _songCurrent change and set isHover false
+        // check when songCurrent change and set isHover false
         if (
-            _slugDataBanner !== _songCurrent.slug_name_singer ||
-            _slugDataBanner !== _songCurrent.slug_category
+            slugDataBanner !== songCurrent.slug_name_singer ||
+            slugDataBanner !== songCurrent.slug_category
         ) {
             setIndexHover(null);
             setIsHover(false);
         }
-    }, [_songCurrent]);
+    }, [songCurrent]);
     useEffect(() => {
         // set hover banner when play song in banner and not hover when not play song
         if (
-            _slugDataBanner === item?.slug_name_singer ||
-            _slugDataBanner === item?.slug_category
+            slugDataBanner === item?.slug_name_singer ||
+            slugDataBanner === item?.slug_category
         ) {
-            if (!_isPlaying) {
+            if (!isPlaying) {
                 setIndexHover(null);
                 setIsHover(false);
             }
         }
-    }, [_isPlaying]);
+    }, [isPlaying]);
     return (
         <div
             className={cx(

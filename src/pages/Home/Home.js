@@ -1,30 +1,30 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import SliderSlick from '../../layouts/components/Sliderslick';
-import { activeSidebar } from '../../redux/actions';
-import Content from '../../components/Content';
 import classNames from 'classnames/bind';
-import styles from './Home.module.scss';
-import { songCurrentSelector } from '../../redux/selector';
-import Loading from '../../pages/Loading';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import Content from '../../components/Content';
+import SliderSlick from '../../layouts/components/Sliderslick';
+import Loading from '../../pages/Loading';
+import { combinedStatusSelector } from '../../redux/selector';
+import { sidebarSlice } from '../../redux/sliceReducer';
+import styles from './Home.module.scss';
 const cx = classNames.bind(styles);
 function Home() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     useEffect(() => {
-        dispatch(activeSidebar(1));
-        window.scrollTo(0,0)
+        dispatch(sidebarSlice.actions.setIdSidebarActive(1));
+        window.scrollTo(0, 0);
     }, []);
-    const _songCurrent = useSelector(songCurrentSelector);
+    const { songCurrent } = useSelector(combinedStatusSelector);
     useEffect(() => {
-        if (!_songCurrent) {
+        if (!songCurrent) {
             navigate('..');
         }
-    }, [_songCurrent]);
-    return _songCurrent === undefined ? (
+    }, [songCurrent]);
+    return songCurrent === undefined ? (
         <div className={cx('loading')}>
-            <Loading /> 
+            <Loading />
         </div>
     ) : (
         <div className={cx('wrapper')}>

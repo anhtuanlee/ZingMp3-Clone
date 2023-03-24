@@ -12,9 +12,9 @@ export const VOLUME_STORAGE = JSON.parse(
 );
 export const DATA_SONGS_RECENT = JSON.parse(localStorage.getItem('listSongsData'));
 
-export const _isRepeat = JSON.parse(localStorage.getItem('isRepeat'));
-export const _isRandom = JSON.parse(localStorage.getItem('isRandom'));
+export const IS_REPEAT_STORAGE = JSON.parse(localStorage.getItem('isRepeat'));
+export const IS_RANDOM_STORAGE = JSON.parse(localStorage.getItem('isRandom'));
 
-export const _idActiveSidebar = JSON.parse(
+export const idActiveSidebar = JSON.parse(
     localStorage.getItem('idActiveSidebar'),
 ); 

@@ -1,8 +1,12 @@
-import { legacy_createStore as createStore } from 'redux';
-import { rootReducer } from './useReducer';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { configureStore } from '@reduxjs/toolkit';
+import { featureSlice, sidebarSlice, statusSlice, themeSlice } from './sliceReducer';
 
-
-const composeEnhancer = composeWithDevTools()
-const store = createStore(rootReducer,composeEnhancer);
+const store = configureStore({
+    reducer: {
+        feature: featureSlice.reducer,
+        status: statusSlice.reducer,
+        sidebar: sidebarSlice.reducer,
+        theme: themeSlice.reducer,
+    },
+});
 export default store;

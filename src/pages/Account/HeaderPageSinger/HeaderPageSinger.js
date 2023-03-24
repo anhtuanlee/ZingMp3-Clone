@@ -1,9 +1,7 @@
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { ButtonEffectPlay } from '../../../components/Button';
 import Images from '../../../components/Image';
-import { isPlayingSelector } from '../../../redux/selector';
 import styles from '../Account.module.scss';
 const cx = classNames.bind(styles);
 

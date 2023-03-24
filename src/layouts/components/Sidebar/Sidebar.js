@@ -1,10 +1,9 @@
 import classNames from 'classnames/bind';
-import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { activeSidebar } from '../../../redux/actions';
 import { SIDEBAR_MENU } from '../../../redux/constant';
-import { idActiveSidebarSelector } from '../../../redux/selector';
+import { combinedStatusSelector } from '../../../redux/selector';
+import { sidebarSlice } from '../../../redux/sliceReducer';
 import styles from './Sidebar.module.scss';
 import SidebarItem from './SidebarItem';
 
@@ -12,17 +11,18 @@ const cx = classNames.bind(styles);
 
 function Sidebar() {
     const dispatch = useDispatch();
-    const _idActiveSidebar = useSelector(idActiveSidebarSelector);
+    const { idActive } = useSelector(combinedStatusSelector);
+
     const renderMenuMain = SIDEBAR_MENU.map((item, index) => {
         const handleClickActive = (e, index) => {
             if (
-                _idActiveSidebar === index &&
+                idActive === index &&
                 e.currentTarget.dataset.index !== index.toString()
             ) {
-                dispatch(activeSidebar(null));
+                dispatch(sidebarSlice.actions.setIdSidebarActive(null));
                 // if lastEl active will off when nextEl active
             } else {
-                dispatch(activeSidebar(index));
+                dispatch(sidebarSlice.actions.setIdSidebarActive(index));
             }
             localStorage.setItem('idActiveSidebar', JSON.stringify(index));
         };
@@ -31,7 +31,7 @@ function Sidebar() {
                 data={item}
                 key={index}
                 dataset={index}
-                isActive={index === _idActiveSidebar ? true : false} // check isActive ?
+                isActive={index === idActive ? true : false} // check isActive ?
                 onClick={(e) => handleClickActive(e, index)}
             />
         );
