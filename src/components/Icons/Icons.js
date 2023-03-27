@@ -4,7 +4,7 @@ import {
     faArrowUpFromBracket,
     faBan,
     faCircleInfo,
-    faCirclePlay, 
+    faCirclePlay,
     faFileLines,
     faGear,
     faGem,
@@ -13,8 +13,10 @@ import {
     faRectangleAd,
     faRepeat,
     faShuffle,
-    faStandardDefinition, faVolume,
-    faVolumeXmark
+    faStandardDefinition,
+    faVolume,
+    faVolumeXmark,
+    faXmark,
 } from '@cseitz/fontawesome-svg-light';
 import { faHeart, faWindowRestore } from '@fortawesome/free-regular-svg-icons';
 import {
@@ -23,7 +25,7 @@ import {
     faForwardStep,
     faPause,
     faPlay,
-    faSubtract
+    faSubtract,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import images from '../../assets';
@@ -273,4 +275,7 @@ export const WaveSongPlay = () => {
 };
 export const SubTract = () => {
     return <FontAwesomeIcon icon={faSubtract} />;
+};
+export const Close = () => {
+    return <FontAwesomeIcon icon={faXmark} />;
 };

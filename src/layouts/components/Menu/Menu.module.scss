@@ -15,7 +15,7 @@
     display: flex;
     align-items: center;
     &:hover {
-        background-color: var(--hover-blur-bg);
+        background-color: var(--hover-blur-bg-button);
         border-radius: 4px;
     }
 }
@@ -24,7 +24,7 @@
 }
 .item_title {
     font-size: 14px;
-    color: var(--search-text);
+    color: var(--text-primary);
     font-weight: 500;
 }
 

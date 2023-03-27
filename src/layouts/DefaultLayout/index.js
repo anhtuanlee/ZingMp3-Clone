@@ -1,13 +1,10 @@
 import classNames from 'classnames/bind';
-import { useSelector } from 'react-redux';
-import ModalTheme from '../../components/ModalTheme/ModalTheme';
 import Header from '../../layouts/components/Header';
-import { combinedStatusSelector } from '../../redux/selector';
 import Sidebar from '../components/Sidebar';
 import styles from './DefaultLayout.module.scss';
 const cx = classNames.bind(styles);
-function DefaultLayout({ children }) {
-    const {isTheme} = useSelector(combinedStatusSelector);  
+function DefaultLayout({ children }) {  
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('sidbar')}>
@@ -19,7 +16,6 @@ function DefaultLayout({ children }) {
                 </div>
                 <div className={cx('content')}>{children}</div>
             </div>
-            {isTheme &&    <ModalTheme />}
         </div>
     );
 }

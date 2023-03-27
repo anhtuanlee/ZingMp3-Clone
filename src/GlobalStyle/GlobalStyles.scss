@@ -4,26 +4,30 @@
     --primary: #170f23;
     --primary-bg: #34224f;
     --purple-primary: #9b4de0;
-    --primary-blur-bg: #2e2739;
+    --primary-blur-bg: rgba(0, 0, 0, 0.05);
     --sidebar-bg: #231b2e;
-    --bg-loading: #25212b57;
     --layout-header-bg: rgba(23, 15, 35, 0.666);
-    
+    --modal-layout-bg: rgba(0, 0, 0, 0.5);
+    --player-bg: #130c1c;
+    --background-section: '';
+    --background-section-size: 1920px auto;
+    --newsonglayout-bg: url('https://zjs.zmdcdn.me/zmp3-desktop/releases/v1.9.9/static/media/new-release-bg.73d8f976.jpg');
+
     --text-primary: #fff;
     --text-blur: #756a87;
     --text-secondary: hsla(0, 0%, 100%, 0.5);
     --link-text-hover: #c273ed;
-
+    --white: #fff;
     --button-hide: #595362;
     --search-text: #dadada;
-    
 
-    --hover-blur-bg: hsla(0, 0%, 100%, 0.1);
-    --hover-blur-bg-button: hsla(0, 0%, 100%, 0.4);
+    --hover-blur-bg: rgba(0, 0, 0, 0.1);
+    --hover-blur-bg-button: rgba(0, 0, 0, 0.15);
 
     --border-player: hsla(0, 0%, 100%, 0.1);
-    --border-secondary: hsla(0, 0%, 100%, 0.05);
-    --padding-section: 0 60px ;
+    --border-secondary: hsla(0, 0%, 100%, 0.5);
+
+    --padding-section: 0 60px;
 }
 * {
     margin: 0;
@@ -53,11 +57,15 @@ body {
 }
 
 button,
-input {
+input,
+textarea {
     outline: none;
     text-decoration: none;
     color: var(--text-primary);
     border: 1px solid transparent;
+}
+input::placeholder {
+    color: var(--text-primary) !important;
 }
 a[href] {
     text-decoration: none;
@@ -131,4 +139,7 @@ svg.svg-inline--fa.fa-volume-xmark {
 // fix icons local
 svg.svg-inline--fa.fa-play {
     padding-left: 4px;
+}
+.container {
+    background-attachment: fixed;
 }

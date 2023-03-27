@@ -41,10 +41,7 @@ export const privateRoutes = [
         path: config.category.path,
         component: config.category.component,
     },
-    {
-        path: config.top100.path,
-        component: config.top100.component,
-    },
+
     {
         path: config.videogenre.path,
         component: config.videogenre.component,

@@ -138,8 +138,7 @@ function PlayListSong(
                         {/* favorite of trending music */}
                         {HomePageTrending && (
                             <span className={cx('song_trending_favorite')}>
-                                <FontAwesomeIcon icon={faHeart} />
-                                {favoriteRender}
+                                <FontAwesomeIcon icon={faHeart} /> {favoriteRender}
                             </span>
                         )}
                     </div>

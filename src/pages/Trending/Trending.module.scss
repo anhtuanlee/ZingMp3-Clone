@@ -15,8 +15,6 @@
 .buttons_seclect_national {
     margin: 20px 0;
     display: flex;
-
-   
 }
 .loading {
     width: 100%;
@@ -24,7 +22,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--bg-loading);
+    background-color: var(--primary-blur-bg); 
     opacity: 0.5;
 }
-

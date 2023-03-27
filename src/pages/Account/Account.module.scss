@@ -1,5 +1,5 @@
 .wrapper {
-    background-color: rgba(41, 21, 71, 0.8);
+    background-color: rgb(0, 0, 0, 0.05);
 }
 // Header Account Page
 .header_account_page {
@@ -71,11 +71,10 @@
     }
 
     .list_songs {
-        display: grid; 
-        grid-template-columns: repeat(2,1fr); 
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
         column-gap: 28px;
-    } 
-    
+    }
 }
 
 // loading animation page
@@ -85,6 +84,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--bg-loading);
+    background-color: var(--primary-blur-bg); 
     opacity: 0.5;
 }

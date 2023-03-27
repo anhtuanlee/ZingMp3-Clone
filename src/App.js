@@ -1,8 +1,12 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import ModalTheme from './components/ModalTheme/ModalTheme';
+import Wrapper from './components/Wrapper/Wrapper';
 import { DefaultLayout } from './layouts/';
 import Controls from './layouts/components/Controls';
 import { privateRoutes } from './routes';
-function App() {
+
+function App() { 
+    
     return (
         <Router>
             <div className="App">
@@ -16,15 +20,18 @@ function App() {
                                 key={index}
                                 element={
                                     <div>
-                                        <Layout>
-                                            <Comp />
-                                        </Layout>
+                                        <Wrapper>
+                                            <Layout>
+                                                <Comp />
+                                            </Layout>
+                                        </Wrapper>
+
                                         <div className="control_music">
                                             <Controls />
                                         </div>
                                     </div>
                                 }
-                            ></Route>
+                            />
                         );
                     })}
                 </Routes>

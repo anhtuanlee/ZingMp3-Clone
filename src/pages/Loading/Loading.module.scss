@@ -1,5 +1,4 @@
-.lds-spinner {
-    color: official;
+.lds-spinner { 
     display: inline-block;
     position: relative;
     width: 80px;
@@ -18,7 +17,7 @@
     width: 6px;
     height: 18px;
     border-radius: 90px;
-    background: #ffffff80;
+    background: #ffffff62;
   }
   .lds-spinner div:nth-child(1) {
     transform: rotate(0deg);
@@ -70,10 +69,10 @@
   }
   @keyframes lds-spinner {
     0% {
-      opacity: 1; 
+      filter: brightness(30%); 
     }
     100% { 
-      opacity: 0;
+      filter: brightness(0%);
     }
   }
   

@@ -2,12 +2,7 @@ import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
-import {
-    ButtonTheme,
-    DowloadIcon,
-    IconsVIP,
-    Setting
-} from '../../../components/Icons';
+import { ButtonTheme, DowloadIcon, IconsVIP, Setting } from '../../../components/Icons';
 
 import React, { useEffect, useState } from 'react';
 import Button from '../../../components/Button/Button';
@@ -16,14 +11,20 @@ import Search from '../../../components/Search';
 import { MENU_SETTING_HEADER, MENU_USER_HEADER } from '../../../redux/constant';
 import Menu from '../Menu';
 import styles from './Header.module.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { themeSlice } from '../../../redux/sliceReducer';
+import { combinedStatusSelector } from '../../../redux/selector';
 
 const cx = classNames.bind(styles);
 
 function Header({ styles }) {
-    const [isTheme, setIsTheme] = useState(false);
+    const dispatch = useDispatch();
     const [scrollY, setScrollY] = useState(0);
+    const { isTheme } = useSelector(combinedStatusSelector);
+
+    // handleChangeTheme
     const onChangeTheme = () => {
-        setIsTheme(!isTheme);
+        dispatch(themeSlice.actions.setIsModalTheme(!isTheme));
     };
 
     useEffect(() => {
@@ -36,9 +37,7 @@ function Header({ styles }) {
     }, []);
 
     return (
-        <header
-            className={cx('wrapper', styles, scrollY > 133 ? 'isScroll' : '')}
-        >
+        <header className={cx('wrapper', styles, scrollY > 133 ? 'isScroll' : '')}>
             <div className={cx('inner')}>
                 <div className={cx('button_controls_left')}>
                     <div>
@@ -66,11 +65,7 @@ function Header({ styles }) {
                         onHandle={onChangeTheme}
                     />
 
-                    <Button
-                        circle
-                        Icons={IconsVIP}
-                        extraTitle={'Nâng cấp VIP'}
-                    />
+                    <Button circle Icons={IconsVIP} extraTitle={'Nâng cấp VIP'} />
 
                     <Menu items={MENU_SETTING_HEADER}>
                         <Button circle Icons={Setting} extraTitle={'Cài đặt'} />

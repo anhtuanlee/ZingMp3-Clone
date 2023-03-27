@@ -76,7 +76,7 @@ function Button({
         Comp = Link;
     }
     return extraTitle ? ( // when have extraTitlte, content will be extraTitle
-        <Tippy duration={[100, 0]} content={extraTitle}>
+        <Tippy duration={[100, 0]} content={extraTitle} zIndex={9999999}>
             <Comp className={classnames} {...props} onClick={onHandle}>
                 {LeftIcons && (
                     <span className={cx('left_icon')}>

@@ -3,7 +3,7 @@
     -webkit-appearance: none;
     background-color: grey;
     height: 3px;
-    background-image: linear-gradient(#fff, #fff);
+    background-image: linear-gradient(var(--purple-primary), var(--purple-primary));
     background-repeat: no-repeat;
     border: none;
     &:hover {

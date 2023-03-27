@@ -5,6 +5,10 @@ import Button from '../components/Button';
 import { Heart, More, Play } from '../components/Icons';
 import WaveSong from '../components/Icons/WaveSong';
 import { featureSlice, statusSlice } from '../redux/sliceReducer';
+import styles from './PlayListSong.module.scss';
+import classNames from 'classnames/bind';
+
+const cx = classNames.bind(styles);
 
 export const ActionBtnAlbum = ({
     item,
@@ -150,6 +154,7 @@ export const ActionBtnAlbum = ({
                             border_nothover={btn.border_nothover}
                             title={item?.title}
                             onHandle={(e) => onHandle(e, btn)}
+                            className={cx('btn_action')}
                         />
                     </div>
                 );

@@ -1,4 +1,95 @@
 .wrapper {
-    width: 100vw;
-    height: 100vh; 
+    background-color: var(--modal-layout-bg);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    .theme_modal {
+        width: 70vw;
+        max-width: 900px;
+        padding-bottom: 20px;
+        height: 80vh;
+        background-color: var(--primary-bg);
+        padding: 0 30px;
+        border-radius: 10px;
+        overflow-y: scroll;
+        .main_title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            .btn_close {
+                font-size: 25px;
+                padding: 8px;
+            }
+        }
+
+        .container {
+            .section_theme_list {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                row-gap: 30px;
+                column-gap: 20px;
+                padding-top: 20px;
+
+                .item_theme {
+                    .item_card_img {
+                        overflow: hidden;
+                        margin-bottom: 10px;
+                        border-radius: 4px;
+                        aspect-ratio: 9 / 6;
+                        position: relative;
+                        top: 0;
+                        left: 0;
+
+                        &:hover img {
+                            transform: scale(1.1);
+                            transition: all linear 0.3s;
+                        }
+                        img {
+                            transition: all linear 0.3s;
+                        }
+                        .item_card_hover {
+                            position: absolute;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            flex-direction: column;
+                            gap: 10px;
+                            top: 0;
+                            left: 0;
+                            bottom: 0;
+                            right: 0;
+                            background-color: var(--modal-layout-bg);
+
+                            //custom btn
+                            .btn_card_theme_primary {
+                                background-color: var(--purple-primary);
+                                &:hover {
+                                    color: var(--white);
+                                    filter: brightness(0.9);
+                                }
+                            }
+                            .btn_card_theme_border {
+                                background-color: rgba(0, 0, 0, 0.3);
+                                border-color: hsla(0, 0%, 100%, 0.5);
+                            }
+                        }
+                    }
+
+                    .item_title {
+                        text-align: start;
+                    }
+                }
+            }
+        }
+    }
+}
+.themeActive {
+    border: 1px solid var(--purple-primary);
 }

@@ -19,6 +19,9 @@ export const idActiveSidebarSelector = (state) => state.sidebar.idSidebarActive;
 
 //theme
 export const isThemeSelector = (state) => state.theme.isModalTheme;
+export const titleThemeSelector = (state) => state.theme.titleTheme;
+export const themeSelector = (state) => state.theme.themeSelect;
+export const isTestThemeSelector = (state) => state.theme.isTestTheme;
 
 export const combinedStatusSelector = createSelector(
     isPlayingSelector,
@@ -35,6 +38,9 @@ export const combinedStatusSelector = createSelector(
     volumeSelector,
     idActiveSidebarSelector,
     isThemeSelector,
+    titleThemeSelector,
+    themeSelector,
+    isTestThemeSelector,
     (
         isPlaying,
         isRepeat,
@@ -50,6 +56,9 @@ export const combinedStatusSelector = createSelector(
         volume,
         idActive,
         isTheme,
+        titleTheme,
+        themeSelect,
+        isTestTheme,
     ) => {
         return {
             isPlaying,
@@ -66,6 +75,9 @@ export const combinedStatusSelector = createSelector(
             volume,
             idActive,
             isTheme,
+            titleTheme,
+            themeSelect,
+            isTestTheme,
         };
     },
 );
