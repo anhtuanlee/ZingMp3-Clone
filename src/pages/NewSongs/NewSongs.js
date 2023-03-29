@@ -1,11 +1,12 @@
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ButtonEffectPlay } from '../../components/Button';
-import { renderFullListSong } from '../../Feature/HandleEvent/handleEvent';
-import { sidebarSlice } from '../../redux/sliceReducer';
+import { RenderFullListSong } from '../../Feature/HandleEvent/handleEvent';
+import TitlePage from '../../layouts/TitlePage/TitlePage';
+import { combinedStatusSelector } from '../../redux/selector';
+import { sidebarSlice, statusSlice } from '../../redux/sliceReducer';
 import { newSongApi } from '../../services';
-import Loading from '../Loading';
 import styles from './NewSongs.module.scss';
 const cx = classNames.bind(styles);
 
@@ -14,8 +15,12 @@ function NewUpdate() {
     const dispatch = useDispatch();
     const isRank = true;
     useEffect(() => {
+        dispatch(statusSlice.actions.isPageLoadingChange(true));
         const fetchNewSong = async () => {
-            const result = await newSongApi(100).then((data) => setDataNewSong(data));
+            const result = await newSongApi(100).then((data) => {
+                setDataNewSong(data);
+                dispatch(statusSlice.actions.isPageLoadingChange(false));
+            });
             return result;
         };
         fetchNewSong();
@@ -25,19 +30,11 @@ function NewUpdate() {
 
     return (
         <div className={cx('wrapper')}>
-            <header className={cx('header_section')}>
-                <h3>Nhạc Mới</h3>
-                <ButtonEffectPlay />
-            </header>
-            {dataNewSong.length === 0 ? (
-                <div className={cx('loading')}>
-                    <Loading />
-                </div>
-            ) : (
-                <div className={cx('content_section')}>
-                    {renderFullListSong(dataNewSong, isRank)}
-                </div>
-            )}
+            <TitlePage title="Nhạc Mới" sizes="large" data={dataNewSong}/>
+
+            <div className={cx('content_section')}>
+                {RenderFullListSong(dataNewSong, isRank)}
+            </div>
         </div>
     );
 }

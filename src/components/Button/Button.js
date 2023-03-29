@@ -83,7 +83,11 @@ function Button({
                         <LeftIcons />
                     </span>
                 )}
-                {Icons && <Icons className={cx('main_icon')} />}
+                {Icons && (
+                    <span>
+                        <Icons />
+                    </span>
+                )}
                 <span>{children}</span>
                 {RightIcons && (
                     <span className={cx('right_icon')}>
@@ -126,8 +130,12 @@ function Button({
                         <LeftIcons />
                     </span>
                 )}
-                {Icons && <Icons className={cx('main_icon')} />}
-                <span>{children}</span>
+                {Icons && (
+                    <span className={cx('main_icon')}>
+                        <Icons />
+                    </span>
+                )}
+                <span className={cx('section_title')}> {children}</span>
                 {RightIcons && (
                     <span className={cx('right_icon')}>
                         <RightIcons />

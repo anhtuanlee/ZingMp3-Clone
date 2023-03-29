@@ -1,24 +1,26 @@
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ButtonEffectPlay } from '../../components/Button';
-import { renderFullListSong } from '../../Feature/HandleEvent/handleEvent';
-import { sidebarSlice } from '../../redux/sliceReducer';
+import { RenderFullListSong } from '../../Feature/HandleEvent/handleEvent';
+import TitlePage from '../../layouts/TitlePage/TitlePage';
+import { combinedStatusSelector } from '../../redux/selector';
+import { sidebarSlice, statusSlice } from '../../redux/sliceReducer';
 import { getSingerDataApi } from '../../services';
 import Loading from '../Loading';
 import styles from './Album.module.scss';
 const cx = classNames.bind(styles);
 
 function Album() {
-    const [dataFullSongs, setDataSinger] = useState([]);
-    const [currentSinger, setCurrentSinger] = useState('');
-    const { nickname } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    console.log(nickname);
+    const { nickname } = useParams();
+    const [dataFullSongs, setDataSinger] = useState([]);
+    const [currentSinger, setCurrentSinger] = useState('');
 
     useEffect(() => {
+        dispatch(statusSlice.actions.isPageLoadingChange(true));
         const fetch = async () => {
             if (dataFullSongs.length === 0) {
                 try {
@@ -29,6 +31,7 @@ function Album() {
                                 setCurrentSinger(
                                     dataFullSong[dataFullSong.length - 1].name_singer,
                                 );
+                                dispatch(statusSlice.actions.isPageLoadingChange(false));
                             }
                         },
                     );
@@ -47,24 +50,12 @@ function Album() {
         dispatch(sidebarSlice.actions.setIdSidebarActive(null)); // not active sidebar
     }, []);
 
-    return dataFullSongs.length === 0 ? (
-        <div className={cx('loading')}>
-            <Loading />
-        </div>
-    ) : (
+    return (
         <div className={cx('wrapper')}>
-            <h2 className={cx('title_header')}>
-                <span
-                    className={cx('title_header_section')}
-                    onClick={() => navigate('..')}
-                >
-                    {currentSinger} - Tất Cả Bài Hát
-                </span>
-                <ButtonEffectPlay sizes="small" />
-            </h2>
+            <TitlePage title={`${currentSinger} - Tất Cả Bài Hát`} data={dataFullSongs} />
 
             <div className={cx('container_listsong_full')}>
-                {renderFullListSong(dataFullSongs)}
+                {RenderFullListSong(dataFullSongs)}
             </div>
         </div>
     );

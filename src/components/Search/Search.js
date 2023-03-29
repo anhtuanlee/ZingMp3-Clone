@@ -5,8 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { useDebounce } from '../../hooks';
 import { SearchApi } from '../../services';
-import { AccountPropose, MusicPropose } from '../Propose';
-
+import { AccountPropose } from '../Propose';
+import PlayListSong from '../../Feature/PlayListSong';
 import classNames from 'classnames/bind';
 import styles from './Search.module.scss';
 
@@ -50,7 +50,6 @@ function Search() {
         setSearchResult([]);
         setVisible(true);
     };
-
     return (
         <Tippy
             interactive
@@ -59,11 +58,7 @@ function Search() {
             offset={[0, 0]}
             render={(attrs) => {
                 return (
-                    <div
-                        className={cx('result_search')}
-                        {...attrs}
-                        tabIndex="-1"
-                    >
+                    <div className={cx('result_search')} {...attrs} tabIndex="-1">
                         {/* kiểm tra mảng có phần tử mới gửi dữ liệu qua Account */}
                         <h4 className={cx('result_title')}>
                             {searchResult.length > 0
@@ -78,9 +73,11 @@ function Search() {
                         )}
                         {searchResult.map((item, index) => {
                             return (
-                                <MusicPropose
-                                    data={item}
+                                <PlayListSong
+                                    song={item}
+                                    index={index}
                                     key={index}
+                                    data={searchResult}
                                     onHandle={handleOffResult}
                                 />
                             );
@@ -90,16 +87,8 @@ function Search() {
             }}
         >
             <div className={cx('wrapper')}>
-                <div
-                    className={cx(
-                        'search_input',
-                        visible === true ? 'isCollap' : '',
-                    )}
-                >
-                    <FontAwesomeIcon
-                        icon={faSearch}
-                        className={cx('button_search')}
-                    />
+                <div className={cx('search_input', visible === true ? 'isCollap' : '')}>
+                    <FontAwesomeIcon icon={faSearch} className={cx('button_search')} />
                     <input
                         value={value}
                         onFocus={handleFocus}

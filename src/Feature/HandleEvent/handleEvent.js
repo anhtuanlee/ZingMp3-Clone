@@ -1,4 +1,6 @@
+import { useSelector } from 'react-redux';
 import Button from '../../components/Button';
+import Loading from '../../pages/Loading';
 import {
     ALL_NATIONAL,
     BUTTON_RENDER_SELECT_NATIONAL,
@@ -7,6 +9,7 @@ import {
     USUK_NATIONAL,
     VPOP_NATIONAL,
 } from '../../redux/constant';
+import { combinedStatusSelector } from '../../redux/selector';
 import PlayListSong from '../PlayListSong';
 
 // handle Filter song trending
@@ -38,24 +41,72 @@ export const handleFilterSongTrending = (data, paramsFilter) => {
     });
     return dataFilter;
 };
-export const renderFullListSong = (
-    data,
-    isRank,
-    HomePageTrending,
-    containerRef,
-) => {
-    if (data) { 
-    const renderAllSong = data.map((song, index) => {
+export const RenderFullListSong = (data, isRank, HomePageTrending, containerRef) => {
+    const { isLoadingPage } = useSelector(combinedStatusSelector);
+
+    if (data.length === 0 || isLoadingPage) {
+        const dataClone = new Array(6).fill();
+        const result = dataClone.map((item, index) => {
             return (
-                <PlayListSong
-                    data={data}
-                    song={song}
-                    index={index}
+                <div
+                    style={{
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        alignItems: 'center',
+                        gap: 10,
+                    }}
                     key={index}
-                    rank={isRank}
-                    HomePageTrending={HomePageTrending}
-                    ref={containerRef}
-                />
+                >
+                    <Loading
+                        styles={{
+                            height: '3vh',
+                            borderRadius: 4,
+                            margin: '5px 0',
+                            width: '70%',
+                        }}
+                    />
+                    <div
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            gap: 5,
+                            width: '20%',
+                            justifyContent: 'flex-end',
+                        }}
+                    >
+                        <Loading styles={{ width: 20, height: 20, borderRadius: 1000 }} />
+
+                        <Loading styles={{ width: 20, height: 20, borderRadius: 1000 }} />
+
+                        <Loading styles={{ width: 20, height: 20, borderRadius: 1000 }} />
+                    </div>
+                    <Loading
+                        key={index}
+                        styles={{
+                            height: '1vh',
+                            borderRadius: 4,
+                            margin: '5px 0',
+                            width: '30%',
+                            marginBottom: 25,
+                        }}
+                    />
+                </div>
+            );
+        });
+        return result;
+    } else {
+        const renderAllSong = data.map((song, index) => {
+            return (
+                <div key={index}>
+                    <PlayListSong
+                        data={data}
+                        song={song}
+                        index={index}
+                        rank={isRank}
+                        HomePageTrending={HomePageTrending}
+                        ref={containerRef}
+                    />
+                </div>
             );
         });
         return renderAllSong;
@@ -76,21 +127,27 @@ export const handleSelectButtonNational = (item) => {
 
     return nationalMap[type];
 };
-export const renderButtonSelect = (
+export const RenderButtonSelect = (
     paramsFilter,
     onHandleSelectNational,
     isTrendingPage, // check page Trending will havent LOBAL
 ) => {
+    const { isLoadingPage } = useSelector(combinedStatusSelector);
+
     // render button select national
     const result = BUTTON_RENDER_SELECT_NATIONAL.map((item, index) => {
         // clean code
         const isLocal = item.type === LOBAl;
-        const isKPopOrUSUK =
-            item.type === KPOP_NATIONAL || item.type === USUK_NATIONAL;
+        const isKPopOrUSUK = item.type === KPOP_NATIONAL || item.type === USUK_NATIONAL;
         const shouldRender = isTrendingPage ? !isLocal : !isKPopOrUSUK;
 
         if (shouldRender) {
-            return (
+            return isLoadingPage ? (
+                <Loading
+                    key={index}
+                    styles={{ width: '8%', height: '2vh', margin: '0 5px' }}
+                />
+            ) : (
                 <div key={index}>
                     <Button
                         className={item.type === paramsFilter ? 'isActive' : ''}

@@ -3,14 +3,26 @@ import { combinedStatusSelector } from '../../../redux/selector';
 import { featureSlice, statusSlice } from '../../../redux/sliceReducer';
 import { Pause, Play } from '../../Icons';
 import Button from '../Button';
-export const ButtonEffectPlay = ({ children, sizes, data, isSlugNameFromLocation }) => {
+export const ButtonEffectPlay = ({
+    children,
+    sizes,
+    data = [],
+    isSlugNameFromLocation,
+}) => {
     const dispatch = useDispatch();
-    const { isPlaying } = useSelector(combinedStatusSelector);
+    const { isPlaying, songCurrent } = useSelector(combinedStatusSelector);
+
+    const dataCheck = data[data?.length - 1];  
+    
     const handleTogglePlaySong = () => {
         if (data) {
             // data from banner singer
             const randomIndex = Math.floor(Math.random() * data?.length);
-            if (isSlugNameFromLocation) {
+
+            if (
+                isSlugNameFromLocation ||
+                songCurrent.slug_name_singer === dataCheck.slug_name_singer
+            ) {
                 //if same currentSong and data from banner will toggle
                 dispatch(statusSlice.actions.isPlayingChange(!isPlaying));
             } else {
@@ -27,16 +39,16 @@ export const ButtonEffectPlay = ({ children, sizes, data, isSlugNameFromLocation
     return (
         <Button
             sizes={sizes}
-            LeftIcons={
+            Icons={
                 data
-                    ? isPlaying && isSlugNameFromLocation
+                    ? (isPlaying && isSlugNameFromLocation) ||
+                      songCurrent?.slug_name_singer === dataCheck?.slug_name_singer
                         ? isPlaying
                             ? Pause
                             : Play
                         : Play
                     : undefined
             }
-            Icons={!data ? (isPlaying ? Pause : Play) : undefined} // with noraml button in title
             effectHoverReverse // effect type
             onHandle={handleTogglePlaySong}
         >

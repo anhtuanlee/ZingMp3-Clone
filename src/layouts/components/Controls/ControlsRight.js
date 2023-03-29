@@ -11,14 +11,18 @@ const cx = classNames.bind(styles);
 
 function ControlsRight({ audioRef }) {
     const [style, setStyles] = useState(false);
-    const { isVolume } = useSelector(combinedStatusSelector);
+    const { isVolume, songCurrent } = useSelector(combinedStatusSelector);
+
     const dispatch = useDispatch();
+
+    console.log(songCurrent);
     const CONTROL_BTNS_RIGHT = [
         {
             data: [
                 {
                     icon: Mv,
-                    disable: true,
+                    disable: songCurrent.link_mv ? false : true,
+                    type: 'mv',
                 },
 
                 {
@@ -36,6 +40,10 @@ function ControlsRight({ audioRef }) {
         switch (action) {
             case 'volume':
                 dispatch(statusSlice.actions.isVolumeChange(!isVolume));
+                break;
+            case 'mv':
+                dispatch(statusSlice.actions.isMvPlayerChange(true));
+                dispatch(statusSlice.actions.isPlayingChange(false));
                 break;
             default:
                 console.log('default');

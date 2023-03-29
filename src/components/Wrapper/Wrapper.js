@@ -3,11 +3,12 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { combinedStatusSelector } from '../../redux/selector';
 import ModalTheme from '../ModalTheme/ModalTheme';
+import MvPlayer from '../MvPlayer/MvPlayer';
 import styles from './Wrapper.module.scss';
 
 const cx = classNames.bind(styles);
 function Wrapper({ children }) {
-    const { themeSelect, isTheme } = useSelector(combinedStatusSelector);
+    const { themeSelect, isTheme, isMvPlayer } = useSelector(combinedStatusSelector);
 
     useEffect(() => {
         if (themeSelect.title) {
@@ -59,7 +60,11 @@ function Wrapper({ children }) {
             );
             document.documentElement.style.setProperty(
                 '--link-text-hover',
-                themeSelect.properties.textHover,
+                themeSelect?.properties.textHover,
+            );
+            document.documentElement.style.setProperty(
+                '--border-player',
+                themeSelect?.properties.borderPlayer,
             );
         }
     }, []);
@@ -67,6 +72,7 @@ function Wrapper({ children }) {
         <div className={cx('wrapper')}>
             {children}
             {isTheme && <ModalTheme />}
+            {isMvPlayer && <MvPlayer />}
         </div>
     );
 }

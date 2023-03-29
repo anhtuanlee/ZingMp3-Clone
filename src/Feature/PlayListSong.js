@@ -29,7 +29,7 @@ function PlayListSong(
     const [isHover, setIsHover] = useState(false);
     const [element, setElement] = useState('');
     const songItemRef = useRef();
-    const favoriteRender = useConvertNumber(song.favorite);
+    const favoriteRender = useConvertNumber(song?.favorite);
 
     const handleConfig = (data, song, index, e) => {
         if (data) {
@@ -82,7 +82,7 @@ function PlayListSong(
 
     useEffect(() => {
         // effect scroll with react-scroll
-        if (songCurrent._id === song._id) {
+        if (songCurrent._id === song?._id && isPlaying) {
             scroll.scrollTo(songItemRef.current.offsetTop - 250, {
                 containerId: ref?.current?.id,
                 duration: 2000,
@@ -90,7 +90,7 @@ function PlayListSong(
                 smooth: 'easeOutCubic',
             });
         }
-    }, [songCurrent]);
+    }, [songCurrent,isPlaying]);
 
     return (
         <div

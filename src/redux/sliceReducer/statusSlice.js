@@ -5,7 +5,6 @@ import {
 } from '../../config/localStorages';
 import { createSlice } from '@reduxjs/toolkit';
 
-
 export const statusSlice = createSlice({
     name: 'status',
     initialState: {
@@ -13,8 +12,10 @@ export const statusSlice = createSlice({
         isRepeat: IS_REPEAT_STORAGE ?? false,
         isRandom: IS_RANDOM_STORAGE ?? false,
         isLoading: false,
+        isPageLoading: false,
         isVolume: VOLUME_STORAGE > 0 ? true : false,
         isRequirePlay: false,
+        isMvPlayer: false,
     },
     reducers: {
         isPlayingChange: (state, action) => {
@@ -29,11 +30,17 @@ export const statusSlice = createSlice({
         isLoadingChange: (state, action) => {
             state.isLoading = action.payload;
         },
+        isPageLoadingChange: (state, action) => {
+            state.isPageLoading = action.payload;
+        },
         isVolumeChange: (state, action) => {
             state.isVolume = action.payload;
         },
         isRequirePlayChange: (state, action) => {
             state.isRequirePlay = action.payload;
+        },
+        isMvPlayerChange: (state, action) => {
+            state.isMvPlayer = action.payload;
         },
     },
 });

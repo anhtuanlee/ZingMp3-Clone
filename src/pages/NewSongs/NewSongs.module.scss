@@ -1,6 +1,6 @@
 .wrapper {
     margin-bottom: 90px;
-    padding-bottom: 20px;
+    padding-bottom: 20px; 
     .header_section {
         display: flex;
         align-items: center;
@@ -33,13 +33,4 @@
         }
     }
 }
-
-.loading {
-    width: 100%;
-    height: calc(100vh - 240px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--primary-blur-bg);
-    opacity: 0.5;
-}
+ 

@@ -3,24 +3,25 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
-import { ButtonEffectPlay } from '../../components/Button';
 import {
     handleFilterSongTrending,
     handleSelectButtonNational,
-    renderButtonSelect,
-    renderFullListSong
+    RenderButtonSelect,
+    RenderFullListSong
 } from '../../Feature/HandleEvent/handleEvent';
-import { sidebarSlice } from '../../redux/sliceReducer';
+import TitlePage from '../../layouts/TitlePage/TitlePage';
+import { sidebarSlice, statusSlice } from '../../redux/sliceReducer';
 import { getTrendingDataApi } from '../../services';
-import Loading from '../Loading';
 import styles from './Trending.module.scss';
 const cx = classNames.bind(styles);
 
 function Trending() {
+    const dispatch = useDispatch();
+    const navigate = useNavigate(); 
+
     const [dataApiReturn, setDataApiReturn] = useState([]); // take data from api
     const [dataSelect, setDataSelect] = useState([]); // filter data render from dataApi
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
+
     const [searchParams, setSearchParams] = useSearchParams(); // take params search url
     const [paramsFilter, setParamsFilter] = useState(() => {
         return searchParams.get('_filter'); // will return params first when reload page with data was set
@@ -42,11 +43,13 @@ function Trending() {
     }, [paramsFilter]);
 
     useEffect(() => {
+        dispatch(statusSlice.actions.isPageLoadingChange(true));
         const fetch = async () => {
             const result = await getTrendingDataApi(100).then((data) => {
                 const dataFilter = handleFilterSongTrending(data, paramsFilter);
                 setDataSelect(dataFilter);
                 setDataApiReturn(data);
+                dispatch(statusSlice.actions.isPageLoadingChange(false));
             });
             return result;
         };
@@ -60,26 +63,16 @@ function Trending() {
         dispatch(sidebarSlice.actions.setIdSidebarActive(null)); // not active
     }, []);
 
-    return dataApiReturn.length === 0 ? (
-        <div className={cx('loading')}>
-            <Loading />
-        </div>
-    ) : (
+    return (
         <div className={cx('wrapper')}>
-            <h2 className={cx('title_header')}>
-                <span
-                    className={cx('title_header_section')}
-                    onClick={() => navigate('..')}
-                >
-                    Top Trending
-                </span>
-                <ButtonEffectPlay sizes="medium" />
-            </h2>
+            
+            <TitlePage title="Top Trending" sizes="large" data={dataSelect}/>
+
             <div className={cx('buttons_seclect_national')}>
-                {renderButtonSelect(paramsFilter, onHandleSelectNational, isTrendingPage)}
+                {RenderButtonSelect(paramsFilter, onHandleSelectNational, isTrendingPage)}
             </div>
             <div className={cx('container_listsong_full')}>
-                {renderFullListSong(dataSelect)}
+                {RenderFullListSong(dataSelect)}
             </div>
         </div>
     );

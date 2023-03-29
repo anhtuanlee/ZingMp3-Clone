@@ -6,7 +6,7 @@ import { combinedStatusSelector } from '../../redux/selector';
 
 import { Banner } from '../../components/Banner';
 import { ButtonEffectPlay } from '../../components/Button';
-import { renderFullListSong } from '../../Feature/HandleEvent/handleEvent';
+import { RenderFullListSong } from '../../Feature/HandleEvent/handleEvent';
 
 import { useDate } from '../../hooks';
 import { featureSlice, sidebarSlice, statusSlice } from '../../redux/sliceReducer';
@@ -21,7 +21,7 @@ function AlbumSinger() {
     const ListSongRef = useRef();
     const location = useLocation();
     const { nickname } = useParams();
-    const { isPlaying, songCurrent, slugDataBanner, isRequirePlay } =
+    const { isPlaying, songCurrent, slugDataBanner, isRequirePlay, isLoadingPage } =
         useSelector(combinedStatusSelector);
 
     const [dataFullSongs, setDataSinger] = useState([]);
@@ -67,17 +67,18 @@ function AlbumSinger() {
                 dispatch(featureSlice.actions.setSlugDataBanner(undefined));
             }
         }
-    }, [slugCategoryCurrent]);
-
+    }, [slugCategoryCurrent]); 
     // take data from slugNameLocation with params nickname
     useEffect(() => {
         if (dataFullSongs.length === 0 && !slugCategoryFromLocation) {
+            dispatch(statusSlice.actions.isPageLoadingChange(true));
             const fetch = async () => {
                 try {
                     const result = await getSingerDataApi(nickname).then((data) => {
                         setDataSinger(data);
                         setDataInAlbum(data[data.length - 1]);
                         handlReqirePlayFromBanner(data); // handle require play
+                        dispatch(statusSlice.actions.isPageLoadingChange(false));
                     });
                     return result;
                 } catch (error) {
@@ -93,16 +94,17 @@ function AlbumSinger() {
     //  take data and filter data from slugNameSingerFromLocation
     useEffect(() => {
         if (isBannerAlbumHot) {
+            dispatch(statusSlice.actions.isPageLoadingChange(true));
             const fetchBannerAlbumHot = async () => {
                 const result = await getMusicTopView(300).then((data) => {
                     const dataBannerAlbum = data.filter((item) => {
                         return item?.slug_category === slugCategoryFromLocation;
                     });
                     const newDataFillter = dataBannerAlbum.reverse().slice(0, 29);
-                    console.log(newDataFillter);
                     setDataSinger(newDataFillter);
                     setDataInAlbum(newDataFillter[newDataFillter.length - 1]);
                     handlReqirePlayFromBanner(newDataFillter);
+                    dispatch(statusSlice.actions.isPageLoadingChange(false));
                 });
                 return result;
             };
@@ -120,11 +122,7 @@ function AlbumSinger() {
         window.scrollTo(0, 0);
     }, []);
 
-    return dataFullSongs.length === 0 ? (
-        <div className={cx('loading')}>
-            <Loading />
-        </div>
-    ) : (
+    return (
         <div className={cx('wrapper')}>
             <div className={cx('container_playlist_detail')}>
                 <div className={cx('title_section')}>
@@ -134,35 +132,53 @@ function AlbumSinger() {
                         isLivingAlbum={true}
                         singleBtn={true}
                     />
-                    <h2 className={cx('title_header')}>
-                        <span className={cx('title_header_section')}>
-                            {location?.state?.title}
-                        </span>
-                        <span className={cx('time_update')}>
-                            {dataInAlbum.name_singer} • {timer}
-                        </span>
-                        <ButtonEffectPlay
-                            sizes="wider"
-                            data={dataFullSongs}
-                            isSlugNameFromLocation={slugDataBanner}
+                    {isLoadingPage || dataFullSongs.length === 0 ? (
+                        <div
+                            style={{
+                                marginTop: 30,
+                                display: 'flex',
+                                justifyContent: 'center',
+                                flexWrap: 'wrap',
+                                gap: 20,
+                            }}
                         >
-                            {!slugDataBanner
-                                ? 'PHÁT NGẪU NHIÊN'
-                                : isPlaying
-                                ? 'TẠM DỪNG'
-                                : 'TIẾP TỤC PHÁT'}
-                        </ButtonEffectPlay>
-                    </h2>
+                            <Loading styles={{ height: '4vh' }} />
+                            <Loading styles={{ width: '60%', height: '3vh' }} />
+                            <Loading styles={{ width: '40%', height: '2vh' }} />
+                        </div>
+                    ) : (
+                        <h2 className={cx('title_header')}>
+                            <span className={cx('title_header_section')}>
+                                {location?.state?.title}
+                            </span>
+                            <span className={cx('time_update')}>
+                                {dataInAlbum.name_singer} • {timer}
+                            </span>
+                            <ButtonEffectPlay
+                                sizes="wider"
+                                data={dataFullSongs}
+                                isSlugNameFromLocation={slugDataBanner}
+                            >
+                                {!slugDataBanner
+                                    ? 'PHÁT NGẪU NHIÊN'
+                                    : isPlaying
+                                    ? 'TẠM DỪNG'
+                                    : 'TIẾP TỤC PHÁT'}
+                            </ButtonEffectPlay>
+                        </h2>
+                    )}
                 </div>
 
                 <div className={cx('container_listsong_full')}>
-                    <div className={cx('title_songs_list')}>
-                        <span>BÀI HÁT</span>
-                        <span>ALBUM</span>
-                        <span>THỜI GIAN</span>
-                    </div>
+                    {!isLoadingPage && (
+                        <div className={cx('title_songs_list')}>
+                            <span>BÀI HÁT</span>
+                            <span>ALBUM</span>
+                            <span>THỜI GIAN</span>
+                        </div>
+                    )}
                     <div className={cx('list_song')} ref={ListSongRef} id="container">
-                        {renderFullListSong(
+                        {RenderFullListSong(
                             dataFullSongs,
                             undefined,
                             undefined,

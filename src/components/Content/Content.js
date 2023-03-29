@@ -1,9 +1,10 @@
 import classNames from 'classnames/bind';
-import AlbumHot from './AlbumHot/AlbumHot';
+import { BANNER_ALBUM_HOT, BANNER_SINGER_POPULAR } from '../../redux/constant';
+import Container from '../Container/Container';
 import styles from './Content.module.scss';
-import SingerPopular from './SingerPopular/SingerPopular';
 import Trending from './Trending/Trending';
 const cx = classNames.bind(styles);
+
 function Content() {
     return (
         <div className={cx('wrapper')}>
@@ -11,10 +12,17 @@ function Content() {
                 <Trending />
             </div>
             <div className={cx('singer_popular')}>
-                <SingerPopular />
+                <Container
+                    listData={BANNER_SINGER_POPULAR}
+                    titleSection="Nghệ Sĩ Thịnh Hành"
+                />
             </div>
             <div className={cx('album_hot')}>
-                <AlbumHot />
+                <Container
+                    listData={BANNER_ALBUM_HOT}
+                    titleSection="Album Hot"
+                    isBannerAlbumHot={true} //check bannerAlbumHot request
+                />
             </div>
         </div>
     );

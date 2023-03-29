@@ -4,14 +4,14 @@ import styles from './Image.module.scss';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 const cx = classNames.bind(styles);
-function Images({ src, icon, imgError, alt, ...props }) {
+function Images({ src, icon, imgError, alt, type, ...props }) {
     const [defaultImg, setDefaultImg] = useState('');
     const userDefault = images.usersDefault;
 
     const handleErrorImg = () => {
         setDefaultImg(imgError || userDefault);
     };
-    const classes = cx('wrapper', { icon });
+    const classes = cx('wrapper', type, { icon });
     return (
         <img
             className={classes}

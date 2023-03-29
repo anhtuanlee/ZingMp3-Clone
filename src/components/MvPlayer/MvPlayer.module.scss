@@ -1,0 +1,61 @@
+.wrapper {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 9999;
+    background-color: #c6c6c6ed;
+    padding: var(--padding-section);
+    animation: slideTop linear 0.5s;
+
+    .container {
+        margin-top: 30px;
+        .header_mv {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .title_singer {
+                width: 50%;
+                display: flex;
+            }
+        }
+        .content_section {
+        }
+        .ifarme_player {
+            width: 100%;
+            max-height: 80vh;
+            aspect-ratio: 16/ 9;
+            overflow: hidden;
+            border: none;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+    }
+}
+.off {
+    animation: slideBot ease 0.5s;
+}
+@keyframes slideTop {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+@keyframes slideBot {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(100%);
+    }
+}
+
+// custom title Song
+
+.title_mv {
+    font-size: 18px;
+    font-weight: 700;
+}

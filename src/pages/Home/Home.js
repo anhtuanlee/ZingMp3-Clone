@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Content from '../../components/Content';
 import SliderSlick from '../../layouts/components/Sliderslick';
-import Loading from '../../pages/Loading';
 import { combinedStatusSelector } from '../../redux/selector';
 import { sidebarSlice } from '../../redux/sliceReducer';
 import styles from './Home.module.scss';
@@ -22,11 +21,8 @@ function Home() {
             navigate('..');
         }
     }, [songCurrent]);
-    return songCurrent === undefined ? (
-        <div className={cx('loading')}>
-            <Loading />
-        </div>
-    ) : (
+
+    return (
         <div className={cx('wrapper')}>
             <div className={cx('slider_slick')}>
                 <SliderSlick />

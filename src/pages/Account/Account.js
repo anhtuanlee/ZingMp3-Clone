@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { sidebarSlice } from '../../redux/sliceReducer';
+import { sidebarSlice, statusSlice } from '../../redux/sliceReducer';
 import { getSingerDataApi } from '../../services';
 import Loading from '../Loading';
 import styles from './Account.module.scss';
@@ -17,10 +17,12 @@ function AccountPage() {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        dispatch(statusSlice.actions.isPageLoadingChange(true));
         const fetch = async () => {
             try {
                 const result = await getSingerDataApi(nickname, 6).then((data) => {
                     setDataSinger(data);
+                    dispatch(statusSlice.actions.isPageLoadingChange(false));
                 });
                 return result;
             } catch (error) {
@@ -34,13 +36,10 @@ function AccountPage() {
 
     useEffect(() => {
         dispatch(sidebarSlice.actions.setIdSidebarActive(null)); // not active sidebar
+        window.scrollTo(0, 0);
     }, []);
 
-    return dataSinger.length === 0 && nickname ? (
-        <div className={cx('loading')}>
-            <Loading />
-        </div>
-    ) : (
+    return (
         <div className={cx('wrapper')}>
             <header className={cx('header_account_page')}>
                 <HeaderPageSinger data={dataSinger} />

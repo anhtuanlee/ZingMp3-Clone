@@ -97,9 +97,11 @@ export const ActionBtnAlbum = ({
                         return dispatch(statusSlice.actions.isRequirePlayChange(true));
                     }
                 case 'like':
+                    e.preventDefault();
                     console.log('like2');
                     break;
                 case 'more':
+                    e.preventDefault();
                     console.log('more2');
                     break;
                 default:

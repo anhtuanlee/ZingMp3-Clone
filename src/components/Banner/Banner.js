@@ -1,34 +1,30 @@
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { ActionBtnAlbum } from '../../Feature/ActionBtnAlbum';
-import {
-    combinedStatusSelector
-} from '../../redux/selector';
+import Loading from '../../pages/Loading';
+import { combinedStatusSelector } from '../../redux/selector';
 import Images from '../Image';
 import styles from './Banner.module.scss';
 
 const cx = classNames.bind(styles);
 
 // Component render img banner on home page and albumpage
-function Banner({ item, index, data, isLivingAlbum, singleBtn }) {
+function Banner({ item, index, data, isLivingAlbum, singleBtn, isBannerAlbumHot }) {
     const [indexHover, setIndexHover] = useState(false);
     const [isHover, setIsHover] = useState(false);
-    const { slugDataBanner, isPlaying, songCurrent } = useSelector(
-        combinedStatusSelector,
-    );
-    
+    const { slugDataBanner, isPlaying, songCurrent, isLoadingPage } =
+        useSelector(combinedStatusSelector);
+
     const isSlugCategory = slugDataBanner === item?.slug_category;
     const isSlugNameSinger = slugDataBanner === item?.slug_name_singer;
-    const isSlugCategoryCurrent =
-        songCurrent?.slug_category === item?.slug_category;
+    const isSlugCategoryCurrent = songCurrent?.slug_category === item?.slug_category;
     const isSlugNameSingerCurrent =
         songCurrent?.slug_name_singer === item?.slug_name_singer;
 
-    const isCategoryMatch =
-        isSlugCategory && isSlugCategoryCurrent && isPlaying;
-    const isSingerMatch =
-        isSlugNameSinger && isSlugNameSingerCurrent && isPlaying;
+    const isCategoryMatch = isSlugCategory && isSlugCategoryCurrent && isPlaying;
+    const isSingerMatch = isSlugNameSinger && isSlugNameSingerCurrent && isPlaying;
 
     const handleHover = () => {
         if (!isHover) {
@@ -51,8 +47,8 @@ function Banner({ item, index, data, isLivingAlbum, singleBtn }) {
     useEffect(() => {
         // check when songCurrent change and set isHover false
         if (
-            slugDataBanner !== songCurrent.slug_name_singer ||
-            slugDataBanner !== songCurrent.slug_category
+            slugDataBanner !== songCurrent?.slug_name_singer ||
+            slugDataBanner !== songCurrent?.slug_category
         ) {
             setIndexHover(null);
             setIsHover(false);
@@ -70,30 +66,84 @@ function Banner({ item, index, data, isLivingAlbum, singleBtn }) {
             }
         }
     }, [isPlaying]);
-    return (
-        <div
-            className={cx(
-                'item_card',
-                indexHover === index && isHover ? 'isHover' : '',
-            )}
-            onMouseOver={handleHover}
-            onMouseLeave={handleLeave}
-        >
-            <figure className={cx('item_img')}>
-                <Images src={item?.src} />
-            </figure>
-
-            <div className={cx('item_action_hover')} onMouseOver={handleHover}>
-                {indexHover === index && isHover && (
-                    <ActionBtnAlbum
-                        item={item}
-                        isLivingAlbum={isLivingAlbum}
-                        data={data}
-                        singleBtn={singleBtn}
-                        index={index}
-                    />
+    return isLoadingPage ? (
+        <Loading
+            styles={{
+                paddingBottom: '100%',
+            }}
+        />
+    ) : (
+        <div className={cx('item')}>
+            <div
+                className={cx(
+                    'item_card',
+                    indexHover === index && isHover ? 'isHover' : '',
                 )}
+                onMouseOver={handleHover}
+                onMouseLeave={handleLeave}
+            >
+                <Link
+                    to={`/album/${item?.slug_name_singer || item?.slug_category}`}
+                    state={{
+                        src: item.src,
+                        title: item.title,
+                        slug_name_singer: item?.slug_name_singer,
+                        slug_category: item?.slug_category,
+                        isBannerAlbumHot: isBannerAlbumHot,
+                    }}
+                >
+                    <figure className={cx('item_img')}>
+                        <Images src={item?.src} />
+                    </figure>
+                    <div className={cx('item_action_hover')} onMouseOver={handleHover}>
+                        {indexHover === index && isHover && (
+                            <ActionBtnAlbum
+                                key={index}
+                                item={item}
+                                isLivingAlbum={isLivingAlbum}
+                                data={data}
+                                singleBtn={singleBtn}
+                                index={index}
+                            />
+                        )}
+                    </div>
+                </Link>
             </div>
+            {!isLivingAlbum && (
+                <div>
+                    <Link
+                        to={`album/${item?.slug_name_singer || item?.slug_category}`}
+                        state={{
+                            src: item.src,
+                            title: item.title,
+                            slug_name_singer: item?.slug_name_singer,
+                            slug_category: item?.slug_category,
+                            isBannerAlbumHot: isBannerAlbumHot,
+                        }}
+                    >
+                        <h3 className={cx('item_title')}>{item.title}</h3>
+                    </Link>
+                    {Array.isArray(item.name_data) ? (
+                        item.name_data.map((singer, index) => {
+                            const dataLength = item.name_data.length - 1;
+                            return (
+                                <span className={cx('item_extra_title')} key={index}>
+                                    <Link to={`/${singer?.slug_name_singer}`}>
+                                        {singer.name_singer +
+                                            (index === dataLength ? '' : ', ')}
+                                    </Link>
+                                </span>
+                            );
+                        })
+                    ) : (
+                        <Link to={`/${item?.slug_name_singer}`}>
+                            <span className={cx('item_extra_title')}>
+                                {item.name_singer}
+                            </span>
+                        </Link>
+                    )}
+                </div>
+            )}
         </div>
     );
 }

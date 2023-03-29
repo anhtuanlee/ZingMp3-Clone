@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Images from '../../components/Image';
 import { useConvertNumber } from '../../hooks/';
-import styles from './Propose.module.scss';
+import styles from './AccountPropose.module.scss';
 const cx = classNames.bind(styles);
 
 function AccountPropose({ data = [] }) { 
@@ -17,8 +17,7 @@ function AccountPropose({ data = [] }) {
     const category = datacate.map((item) => {
         const result = item.charAt(0).toUpperCase() + item.slice(1) + ' ';
         return result;
-    });
-    console.log(result)
+    }); 
     const favorite = useConvertNumber(result.favorite);
     //favorite
     const imgs = result.image_music;

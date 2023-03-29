@@ -8,23 +8,31 @@ import classNames from 'classnames/bind';
 import Images from '../../../components/Image';
 import { BANNER_SLIDERS } from '../../../redux/constant';
 import Arrow from './Arrow';
+import { useSelector } from 'react-redux';
+import { combinedStatusSelector } from '../../../redux/selector';
+import Loading from '../../../pages/Loading';
 
 const cx = classNames.bind(styles);
 function SliderSlick() {
     const [arrowShow, setArrowShow] = useState(false);
-    const renderBanner = BANNER_SLIDERS.map((item, index) => {
-        return (
-            <div className={cx('card_banners')} key={index}>
-                <div className={`keen-slider__slide number-slide${index + 1}`}>
-                    <Link to={item.to} >
-                        <figure className={cx('banner_items')}>
-                            <Images src={item.banner} />
-                        </figure>
+    const { isLoadingPage } = useSelector(combinedStatusSelector);
+
+    const renderBanner = () => {
+        const result = BANNER_SLIDERS.map((item, index) => {
+            return (
+                <div className={cx('card_banners')} key={index}>
+                    <Link to={item.to}>
+                        <div className={`keen-slider__slide number-slide${index + 1}`}>
+                            <figure className={cx('banner_items')}>
+                                <Images src={item.banner} />
+                            </figure>
+                        </div>
                     </Link>
                 </div>
-            </div>
-        );
-    });
+            );
+        });
+        return result;
+    };
 
     const [sliderRef, instanceRef] = useKeenSlider(
         {
@@ -64,6 +72,7 @@ function SliderSlick() {
                     });
                     nextTimeout();
                 });
+
                 slider.on('dragStarted', clearNextTimeout);
                 slider.on('animationEnded', nextTimeout);
                 slider.on('animationStarted', nextTimeout);
@@ -73,7 +82,13 @@ function SliderSlick() {
         ],
     );
 
-    return (
+    return isLoadingPage ? (
+        <div style={{ display: 'flex', gap: 20, padding: '32px 60px 0' }}>
+            <Loading styles={{ height: '25vh' }} />
+            <Loading styles={{ height: '25vh' }} />
+            <Loading styles={{ height: '25vh' }} />
+        </div>
+    ) : (
         <div className={cx('wrapper')}>
             <div ref={sliderRef} className="keen-slider">
                 {arrowShow && (
@@ -85,13 +100,11 @@ function SliderSlick() {
                     />
                 )}
 
-                {renderBanner}
+                {renderBanner()}
 
                 {arrowShow && (
                     <Arrow
-                        onClick={(e) =>
-                            e.stopPropagation() || instanceRef.current.next()
-                        }
+                        onClick={(e) => e.stopPropagation() || instanceRef.current.next()}
                     />
                 )}
             </div>
