@@ -12,19 +12,20 @@ const cx = classNames.bind(styles);
 
 function MvPlayer() {
     const dispatch = useDispatch();
-    const { songCurrent } = useSelector(combinedStatusSelector);
+    const { songCurrent, isContentHide, isPlayerQueue } =
+        useSelector(combinedStatusSelector);
 
-    const [check, setCheck] = useState(false);
     const handleCloseMv = () => {
-        setCheck(true);
+        dispatch(statusSlice.actions.isCheckBeforeContentHide(true));
         setTimeout(() => {
             dispatch(statusSlice.actions.isMvPlayerChange(false));
+            dispatch(statusSlice.actions.isCheckBeforeContentHide(false));
             // delay time dispath
         }, 300);
     };
 
     return (
-        <div className={cx('wrapper', check ? 'off' : '')}>
+        <div className={cx('wrapper', isContentHide ? 'off' : '')}>
             <div className={cx('container')}>
                 <header className={cx('header_mv')}>
                     <div className={cx('title_singer')}>

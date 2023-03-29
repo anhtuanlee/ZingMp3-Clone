@@ -56,4 +56,17 @@
     }
 }
 
- 
+// custom scrollbar  
+.list_song::-webkit-scrollbar {
+    width: 6px; 
+    display: none;
+}
+
+.list_song::-webkit-scrollbar-thumb {
+    border-radius: 4px; 
+    -webkit-box-shadow: inset 0 0 6px rgb(0 0 0 / 50%);
+}
+.list_song::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset #fff;
+    border-radius: 4px;
+}

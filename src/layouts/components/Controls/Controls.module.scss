@@ -101,6 +101,8 @@
     flex-direction: row;
     margin-right: 20px;
     justify-content: flex-end;
+    align-items: center;
+    justify-content: center;
 }
 
 .player_controls_right_container {
@@ -115,4 +117,10 @@
     display: flex;
     align-items: center;
     width: 80px;
+}
+.devide {
+    width: 1px;
+    height: 40px;
+    background-color: var(--border-player);
+    margin: 0 20px;
 }

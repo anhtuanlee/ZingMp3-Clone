@@ -2,13 +2,15 @@ import classNames from 'classnames/bind';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { combinedStatusSelector } from '../../redux/selector';
+import ListQueue from '../ListQueue/';
 import ModalTheme from '../ModalTheme/ModalTheme';
 import MvPlayer from '../MvPlayer/MvPlayer';
 import styles from './Wrapper.module.scss';
 
 const cx = classNames.bind(styles);
 function Wrapper({ children }) {
-    const { themeSelect, isTheme, isMvPlayer } = useSelector(combinedStatusSelector);
+    const { themeSelect, isTheme, isMvPlayer, isPlayerQueue } =
+        useSelector(combinedStatusSelector);
 
     useEffect(() => {
         if (themeSelect.title) {
@@ -73,6 +75,7 @@ function Wrapper({ children }) {
             {children}
             {isTheme && <ModalTheme />}
             {isMvPlayer && <MvPlayer />}
+            {isPlayerQueue && <ListQueue />}
         </div>
     );
 }

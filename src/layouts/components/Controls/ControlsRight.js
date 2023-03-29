@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../../components/Button/Button';
-import { Multi, Mv, Volumn, VolumnOff } from '../../../components/Icons';
+import { ListQueue, Multi, Mv, Volumn, VolumnOff } from '../../../components/Icons';
 import { combinedStatusSelector } from '../../../redux/selector';
 import { statusSlice } from '../../../redux/sliceReducer';
 import InputProgress from '../InputProgress';
@@ -11,11 +11,10 @@ const cx = classNames.bind(styles);
 
 function ControlsRight({ audioRef }) {
     const [style, setStyles] = useState(false);
-    const { isVolume, songCurrent } = useSelector(combinedStatusSelector);
+    const { isVolume, songCurrent, isPlayerQueue } = useSelector(combinedStatusSelector);
 
     const dispatch = useDispatch();
 
-    console.log(songCurrent);
     const CONTROL_BTNS_RIGHT = [
         {
             data: [
@@ -47,6 +46,18 @@ function ControlsRight({ audioRef }) {
                 break;
             default:
                 console.log('default');
+        }
+    };
+    const hnadleListQueue = () => {
+        // handle queue list song
+        if (isPlayerQueue) {
+            dispatch(statusSlice.actions.isCheckBeforeContentHide(true));
+            setTimeout(() => {
+                dispatch(statusSlice.actions.isPlayerQueue(false));
+                dispatch(statusSlice.actions.isCheckBeforeContentHide(false));
+            }, 500);
+        } else {
+            dispatch(statusSlice.actions.isPlayerQueue(true));
         }
     };
 
@@ -94,6 +105,10 @@ function ControlsRight({ audioRef }) {
                     max={10}
                     audioRef={audioRef}
                 />
+            </div>
+            <div className={cx('devide')}></div>
+            <div className={cx('btn_playlist_queue')}>
+                <Button Icons={ListQueue} queue onHandle={hnadleListQueue} />
             </div>
         </div>
     );

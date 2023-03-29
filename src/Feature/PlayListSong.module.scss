@@ -23,7 +23,7 @@
     }
 
     &:hover .icon_inner_avatar {
-       opacity: 1;
+        opacity: 1;
     }
 }
 .container_song_section {
@@ -36,6 +36,10 @@
     display: flex;
     align-items: center;
     flex-direction: row;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: auto;
+    width: 70%;
     .image_song_item {
         width: 40px;
         height: 40px;
@@ -51,18 +55,28 @@
         flex-direction: column;
         line-height: 1.6;
         margin-left: 10px;
+        width: 40%;
         .name_song_item {
             font-size: 14px;
             color: var(--text-primary);
             font-weight: 500;
             padding: 0 4px;
+            text-transform: none;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: block;
         }
         .name_singer_item {
             font-size: 12px;
             color: var(--text-secondary);
             padding: 0 4px;
             font-weight: 500;
-
+            text-transform: none;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: block;
             &:hover {
                 text-decoration: underline;
                 color: var(--link-text-hover);
@@ -74,7 +88,7 @@
         font-size: 18px;
         top: 50%;
         left: 50%;
-        transform: translate(-50%, -50%); 
+        transform: translate(-50%, -50%);
         opacity: 0;
         color: var(--white);
     }
@@ -82,8 +96,12 @@
 
 .song_item_right {
     padding-right: 5px;
+    flex-basis: auto;
+    flex-grow: 0;
+    flex-shrink: 0;
     display: flex;
     align-items: center;
+    justify-content: center;
     .items_hover {
         display: flex;
         align-items: center;
@@ -155,5 +173,5 @@
     }
 }
 .btn_action {
-    color: var(--white)
+    color: var(--white);
 }

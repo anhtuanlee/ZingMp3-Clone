@@ -112,6 +112,7 @@ function Banner({ item, index, data, isLivingAlbum, singleBtn, isBannerAlbumHot 
             {!isLivingAlbum && (
                 <div>
                     <Link
+                        title={item.title}
                         to={`album/${item?.slug_name_singer || item?.slug_category}`}
                         state={{
                             src: item.src,
@@ -123,25 +124,23 @@ function Banner({ item, index, data, isLivingAlbum, singleBtn, isBannerAlbumHot 
                     >
                         <h3 className={cx('item_title')}>{item.title}</h3>
                     </Link>
-                    {Array.isArray(item.name_data) ? (
-                        item.name_data.map((singer, index) => {
-                            const dataLength = item.name_data.length - 1;
-                            return (
-                                <span className={cx('item_extra_title')} key={index}>
+                    <span className={cx('item_extra_title')} key={index}>
+                        {Array.isArray(item.name_data) ? (
+                            item.name_data.map((singer, index) => {
+                                const dataLength = item.name_data.length - 1;
+                                return (
                                     <Link to={`/${singer?.slug_name_singer}`}>
                                         {singer.name_singer +
                                             (index === dataLength ? '' : ', ')}
                                     </Link>
-                                </span>
-                            );
-                        })
-                    ) : (
-                        <Link to={`/${item?.slug_name_singer}`}>
-                            <span className={cx('item_extra_title')}>
+                                );
+                            })
+                        ) : (
+                            <Link to={`/${item?.slug_name_singer}`}>
                                 {item.name_singer}
-                            </span>
-                        </Link>
-                    )}
+                            </Link>
+                        )}
+                    </span>
                 </div>
             )}
         </div>

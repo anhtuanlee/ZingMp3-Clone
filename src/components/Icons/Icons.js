@@ -1,4 +1,4 @@
-import { faLoader } from '@cseitz/fontawesome-svg-duotone';
+import { faListMusic, faLoader } from '@cseitz/fontawesome-svg-duotone';
 import {
     faArrowRightFromBracket,
     faArrowUpFromBracket,
@@ -278,4 +278,7 @@ export const SubTract = () => {
 };
 export const Close = () => {
     return <FontAwesomeIcon icon={faXmark} />;
+};
+export const ListQueue = () => {
+    return <FontAwesomeIcon icon={faListMusic} />;
 };

@@ -5,12 +5,11 @@
     margin: 20px 0;
 }
 .container_singer_popular {
-    display: flex;
-    gap: 28px;
+    display: flex; 
     margin-top: 20px;
     .item {
-        width: 20%;
-
+        width: 20%; 
+        padding: 0 12px; 
         .item_title {
             font-size: 14px;
             padding: 10px 0;

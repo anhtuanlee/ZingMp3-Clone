@@ -8,6 +8,9 @@ export const isLoadingPageSelector = (state) => state.status.isPageLoading;
 export const isVolumeSelector = (state) => state.status.isVolume;
 export const isRequirePlaySelector = (state) => state.status.isRequirePlay;
 export const isMvPlayerSelector = (state) => state.status.isMvPlayer;
+export const isPlayerQueueSelector = (state) => state.status.isPlayerQueue;
+export const isCheckBeforeContentHideSelector = (state) => state.status.isContentHide;
+
 //feature
 export const songCurrentSelector = (state) => state.feature.songCurrent;
 export const slugDataBannerSelector = (state) => state.feature.slugDataBanner;
@@ -45,6 +48,8 @@ export const combinedStatusSelector = createSelector(
     themeSelector,
     isTestThemeSelector,
     isMvPlayerSelector,
+    isPlayerQueueSelector,
+    isCheckBeforeContentHideSelector,
     (
         isPlaying,
         isRepeat,
@@ -65,6 +70,8 @@ export const combinedStatusSelector = createSelector(
         themeSelect,
         isTestTheme,
         isMvPlayer,
+        isPlayerQueue,
+        isContentHide,
     ) => {
         return {
             isPlaying,
@@ -86,6 +93,8 @@ export const combinedStatusSelector = createSelector(
             themeSelect,
             isTestTheme,
             isMvPlayer,
+            isPlayerQueue,
+            isContentHide,
         };
     },
 );

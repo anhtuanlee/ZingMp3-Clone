@@ -366,7 +366,7 @@ export const MENU_THEME_LIST = {
                 playerBg: '#A3D5DC',
                 primaryBg: '#D1EDF0',
                 textPrimary: '#32323d',
-                textSecondary: '#696969',
+                textSecondary: '#333333b0',
                 purplePrimary: '#1966B2',
                 newSongLayout: 'tranparent',
                 borderPlayer: 'rgba(0,0,0,0.15)',

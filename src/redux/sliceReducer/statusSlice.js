@@ -16,6 +16,8 @@ export const statusSlice = createSlice({
         isVolume: VOLUME_STORAGE > 0 ? true : false,
         isRequirePlay: false,
         isMvPlayer: false,
+        isPlayerQueue: false,
+        isContentHide: false, // check Container hide and send animation before hide
     },
     reducers: {
         isPlayingChange: (state, action) => {
@@ -41,6 +43,12 @@ export const statusSlice = createSlice({
         },
         isMvPlayerChange: (state, action) => {
             state.isMvPlayer = action.payload;
+        },
+        isPlayerQueue: (state, action) => {
+            state.isPlayerQueue = action.payload;
+        },
+        isCheckBeforeContentHide: (state, action) => {
+            state.isContentHide = action.payload;
         },
     },
 });

@@ -2,20 +2,29 @@
     font-size: 14px;
     padding: 10px 0;
     border-radius: 4px;
-
+    text-transform: none;
+    margin-top: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
     &:hover {
         color: var(--purple-primary);
     }
 }
-.item_extra_title {
+.item_extra_title    {
     font-size: 14px;
     color: var(--text-secondary);
-
-    &:hover {
-        color: var(--purple-primary);
-        text-decoration: underline;
-    }
+    text-transform: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
 }
+.item_extra_title a:hover {
+    color: var(--purple-primary);
+    text-decoration: underline;
+} 
 
 .item_card {
     position: relative;
@@ -45,9 +54,6 @@
     transform: scale(1.1);
     transition: all linear 0.25s;
     filter: brightness(70%);
-}
-.wrapper {
-    height: 1000px;
 }
 
 .title_section {

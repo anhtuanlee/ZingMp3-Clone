@@ -82,7 +82,7 @@ function PlayListSong(
 
     useEffect(() => {
         // effect scroll with react-scroll
-        if (songCurrent._id === song?._id && isPlaying) {
+        if (songCurrent._id === song?._id && isPlaying && !HomePageTrending) {
             scroll.scrollTo(songItemRef.current.offsetTop - 250, {
                 containerId: ref?.current?.id,
                 duration: 2000,
@@ -90,7 +90,7 @@ function PlayListSong(
                 smooth: 'easeOutCubic',
             });
         }
-    }, [songCurrent,isPlaying]);
+    }, [songCurrent, isPlaying]);
 
     return (
         <div

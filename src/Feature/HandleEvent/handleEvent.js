@@ -43,7 +43,7 @@ export const handleFilterSongTrending = (data, paramsFilter) => {
 };
 export const RenderFullListSong = (data, isRank, HomePageTrending, containerRef) => {
     const { isLoadingPage } = useSelector(combinedStatusSelector);
-
+    console.log(containerRef)
     if (data.length === 0 || isLoadingPage) {
         const dataClone = new Array(6).fill();
         const result = dataClone.map((item, index) => {
