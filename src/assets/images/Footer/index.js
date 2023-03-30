@@ -1,0 +1,18 @@
+export const ImgFooter = [
+    require('../../images/Footer/beggers.png'),
+    require('../../images/Footer/FUGA.png'),
+    require('../../images/Footer/jsj.png'),
+    require('../../images/Footer/kakao.png'),
+    require('../../images/Footer/monstercat.png'),
+    require('../../images/Footer/orcahrd.png'),
+    require('../../images/Footer/route-note.png'),
+    require('../../images/Footer/sony.png'),
+    require('../../images/Footer/stone-music.png'),
+    require('../../images/Footer/taihe.png'),
+    require('../../images/Footer/universal-1.png'),
+    require('../../images/Footer/yg.png'),
+    require('../../images/Footer/ingrooves.png'),
+    require('../../images/Footer/SM-Entertainment.png'),
+    require('../../images/Footer/hikoon.png'),
+    require('../../images/Footer/empire.png'),
+];

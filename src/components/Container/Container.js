@@ -7,8 +7,7 @@ import { Banner } from '../Banner';
 import styles from './Container.module.scss';
 
 const cx = classNames.bind(styles);
-function Container({ listData, titleSection, isBannerAlbumHot }) {  
-    
+function Container({ listData, titleSection, isBannerAlbumHot }) {
     const { isLoadingPage } = useSelector(combinedStatusSelector);
 
     const render = (listData) => {
@@ -27,7 +26,7 @@ function Container({ listData, titleSection, isBannerAlbumHot }) {
     };
     return (
         <div className={cx('wrapper')}>
-            {isLoadingPage && <Loading styles={{ width: '20%', height: '5vh' }} />}
+            {isLoadingPage && <Loading styles={{ width: '20%', height: '5vh' , margin: '20px 0'}} />}
             {!isLoadingPage && <h2 className={cx('title_section')}>{titleSection}</h2>}
             <div className={cx('container_singer_popular')}>{render(listData)}</div>
         </div>

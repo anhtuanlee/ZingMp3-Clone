@@ -1,15 +1,14 @@
 .wrapper {
     width: 330px;
-    height: calc(100vh - 90px);
+    height: calc(100vh - 80px);
     background-color: var(--primary-bg);
     position: fixed;
     top: 0;
     right: 0;
-    z-index: 99998;
+    z-index: 9999;          
     box-shadow: 0 1px 0 rgba(0, 0, 0, 0.3), 0 1px 6px rgba(0, 0, 0, 0.3),
         inset 0 1px 1px rgba(25, 255, 255, 0.05);
-    animation: slideLeft ease 0.5s;
-
+    animation: slideLeft ease 0.5s; 
     .container {
         padding: 0 8px;
     }
@@ -22,9 +21,12 @@
     }
     .list_queue {
         overflow-y: scroll;
-        height: calc(100vh - 200px);
+        height: calc(100vh - 210px);
     }
 }
+
+
+
 
 // animation before content hide
 .hide {

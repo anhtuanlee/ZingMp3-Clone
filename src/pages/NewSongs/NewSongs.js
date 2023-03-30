@@ -1,10 +1,8 @@
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { ButtonEffectPlay } from '../../components/Button';
+import { useDispatch } from 'react-redux';
 import { RenderFullListSong } from '../../Feature/HandleEvent/handleEvent';
-import TitlePage from '../../layouts/TitlePage/TitlePage';
-import { combinedStatusSelector } from '../../redux/selector';
+import TitlePage from '../../layouts/components/TitlePage/TitlePage';
 import { sidebarSlice, statusSlice } from '../../redux/sliceReducer';
 import { newSongApi } from '../../services';
 import styles from './NewSongs.module.scss';

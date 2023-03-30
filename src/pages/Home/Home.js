@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Content from '../../components/Content';
+import Footer from '../../components/Footer/Footer';
 import SliderSlick from '../../layouts/components/Sliderslick';
 import { combinedStatusSelector } from '../../redux/selector';
 import { sidebarSlice } from '../../redux/sliceReducer';
@@ -29,6 +30,9 @@ function Home() {
             </div>
             <div className={cx('content_container')}>
                 <Content />
+            </div>
+            <div>
+                <Footer />
             </div>
         </div>
     );

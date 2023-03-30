@@ -17,6 +17,7 @@ export const ActionBtnAlbum = ({
     data,
     HomePageTrending,
     playlistSong,
+    isListQueue,
 }) => {
     const dispatch = useDispatch();
     const { slugDataBanner, isPlaying, songCurrent } =
@@ -140,6 +141,7 @@ export const ActionBtnAlbum = ({
                             border_nothover={btn.border_nothover}
                             title={item?.title}
                             onHandle={(e) => onHandle(e, btn)}
+                            isListQueue={isListQueue}
                         />
                     </div>
                 );

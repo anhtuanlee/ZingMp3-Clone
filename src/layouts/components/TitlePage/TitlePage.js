@@ -1,9 +1,9 @@
-import { ButtonEffectPlay } from '../../components/Button';
+import { ButtonEffectPlay } from '../../../components/Button';
 import classNames from 'classnames/bind';
 import styles from './TitlePage.module.scss';
 import { useSelector } from 'react-redux';
-import { combinedStatusSelector } from '../../redux/selector';
-import Loading from '../../pages/Loading';
+import { combinedStatusSelector } from '../../../redux/selector';
+import Loading from '../../../pages/Loading';
 
 const cx = classNames.bind(styles);
 function TitlePage({ title, sizes = 'large', styles,data}) {

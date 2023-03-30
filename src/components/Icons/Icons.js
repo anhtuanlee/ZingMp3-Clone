@@ -216,7 +216,7 @@ export const Star = () => {
 
 export const Mv = () => {
     return (
-        <svg width="25" height="25" viewBox="0 0 20 20" fill="currentColor">
+        <svg width="25" height="25" viewBox="0 -2 20 20" fill="currentColor">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"

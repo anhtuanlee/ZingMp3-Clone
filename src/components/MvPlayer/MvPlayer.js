@@ -14,7 +14,7 @@ function MvPlayer() {
     const dispatch = useDispatch();
     const { songCurrent, isContentHide, isPlayerQueue } =
         useSelector(combinedStatusSelector);
-
+    const [urlMv, setUrlMv] = useState('');
     const handleCloseMv = () => {
         dispatch(statusSlice.actions.isCheckBeforeContentHide(true));
         setTimeout(() => {
@@ -23,7 +23,9 @@ function MvPlayer() {
             // delay time dispath
         }, 300);
     };
-
+    useEffect(() => {
+        setUrlMv(songCurrent.link_mv);
+    }, [songCurrent]);
     return (
         <div className={cx('wrapper', isContentHide ? 'off' : '')}>
             <div className={cx('container')}>
@@ -35,10 +37,11 @@ function MvPlayer() {
                 </header>
                 <div className={cx('content_section')}>
                     {/* play_mv */}
-                    <iframe
+                    <iframe 
+                    loading='lazy' 
                         className={cx('ifarme_player')}
-                        src={`https://www.youtube.com/embed/${songCurrent.link_mv}`}
-                    ></iframe>
+                        src={`https://www.youtube.com/embed/${urlMv}`}
+                    />
                 </div>
             </div>
         </div>

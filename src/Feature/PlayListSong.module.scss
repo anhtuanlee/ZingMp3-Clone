@@ -25,7 +25,36 @@
     &:hover .icon_inner_avatar {
         opacity: 1;
     }
+
+    // custom item playlistsong when in listqueue
+    &.isActiveListQueue {
+        background-color: var(--purple-primary);
+        transition: all ease 0.5s;
+
+        .title_song_item {
+            .name_song_item {
+                color: var(--white);
+            }
+            .name_singer_item {
+                color: hsla(0, 0%, 100%, 0.6);
+                &:hover {
+                    color: hsla(0, 0%, 100%, 0.6);
+                }
+            }
+        }
+        .item_format_time {
+            color: hsla(0, 0%, 100%, 0.6);
+        }
+    }
+
+    &.isActiveListQueue .icon_inner_avatar {
+        opacity: 1;
+    }
+    &.isActiveListQueue .image_song_item img {
+        filter: brightness(50%);
+    }
 }
+
 .container_song_section {
     display: flex;
     justify-content: space-between;

@@ -22,6 +22,7 @@ function ControlsRight({ audioRef }) {
                     icon: Mv,
                     disable: songCurrent.link_mv ? false : true,
                     type: 'mv',
+                    extraTitle: 'MV'
                 },
 
                 {
@@ -31,6 +32,7 @@ function ControlsRight({ audioRef }) {
                 {
                     icon: isVolume ? Volumn : VolumnOff,
                     type: 'volume',
+                    extraTitle: 'Âm Lượng'
                 },
             ],
         },
@@ -108,7 +110,11 @@ function ControlsRight({ audioRef }) {
             </div>
             <div className={cx('devide')}></div>
             <div className={cx('btn_playlist_queue')}>
-                <Button Icons={ListQueue} queue onHandle={hnadleListQueue} />
+                <Button
+                    Icons={ListQueue}
+                    onHandle={hnadleListQueue}
+                    className={cx(isPlayerQueue ? 'queueOn' : 'queueOff')}
+                />
             </div>
         </div>
     );

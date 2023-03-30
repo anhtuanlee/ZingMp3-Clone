@@ -156,7 +156,7 @@ export const SIDEBAR_MENU = [
     {
         title: 'Radio',
         icon: Radio,
-        to: '/',
+        to: '/the-loai-video',
     },
     {
         title: 'Theo Dõi',
@@ -177,7 +177,7 @@ export const SIDEBAR_MENU = [
     {
         title: 'Top 100',
         icon: Star,
-        to: '/',
+        to: '/the-loai-video',
     },
     {
         title: 'MV',
@@ -387,7 +387,7 @@ export const MENU_THEME_LIST = {
                 primaryBg: '#34224f',
                 textPrimary: '#fff',
                 textSecondary: 'hsla(0, 0%, 100%, 0.5)',
-                purplePrimary: '#9b4de0', 
+                purplePrimary: '#9b4de0',
                 newSongLayout:
                     'url(https://zjs.zmdcdn.me/zmp3-desktop/releases/v1.9.9/static/media/new-release-bg.73d8f976.jpg)',
                 borderPlayer: 'hsla(0,0%,100%,0.1)',

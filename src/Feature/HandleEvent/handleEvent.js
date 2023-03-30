@@ -41,9 +41,8 @@ export const handleFilterSongTrending = (data, paramsFilter) => {
     });
     return dataFilter;
 };
-export const RenderFullListSong = (data, isRank, HomePageTrending, containerRef) => {
-    const { isLoadingPage } = useSelector(combinedStatusSelector);
-    console.log(containerRef)
+export const RenderFullListSong = (data, isRank, HomePageTrending, containerRef,isListQueue) => {
+    const { isLoadingPage } = useSelector(combinedStatusSelector); 
     if (data.length === 0 || isLoadingPage) {
         const dataClone = new Array(6).fill();
         const result = dataClone.map((item, index) => {
@@ -103,8 +102,9 @@ export const RenderFullListSong = (data, isRank, HomePageTrending, containerRef)
                         song={song}
                         index={index}
                         rank={isRank}
-                        HomePageTrending={HomePageTrending}
+                        HomePageTrending={HomePageTrending} 
                         ref={containerRef}
+                        isListQueue={isListQueue}
                     />
                 </div>
             );

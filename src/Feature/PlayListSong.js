@@ -21,6 +21,7 @@ function PlayListSong(
         index,
         rank,
         HomePageTrending = false, // styles off class
+        isListQueue,
     },
     ref,
 ) {
@@ -50,9 +51,8 @@ function PlayListSong(
 
     const handleDubleClickPlaySong = (e, data, song, index) => {
         //dubbleClick parent will play song not
-        if (e.target.parentElement === e.currentTarget) {
-            return handleConfig(data, song, index, e);
-        }
+
+        return handleConfig(data, song, index, e);
     };
 
     const handleHoverMusic = (e, index) => {
@@ -91,13 +91,16 @@ function PlayListSong(
             });
         }
     }, [songCurrent, isPlaying]);
-
     return (
         <div
             ref={songItemRef}
             className={cx(
                 'song_item_container',
-                songCurrent?._id === song?._id ? 'isActive' : '',
+                songCurrent?._id === song?._id
+                    ? isListQueue
+                        ? 'isActiveListQueue'
+                        : 'isActive'
+                    : '',
                 { HomePageTrending },
             )}
             key={index}
@@ -149,6 +152,11 @@ function PlayListSong(
                             <ActionBtnAlbum
                                 HomePageTrending={HomePageTrending}
                                 playlistSong={true}
+                                isListQueue={
+                                    songCurrent?._id === song?._id && isListQueue
+                                        ? isListQueue
+                                        : undefined
+                                }
                             />
                             {/* check  */}
                         </div>

@@ -1,16 +1,15 @@
 import classNames from 'classnames/bind';
-import { useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { combinedStatusSelector } from '../../redux/selector';
-import { statusSlice } from '../../redux/sliceReducer';
-import Button from '../Button';
-import styles from './ListQueue.module.scss';
+import { useRef } from 'react';
+import { useSelector } from 'react-redux';
 import { RenderFullListSong } from '../../Feature/HandleEvent';
-import TitlePage from '../../layouts/TitlePage/TitlePage';
+import TitlePage from '../../layouts/components/TitlePage/TitlePage';
+import { combinedStatusSelector } from '../../redux/selector';
+import styles from './ListQueue.module.scss';
 const cx = classNames.bind(styles);
 
 function ListQueue() {
     const listQueueRef = useRef();
+    const isListQueue = true;
     const { dataSongs, isContentHide, isMvPlayer } = useSelector(combinedStatusSelector);
     return (
         <div className={cx('wrapper', isContentHide && !isMvPlayer ? 'hide' : '')}>
@@ -25,7 +24,13 @@ function ListQueue() {
                 </div>
 
                 <div className={cx('list_queue')} ref={listQueueRef} id="container">
-                    {RenderFullListSong(dataSongs, undefined, undefined, listQueueRef)}
+                    {RenderFullListSong(
+                        dataSongs,
+                        undefined,
+                        undefined,
+                        listQueueRef,
+                        isListQueue,
+                    )}
                 </div>
             </div>
         </div>

@@ -7,9 +7,9 @@ import {
     handleFilterSongTrending,
     handleSelectButtonNational,
     RenderButtonSelect,
-    RenderFullListSong
+    RenderFullListSong,
 } from '../../Feature/HandleEvent/handleEvent';
-import TitlePage from '../../layouts/TitlePage/TitlePage';
+import TitlePage from '../../layouts/components/TitlePage/TitlePage';
 import { sidebarSlice, statusSlice } from '../../redux/sliceReducer';
 import { getTrendingDataApi } from '../../services';
 import styles from './Trending.module.scss';
@@ -17,7 +17,7 @@ const cx = classNames.bind(styles);
 
 function Trending() {
     const dispatch = useDispatch();
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
 
     const [dataApiReturn, setDataApiReturn] = useState([]); // take data from api
     const [dataSelect, setDataSelect] = useState([]); // filter data render from dataApi
@@ -65,8 +65,7 @@ function Trending() {
 
     return (
         <div className={cx('wrapper')}>
-            
-            <TitlePage title="Top Trending" sizes="large" data={dataSelect}/>
+            <TitlePage title="Top Trending" sizes="large" data={dataSelect} />
 
             <div className={cx('buttons_seclect_national')}>
                 {RenderButtonSelect(paramsFilter, onHandleSelectNational, isTrendingPage)}

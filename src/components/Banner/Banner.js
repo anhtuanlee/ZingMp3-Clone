@@ -74,11 +74,11 @@ function Banner({ item, index, data, isLivingAlbum, singleBtn, isBannerAlbumHot 
         />
     ) : (
         <div className={cx('item')}>
-            <div
+            <div    
                 className={cx(
                     'item_card',
                     indexHover === index && isHover ? 'isHover' : '',
-                )}
+                )} 
                 onMouseOver={handleHover}
                 onMouseLeave={handleLeave}
             >
@@ -129,7 +129,7 @@ function Banner({ item, index, data, isLivingAlbum, singleBtn, isBannerAlbumHot 
                             item.name_data.map((singer, index) => {
                                 const dataLength = item.name_data.length - 1;
                                 return (
-                                    <Link to={`/${singer?.slug_name_singer}`}>
+                                    <Link to={`/${singer?.slug_name_singer}`} key={index}> 
                                         {singer.name_singer +
                                             (index === dataLength ? '' : ', ')}
                                     </Link>
