@@ -17,7 +17,7 @@ export const statusSlice = createSlice({
         isRequirePlay: false,
         isMvPlayer: false,
         isPlayerQueue: false,
-        isContentHide: false, // check Container hide and send animation before hide
+        isContentHide: false, // check Container hide and send animation before hide, 
     },
     reducers: {
         isPlayingChange: (state, action) => {

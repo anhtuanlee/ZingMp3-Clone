@@ -125,10 +125,10 @@
     margin: 0 20px;
 }
 .queueOff {
-    background-color: hsla(0, 0%, 100%, 0.4);
+    background-color: hsla(0, 0%, 100%, 0.4) !important;
     border-radius: 4px;
     color: var(--text-primary);
-    padding: 0;
+    padding: 0 !important;
     height: 30px;
     width: 27px;
     display: flex;
@@ -136,10 +136,10 @@
     justify-content: center;
 }
 .queueOn {
-    background-color: var(--purple-primary);
+    background-color: var(--purple-primary) !important;
     border-radius: 4px;
     color: var(--white);
-    padding: 0;
+    padding: 0 !important;
     height: 30px;
     width: 27px;
     display: flex;

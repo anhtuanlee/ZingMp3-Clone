@@ -76,14 +76,14 @@ function InputProgress({
                 setValue(0);
             }
         }
-    }, [times.currentTime]);
+    }, [times.currentTime,audioRef,songCurrent]);
     useEffect(() => {
         if (audioRef) {
             if (CURRENT_TIME_STORAGE !== null) {
                 audioRef.current.currentTime = CURRENT_TIME_STORAGE;
             }
         }
-    }, []);
+    }, [audioRef]);
     // seek volume
     useEffect(() => {
         if (audioRef) {
@@ -105,7 +105,7 @@ function InputProgress({
                 JSON.stringify(audioRef.current.volume),
             );
         }
-    }, [isVolume]);
+    }, [isVolume,dispatch]);
     return (
         <input
             type="range"

@@ -18,6 +18,7 @@ export const featureSlice = createSlice({
             currentTime: CURRENT_TIME_STORAGE ? CURRENT_TIME_STORAGE : 0,
         },
         slugDataBanner: undefined,
+        notification: { title: '', styles: '' },
     },
     reducers: {
         setCurrentID: (state, action) => {
@@ -37,6 +38,9 @@ export const featureSlice = createSlice({
         },
         setSlugDataBanner: (state, action) => {
             state.slugDataBanner = action.payload;
+        },
+        setNotification: (state, action) => {
+            state.notification = action.payload;
         },
     },
 });

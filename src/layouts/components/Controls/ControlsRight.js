@@ -20,7 +20,7 @@ function ControlsRight({ audioRef }) {
             data: [
                 {
                     icon: Mv,
-                    disable: songCurrent.link_mv ? false : true,
+                    disable: songCurrent?.link_mv ? false : true,
                     type: 'mv',
                     extraTitle: 'MV'
                 },

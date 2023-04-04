@@ -1,5 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { featureSlice, sidebarSlice, statusSlice, themeSlice } from './sliceReducer';
+import {
+    featureSlice,
+    loginSlice,
+    sidebarSlice,
+    statusSlice,
+    themeSlice,
+} from './sliceReducer';
 
 const store = configureStore({
     reducer: {
@@ -7,6 +13,7 @@ const store = configureStore({
         status: statusSlice.reducer,
         sidebar: sidebarSlice.reducer,
         theme: themeSlice.reducer,
+        login: loginSlice.reducer,
     },
 });
 export default store;

@@ -9,3 +9,5 @@ export const IS_RANDOM_STORAGE = JSON.parse(localStorage.getItem('isRandom'));
 
 export const idActiveSidebar = JSON.parse(localStorage.getItem('idActiveSidebar'));
 export const THEME_RECENT_STORAGE = JSON.parse(localStorage.getItem('themeRecent'));
+
+export const ACCESS_TOKEN_STORAGE = JSON.parse(localStorage.getItem('accessToken'));

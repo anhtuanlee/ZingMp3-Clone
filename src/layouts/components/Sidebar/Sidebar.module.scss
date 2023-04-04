@@ -2,8 +2,8 @@
     position: fixed;
     width: 240px;
     top: 0;
-    bottom: 0;
-    background-color: var(--sidebar-bg); 
+    bottom: 90px;
+    background-color: var(--sidebar-bg);
 }
 .logo {
     width: 120px;
@@ -16,7 +16,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 70px; 
+    height: 70px;
 }
 .menu_main {
     display: flex;

@@ -1,14 +1,11 @@
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ButtonEffectPlay } from '../../components/Button';
-import { RenderFullListSong } from '../../Feature/HandleEvent/handleEvent'; 
+import { RenderFullListSong } from '../../Feature/HandleEvent/handleEvent';
 import TitlePage from '../../layouts/components/TitlePage/TitlePage';
-import { combinedStatusSelector } from '../../redux/selector';
 import { sidebarSlice, statusSlice } from '../../redux/sliceReducer';
 import { getSingerDataApi } from '../../services';
-import Loading from '../Loading';
 import styles from './Album.module.scss';
 const cx = classNames.bind(styles);
 
@@ -44,11 +41,11 @@ function Album() {
             }
         };
         fetch();
-    }, [nickname]);
+    }, [nickname,dispatch,navigate]);
 
     useEffect(() => {
         dispatch(sidebarSlice.actions.setIdSidebarActive(null)); // not active sidebar
-    }, []);
+    }, [dispatch]);
 
     return (
         <div className={cx('wrapper')}>

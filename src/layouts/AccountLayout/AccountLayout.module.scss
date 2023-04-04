@@ -1,5 +1,7 @@
 .wrapper {
     display: flex;
+    overflow: hidden;
+    height: calc(100vh - 90px);
 }
 .sidbar {
     height: calc(100vh - 90px);
@@ -10,10 +12,11 @@
     flex: 1;
     width: calc(100% - 240px);
     background-color: var(--primary);
+    overflow: hidden scroll;
 }
 .header_main_page {
-    background-color: transparent; 
+    background-color: transparent;
     box-shadow: none;
-    border: none
+    border: none;
 }
 //style config

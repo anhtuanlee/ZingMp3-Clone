@@ -1,5 +1,4 @@
 import classNames from 'classnames/bind';
-import { useState } from 'react';
 import Button from '../../../components/Button';
 import styles from './Sidebar.module.scss';
 

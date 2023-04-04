@@ -1,10 +1,8 @@
 import classNames from 'classnames/bind';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Button from '../../../components/Button';
-import { Heart, More } from '../../../components/Icons';
-import Images from '../../../components/Image';
 import { ActionBtnAlbum } from '../../../Feature/ActionBtnAlbum';
+import Images from '../../../components/Image';
 import { combinedStatusSelector } from '../../../redux/selector';
 import styles from './Controls.module.scss';
 const cx = classNames.bind(styles);

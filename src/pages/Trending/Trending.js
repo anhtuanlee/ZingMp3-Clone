@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 import {
     handleFilterSongTrending,
@@ -17,7 +17,6 @@ const cx = classNames.bind(styles);
 
 function Trending() {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const [dataApiReturn, setDataApiReturn] = useState([]); // take data from api
     const [dataSelect, setDataSelect] = useState([]); // filter data render from dataApi
@@ -27,6 +26,7 @@ function Trending() {
         return searchParams.get('_filter'); // will return params first when reload page with data was set
     });
     const isTrendingPage = true; // check page or content
+    const isRank = true;
 
     const onHandleSelectNational = (item) => {
         const selectNational = handleSelectButtonNational(item);
@@ -40,13 +40,13 @@ function Trending() {
         const dataFilter = handleFilterSongTrending(dataApiReturn, paramsFilter);
         setDataSelect(dataFilter);
         setParamsFilter(paramsFilter);
-    }, [paramsFilter]);
+    }, [paramsFilter, dataApiReturn]);
 
     useEffect(() => {
         dispatch(statusSlice.actions.isPageLoadingChange(true));
         const fetch = async () => {
-            const result = await getTrendingDataApi(100).then((data) => {
-                const dataFilter = handleFilterSongTrending(data, paramsFilter);
+            const result = await getTrendingDataApi(100).then((data) => { 
+                const dataFilter = handleFilterSongTrending(data, paramsFilter); 
                 setDataSelect(dataFilter);
                 setDataApiReturn(data);
                 dispatch(statusSlice.actions.isPageLoadingChange(false));
@@ -54,14 +54,14 @@ function Trending() {
             return result;
         };
         fetch();
-    }, []);
+    }, [dispatch, paramsFilter]);
     useEffect(() => {
         setParamsFilter(searchParams.get('_filter'));
     }, [searchParams]);
 
     useEffect(() => {
         dispatch(sidebarSlice.actions.setIdSidebarActive(null)); // not active
-    }, []);
+    }, [dispatch]);
 
     return (
         <div className={cx('wrapper')}>
@@ -71,7 +71,7 @@ function Trending() {
                 {RenderButtonSelect(paramsFilter, onHandleSelectNational, isTrendingPage)}
             </div>
             <div className={cx('container_listsong_full')}>
-                {RenderFullListSong(dataSelect)}
+                {RenderFullListSong(dataSelect, isRank)}
             </div>
         </div>
     );

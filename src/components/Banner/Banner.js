@@ -85,8 +85,8 @@ function Banner({ item, index, data, isLivingAlbum, singleBtn, isBannerAlbumHot 
                 <Link
                     to={`/album/${item?.slug_name_singer || item?.slug_category}`}
                     state={{
-                        src: item.src,
-                        title: item.title,
+                        src: item?.src,
+                        title: item?.title,
                         slug_name_singer: item?.slug_name_singer,
                         slug_category: item?.slug_category,
                         isBannerAlbumHot: isBannerAlbumHot,

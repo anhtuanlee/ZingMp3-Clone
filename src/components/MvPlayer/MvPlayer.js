@@ -12,7 +12,7 @@ const cx = classNames.bind(styles);
 
 function MvPlayer() {
     const dispatch = useDispatch();
-    const { songCurrent, isContentHide, isPlayerQueue } =
+    const { songCurrent, isContentHide, } =
         useSelector(combinedStatusSelector);
     const [urlMv, setUrlMv] = useState('');
     const handleCloseMv = () => {
@@ -24,7 +24,7 @@ function MvPlayer() {
         }, 300);
     };
     useEffect(() => {
-        setUrlMv(songCurrent.link_mv);
+        setUrlMv(songCurrent?.link_mv);
     }, [songCurrent]);
     return (
         <div className={cx('wrapper', isContentHide ? 'off' : '')}>
@@ -38,6 +38,7 @@ function MvPlayer() {
                 <div className={cx('content_section')}>
                     {/* play_mv */}
                     <iframe 
+                    title={songCurrent?.music_name}
                     loading='lazy' 
                         className={cx('ifarme_player')}
                         src={`https://www.youtube.com/embed/${urlMv}`}

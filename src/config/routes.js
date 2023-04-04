@@ -1,5 +1,4 @@
 import { AccountLayout, NewSongLayout } from '../layouts';
-import MainPageLayout from '../layouts/MainPageLayout';
 import AccountPage from '../pages/Account/Account';
 import Album from '../pages/Album';
 import AlbumSinger from '../pages/AlbumSinger';
@@ -8,7 +7,7 @@ import Error from '../pages/Error';
 import Following from '../pages/Following';
 import Home from '../pages/Home';
 import Mv from '../pages/Mv';
-import Mymusic from '../pages/Mymusic';
+import MyPlayer from '../pages/MyPlayer/';
 import NewSongs from '../pages/NewSongs';
 import Trending from '../pages/Trending';
 import Zingchart from '../pages/Zingchart';
@@ -17,11 +16,10 @@ const config = {
     home: {
         component: Home,
         path: '/',
-        layout: MainPageLayout,
     },
-    mymusic: {
-        component: Mymusic,
-        path: 'mymusic',
+    myplayer: {
+        component: MyPlayer,
+        path: 'my-player',
     },
 
     account: {

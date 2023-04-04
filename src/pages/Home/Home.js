@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Content from '../../components/Content';
@@ -12,16 +12,13 @@ const cx = classNames.bind(styles);
 function Home() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    useEffect(() => {
-        dispatch(sidebarSlice.actions.setIdSidebarActive(1));
-        window.scrollTo(0, 0);
-    }, []);
     const { songCurrent } = useSelector(combinedStatusSelector);
     useEffect(() => {
         if (!songCurrent) {
             navigate('..');
         }
-    }, [songCurrent]);
+        dispatch(sidebarSlice.actions.setIdSidebarActive(1));
+    }, [songCurrent, dispatch, navigate]);
 
     return (
         <div className={cx('wrapper')}>

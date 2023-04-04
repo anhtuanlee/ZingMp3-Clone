@@ -1,0 +1,113 @@
+.wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99999999;
+    padding: 10px;
+    .container {
+        border: 1px solid transparent;
+        display: flex;
+        align-items: center;
+        padding: 15px 10px;
+        border-radius: 8px;
+        max-width: 30vw;
+        background-color: var(--white);
+        .icon_notification {
+            color: transparent;
+            font-size: 20px;
+            padding-right: 10px;
+        }
+        .title_notification {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            align-items: center;
+            color: #000 ;
+        }
+        .btn_close {
+            font-size: 20px;
+            font-weight: 600;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            &:hover {
+                padding: 5px;
+                border-radius: 5px;
+                background-color: var(--white);
+            }
+        }
+    }
+    .off {
+        animation: slideLeft ease 0.3s, fadeOut 0.5s 1s forwards;
+        transform: translateX(-100%) translateX(-10px);
+    }
+    .on {
+        animation: slideRight ease 0.3s, fadeOut 0.5s 1s forwards;
+        transform: translateX(0);
+    }
+    // style
+    .info {
+        border: 1px solid #abcdf1;
+        background-color: #e5effa;
+        .icon_notification {
+            color: #006be3;
+            font-size: 20px;
+            padding-right: 10px;
+        }
+    }
+    .warning {
+        border: 1px solid #fadfb2;
+        background-color: #fef7ea;
+        .icon_notification {
+            color: #ef9400;
+            font-size: 20px;
+            padding-right: 10px;
+        }
+    }
+    .error {
+        border: 1px solid red;
+        background-color: #fcedea;
+        .icon_notification {
+            color: red;
+            font-size: 20px;
+            padding-right: 10px;
+        }
+    }
+    .success {
+        border: 1px solid #a4f3b8;
+        background-color: #ebf7ee;
+        .icon_notification {
+            color: #3ebe61;
+            font-size: 20px;
+            padding-right: 10px;
+        }
+    }
+}
+
+@keyframes slideRight {
+    from {
+        transform: translateX(-100%) ;
+    }
+    to {
+        transform: translate(0);
+        opacity: 1;
+    }
+}
+@keyframes slideLeft {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translate(-100%)  ;
+    }
+}
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}

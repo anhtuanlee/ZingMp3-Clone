@@ -13,25 +13,23 @@ function ListQueue() {
     const { dataSongs, isContentHide, isMvPlayer } = useSelector(combinedStatusSelector);
     return (
         <div className={cx('wrapper', isContentHide && !isMvPlayer ? 'hide' : '')}>
-            <div className={cx('container')}>
-                <div className={cx('title_container')}>
-                    <TitlePage
-                        title="Danh Sách Phát"
-                        sizes="medium"
-                        data={dataSongs}
-                        styles={{ fontSize: 20 }}
-                    />
-                </div>
+            <div className={cx('title_container')}>
+                <TitlePage
+                    title="Danh Sách Phát"
+                    sizes="medium"
+                    data={dataSongs}
+                    styles={{ fontSize: 20 }}
+                />
+            </div>
 
-                <div className={cx('list_queue')} ref={listQueueRef} id="container">
-                    {RenderFullListSong(
-                        dataSongs,
-                        undefined,
-                        undefined,
-                        listQueueRef,
-                        isListQueue,
-                    )}
-                </div>
+            <div className={cx('list_queue')} ref={listQueueRef} id="container">
+                {RenderFullListSong(
+                    dataSongs,
+                    undefined,
+                    undefined,
+                    listQueueRef,
+                    isListQueue,
+                )}
             </div>
         </div>
     );

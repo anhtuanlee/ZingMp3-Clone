@@ -55,14 +55,12 @@ export const MENU_USER_HEADER = [
         icon: LogOut,
         type: 'logout',
         spederate: true,
-        to: '/logout',
     },
 ];
 export const MENU_SETTING_HEADER = [
     {
         title: 'Danh sách chặn',
-        icon: Block,
-        type: 'logout',
+        icon: Block, 
     },
     {
         title: 'Chất lượng nhạc',
@@ -141,7 +139,7 @@ export const SIDEBAR_MENU = [
     {
         title: 'Cá nhân',
         icon: Private,
-        to: '/mymusic',
+        to: '/my-player',
     },
     {
         title: 'Khám Phá',

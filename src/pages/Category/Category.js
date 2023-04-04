@@ -13,7 +13,7 @@ function Category() {
             buttons: 'Oki ^^!',
         });
         navigate('..');
-    }, []);
+    }, [navigate]);
     return <h3>Category Pages</h3>;
 }
 

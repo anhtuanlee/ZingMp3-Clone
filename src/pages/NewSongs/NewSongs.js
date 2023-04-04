@@ -24,7 +24,7 @@ function NewUpdate() {
         fetchNewSong();
 
         dispatch(sidebarSlice.actions.setIdSidebarActive(5));
-    }, []);
+    }, [dispatch]);
 
     return (
         <div className={cx('wrapper')}>

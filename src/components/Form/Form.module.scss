@@ -1,0 +1,126 @@
+.wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: hsla(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .container_section {
+        display: flex;
+        flex-direction: column;
+        background-color: var(--player-bg);
+        width: 50vw;
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        border-radius: 10px;
+
+        .title_form {
+            font-size: 25px;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-align: center;
+            padding-top: 10px;
+            position: relative;
+            .btn_close {
+                position: absolute;
+                right: 0;
+                top: 0;
+            }
+        }
+        .form_container {
+            .form_input {
+                display: flex;
+                flex-direction: column;
+                padding-bottom: 10px;
+                .form_label {
+                    font-size: 14px;
+                    color: var(--text-primary);
+                    font-weight: 600;
+                }
+                .input_form {
+                    padding: 10px 5px;
+                    border-radius: 4px;
+                    width: 100%;
+                    margin: 10px 0 5px 0;
+                    font-size: 14px;
+                    color: var(--black);
+                }
+                // invalid btn
+                .invalid {
+                    border-color: red;
+                }
+            }
+            .bottom_form {
+                text-align: center;
+                padding: 10px;
+            }
+            .bottom_text {
+                font-size: 14px;
+                font-weight: 500;
+                margin-right: 10px;
+            }
+            .bottom_btn_register {
+                color: var(--purple-primary);
+                font-size: 16px;
+                font-weight: 700;
+                cursor: pointer;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+        .btn_form {
+            background-color: var(--purple-primary);
+            position: relative;
+            color: var(--white);
+            padding: 10px 20px;
+            border-radius: 8px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            justify-content: center;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .isLoading {
+            position: relative;
+            inset: 0;
+            &::before {
+                content: '';
+                border-radius: 8px;
+                background-color: hsla(0, 0%, 100%, 0.25);
+                position: absolute;
+                inset: 0;
+            }
+        }
+
+    }
+}
+
+.messenger_error {
+    color: red;
+}
+
+//loading
+.loading_form {
+    animation: spinner linear 1s infinite;
+    display: flex;
+    align-items: center;
+    margin-right: 5px;
+}
+
+@keyframes spinner {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

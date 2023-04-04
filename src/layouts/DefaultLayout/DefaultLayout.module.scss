@@ -1,6 +1,7 @@
 .wrapper {
-    display: flex; 
-
+    display: flex;
+    overflow: hidden;
+    height: calc(100vh - 90px);
 }
 .sidbar {
     height: calc(100vh - 90px);
@@ -10,8 +11,9 @@
 .main_page {
     background-color: var(--primary);
     width: calc(100% - 240px);
+    overflow: hidden scroll;
 }
 .content {
     margin-top: 70px;
-    height: 100%;
-} 
+    height: 100%;   
+}

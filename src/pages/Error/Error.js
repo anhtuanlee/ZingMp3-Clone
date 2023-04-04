@@ -10,7 +10,7 @@ function ErrorPage() {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(sidebarSlice.actions.setIdSidebarActive(null));
-    }, []);
+    }, [dispatch]);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('box1')}></div>

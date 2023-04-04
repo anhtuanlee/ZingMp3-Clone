@@ -6,8 +6,7 @@ import { Heart, More, Play } from '../components/Icons';
 import WaveSong from '../components/Icons/WaveSong';
 import { featureSlice, statusSlice } from '../redux/sliceReducer';
 import styles from './PlayListSong.module.scss';
-import classNames from 'classnames/bind';
-
+import classNames from 'classnames/bind'; 
 const cx = classNames.bind(styles);
 
 export const ActionBtnAlbum = ({
@@ -20,7 +19,7 @@ export const ActionBtnAlbum = ({
     isListQueue,
 }) => {
     const dispatch = useDispatch();
-    const { slugDataBanner, isPlaying, songCurrent } =
+    const { slugDataBanner, isPlaying, songCurrent, dataUser } =
         useSelector(combinedStatusSelector); // slug_name in
 
     const isSlugCategory = slugDataBanner === item?.slug_category;
@@ -28,6 +27,9 @@ export const ActionBtnAlbum = ({
     const isSlugCategoryCurrent = songCurrent?.slug_category === item?.slug_category;
     const isSlugNameSingerCurrent =
         songCurrent?.slug_name_singer === item?.slug_name_singer;
+
+    const handleLike = async () => { 
+    };
 
     const BUTTON_HOVER = [
         {
@@ -97,9 +99,10 @@ export const ActionBtnAlbum = ({
 
                         return dispatch(statusSlice.actions.isRequirePlayChange(true));
                     }
+                    break;
                 case 'like':
                     e.preventDefault();
-                    console.log('like2');
+                    handleLike();
                     break;
                 case 'more':
                     e.preventDefault();
@@ -111,13 +114,28 @@ export const ActionBtnAlbum = ({
         }
     };
 
-    const result = BUTTON_HOVER.map((btn, index) => {
-        const shouldRenderButton = !singleBtn || btn.type === 'play';
+    const renderBtnHover = () => {
+        const result = BUTTON_HOVER.map((btn, index) => {
+            const shouldRenderButton = !singleBtn || btn.type === 'play';
 
-        if (playlistSong) {
-            if (HomePageTrending) {
-                // from home page
-                if (btn.type === 'more') {
+            if (playlistSong) {
+                if (HomePageTrending) {
+                    // from home page
+                    if (btn.type === 'more') {
+                        return (
+                            <div key={index}>
+                                <Button
+                                    Icons={btn.icon}
+                                    extraTitle={btn.extraTitle}
+                                    circle={btn.circle}
+                                    border_nothover={btn.border_nothover}
+                                    title={item?.title}
+                                    onHandle={(e) => onHandle(e, btn)}
+                                />
+                            </div>
+                        );
+                    }
+                } else if (btn.type === 'more' || btn.type === 'like') {
                     return (
                         <div key={index}>
                             <Button
@@ -127,44 +145,33 @@ export const ActionBtnAlbum = ({
                                 border_nothover={btn.border_nothover}
                                 title={item?.title}
                                 onHandle={(e) => onHandle(e, btn)}
+                                isListQueue={isListQueue}
                             />
                         </div>
                     );
                 }
-            } else if (btn.type === 'more' || btn.type === 'like') {
-                return (
-                    <div key={index}>
-                        <Button
-                            Icons={btn.icon}
-                            extraTitle={btn.extraTitle}
-                            circle={btn.circle}
-                            border_nothover={btn.border_nothover}
-                            title={item?.title}
-                            onHandle={(e) => onHandle(e, btn)}
-                            isListQueue={isListQueue}
-                        />
-                    </div>
-                );
+            } else {
+                if (shouldRenderButton) {
+                    // render full btn
+                    return (
+                        <div key={index}>
+                            <Button
+                                Icons={btn.icon}
+                                extraTitle={btn.extraTitle}
+                                circle={btn.circle}
+                                border_nothover={btn.border_nothover}
+                                title={item?.title}
+                                onHandle={(e) => onHandle(e, btn)}
+                                className={cx('btn_action')}
+                            />
+                        </div>
+                    );
+                }
             }
-        } else {
-            if (shouldRenderButton) {
-                // render full btn
-                return (
-                    <div key={index}>
-                        <Button
-                            Icons={btn.icon}
-                            extraTitle={btn.extraTitle}
-                            circle={btn.circle}
-                            border_nothover={btn.border_nothover}
-                            title={item?.title}
-                            onHandle={(e) => onHandle(e, btn)}
-                            className={cx('btn_action')}
-                        />
-                    </div>
-                );
-            }
-        }
-    });
+            return null;
+        });
+        return result;
+    };
 
-    return result;
+    return renderBtnHover();
 };

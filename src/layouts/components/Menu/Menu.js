@@ -5,17 +5,14 @@ import PropTypes from 'prop-types';
 
 import styles from './Menu.module.scss';
 import MenuItem from './MenuItem';
+import { useDispatch } from 'react-redux';
+import { featureSlice, loginSlice } from '../../../redux/sliceReducer';
+import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
-const defaultFn = () => {};
-function Menu({
-    onHandle = defaultFn,
-    items = [],
-    children,
-    visible = false,
-    nestest,
-    ...props
-}) {
+function Menu({ items = [], children, visible = false, nestest, ...props }) {
+    const dispatch = useDispatch();
+    const navigate = useNavigate()
     const [visiblecheck, setVisible] = useState(false); /* 
     const [currentItem, setCurrentItem] = useState([{ data: items }]); */
     const currentItem = [{ data: items }];
@@ -31,9 +28,25 @@ function Menu({
     };
     //render lists menu
     const listRender = nestest ? nestest : lastItemMenu;
-
+    const onHandle = (item) => {
+        switch (item.type) {
+            case 'logout':
+                dispatch(loginSlice.actions.setDataUser(''));
+                dispatch(loginSlice.actions.setAccessToken(''));
+                dispatch(
+                    featureSlice.actions.setNotification({
+                        title: 'Đăng xuất thành công',
+                        styles: 'success',
+                    }),
+                );
+                navigate('..')
+                break;
+            default:
+                console.log('default');
+        }
+    };
     const resultSetting = listRender.data.map((item, index) => {
-        return <MenuItem key={index} data={item} onHandle={onHandle} />;
+        return <MenuItem key={index} data={item} onHandle={() => onHandle(item)} />;
     });
     const handleResult = (attrs) => {
         return (

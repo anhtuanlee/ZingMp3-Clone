@@ -1,16 +1,33 @@
 import classNames from 'classnames/bind';
-import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { combinedStatusSelector } from '../../redux/selector';
+import Form from '../Form/Form';
 import ListQueue from '../ListQueue/';
 import ModalTheme from '../ModalTheme/ModalTheme';
 import MvPlayer from '../MvPlayer/MvPlayer';
 import styles from './Wrapper.module.scss';
+import Notification from '../Notification/Notification';
+import { loginSlice } from '../../redux/sliceReducer';
+import { getProfileUser } from '../../services/userApi';
 
 const cx = classNames.bind(styles);
 function Wrapper({ children }) {
-    const { themeSelect, isTheme, isMvPlayer, isPlayerQueue } =
-        useSelector(combinedStatusSelector);
+    const dispatch = useDispatch();
+
+    const {
+        themeSelect,
+        isTheme,
+        isMvPlayer,
+        isPlayerQueue,
+        isLogin,
+        notification,
+        dataUser,
+    } = useSelector(combinedStatusSelector);
+
+    const [isNotification, setIsNotifiCation] = useState(); 
+
+    const delayNotification = notification.title && isNotification;
 
     useEffect(() => {
         if (themeSelect.title) {
@@ -70,12 +87,39 @@ function Wrapper({ children }) {
             );
         }
     }, []);
+    useEffect(() => {
+        setIsNotifiCation(true);
+        const timer = setTimeout(() => {
+            setIsNotifiCation(false);
+        }, 1500);
+        return () => clearTimeout(timer);
+    }, [notification]);
+
+    useEffect(() => {
+        if (dataUser.accessToken) {
+            const fetch = async () => {
+                const result = await getProfileUser(dataUser.accessToken).then((data) => {
+                    dispatch(loginSlice.actions.setAccessToken(data.accessToken));
+                    dispatch(loginSlice.actions.setDataUser(data.data));
+                    dispatch(loginSlice.actions.setIsLogin(false));
+                });
+                return result;
+            };
+            fetch();
+        }
+        localStorage.setItem('accessToken', JSON.stringify(dataUser.accessToken));
+    }, [dataUser.accessToken, dispatch]);
+     
     return (
         <div className={cx('wrapper')}>
             {children}
+            {delayNotification && (
+                <Notification title={notification.title} styles={notification.styles} />
+            )}
             {isTheme && <ModalTheme />}
             {isMvPlayer && <MvPlayer />}
             {isPlayerQueue && <ListQueue />}
+            {isLogin && <Form />}
         </div>
     );
 }

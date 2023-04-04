@@ -1,8 +1,6 @@
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
-import { combinedStatusSelector } from '../../redux/selector';
 
 function Mv() {
     const navigate = useNavigate();
@@ -15,7 +13,7 @@ function Mv() {
             buttons: 'Oki ^^!',
         });
         navigate('..');
-    }, []);
+    }, [navigate]);
     return <></>;
 }
 

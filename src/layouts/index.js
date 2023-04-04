@@ -1,4 +1,3 @@
 export { default as DefaultLayout } from './DefaultLayout';
 export { default as AccountLayout } from './AccountLayout';
-export { default as NewSongLayout } from './NewSongLayout';
-export { default as MainPageLayout} from './MainPageLayout'
+export { default as NewSongLayout } from './NewSongLayout'; 

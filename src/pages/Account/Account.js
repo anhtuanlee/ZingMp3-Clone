@@ -36,8 +36,7 @@ function AccountPage() {
 
     useEffect(() => {
         dispatch(sidebarSlice.actions.setIdSidebarActive(null)); // not active sidebar
-        window.scrollTo(0, 0);
-    }, []);
+    }, [dispatch]);
 
     return (
         <div className={cx('wrapper')}>

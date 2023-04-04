@@ -11,7 +11,7 @@ function AudioElement(props, ref) {
 
     let { currentIndex } = useSelector(combinedStatusSelector); // ?
 
-    const currentSongSlugName = dataSongs[currentIndex]?.slug_name_music;
+    const currentSongChange = dataSongs[currentIndex];
 
     //Event
     const handleTimeUpdate = (e) => {
@@ -24,9 +24,10 @@ function AudioElement(props, ref) {
         }
     };
     const handleEndMusic = () => {
-        if (currentIndex < dataSongs.length - 1) {
+        if (currentIndex < dataSongs.length) {
             if (isRepeat) {
-                currentIndex = currentIndex;
+                dispatch(featureSlice.actions.setTimes({ currentTime: 0 }));
+                ref.current.play();
             } else {
                 currentIndex++;
             }
@@ -55,25 +56,24 @@ function AudioElement(props, ref) {
     useEffect(() => {
         // get music api
         const fetch = async () => {
-            if (currentSongSlugName) {
+            if (currentSongChange) {
+                const sluNameSinger = currentSongChange?.slug_name_music;
                 dispatch(statusSlice.actions.isLoadingChange(true));
-                const resultSong = await getMusicName(currentSongSlugName).then(
-                    (data) => {
-                        if (
-                            data._id !== songCurrent._id &&
-                            data._id !== '616c5aecfb6ad80023fc77c7' &&
-                            data._id !== '634850bc4880840023e41685' // song same slug_name_music
-                        ) {
-                            dispatch(featureSlice.actions.setSongCurrent(data));
-                        }
-                        dispatch(statusSlice.actions.isLoadingChange(false));
-                    },
-                );
+                const resultSong = await getMusicName(sluNameSinger).then((data) => {
+                    if (
+                        data._id !== songCurrent._id &&
+                        data._id !== '616c5aecfb6ad80023fc77c7' &&
+                        data._id !== '634850bc4880840023e41685' // song same slug_name_music
+                    ) {
+                        dispatch(featureSlice.actions.setSongCurrent(data));
+                    }
+                    dispatch(statusSlice.actions.isLoadingChange(false));
+                });
                 return resultSong;
             }
         };
         fetch();
-    }, [currentSongSlugName]);
+    }, [currentSongChange, dispatch]);
 
     useEffect(() => {
         if (songCurrent) {

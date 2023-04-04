@@ -55,7 +55,7 @@ function AlbumSinger() {
                 dispatch(featureSlice.actions.setSlugDataBanner(undefined));
             }
         }
-    }, [slugNameSingerCurrent]);
+    }, [slugNameSingerCurrent, dispatch, slugNameSingerFromLocation, isBannerAlbumHot]);
 
     // banner album hot
     useEffect(() => {
@@ -67,7 +67,7 @@ function AlbumSinger() {
                 dispatch(featureSlice.actions.setSlugDataBanner(undefined));
             }
         }
-    }, [slugCategoryCurrent]); 
+    }, [slugCategoryCurrent, dispatch, isBannerAlbumHot, slugCategoryFromLocation]);
     // take data from slugNameLocation with params nickname
     useEffect(() => {
         if (dataFullSongs.length === 0 && !slugCategoryFromLocation) {
@@ -89,7 +89,7 @@ function AlbumSinger() {
             };
             fetch();
         }
-    }, [nickname]);
+    }, [nickname, dispatch, navigate]);
 
     //  take data and filter data from slugNameSingerFromLocation
     useEffect(() => {
@@ -110,7 +110,7 @@ function AlbumSinger() {
             };
             fetchBannerAlbumHot();
         }
-    }, [isBannerAlbumHot, slugCategoryFromLocation]);
+    }, [isBannerAlbumHot, slugCategoryFromLocation, dispatch]);
 
     // not active sidebar
     useEffect(() => {
@@ -119,8 +119,7 @@ function AlbumSinger() {
             navigate('..');
         }
         dispatch(sidebarSlice.actions.setIdSidebarActive(null));
-        window.scrollTo(0, 0);
-    }, []);
+    }, [navigate, dispatch]);
 
     return (
         <div className={cx('wrapper')}>

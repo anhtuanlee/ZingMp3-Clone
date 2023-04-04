@@ -21,11 +21,14 @@ import {
 import { faHeart, faWindowRestore } from '@fortawesome/free-regular-svg-icons';
 import {
     faBackwardStep,
+    faCheck,
+    faCircleExclamation,
     faEllipsis,
     faForwardStep,
     faPause,
     faPlay,
     faSubtract,
+    faTriangleExclamation,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import images from '../../assets';
@@ -282,3 +285,10 @@ export const Close = () => {
 export const ListQueue = () => {
     return <FontAwesomeIcon icon={faListMusic} />;
 };
+export const Check = () => {
+    return <FontAwesomeIcon icon={faCheck} />;
+};
+export const Error = () => {
+    return <FontAwesomeIcon icon={faTriangleExclamation} />;
+};
+ 

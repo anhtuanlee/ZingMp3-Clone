@@ -4,11 +4,11 @@ export const publicRoutes = [];
 export const privateRoutes = [
     {
         path: config.home.path,
-        component: config.home.component,
+        component: config.home.component, 
     },
     {
-        path: config.mymusic.path,
-        component: config.mymusic.component,
+        path: config.myplayer.path,
+        component: config.myplayer.component,
     },
 
     {

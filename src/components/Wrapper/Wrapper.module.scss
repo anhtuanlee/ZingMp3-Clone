@@ -1,7 +1,7 @@
-
 //layout bg
 .wrapper {
     background-image: var(--background-section);
     background-size: var(--background-section-size);
-    background-attachment: fixed;  
+    background-attachment: fixed;
+    position: relative; 
 }

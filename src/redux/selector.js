@@ -18,7 +18,7 @@ export const currentIndexSelector = (state) => state.feature.currentIndex;
 export const dataSongsSelector = (state) => state.feature.dataSongs;
 export const timesSelector = (state) => state.feature.times;
 export const volumeSelector = (state) => state.feature.volume;
-
+export const notificationSelector = (state) => state.feature.notification;
 // sidebar
 export const idActiveSidebarSelector = (state) => state.sidebar.idSidebarActive;
 
@@ -27,6 +27,10 @@ export const isThemeSelector = (state) => state.theme.isModalTheme;
 export const titleThemeSelector = (state) => state.theme.titleTheme;
 export const themeSelector = (state) => state.theme.themeSelect;
 export const isTestThemeSelector = (state) => state.theme.isTestTheme;
+
+// login
+export const isLoginSelector = (state) => state.login.isLogin;
+export const dataUserSelector = (state) => state.login.user;
 
 export const combinedStatusSelector = createSelector(
     isPlayingSelector,
@@ -50,6 +54,9 @@ export const combinedStatusSelector = createSelector(
     isMvPlayerSelector,
     isPlayerQueueSelector,
     isCheckBeforeContentHideSelector,
+    isLoginSelector,
+    dataUserSelector,
+    notificationSelector,
     (
         isPlaying,
         isRepeat,
@@ -72,6 +79,9 @@ export const combinedStatusSelector = createSelector(
         isMvPlayer,
         isPlayerQueue,
         isContentHide,
+        isLogin,
+        dataUser,
+        notification,
     ) => {
         return {
             isPlaying,
@@ -95,6 +105,9 @@ export const combinedStatusSelector = createSelector(
             isMvPlayer,
             isPlayerQueue,
             isContentHide,
+            isLogin,
+            dataUser,
+            notification,
         };
     },
 );

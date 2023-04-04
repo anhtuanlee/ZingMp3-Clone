@@ -1,12 +1,10 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import ModalTheme from './components/ModalTheme/ModalTheme';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import Wrapper from './components/Wrapper/Wrapper';
 import { DefaultLayout } from './layouts/';
 import Controls from './layouts/components/Controls';
 import { privateRoutes } from './routes';
 
-function App() { 
-    
+function App() {
     return (
         <Router>
             <div className="App">
@@ -24,11 +22,10 @@ function App() {
                                             <Layout>
                                                 <Comp />
                                             </Layout>
+                                            <div className="control_music">
+                                                <Controls />
+                                            </div>
                                         </Wrapper>
-
-                                        <div className="control_music">
-                                            <Controls />
-                                        </div>
                                     </div>
                                 }
                             />

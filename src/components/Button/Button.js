@@ -26,6 +26,7 @@ function Button({
     effectHoverReverse,
     border_nothover,
     isListQueue,
+    purplePrimary,
     //sizes
     sizes,
     // Icons,
@@ -64,6 +65,7 @@ function Button({
             effectHover,
             effectHoverReverse,
             isListQueue,
+            purplePrimary,
         },
         sizes,
         className,

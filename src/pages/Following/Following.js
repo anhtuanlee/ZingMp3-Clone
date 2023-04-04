@@ -13,7 +13,7 @@ function Following() {
             buttons: 'Oki ^^!',
         });
         navigate('..');
-    }, []);
+    }, [navigate]);
     return <></>;
 }
 
