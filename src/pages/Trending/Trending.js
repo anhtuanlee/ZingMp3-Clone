@@ -73,7 +73,7 @@ function Trending() {
                 {RenderButtonSelect(paramsFilter, onHandleSelectNational, isTrendingPage)}
             </div>
             <div className={cx('container_listsong_full')}>
-                <RenderFullListSong data={dataSelect} isRank={isRank} />
+                <RenderFullListSong data={dataSelect} />
             </div>
         </div>
     );

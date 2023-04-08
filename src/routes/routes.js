@@ -18,7 +18,7 @@ export const privateRoutes = [
     },
     {
         path: config.artistlibrary.path,
-        component: config.artistlibrary.component, 
+        component: config.artistlibrary.component,
     },
     {
         path: config.zingchart.path,
@@ -49,6 +49,10 @@ export const privateRoutes = [
     {
         path: config.videogenre.path,
         component: config.videogenre.component,
+    },
+    {
+        path: config.top100.path,
+        component: config.top100.component,
     },
     {
         path: config.errorpage.path,

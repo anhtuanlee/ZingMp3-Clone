@@ -40,11 +40,17 @@
 .button_close {
     position: absolute;
     right: 0;
-    margin-right: 20px;
-    top: 50%;
-    font-size: 18px;
-    transform: translateY(-50%);
+    margin-right: 20px; 
+    font-size: 18px; 
     color: var(--text-primary);
+}
+.button_loading {
+    position: absolute;
+    right: 0; 
+    font-size: 16px; 
+    margin-right: 20px; 
+    color: var(--text-secondary);
+    animation: loading 1s linear infinite 0s;
 }
 .result_search {
     width: 440px;
@@ -67,4 +73,13 @@
 }
 .result_title {
     padding: 0 10px 15px 10px;
+}
+
+@keyframes loading {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }

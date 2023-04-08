@@ -38,16 +38,22 @@
     flex-basis: auto;
     flex-grow: 1;
     flex-shrink: 1;
+
+    -webkit-mask-image: linear-gradient(270deg, transparent 0.5%, #000 10%);
 }
 .item_title {
     font-size: 14px;
     font-weight: 500;
     line-height: 1.36;
-    text-overflow: clip;
-    overflow: visible;
-    display: flex;
-    align-items: center;
     padding-right: 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    &:hover {
+        text-overflow: unset;
+        animation: slideLeft ease-out 3s infinite;
+        overflow: hidden;
+    }
 }
 .item_subtitle {
     font-weight: 400;
@@ -55,7 +61,6 @@
     margin-top: 1px;
     color: var(--text-secondary);
     padding-right: 10px;
-
     &:hover {
         color: var(--link-text-hover);
         text-decoration: underline;
@@ -149,6 +154,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 16px;
 }
 .queueOn {
     background-color: var(--purple-primary) !important;
@@ -157,7 +163,17 @@
     padding: 0 !important;
     height: 30px;
     width: 27px;
+    font-size: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+@keyframes slideLeft {
+    from {
+        transform: translateX(10%);
+    }
+    to {
+        transform: translateX(-30%);
+    }
 }

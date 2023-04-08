@@ -42,7 +42,7 @@ export const RenderFullListSong = ({
     isRank,
     HomePageTrending,
     containerRef,
-    isListQueue,
+    isListQueue, 
 }) => {
     const { isLoadingPage } = useSelector(combinedStatusSelector);
 
@@ -108,7 +108,7 @@ export const RenderFullListSong = ({
                     rank={isRank}
                     HomePageTrending={HomePageTrending}
                     ref={containerRef}
-                    isListQueue={isListQueue}
+                    isListQueue={isListQueue} 
                 />
             </div>
         );

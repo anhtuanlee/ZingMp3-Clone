@@ -175,7 +175,7 @@ export const SIDEBAR_MENU = [
     {
         title: 'Top 100',
         icon: Star,
-        to: '/the-loai-video',
+        to: '/top-100-song',
     },
     {
         title: 'MV',
@@ -475,7 +475,7 @@ export const MENU_THEME_LIST = {
                 layoutBg: 'tranparent',
                 layoutHeaderBg: 'rgb(241, 221, 216, 0.8)',
                 playerBg: '#F5E6E0',
-                primaryBg: '#F9E6E2',
+                primaryBg: '#EFEDEB',
                 textPrimary: '#000',
                 textSecondary: '#696969',
                 purplePrimary: '#C24793',

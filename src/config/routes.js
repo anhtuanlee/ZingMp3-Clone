@@ -10,6 +10,7 @@ import Home from '../pages/Home';
 import Mv from '../pages/Mv';
 import MyPlayer from '../pages/MyPlayer/';
 import NewSongs from '../pages/NewSongs';
+import Top100 from '../pages/Top100/Top100';
 import Trending from '../pages/Trending';
 import Zingchart from '../pages/Zingchart';
 
@@ -65,6 +66,10 @@ const config = {
     artistlibrary: {
         component: ArtistBanner,
         path: 'my-player/artist',
+    },
+    top100: {
+        component:  Top100,
+        path: 'top-100-song',
     },
     errorpage: {
         component: Error,

@@ -48,11 +48,13 @@
                     width: 100%;
                     margin: 10px 0 5px 0;
                     font-size: 14px;
-                    color: var(--black);
+                    color: var(--text-primary);
+                    background-color: var(--primary-bg);
+                    border: 0.15em solid transparent;
                 }
                 // invalid btn
                 .invalid {
-                    border-color: red;
+                    border-color: rgb(255, 125, 125);
                 }
             }
             .bottom_form {
@@ -100,12 +102,13 @@
                 inset: 0;
             }
         }
-
     }
 }
 
 .messenger_error {
-    color: red;
+    color: red; 
+    font-size: 14px;
+    font-weight: 400;
 }
 
 //loading

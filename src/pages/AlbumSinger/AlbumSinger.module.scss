@@ -20,11 +20,19 @@
             .title_header_section {
                 margin-right: 10px;
             }
-            .time_update {
+            .title_extra {
                 font-size: 12px;
                 color: var(--text-secondary);
                 font-weight: 500;
-                padding: 10px 0;
+                padding: 10px 0; 
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                .singer_outainding {
+                    &:hover {
+                        color: var(--purple-primary);
+                    }
+                }
             }
         }
         .banner_section {
@@ -44,7 +52,7 @@
             justify-content: space-between;
             align-items: center;
             color: var(--text-secondary);
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 500;
             padding: 0 20px;
             border-bottom: 1px solid var(--border-playerdary);
@@ -56,14 +64,14 @@
     }
 }
 
-// custom scrollbar  
+// custom scrollbar
 .list_song::-webkit-scrollbar {
-    width: 6px; 
+    width: 6px;
     display: none;
 }
 
 .list_song::-webkit-scrollbar-thumb {
-    border-radius: 4px; 
+    border-radius: 4px;
     -webkit-box-shadow: inset 0 0 6px rgb(0 0 0 / 50%);
 }
 .list_song::-webkit-scrollbar-track {

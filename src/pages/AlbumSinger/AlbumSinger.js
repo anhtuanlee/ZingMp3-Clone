@@ -1,14 +1,14 @@
 import classNames from 'classnames/bind';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { combinedStatusSelector } from '../../redux/selector';
 
 import { Banner } from '../../components/Banner';
-import ButtonEffectPlay from '../../components/Button/config/ButtonEffectPlay';   
+import ButtonEffectPlay from '../../components/Button/config/ButtonEffectPlay';
 import { RenderFullListSong } from '../../Feature/HandleEvent/handleEvent';
 
-import { useDate } from '../../hooks';
+import { convertNumber, useDate } from '../../hooks';
 import { featureSlice, sidebarSlice, statusSlice } from '../../redux/sliceReducer';
 import { getMusicTopView, getSingerDataApi } from '../../services';
 import Loading from '../Loading';
@@ -121,6 +121,8 @@ function AlbumSinger() {
         dispatch(sidebarSlice.actions.setIdSidebarActive(null));
     }, [navigate, dispatch]);
 
+    const favorite = convertNumber(dataInAlbum.favorite);
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('container_playlist_detail')}>
@@ -150,8 +152,14 @@ function AlbumSinger() {
                             <span className={cx('title_header_section')}>
                                 {location?.state?.title}
                             </span>
-                            <span className={cx('time_update')}>
-                                {dataInAlbum.name_singer} • {timer}
+                            <span className={cx('title_extra')}>
+                                <Link to={`/${dataInAlbum.slug_name_singer}`}>
+                                    <span className={cx('singer_outainding')}>
+                                        {dataInAlbum.name_singer}
+                                    </span>
+                                </Link>
+                                <span>Cập nhật • {timer}</span>
+                                <span>{favorite} người yêu thích</span>
                             </span>
                             <ButtonEffectPlay
                                 sizes="wider"

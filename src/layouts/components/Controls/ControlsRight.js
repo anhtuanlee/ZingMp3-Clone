@@ -114,6 +114,7 @@ function ControlsRight({ audioRef }) {
                     Icons={ListQueue}
                     onHandle={hnadleListQueue}
                     className={cx(isPlayerQueue ? 'queueOn' : 'queueOff')}
+                    extraTitle='Danh Sách Phát'
                 />
             </div>
         </div>

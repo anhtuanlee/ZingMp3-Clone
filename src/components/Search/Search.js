@@ -9,6 +9,7 @@ import { AccountPropose } from '../Propose';
 import PlayListSong from '../../Feature/PlayListSong';
 import classNames from 'classnames/bind';
 import styles from './Search.module.scss';
+import { Loading } from '../Icons';
 
 const cx = classNames.bind(styles);
 
@@ -16,20 +17,22 @@ function Search() {
     const [value, setValue] = useState('');
     const [searchResult, setSearchResult] = useState([]);
     const [visible, setVisible] = useState(false);
+    const [loadingSearch, setLoadingSearch] = useState();
     const debounce = useDebounce(value, 500);
-
     useEffect(() => {
         const Fetch = async () => {
             if (value) {
+                setLoadingSearch(true);
                 const result = await SearchApi(debounce).then((data) => {
                     value && setSearchResult(data);
+                    setLoadingSearch(false);
                 });
                 return result;
             }
         };
         Fetch();
     }, [debounce]);
-
+    console.log('loading', loadingSearch);
     // handle Event
     const handleType = (e) => {
         setValue(e.target.value);
@@ -95,14 +98,17 @@ function Search() {
                         onChange={(e) => handleType(e)}
                         placeholder="Tìm kiếm bài hát, nghệ sĩ, lời bài hát..."
                     />
-                    {value !== '' ? (
+                    {value && !loadingSearch && (
                         <FontAwesomeIcon
                             icon={faXmark}
                             onClick={handleClear}
                             className={cx('button_close')}
                         />
-                    ) : (
-                        <></>
+                    )}
+                    {loadingSearch && (
+                        <div className={cx('button_loading')}>
+                            <Loading />
+                        </div>
                     )}
                 </div>
             </div>

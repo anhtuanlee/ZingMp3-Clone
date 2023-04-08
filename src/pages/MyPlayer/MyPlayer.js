@@ -24,7 +24,7 @@ const cx = classNames.bind(styles);
 function MyPlayer() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { dataUser ,songCurrent } = useSelector(combinedStatusSelector);
+    const { dataUser, isLoadingPage } = useSelector(combinedStatusSelector);
     const listFavorite = useMemo(() => {
         return dataUser.listFavorite;
     }, [dataUser.listFavorite]);
@@ -68,9 +68,11 @@ function MyPlayer() {
     }, []);
     // save user id to check after login . if same will use listFavorite old, and change [] when new user id
     useEffect(() => {
-        localStorage.setItem('dataUserID', JSON.stringify(dataUser.data._id));
-    }, [dataUser.data]);
-    
+        if (dataUser.data._id) {
+            localStorage.setItem('dataUserID', JSON.stringify(dataUser.data._id));
+        }
+    }, [dataUser.data.length]);
+
     return (
         dataUser.data.image && (
             <div className={cx('wrapper')}>
@@ -84,6 +86,7 @@ function MyPlayer() {
                     </div>
                     <div>
                         <TitlePage styles={{ fontSize: '25px' }} title="Nghệ Sĩ" />
+
                         <div className={cx('container_card_artist')}>
                             <RenderArtist
                                 data={filteredFavoriteArtists}
@@ -93,6 +96,13 @@ function MyPlayer() {
                     </div>
                     <div className={cx('playlist_favorite')}>
                         <TitlePage styles={{ fontSize: '25px' }} title="Playlist" />
+                        {!isLoadingPage && (
+                            <div className={cx('title_songs_list')}>
+                                <span>BÀI HÁT</span>
+                                <span>ALBUM</span>
+                                <span>THỜI GIAN</span>
+                            </div>
+                        )}
                         <RenderFullListSong data={listFavorite} />
                     </div>
                 </div>

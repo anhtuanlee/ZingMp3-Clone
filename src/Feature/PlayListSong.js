@@ -32,7 +32,6 @@ function PlayListSong(
     const [element, setElement] = useState('');
     const songItemRef = useRef();
     const favoriteRender = convertNumber(song?.favorite);
-
     const handleConfig = (data, song, index, e) => {
         if (data) {
             if (song._id === songCurrent._id) {
@@ -133,7 +132,6 @@ function PlayListSong(
                             to={`/${song.slug_name_singer}`}
                             state={song.slug_name_singer}
                         >
-                            {/* clean code */}
                             <span className={cx('name_singer_item')}>
                                 {song.name_singer}
                             </span>
