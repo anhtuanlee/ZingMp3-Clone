@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CURRENT_TIME_STORAGE, SONG_RECENT_STORAGE } from '../../../config/localStorages';
-import { combinedStatusSelector } from '../../../redux/selector';
+import { combinedFeatureSelector, combinedStatusSelector } from '../../../redux/selector';
 import { featureSlice, statusSlice } from '../../../redux/sliceReducer';
 import styles from './InputProgress.module.scss';
 const cx = classNames.bind(styles);
@@ -19,7 +19,8 @@ function InputProgress({
     volumeType,
 }) {
     const dispatch = useDispatch();
-    const { times, isVolume, songCurrent, volume } = useSelector(combinedStatusSelector);
+    const { isVolume, songCurrent, volume } = useSelector(combinedStatusSelector);
+    const { times } = useSelector(combinedFeatureSelector);
     const progressRef = useRef();
 
     const [valueTime, setValue] = useState(() => {
@@ -76,7 +77,7 @@ function InputProgress({
                 setValue(0);
             }
         }
-    }, [times.currentTime,audioRef,songCurrent]);
+    }, [times.currentTime, audioRef, songCurrent]);
     useEffect(() => {
         if (audioRef) {
             if (CURRENT_TIME_STORAGE !== null) {
@@ -105,7 +106,7 @@ function InputProgress({
                 JSON.stringify(audioRef.current.volume),
             );
         }
-    }, [isVolume,dispatch]);
+    }, [isVolume, dispatch]);
     return (
         <input
             type="range"

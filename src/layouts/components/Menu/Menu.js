@@ -1,18 +1,18 @@
-import { useState } from 'react';
 import Tippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { featureSlice, loginSlice } from '../../../redux/sliceReducer';
 import styles from './Menu.module.scss';
 import MenuItem from './MenuItem';
-import { useDispatch } from 'react-redux';
-import { featureSlice, loginSlice } from '../../../redux/sliceReducer';
-import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 function Menu({ items = [], children, visible = false, nestest, ...props }) {
     const dispatch = useDispatch();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const [visiblecheck, setVisible] = useState(false); /* 
     const [currentItem, setCurrentItem] = useState([{ data: items }]); */
     const currentItem = [{ data: items }];
@@ -31,7 +31,6 @@ function Menu({ items = [], children, visible = false, nestest, ...props }) {
     const onHandle = (item) => {
         switch (item.type) {
             case 'logout':
-                dispatch(loginSlice.actions.setDataUser(''));
                 dispatch(loginSlice.actions.setAccessToken(''));
                 dispatch(
                     featureSlice.actions.setNotification({
@@ -39,7 +38,8 @@ function Menu({ items = [], children, visible = false, nestest, ...props }) {
                         styles: 'success',
                     }),
                 );
-                navigate('..')
+
+                navigate('..');
                 break;
             default:
                 console.log('default');

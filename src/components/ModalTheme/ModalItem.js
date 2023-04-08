@@ -28,7 +28,7 @@ function ModalItem({ item, themeTest }) {
         setThemeCurrent(undefined);
     };
     const handleTestTheme = () => {
-        if (item.title !== themeCurrent.title) {
+        if (item?.title !== themeCurrent.title) {
             setThemeCurrent(item);
         }
     };

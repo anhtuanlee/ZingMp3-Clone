@@ -5,7 +5,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { combinedStatusSelector } from '../../redux/selector';
 
 import { Banner } from '../../components/Banner';
-import { ButtonEffectPlay } from '../../components/Button';
+import ButtonEffectPlay from '../../components/Button/config/ButtonEffectPlay';   
 import { RenderFullListSong } from '../../Feature/HandleEvent/handleEvent';
 
 import { useDate } from '../../hooks';
@@ -27,11 +27,11 @@ function AlbumSinger() {
     const [dataFullSongs, setDataSinger] = useState([]);
     const [dataInAlbum, setDataInAlbum] = useState({});
     const timer = useDate(dataInAlbum?.createdAt);
-    const slugNameSingerCurrent = songCurrent?.slug_name_singer;
+    const slugNameSingerCurrent = songCurrent?.slug_name_singer; // song current
     const slugCategoryCurrent = songCurrent?.slug_category;
 
-    const slugNameSingerFromLocation = location?.state?.slug_name_singer;
-    const slugCategoryFromLocation = location?.state?.slug_category;
+    const slugBannerSingerPopular = location?.state?.slug_banner_singer_popular;
+    const slugBannerAlBumHot = location?.state?.slug_banner_album_hot;
     const isBannerAlbumHot = location?.state?.isBannerAlbumHot;
 
     const handlReqirePlayFromBanner = (data) => {
@@ -48,29 +48,29 @@ function AlbumSinger() {
     // banner singer popular
     useEffect(() => {
         if (!isBannerAlbumHot) {
-            if (slugNameSingerCurrent === slugNameSingerFromLocation) {
+            if (slugNameSingerCurrent === slugBannerSingerPopular) {
                 // check currentSong with slugname from location in content when click
                 dispatch(featureSlice.actions.setSlugDataBanner(slugNameSingerCurrent));
             } else {
                 dispatch(featureSlice.actions.setSlugDataBanner(undefined));
             }
         }
-    }, [slugNameSingerCurrent, dispatch, slugNameSingerFromLocation, isBannerAlbumHot]);
+    }, [slugNameSingerCurrent, dispatch, slugBannerSingerPopular, isBannerAlbumHot]);
 
     // banner album hot
     useEffect(() => {
         if (isBannerAlbumHot) {
-            if (slugCategoryCurrent === slugCategoryFromLocation) {
+            if (slugCategoryCurrent === slugBannerAlBumHot) {
                 // check currentSong with slugname from location in content when click
                 dispatch(featureSlice.actions.setSlugDataBanner(slugCategoryCurrent));
             } else {
                 dispatch(featureSlice.actions.setSlugDataBanner(undefined));
             }
         }
-    }, [slugCategoryCurrent, dispatch, isBannerAlbumHot, slugCategoryFromLocation]);
+    }, [slugCategoryCurrent, dispatch, isBannerAlbumHot, slugBannerAlBumHot]);
     // take data from slugNameLocation with params nickname
     useEffect(() => {
-        if (dataFullSongs.length === 0 && !slugCategoryFromLocation) {
+        if (dataFullSongs.length === 0 && !slugBannerAlBumHot) {
             dispatch(statusSlice.actions.isPageLoadingChange(true));
             const fetch = async () => {
                 try {
@@ -91,14 +91,14 @@ function AlbumSinger() {
         }
     }, [nickname, dispatch, navigate]);
 
-    //  take data and filter data from slugNameSingerFromLocation
+    //  take data and filter data from slugBannerSingerPopular
     useEffect(() => {
         if (isBannerAlbumHot) {
             dispatch(statusSlice.actions.isPageLoadingChange(true));
             const fetchBannerAlbumHot = async () => {
                 const result = await getMusicTopView(300).then((data) => {
                     const dataBannerAlbum = data.filter((item) => {
-                        return item?.slug_category === slugCategoryFromLocation;
+                        return item?.slug_category === slugBannerAlBumHot;
                     });
                     const newDataFillter = dataBannerAlbum.reverse().slice(0, 29);
                     setDataSinger(newDataFillter);
@@ -110,7 +110,7 @@ function AlbumSinger() {
             };
             fetchBannerAlbumHot();
         }
-    }, [isBannerAlbumHot, slugCategoryFromLocation, dispatch]);
+    }, [isBannerAlbumHot, slugBannerAlBumHot, dispatch]);
 
     // not active sidebar
     useEffect(() => {
@@ -177,12 +177,10 @@ function AlbumSinger() {
                         </div>
                     )}
                     <div className={cx('list_song')} ref={ListSongRef} id="container">
-                        {RenderFullListSong(
-                            dataFullSongs,
-                            undefined,
-                            undefined,
-                            ListSongRef,
-                        )}
+                        <RenderFullListSong
+                            data={dataFullSongs}
+                            containerRef={ListSongRef}
+                        />
                     </div>
                 </div>
             </div>

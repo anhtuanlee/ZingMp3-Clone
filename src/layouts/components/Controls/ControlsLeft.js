@@ -12,8 +12,12 @@ function ControlsLeft({ styleImg, styleTitle }) {
     return (
         <div className={cx('player_control_left')}>
             <figure className={cx('item_img')}>
-                <Images src={songCurrent && songCurrent?.image_music} type={styleImg} />
-            </figure>   
+                <Images
+                    src={songCurrent && songCurrent?.image_music}
+                    isControl={true} // loading skeleton just in control
+                    type={styleImg}
+                />
+            </figure>
             <div className={cx('media_content')}>
                 <span className={(cx('item_title'), styleTitle)}>
                     {songCurrent?.name_music}
@@ -27,7 +31,7 @@ function ControlsLeft({ styleImg, styleTitle }) {
                 </Link>
             </div>
             <div className={cx('media_custom')}>
-                <ActionBtnAlbum playlistSong />
+                <ActionBtnAlbum playlistSong song={songCurrent} />
             </div>
         </div>
     );

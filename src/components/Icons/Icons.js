@@ -1,5 +1,6 @@
 import { faListMusic, faLoader } from '@cseitz/fontawesome-svg-duotone';
 import {
+    faArrowRight,
     faArrowRightFromBracket,
     faArrowUpFromBracket,
     faBan,
@@ -22,13 +23,13 @@ import { faHeart, faWindowRestore } from '@fortawesome/free-regular-svg-icons';
 import {
     faBackwardStep,
     faCheck,
-    faCircleExclamation,
     faEllipsis,
     faForwardStep,
     faPause,
     faPlay,
     faSubtract,
     faTriangleExclamation,
+    faHeart as faHeartFull,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import images from '../../assets';
@@ -36,7 +37,7 @@ import Image from '../Image';
 import WaveSong from './WaveSong';
 
 export const ButtonTheme = () => {
-    return <Image src={images.iconTheme} icon />;
+    return <Image src={images.iconTheme} Icon />;
 };
 export const DowloadIcon = () => {
     return (
@@ -74,6 +75,9 @@ export const Upload = () => {
 
 export const LogOut = () => {
     return <FontAwesomeIcon icon={faArrowRightFromBracket} />;
+};
+export const ArrowRight = () => {
+    return <FontAwesomeIcon icon={faArrowRight} />;
 };
 export const Block = () => {
     return <FontAwesomeIcon icon={faBan} />;
@@ -235,6 +239,9 @@ export const Mv = () => {
 export const Heart = () => {
     return <FontAwesomeIcon icon={faHeart} />;
 };
+export const HeartFull = () => {
+    return <FontAwesomeIcon icon={faHeartFull} />;
+};
 export const More = () => {
     return <FontAwesomeIcon icon={faEllipsis} />;
 };
@@ -291,4 +298,3 @@ export const Check = () => {
 export const Error = () => {
     return <FontAwesomeIcon icon={faTriangleExclamation} />;
 };
- 

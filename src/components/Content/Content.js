@@ -20,8 +20,7 @@ function Content() {
             <div className={cx('album_hot')}>
                 <Container
                     listData={BANNER_ALBUM_HOT}
-                    titleSection="Album Hot"
-                    isBannerAlbumHot={true} //check bannerAlbumHot request
+                    titleSection="Album Hot" 
                 />
             </div>
         </div>

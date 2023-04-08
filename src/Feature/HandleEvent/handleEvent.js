@@ -37,82 +37,83 @@ export const handleFilterSongTrending = (data, paramsFilter) => {
     });
     return dataFilter;
 };
-export const RenderFullListSong = (
+export const RenderFullListSong = ({
     data,
     isRank,
     HomePageTrending,
     containerRef,
     isListQueue,
-) => {
+}) => {
     const { isLoadingPage } = useSelector(combinedStatusSelector);
-    if (data.length === 0 || isLoadingPage) {
-        const dataClone = new Array(6).fill();
-        const result = dataClone.map((item, index) => {
-            return (
+
+    const ComponentLoading = ({ index }) => {
+        return (
+            <div
+                style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    alignItems: 'center',
+                    gap: 10,
+                }}
+            >
+                <Loading
+                    styles={{
+                        height: '3vh',
+                        borderRadius: 4,
+                        margin: '5px 0',
+                        width: '70%',
+                    }}
+                />
                 <div
                     style={{
                         display: 'flex',
-                        flexWrap: 'wrap',
-                        alignItems: 'center',
-                        gap: 10,
+                        flexDirection: 'row',
+                        gap: 5,
+                        width: '20%',
+                        justifyContent: 'flex-end',
                     }}
-                    key={index}
                 >
-                    <Loading
-                        styles={{
-                            height: '3vh',
-                            borderRadius: 4,
-                            margin: '5px 0',
-                            width: '70%',
-                        }}
-                    />
-                    <div
-                        style={{
-                            display: 'flex',
-                            flexDirection: 'row',
-                            gap: 5,
-                            width: '20%',
-                            justifyContent: 'flex-end',
-                        }}
-                    >
-                        <Loading styles={{ width: 20, height: 20, borderRadius: 1000 }} />
+                    <Loading styles={{ width: 20, height: 20, borderRadius: 1000 }} />
 
-                        <Loading styles={{ width: 20, height: 20, borderRadius: 1000 }} />
+                    <Loading styles={{ width: 20, height: 20, borderRadius: 1000 }} />
 
-                        <Loading styles={{ width: 20, height: 20, borderRadius: 1000 }} />
-                    </div>
-                    <Loading
-                        key={index}
-                        styles={{
-                            height: '1vh',
-                            borderRadius: 4,
-                            margin: '5px 0',
-                            width: '30%',
-                            marginBottom: 25,
-                        }}
-                    />
+                    <Loading styles={{ width: 20, height: 20, borderRadius: 1000 }} />
                 </div>
-            );
-        });
-        return result;
-    } else {
-        const renderAllSong = data.map((song, index) => { 
-            return (
-                <div key={index}>
-                    <PlayListSong
-                        data={data}
-                        song={song}
-                        index={index}
-                        rank={isRank}
-                        HomePageTrending={HomePageTrending}
-                        ref={containerRef}
-                        isListQueue={isListQueue}
-                    />
-                </div>
-            );
-        });
-        return renderAllSong;
-    }
+                <Loading
+                    key={index}
+                    styles={{
+                        height: '1vh',
+                        borderRadius: 4,
+                        margin: '5px 0',
+                        width: '30%',
+                        marginBottom: 25,
+                    }}
+                />
+            </div>
+        );
+    };
+
+    const dataClone = new Array(6).fill();
+    const dataMap = isLoadingPage ? dataClone : data;
+
+    const result = dataMap.map((item, index) => {
+        return isLoadingPage ? (
+            <ComponentLoading key={index} />
+        ) : (
+            <div key={index}>
+                <PlayListSong
+                    data={dataMap}
+                    song={item}
+                    index={index}
+                    rank={isRank}
+                    HomePageTrending={HomePageTrending}
+                    ref={containerRef}
+                    isListQueue={isListQueue}
+                />
+            </div>
+        );
+    });
+    return result;
 };
 
 export const handleSelectButtonNational = (item) => {

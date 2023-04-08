@@ -24,7 +24,7 @@ function AudioElement(props, ref) {
         }
     };
     const handleEndMusic = () => {
-        if (currentIndex < dataSongs.length) {
+        if (currentIndex < dataSongs.length - 1) {
             if (isRepeat) {
                 dispatch(featureSlice.actions.setTimes({ currentTime: 0 }));
                 ref.current.play();
@@ -50,7 +50,6 @@ function AudioElement(props, ref) {
                 return result;
             }
         };
-
         Fetch();
     }, []);
     useEffect(() => {

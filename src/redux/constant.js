@@ -60,7 +60,7 @@ export const MENU_USER_HEADER = [
 export const MENU_SETTING_HEADER = [
     {
         title: 'Danh sách chặn',
-        icon: Block, 
+        icon: Block,
     },
     {
         title: 'Chất lượng nhạc',
@@ -239,38 +239,38 @@ export const BANNER_SINGER_POPULAR = [
     {
         src: require('../assets/images/BannerSinger/banner-g5-squad.jpg'),
         name_singer: 'G5 Squad',
-        slug_name_singer: 'g5r-squad',
+        slug_banner_singer_popular: 'g5r-squad',
         title: 'Những Bài Hát Hay Nhất Của G5R',
     },
     {
         src: require('../assets/images/BannerSinger/banner-ho-quang-hieu.jpg'),
         name_singer: 'Hồ Quang Hiếu',
-        slug_name_singer: 'ho-quang-hieu',
+        slug_banner_singer_popular: 'ho-quang-hieu',
         title: 'Những Bài Hát Hay Nhất Của Hồ Quang Hiếu',
     },
     {
         src: require('../assets/images/BannerSinger/banner-jack-97.jpg'),
         name_singer: 'Jack 97',
-        slug_name_singer: 'jack',
+        slug_banner_singer_popular: 'jack',
         title: 'Những Bài Hát Hay Nhất Của Jack',
     },
     {
         src: require('../assets/images/BannerSinger/banner-phan-manh-quynh.jpg'),
         name_singer: 'Phan Mạnh Quỳnh',
-        slug_name_singer: 'phan-manh-quynh',
+        slug_banner_singer_popular: 'phan-manh-quynh',
         title: 'Những Bài Hát Hay Nhất Của Phan Mạnh Quỳnh',
     },
     {
         src: require('../assets/images/BannerSinger/banner-son-tung-mtp.jpg'),
         name_singer: 'Sơn Tùng MTP',
-        slug_name_singer: 'son-tung-m-tp',
+        slug_banner_singer_popular: 'son-tung-m-tp',
         title: 'Những Bài Hát Hay Nhất Của Sơn Tùng MTP',
     },
 ];
 export const BANNER_ALBUM_HOT = [
     {
         src: require('../assets/images/BannerAlbumHot/banner-album-hot-nhac-edm.jpg'),
-        slug_category: 'edm',
+        slug_banner_album_hot: 'edm',
         title: 'Đỉnh Cao EDM',
         name_data: [
             {
@@ -285,7 +285,7 @@ export const BANNER_ALBUM_HOT = [
     },
     {
         src: require('../assets/images/BannerAlbumHot/banner-album-hot-nhac-han.jpg'),
-        slug_category: 'nhac-han',
+        slug_banner_album_hot: 'nhac-han',
         title: 'Những Bài Hát Hay Nhất HÀN "XẺNG"',
         name_data: [
             {
@@ -304,7 +304,7 @@ export const BANNER_ALBUM_HOT = [
     },
     {
         src: require('../assets/images/BannerAlbumHot/banner-album-hot-nhac-pop-au-my.jpg'),
-        slug_category: 'pop-au-my',
+        slug_banner_album_hot: 'pop-au-my',
         title: 'Đỉnh Cao Nhạc Pop, Nghe Như Không Nghe !!!',
         name_data: [
             {
@@ -319,7 +319,7 @@ export const BANNER_ALBUM_HOT = [
     },
     {
         src: require('../assets/images/BannerAlbumHot/banner-album-hot-nhac-tre.jpg'),
-        slug_category: 'nhac-tre',
+        slug_banner_album_hot: 'nhac-tre',
         title: 'Nhạc Trẻ Gây Nghiện',
         name_data: [
             {
@@ -334,7 +334,7 @@ export const BANNER_ALBUM_HOT = [
     },
     {
         src: require('../assets/images/BannerAlbumHot/banner-album-hot-rap-viet.jpg'),
-        slug_category: 'rap',
+        slug_banner_album_hot: 'rap',
         title: 'Cháy Hết Mình Với Những Bản Rap Hay Nhất Mọi Thời Đại',
         name_data: [
             {

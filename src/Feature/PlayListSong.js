@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { animateScroll as scroll } from 'react-scroll';
 import { Play, SubTract, WaveSongPlay } from '../components/Icons';
 import Images from '../components/Image';
-import { useConvertNumber } from '../hooks/';
+import { convertNumber } from '../hooks/';
 import { combinedStatusSelector } from '../redux/selector';
 import { featureSlice, statusSlice } from '../redux/sliceReducer';
 import { ActionBtnAlbum } from './ActionBtnAlbum';
@@ -21,6 +21,7 @@ function PlayListSong(
         index,
         rank,
         HomePageTrending = false, // styles off class
+        MyPlayerPage = false,
         isListQueue,
     },
     ref,
@@ -30,7 +31,7 @@ function PlayListSong(
     const [isHover, setIsHover] = useState(false);
     const [element, setElement] = useState('');
     const songItemRef = useRef();
-    const favoriteRender = useConvertNumber(song?.favorite);
+    const favoriteRender = convertNumber(song?.favorite);
 
     const handleConfig = (data, song, index, e) => {
         if (data) {
@@ -81,8 +82,8 @@ function PlayListSong(
     };
 
     useEffect(() => {
-        // effect scroll with react-scroll
-        if (songCurrent._id === song?._id && isPlaying && !HomePageTrending) {
+        // effect scroll with react-scro
+        if (songCurrent?._id === song?._id && isPlaying && !HomePageTrending) {
             scroll.scrollTo(songItemRef.current.offsetTop - 250, {
                 containerId: ref?.current?.id,
                 duration: 2000,
@@ -147,10 +148,11 @@ function PlayListSong(
                     </div>
                 </div>
                 <div className={cx('song_item_right')}>
-                    {isHover && element === index.toString() ? ( // check element current ===  element hover will use effect
+                    {isHover && element === index.toString() && !MyPlayerPage ? ( // check element current ===  element hover will use effect
                         <div className={cx('items_hover')}>
                             <ActionBtnAlbum
                                 HomePageTrending={HomePageTrending}
+                                song={song}
                                 playlistSong={true}
                                 isListQueue={
                                     songCurrent?._id === song?._id && isListQueue

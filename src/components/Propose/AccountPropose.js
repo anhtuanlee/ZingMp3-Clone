@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Images from '../../components/Image';
-import { useConvertNumber } from '../../hooks/';
+import { convertNumber } from '../../hooks/';
 import styles from './AccountPropose.module.scss';
 const cx = classNames.bind(styles);
 
@@ -18,7 +18,7 @@ function AccountPropose({ data = [] }) {
         const result = item.charAt(0).toUpperCase() + item.slice(1) + ' ';
         return result;
     }); 
-    const favorite = useConvertNumber(result.favorite);
+    const favorite = convertNumber(result.favorite);
     //favorite
     const imgs = result.image_music;
     const imgError =

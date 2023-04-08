@@ -3,19 +3,15 @@ import { combinedStatusSelector } from '../../../redux/selector';
 import { featureSlice, statusSlice } from '../../../redux/sliceReducer';
 import { Pause, Play } from '../../Icons';
 import Button from '../Button';
-export const ButtonEffectPlay = ({
-    children,
-    sizes,
-    data = [],
-    isSlugNameFromLocation,
-}) => {
+import React from 'react';
+
+const ButtonEffectPlay = ({ children, sizes, data = [], isSlugNameFromLocation }) => {
     const dispatch = useDispatch();
     const { isPlaying, songCurrent } = useSelector(combinedStatusSelector);
 
-    const dataCheck = data[data?.length - 1];  
-    
+    const dataCheck = data[data?.length - 1]; 
     const handleTogglePlaySong = () => {
-        if (data) {
+        if (data.length > 0 && dataCheck !== undefined) {
             // data from banner singer
             const randomIndex = Math.floor(Math.random() * data?.length);
 
@@ -33,9 +29,16 @@ export const ButtonEffectPlay = ({
                 dispatch(featureSlice.actions.setSongCurrent(data[randomIndex]));
             }
         } else {
-            dispatch(statusSlice.actions.isPlayingChange(!isPlaying));
+            // if not data will send  response
+            dispatch(
+                featureSlice.actions.setNotification({
+                    styles: 'warning',
+                    title: 'Bạn chưa thích bài hát nào ...',
+                }),
+            );
         }
     };
+
     return (
         <Button
             sizes={sizes}
@@ -56,3 +59,4 @@ export const ButtonEffectPlay = ({
         </Button>
     );
 };
+export default React.memo(ButtonEffectPlay);

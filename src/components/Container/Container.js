@@ -7,18 +7,14 @@ import { Banner } from '../Banner';
 import styles from './Container.module.scss';
 
 const cx = classNames.bind(styles);
-function Container({ listData, titleSection, isBannerAlbumHot }) {
+function Container({ listData, titleSection }) {
     const { isLoadingPage } = useSelector(combinedStatusSelector);
 
     const render = (listData) => {
         const check = listData.map((item, index) => {
             return (
                 <div className={cx('item')} key={index}>
-                    <Banner
-                        item={item}
-                        index={index}
-                        isBannerAlbumHot={isBannerAlbumHot}
-                    />
+                    <Banner item={item} index={index} />
                 </div>
             );
         });
@@ -26,7 +22,9 @@ function Container({ listData, titleSection, isBannerAlbumHot }) {
     };
     return (
         <div className={cx('wrapper')}>
-            {isLoadingPage && <Loading styles={{ width: '20%', height: '5vh' , margin: '20px 0'}} />}
+            {isLoadingPage && (
+                <Loading styles={{ width: '20%', height: '5vh', margin: '20px 0' }} />
+            )}
             {!isLoadingPage && <h2 className={cx('title_section')}>{titleSection}</h2>}
             <div className={cx('container_singer_popular')}>{render(listData)}</div>
         </div>

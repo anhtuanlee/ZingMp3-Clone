@@ -1,0 +1,91 @@
+.card_artist {
+    width: 16.66667%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    gap: 10px;
+}
+.card_section {
+    position: relative;
+}
+.card_image {
+    overflow: hidden;
+    border-radius: 999px;
+    height: 0;
+    padding-bottom: 100%;
+    box-shadow: 0 1.22656px 4.90625px rgba(0, 0, 0, 0.16);
+    .btn_random_card_artist {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        height: 38px;
+        width: 38px;
+        background-color: var(--white);
+        color: var(--black);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.16);
+        border-radius: 999px;
+    }
+
+    &.card_image img {
+        width: 100%;
+        min-height: 130px;
+        height: auto;
+        transform: scale(1.1);
+        transition: all linear 0.3s;
+    }
+    &:hover img {
+        transform: scale(1.3);
+    }
+}
+.name_artist {
+    padding-top: 10px;
+    display: flex;
+    justify-content: center;
+    color: var(--text-primary);
+    font-weight: 500;
+    font-size: 14px;
+    position: relative;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    &:hover {
+        color: var(--purple-primary);
+        text-decoration: underline;
+    }
+}
+// page artist
+.extra_title {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    .follow_user {
+        font-size: 12px;
+        color: var(--text-secondary);
+    }
+    .btn_random_card_artist {
+        padding: 6px 19px;
+        margin: 0;
+        white-space: nowrap;
+        border: 1px solid transparent;
+        &:hover {
+            border-color: var(--purple-primary);
+            color: var(--purple-primary);
+        }
+    }
+}
+
+//artist myplayer
+.btn_arrow_right {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 30px;
+    color: var(--text-primary);
+    &:hover {
+        color: var(--purple-primary);
+    }
+}

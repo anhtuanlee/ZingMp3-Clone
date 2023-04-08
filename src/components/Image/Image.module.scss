@@ -1,11 +1,10 @@
-.wrapper { 
+.wrapper {
     display: block;
     width: 100%;
-    height: 100%;   
-    
+    height: 100%;
 }
 
-.icon {
+.Icon {
     width: 20px;
     height: 20px;
 }
@@ -13,4 +12,15 @@
     border-radius: 100px;
     width: 40px !important;
     height: 40px !important;
+}
+.btn_arrow_right {
+    height: auto;
+    border: 1px solid var(--purple-primary);
+    border-radius: 999px;
+    position: relative;
+    padding-top: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }

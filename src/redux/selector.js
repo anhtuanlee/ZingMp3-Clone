@@ -44,7 +44,6 @@ export const combinedStatusSelector = createSelector(
     songCurrentSelector,
     currentIndexSelector,
     dataSongsSelector,
-    timesSelector,
     volumeSelector,
     idActiveSidebarSelector,
     isThemeSelector,
@@ -69,7 +68,6 @@ export const combinedStatusSelector = createSelector(
         songCurrent,
         currentIndex,
         dataSongs,
-        times,
         volume,
         idActive,
         isTheme,
@@ -95,7 +93,6 @@ export const combinedStatusSelector = createSelector(
             songCurrent,
             currentIndex,
             dataSongs,
-            times,
             volume,
             idActive,
             isTheme,
@@ -111,3 +108,10 @@ export const combinedStatusSelector = createSelector(
         };
     },
 );
+
+// slice selector because when time change will render all selector in combine
+export const combinedFeatureSelector = createSelector(timesSelector, (times) => {
+    return {
+        times,
+    };
+});

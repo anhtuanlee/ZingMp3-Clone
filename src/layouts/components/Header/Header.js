@@ -4,16 +4,16 @@ import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 import { ButtonTheme, DowloadIcon, IconsVIP, Setting } from '../../../components/Icons';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../../components/Button/Button';
 import Images from '../../../components/Image';
 import Search from '../../../components/Search';
 import { MENU_SETTING_HEADER, MENU_USER_HEADER } from '../../../redux/constant';
+import { combinedStatusSelector } from '../../../redux/selector';
+import { loginSlice, themeSlice } from '../../../redux/sliceReducer';
 import Menu from '../Menu';
 import styles from './Header.module.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import { loginSlice, themeSlice } from '../../../redux/sliceReducer';
-import { combinedStatusSelector } from '../../../redux/selector';
 
 const cx = classNames.bind(styles);
 
@@ -27,8 +27,7 @@ function Header({ styles, isScrollHeader }) {
     };
     const handleLogin = () => {
         dispatch(loginSlice.actions.setIsLogin(true));
-    };
-
+    };  
     return (
         <header className={cx('wrapper', styles, isScrollHeader > 133 ? 'isScroll' : '')}>
             <div className={cx('inner')}>
@@ -64,7 +63,7 @@ function Header({ styles, isScrollHeader }) {
                         <Button circle Icons={Setting} extraTitle={'Cài đặt'} />
                     </Menu>
 
-                    {dataUser.data.image ? (
+                    {dataUser.accessToken ? (
                         <Menu items={MENU_USER_HEADER} visible={false}>
                             <Images className={cx('avatar')} src={dataUser.data.image} />
                         </Menu>

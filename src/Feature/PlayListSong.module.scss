@@ -5,13 +5,13 @@
     border-bottom: 1px solid var(--border-player);
     border-radius: 5px;
     &:hover {
-        background-color: var(--hover-blur-bg);
+        background-color: var(--border-player);
     }
     &:hover .image_song_item img {
         filter: brightness(50%);
     }
     &.isActive {
-        background-color: var(--hover-blur-bg);
+        background-color: var(--border-player);
         position: relative;
         transition: all ease 0.5s;
     }

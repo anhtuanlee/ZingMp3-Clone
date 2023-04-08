@@ -41,7 +41,7 @@ function Album() {
             }
         };
         fetch();
-    }, [nickname,dispatch,navigate]);
+    }, [nickname, dispatch, navigate]);
 
     useEffect(() => {
         dispatch(sidebarSlice.actions.setIdSidebarActive(null)); // not active sidebar
@@ -52,7 +52,7 @@ function Album() {
             <TitlePage title={`${currentSinger} - Tất Cả Bài Hát`} data={dataFullSongs} />
 
             <div className={cx('container_listsong_full')}>
-                {RenderFullListSong(dataFullSongs)}
+                <RenderFullListSong data={dataFullSongs} />
             </div>
         </div>
     );

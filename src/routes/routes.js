@@ -4,7 +4,7 @@ export const publicRoutes = [];
 export const privateRoutes = [
     {
         path: config.home.path,
-        component: config.home.component, 
+        component: config.home.component,
     },
     {
         path: config.myplayer.path,
@@ -15,6 +15,10 @@ export const privateRoutes = [
         path: config.account.path,
         component: config.account.component,
         layout: config.account.layout,
+    },
+    {
+        path: config.artistlibrary.path,
+        component: config.artistlibrary.component, 
     },
     {
         path: config.zingchart.path,

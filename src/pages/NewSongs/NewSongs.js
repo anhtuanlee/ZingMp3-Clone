@@ -28,10 +28,10 @@ function NewUpdate() {
 
     return (
         <div className={cx('wrapper')}>
-            <TitlePage title="Nhạc Mới" sizes="large" data={dataNewSong}/>
+            <TitlePage title="Nhạc Mới" sizes="large" data={dataNewSong} />
 
             <div className={cx('content_section')}>
-                {RenderFullListSong(dataNewSong, isRank)}
+                <RenderFullListSong data={dataNewSong} isRank={isRank} />
             </div>
         </div>
     );

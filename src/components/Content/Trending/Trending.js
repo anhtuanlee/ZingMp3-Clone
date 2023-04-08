@@ -54,7 +54,7 @@ function Trending() {
 
     return (
         <div className={cx('wrapper')}>
-            {isLoadingPage && <Loading  styles={{width: '15%',height: '5vh'}}/>}
+            {isLoadingPage && <Loading styles={{ width: '15%', height: '5vh' }} />}
             {!isLoadingPage && (
                 <div className={cx('title_section')}>
                     <h2>Trending</h2>
@@ -73,7 +73,10 @@ function Trending() {
                 {RenderButtonSelect(paramsFilter, onHandleSelectNational)}
             </div>
             <div className={cx('container_list_song')}>
-                {RenderFullListSong(dataSliceRenderRender, undefined, HomePageTrending)}
+                <RenderFullListSong
+                    data={dataSliceRenderRender}
+                    HomePageTrending={HomePageTrending}
+                />
             </div>
         </div>
     );

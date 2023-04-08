@@ -44,17 +44,19 @@ function Trending() {
 
     useEffect(() => {
         dispatch(statusSlice.actions.isPageLoadingChange(true));
+
         const fetch = async () => {
-            const result = await getTrendingDataApi(100).then((data) => { 
-                const dataFilter = handleFilterSongTrending(data, paramsFilter); 
+            const result = await getTrendingDataApi(100).then((data) => {
+                const dataFilter = handleFilterSongTrending(data, paramsFilter);
                 setDataSelect(dataFilter);
                 setDataApiReturn(data);
-                dispatch(statusSlice.actions.isPageLoadingChange(false));
             });
+            dispatch(statusSlice.actions.isPageLoadingChange(false));
+
             return result;
         };
         fetch();
-    }, [dispatch, paramsFilter]);
+    }, []);
     useEffect(() => {
         setParamsFilter(searchParams.get('_filter'));
     }, [searchParams]);
@@ -71,7 +73,7 @@ function Trending() {
                 {RenderButtonSelect(paramsFilter, onHandleSelectNational, isTrendingPage)}
             </div>
             <div className={cx('container_listsong_full')}>
-                {RenderFullListSong(dataSelect, isRank)}
+                <RenderFullListSong data={dataSelect} isRank={isRank} />
             </div>
         </div>
     );

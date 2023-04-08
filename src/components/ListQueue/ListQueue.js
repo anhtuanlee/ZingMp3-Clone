@@ -10,7 +10,8 @@ const cx = classNames.bind(styles);
 function ListQueue() {
     const listQueueRef = useRef();
     const isListQueue = true;
-    const { dataSongs, isContentHide, isMvPlayer } = useSelector(combinedStatusSelector);
+    const { dataSongs, isContentHide, isMvPlayer } = useSelector(combinedStatusSelector); 
+
     return (
         <div className={cx('wrapper', isContentHide && !isMvPlayer ? 'hide' : '')}>
             <div className={cx('title_container')}>
@@ -23,13 +24,11 @@ function ListQueue() {
             </div>
 
             <div className={cx('list_queue')} ref={listQueueRef} id="container">
-                {RenderFullListSong(
-                    dataSongs,
-                    undefined,
-                    undefined,
-                    listQueueRef,
-                    isListQueue,
-                )}
+                <RenderFullListSong
+                    data={dataSongs }
+                    containerRef={listQueueRef}
+                    isListQueue={isListQueue}
+                />
             </div>
         </div>
     );

@@ -2,40 +2,78 @@ import { useDispatch, useSelector } from 'react-redux';
 import { combinedStatusSelector } from '../redux/selector';
 
 import Button from '../components/Button';
-import { Heart, More, Play } from '../components/Icons';
+import { Heart, HeartFull, More, Play } from '../components/Icons';
 import WaveSong from '../components/Icons/WaveSong';
-import { featureSlice, statusSlice } from '../redux/sliceReducer';
+import { featureSlice, loginSlice, statusSlice } from '../redux/sliceReducer';
 import styles from './PlayListSong.module.scss';
-import classNames from 'classnames/bind'; 
+import classNames from 'classnames/bind';
+import { useEffect, useState } from 'react';
 const cx = classNames.bind(styles);
 
 export const ActionBtnAlbum = ({
     item,
     isLivingAlbum,
     singleBtn,
+    song,
     data,
     HomePageTrending,
     playlistSong,
     isListQueue,
 }) => {
     const dispatch = useDispatch();
-    const { slugDataBanner, isPlaying, songCurrent, dataUser } =
+    const { slugDataBanner, dataSongs, isPlaying, songCurrent, dataUser } =
         useSelector(combinedStatusSelector); // slug_name in
 
-    const isSlugCategory = slugDataBanner === item?.slug_category;
-    const isSlugNameSinger = slugDataBanner === item?.slug_name_singer;
-    const isSlugCategoryCurrent = songCurrent?.slug_category === item?.slug_category;
-    const isSlugNameSingerCurrent =
-        songCurrent?.slug_name_singer === item?.slug_name_singer;
+    const isSlugCategory = slugDataBanner === item?.slug_banner_album_hot;
+    const isSlugNameSinger = slugDataBanner === item?.slug_banner_singer_popular;
 
-    const handleLike = async () => { 
+    const isSlugCategoryCurrent =
+        songCurrent?.slug_category === item?.slug_banner_album_hot;
+    const isSlugNameSingerCurrent =
+        songCurrent?.slug_name_singer === item?.slug_banner_singer_popular;
+
+    const [isFavorite, setIsFavorite] = useState(false);
+
+    const handleLike = () => {
+        if (playlistSong) {
+            if (dataUser.listFavorite) {
+                if (isFavorite) {
+                    dispatch(loginSlice.actions.setFilterSongFavorite(song));
+                    setIsFavorite(false);
+                    dispatch(
+                        featureSlice.actions.setNotification({
+                            styles: 'success',
+                            title: 'Đã xóa bài hát khỏi thư viện',
+                        }),
+                    );
+                } else {
+                    dispatch(loginSlice.actions.setListSongFavorite(song));
+                    setIsFavorite(true); // update list song when handleChange like
+                    dispatch(
+                        featureSlice.actions.setNotification({
+                            styles: 'success',
+                            title: 'Đã thêm bài hát vào thư viện',
+                        }),
+                    );
+                }
+            } else {
+                dispatch(loginSlice.actions.setIsLogin(true));
+                setIsFavorite(false);
+                dispatch(
+                    featureSlice.actions.setNotification({
+                        title: 'Vui lòng đăng nhập để sử dụng chức năng này',
+                        styles: 'info',
+                    }),
+                );
+            }
+        }
     };
 
     const BUTTON_HOVER = [
         {
-            extraTitle: 'Thêm vào thư viện',
-            icon: Heart,
-            circle: true,
+            extraTitle: isFavorite ? 'Xóa khỏi thư viện ' : 'Thêm vào thư viện',
+            icon: isFavorite ? HeartFull : Heart,
+            circle_hide: true,
             type: 'like',
         },
         {
@@ -51,7 +89,7 @@ export const ActionBtnAlbum = ({
         {
             extraTitle: 'Khác',
             icon: More,
-            circle: true,
+            circle_hide: true,
             type: 'more',
         },
     ];
@@ -64,15 +102,8 @@ export const ActionBtnAlbum = ({
 
             e.preventDefault();
             switch (btn.type) {
-                case 'like':
-                    console.log('like');
-                    break;
                 case 'play':
-                    console.log('play1');
                     return dispatch(statusSlice.actions.isPlayingChange(!isPlaying));
-                case 'more':
-                    console.log('morexx');
-                    break;
                 default:
                     console.log('default');
             }
@@ -95,19 +126,13 @@ export const ActionBtnAlbum = ({
                             );
                         }
                     } else {
-                        console.log('play_require');
-
                         return dispatch(statusSlice.actions.isRequirePlayChange(true));
                     }
                     break;
                 case 'like':
                     e.preventDefault();
                     handleLike();
-                    break;
-                case 'more':
-                    e.preventDefault();
-                    console.log('more2');
-                    break;
+                    break; 
                 default:
                     console.log('default');
             }
@@ -127,7 +152,7 @@ export const ActionBtnAlbum = ({
                                 <Button
                                     Icons={btn.icon}
                                     extraTitle={btn.extraTitle}
-                                    circle={btn.circle}
+                                    circle_hide={btn.circle_hide}
                                     border_nothover={btn.border_nothover}
                                     title={item?.title}
                                     onHandle={(e) => onHandle(e, btn)}
@@ -139,9 +164,10 @@ export const ActionBtnAlbum = ({
                     return (
                         <div key={index}>
                             <Button
+                                active={isFavorite && btn.type === 'like'}
                                 Icons={btn.icon}
                                 extraTitle={btn.extraTitle}
-                                circle={btn.circle}
+                                circle_hide={btn.circle_hide}
                                 border_nothover={btn.border_nothover}
                                 title={item?.title}
                                 onHandle={(e) => onHandle(e, btn)}
@@ -156,9 +182,10 @@ export const ActionBtnAlbum = ({
                     return (
                         <div key={index}>
                             <Button
+                                active={isFavorite && btn.type === 'like'}
                                 Icons={btn.icon}
                                 extraTitle={btn.extraTitle}
-                                circle={btn.circle}
+                                circle_hide={btn.circle_hide}
                                 border_nothover={btn.border_nothover}
                                 title={item?.title}
                                 onHandle={(e) => onHandle(e, btn)}
@@ -172,6 +199,23 @@ export const ActionBtnAlbum = ({
         });
         return result;
     };
+
+    useEffect(() => {
+        if (!dataUser.listFavorite || dataUser.listFavorite.length === 0) {
+            // Nếu danh sách yêu thích rỗng thì không có bài hát nào trong danh sách yêu thích
+            setIsFavorite(false);
+            return;
+        }
+        // Kiểm tra xem bài hát có nằm trong danh sách yêu thích hay không
+        const isSongFavorite = dataUser.listFavorite.some(
+            (item) => item?._id === song?._id,
+        );
+        setIsFavorite(isSongFavorite);
+    }, [dataUser.listFavorite, song]);
+
+    useEffect(() => {
+        localStorage.setItem('listFavoriteSong', JSON.stringify(dataUser.listFavorite));
+    }, [dataUser.listFavorite]);
 
     return renderBtnHover();
 };

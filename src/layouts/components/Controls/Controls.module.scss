@@ -11,9 +11,16 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    width: 30%;
+    flex-basis: 300px;
+    flex-grow: 0;
+    flex-shrink: 0;
 }
 .item_img {
     border-radius: 4px;
+    flex-basis: auto;
+    flex-grow: 0;
+    flex-shrink: 0;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -27,6 +34,10 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    max-width: 155px;
+    flex-basis: auto;
+    flex-grow: 1;
+    flex-shrink: 1;
 }
 .item_title {
     font-size: 14px;
@@ -54,6 +65,9 @@
     display: flex;
     align-items: center;
     margin-left: 10px;
+    flex-basis: auto;
+    flex-grow: 0;
+    flex-shrink: 0;
 }
 .btn_controls {
     width: 16px;
@@ -98,6 +112,7 @@
 
 .player_control_right {
     display: flex;
+    width: 30%;
     flex-direction: row;
     margin-right: 20px;
     justify-content: flex-end;

@@ -32,7 +32,9 @@ function ContentPageSinger({ data }) {
                     </div>
                 )}
                 {/* list songs */}
-                <div className={cx('list_songs')}>{RenderFullListSong(data)}</div>
+                <div className={cx('list_songs')}>
+                    <RenderFullListSong data={data} />
+                </div>
             </div>
         </div>
     );

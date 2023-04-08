@@ -13,7 +13,7 @@ import {
     Repeat,
 } from '../../../components/Icons';
 import { useTimes } from '../../../hooks';
-import { combinedStatusSelector } from '../../../redux/selector';
+import { combinedFeatureSelector, combinedStatusSelector } from '../../../redux/selector';
 import { featureSlice, statusSlice } from '../../../redux/sliceReducer';
 import InputProgress from '../InputProgress';
 import styles from './Controls.module.scss';
@@ -21,11 +21,11 @@ const cx = classNames.bind(styles);
 
 function ControlsCenter({ audioRef }) {
     const dispatch = useDispatch();
-    const { isPlaying, isRandom, isRepeat, dataSongs, isLoading, times, songCurrent } =
+    const { isPlaying, isRandom, isRepeat, dataSongs, isLoading, songCurrent } =
         useSelector(combinedStatusSelector);
+    const { times } = useSelector(combinedFeatureSelector);
     let { currentIndex } = useSelector(combinedStatusSelector);
     //times display
-
     const timeRemain = useTimes(times.currentTime);
     const [randomIndex, setRandomIndex] = useState([]);
     const list = new Set(randomIndex); // List save random currentIndex and reset at full

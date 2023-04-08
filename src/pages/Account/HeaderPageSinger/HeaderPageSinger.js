@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { ButtonEffectPlay } from '../../../components/Button';
+import ButtonEffectPlay from '../../../components/Button/config/ButtonEffectPlay';
 import Images from '../../../components/Image';
 import { combinedStatusSelector } from '../../../redux/selector';
 import styles from '../Account.module.scss';
@@ -27,7 +27,7 @@ function HeaderPageSinger({ data = [] }) {
         >
             <Loading styles={{ width: 140, paddingBottom: 140, borderRadius: 1000 }} />
             <div style={{ width: '90%', marginTop: 15 }}>
-                <Loading styles={{ width: '60%', height: '6vh', marginBottom: 20 }} /> 
+                <Loading styles={{ width: '60%', height: '6vh', marginBottom: 20 }} />
                 <Loading styles={{ width: '40%', height: '4vh' }} />
             </div>
         </header>
@@ -40,7 +40,7 @@ function HeaderPageSinger({ data = [] }) {
                     <div className={cx('singer_name')}>
                         <h1> {singer_info?.name_singer}</h1>
 
-                        <ButtonEffectPlay data={data} sizes="large"/>
+                        <ButtonEffectPlay data={data} sizes="large" />
                     </div>
                     <span className={cx('extra_title')}>{follower} người quan tâm</span>
                 </div>

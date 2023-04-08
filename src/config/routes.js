@@ -2,6 +2,7 @@ import { AccountLayout, NewSongLayout } from '../layouts';
 import AccountPage from '../pages/Account/Account';
 import Album from '../pages/Album';
 import AlbumSinger from '../pages/AlbumSinger';
+import ArtistBanner from '../pages/ArtistBanner/ArtistBanner';
 import Category from '../pages/Category';
 import Error from '../pages/Error';
 import Following from '../pages/Following';
@@ -60,6 +61,10 @@ const config = {
     trending: {
         component: Trending,
         path: 'top-trending',
+    },
+    artistlibrary: {
+        component: ArtistBanner,
+        path: 'my-player/artist',
     },
     errorpage: {
         component: Error,
