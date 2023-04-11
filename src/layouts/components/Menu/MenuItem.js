@@ -6,10 +6,12 @@ import styles from './Menu.module.scss';
 
 const cx = classNames.bind(styles);
 
-function MenuItem({ data, onHandle }) {
+function MenuItem({ data, onHandle, song }) { 
+    
     const classes = cx('items', {
         textblur: data.textblur,
     });
+
     return (
         <div className={classes}>
             <Button

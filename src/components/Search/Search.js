@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { faSearch, faXmark } from '@cseitz/fontawesome-svg-light';
 import Tippy from '@tippyjs/react/headless';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -19,6 +19,8 @@ function Search() {
     const [visible, setVisible] = useState(false);
     const [loadingSearch, setLoadingSearch] = useState();
     const debounce = useDebounce(value, 500);
+    const containerRef = useRef();
+
     useEffect(() => {
         const Fetch = async () => {
             if (value) {
@@ -32,7 +34,6 @@ function Search() {
         };
         Fetch();
     }, [debounce]);
-    console.log('loading', loadingSearch);
     // handle Event
     const handleType = (e) => {
         setValue(e.target.value);
@@ -44,8 +45,14 @@ function Search() {
     const handleFocus = () => {
         setVisible(true);
     };
-    const handleOffResult = () => {
-        setVisible(false);
+    const handleOffResult = (e) => {
+        if (containerRef?.current) {
+            if (containerRef.current?.contains(e.target)) {
+                setVisible(true);
+            } else {
+                setVisible(false);
+            }
+        }
     };
 
     const handleClear = () => {
@@ -53,15 +60,36 @@ function Search() {
         setSearchResult([]);
         setVisible(true);
     };
+
+    useEffect(() => {
+        window.addEventListener('click', (e) => handleOffResult(e));
+        return () => window.removeEventListener('click', (e) => handleOffResult(e));
+    }, [visible, containerRef.current]);
     return (
-        <Tippy
-            interactive
-            visible={visible}
-            onClickOutside={handleOffResult}
-            offset={[0, 0]}
-            render={(attrs) => {
-                return (
-                    <div className={cx('result_search')} {...attrs} tabIndex="-1">
+        <div className={cx('wrapper')} ref={containerRef}>
+            <div className={cx('search_input', visible === true ? 'isCollap' : '')}>
+                <FontAwesomeIcon icon={faSearch} className={cx('button_search')} />
+                <input
+                    value={value}
+                    onFocus={handleFocus}
+                    onChange={(e) => handleType(e)}
+                    placeholder="Tìm kiếm bài hát, nghệ sĩ, lời bài hát..."
+                />
+                {value && !loadingSearch && (
+                    <FontAwesomeIcon
+                        icon={faXmark}
+                        onClick={handleClear}
+                        className={cx('button_close')}
+                    />
+                )}
+                {loadingSearch && (
+                    <div className={cx('button_loading')}>
+                        <Loading />
+                    </div>
+                )}
+
+                {visible && (
+                    <div className={cx('result_search')}>
                         {/* kiểm tra mảng có phần tử mới gửi dữ liệu qua Account */}
                         <h4 className={cx('result_title')}>
                             {searchResult.length > 0
@@ -86,33 +114,9 @@ function Search() {
                             );
                         })}
                     </div>
-                );
-            }}
-        >
-            <div className={cx('wrapper')}>
-                <div className={cx('search_input', visible === true ? 'isCollap' : '')}>
-                    <FontAwesomeIcon icon={faSearch} className={cx('button_search')} />
-                    <input
-                        value={value}
-                        onFocus={handleFocus}
-                        onChange={(e) => handleType(e)}
-                        placeholder="Tìm kiếm bài hát, nghệ sĩ, lời bài hát..."
-                    />
-                    {value && !loadingSearch && (
-                        <FontAwesomeIcon
-                            icon={faXmark}
-                            onClick={handleClear}
-                            className={cx('button_close')}
-                        />
-                    )}
-                    {loadingSearch && (
-                        <div className={cx('button_loading')}>
-                            <Loading />
-                        </div>
-                    )}
-                </div>
+                )}
             </div>
-        </Tippy>
+        </div>
     );
 }
 

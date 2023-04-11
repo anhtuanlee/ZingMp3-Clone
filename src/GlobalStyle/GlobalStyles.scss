@@ -18,7 +18,7 @@
     --text-secondary: hsla(0, 0%, 100%, 0.5);
     --link-text-hover: #c273ed;
     --white: #fff;
-    --black: #000 ;
+    --black: #000;
     --button-hide: #595362;
     --search-text: #dadada;
 
@@ -29,6 +29,10 @@
     --border-secondary: hsla(0, 0%, 100%, 0.5);
 
     --padding-section: 0 60px;
+    @media (max-width: 1016px) {
+        //tablet
+        --padding-section: 0 29px;
+    }
 }
 * {
     margin: 0;
@@ -61,12 +65,12 @@ button,
 input,
 textarea {
     outline: none;
-    text-decoration: none; 
+    text-decoration: none;
     border: 1px solid transparent;
-    color:var(--text-primary)
+    color: var(--text-primary);
 }
-input::placeholder { 
-    color: var(--text-primary) !important ;  
+input::placeholder {
+    color: var(--text-primary) !important ;
 }
 a[href] {
     text-decoration: none;
@@ -75,6 +79,9 @@ a[href] {
 li {
     list-style-type: none;
 }
+
+// tippy
+
 .tippy-content {
     background-color: #333;
     padding: 3px 5px 5px 5px;
@@ -94,7 +101,6 @@ li {
         background-color: var(--primary-bg);
     }
 }
-
 .arrow {
     width: 24px;
     padding: 15px;
@@ -105,7 +111,7 @@ li {
     transform: translateY(-50%);
     -webkit-transform: translateY(-50%);
     fill: #fff;
-    color: var(--white) ;
+    color: var(--white);
     background-color: hsla(0, 0%, 100%, 0.15);
     cursor: pointer;
     z-index: 9999;
@@ -149,4 +155,3 @@ svg.svg-inline--fa.fa-play {
 .swiper-wrapper {
     width: 100vw;
 }
-

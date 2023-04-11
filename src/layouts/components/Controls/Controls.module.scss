@@ -5,14 +5,14 @@
     padding: 0 20px;
     height: 90px;
     background-color: var(--player-bg);
+    width: 100%;
 }
 // controls left
 .player_control_left {
     display: flex;
     align-items: center;
-    gap: 10px;
+    justify-content: center;
     width: 30%;
-    flex-basis: 300px;
     flex-grow: 0;
     flex-shrink: 0;
 }
@@ -31,6 +31,7 @@
     height: 64px;
 }
 .media_content {
+    margin-left: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -61,6 +62,8 @@
     margin-top: 1px;
     color: var(--text-secondary);
     padding-right: 10px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     &:hover {
         color: var(--link-text-hover);
         text-decoration: underline;
@@ -69,7 +72,6 @@
 .media_custom {
     display: flex;
     align-items: center;
-    margin-left: 10px;
     flex-basis: auto;
     flex-grow: 0;
     flex-shrink: 0;
@@ -97,10 +99,14 @@
 .time_start {
     margin: 0 10px;
     width: 50px;
+    font-size: 12px;
+    font-weight: 500;
 }
 .time_end {
     margin: 0 10px;
     width: 50px;
+    font-size: 12px;
+    font-weight: 500;
 }
 .duration_bar {
     display: flex;
@@ -130,13 +136,33 @@
     align-items: center;
     justify-content: center;
 }
+.controls_item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    
+    // custom volume tablet
+    .inputVolumeTablet {
+        position: absolute;
+        top: -40px;
+        left: -60px;
+        min-width: 150px;
+        max-height: 28px;
+        background-color: #353535;
+        padding: 14px;
+        border-radius: 4px;
+    }
+    .inputVolumeOff {
+        display: none;
+    }
+}
 .controls_item :hover .player_input_vol {
     padding: 20px;
 }
 .player_input_vol {
     display: flex;
     align-items: center;
-    width: 80px;
+    max-width: 80px;
 }
 .devide {
     width: 1px;
@@ -168,7 +194,9 @@
     align-items: center;
     justify-content: center;
 }
-
+.btn_control_right {
+    margin: 0 2px;
+}
 @keyframes slideLeft {
     from {
         transform: translateX(10%);

@@ -1,10 +1,10 @@
 .wrapper {
-    margin-top: 20px;
-    padding: var(--padding-section);
+    margin-top: 20px; 
     padding-bottom: 50px;
     .list_card_artist {
         display: flex;
         flex-wrap: wrap;
-        gap: 28px;
+        justify-content: flex-start;    
+
     }
 }

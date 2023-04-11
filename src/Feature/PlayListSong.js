@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { animateScroll as scroll } from 'react-scroll';
-import { Play, SubTract, WaveSongPlay } from '../components/Icons';
+import { ListQueue, Play, SubTract, WaveSongPlay } from '../components/Icons';
 import Images from '../components/Image';
 import { convertNumber } from '../hooks/';
 import { combinedStatusSelector } from '../redux/selector';
@@ -83,12 +83,15 @@ function PlayListSong(
     useEffect(() => {
         // effect scroll with react-scro
         if (songCurrent?._id === song?._id && isPlaying && !HomePageTrending) {
-            scroll.scrollTo(songItemRef.current.offsetTop - 250, {
-                containerId: ref?.current?.id,
-                duration: 2000,
-                delay: 500,
-                smooth: 'easeOutCubic',
-            });
+            scroll.scrollTo(
+                songItemRef.current.offsetTop - (isListQueue ? 250 : 410), // check to scroll smooth location
+                {
+                    containerId: ref?.current?.id,
+                    duration: 2000,
+                    delay: 500,
+                    smooth: 'easeOutCubic',
+                },
+            );
         }
     }, [songCurrent, isPlaying]);
     return (

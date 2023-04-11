@@ -1,5 +1,6 @@
 import { faListMusic, faLoader } from '@cseitz/fontawesome-svg-duotone';
 import {
+    faArrowDownToBracket,
     faArrowRight,
     faArrowRightFromBracket,
     faArrowUpFromBracket,
@@ -19,7 +20,7 @@ import {
     faVolumeXmark,
     faXmark,
 } from '@cseitz/fontawesome-svg-light';
-import { faHeart, faWindowRestore } from '@fortawesome/free-regular-svg-icons';
+import { faEye, faHeart, faWindowRestore } from '@fortawesome/free-regular-svg-icons';
 import {
     faBackwardStep,
     faCheck,
@@ -72,7 +73,9 @@ export const IconsVIP = () => {
 export const Upload = () => {
     return <FontAwesomeIcon icon={faArrowUpFromBracket} />;
 };
-
+export const Download = () => {
+    return <FontAwesomeIcon icon={faArrowDownToBracket} />;
+};
 export const LogOut = () => {
     return <FontAwesomeIcon icon={faArrowRightFromBracket} />;
 };
@@ -297,4 +300,7 @@ export const Check = () => {
 };
 export const Error = () => {
     return <FontAwesomeIcon icon={faTriangleExclamation} />;
+};
+export const Eyes = () => {
+    return <FontAwesomeIcon icon={faEye} />;
 };

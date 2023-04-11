@@ -5,6 +5,41 @@
     width: 240px;
     overflow: overlay;
     z-index: 101;
+    position: absolute;
+    right: 0;
+
+    .title_song {
+        display: flex;
+        padding: 10px;
+        border-bottom: 1px solid var(--text-primary);
+    }
+    .img_song {
+        height: 40px;
+        width: 40px;
+
+        img {
+            border-radius: 4px;
+        }
+    }
+    .info_song {
+        margin-left: 5px;
+        display: flex; 
+        justify-content: center;
+        flex-direction: column;
+    }
+    .name_song {
+        color: var(--text-primary);
+        font-size: 14px;
+    }
+    .title_extra {
+        display: flex;
+        gap: 5px;
+        .icon_heart,
+        .icon_view {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+    }
 }
 .menu_items {
     padding: 10px 8px;
@@ -20,7 +55,7 @@
     }
 }
 .icon {
-    color: var(--search-text);
+    color: var(--text-primary);
 }
 .item_title {
     font-size: 14px;

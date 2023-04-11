@@ -17,7 +17,7 @@
     -webkit-appearance: none;
     height: 0px;
     width: 0px;
-    background-color: var(--text-primary);
+    background-color: var(--purple-primary);
     transition: linear 0.1s;
     border-radius: 50%;
 }
@@ -32,6 +32,6 @@
     border-radius: 50px;
 }
 .blur_input::-webkit-slider-thumb {
-        width: 13px;
-        height: 13px;
+    width: 13px;
+    height: 13px;
 }

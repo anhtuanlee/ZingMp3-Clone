@@ -13,6 +13,9 @@ import { featureSlice, sidebarSlice, statusSlice } from '../../redux/sliceReduce
 import { getMusicTopView, getSingerDataApi } from '../../services';
 import Loading from '../Loading';
 import styles from './AlbumSinger.module.scss';
+import Media from 'react-media';
+import RenderArtist from '../../Feature/RenderArtist';
+import TitlePage from '../../layouts/components/TitlePage/TitlePage';
 const cx = classNames.bind(styles);
 
 function AlbumSinger() {
@@ -27,13 +30,22 @@ function AlbumSinger() {
     const [dataFullSongs, setDataSinger] = useState([]);
     const [dataInAlbum, setDataInAlbum] = useState({});
     const timer = useDate(dataInAlbum?.createdAt);
+
+    // constants check value in store and location
     const slugNameSingerCurrent = songCurrent?.slug_name_singer; // song current
     const slugCategoryCurrent = songCurrent?.slug_category;
-
     const slugBannerSingerPopular = location?.state?.slug_banner_singer_popular;
     const slugBannerAlBumHot = location?.state?.slug_banner_album_hot;
     const isBannerAlbumHot = location?.state?.isBannerAlbumHot;
 
+    const listArtist = dataFullSongs.filter((item, index, arr) => {
+        // filter list artist
+        const newList = arr.findIndex(
+            (it) => it.slug_name_singer === item.slug_name_singer,
+        );
+        return newList === index;
+    });
+    const filteredFavoriteArtists = [...listArtist.slice(0, 5)];
     const handlReqirePlayFromBanner = (data) => {
         if (isRequirePlay) {
             const randomID = Math.floor(Math.random() * data.length);
@@ -122,31 +134,63 @@ function AlbumSinger() {
     }, [navigate, dispatch]);
 
     const favorite = convertNumber(dataInAlbum.favorite);
-
     return (
         <div className={cx('wrapper')}>
             <div className={cx('container_playlist_detail')}>
                 <div className={cx('title_section')}>
-                    <Banner
-                        item={location?.state}
-                        data={dataFullSongs}
-                        isLivingAlbum={true}
-                        singleBtn={true}
-                    />
+                    <div className={cx('img_banner')}>
+                        <Banner
+                            item={location?.state}
+                            data={dataFullSongs}
+                            isLivingAlbum={true}
+                            singleBtn={true}
+                        />
+                    </div>
                     {isLoadingPage || dataFullSongs.length === 0 ? (
-                        <div
-                            style={{
-                                marginTop: 30,
-                                display: 'flex',
-                                justifyContent: 'center',
-                                flexWrap: 'wrap',
-                                gap: 20,
+                        <Media query="(max-width: 1200px)">
+                            {(matches) => {
+                                return matches ? (
+                                    <div
+                                        style={{
+                                            display: 'flex',
+                                            justifyContent: 'flex-start',
+                                            flexDirection: 'column',
+                                            gap: 20,
+                                            width: '100%',
+                                            margin: '15px 10px 0',
+                                        }}
+                                    >
+                                        <Loading styles={{ height: '4vh' }} />
+                                        <Loading
+                                            styles={{ width: '60%', height: '3vh' }}
+                                        />
+                                        <Loading
+                                            styles={{ width: '40%', height: '2vh' }}
+                                        />
+                                    </div>
+                                ) : (
+                                    <div
+                                        style={{
+                                            marginTop: 30,
+                                            display: 'flex',
+                                            justifyContent: 'center',
+                                            flexWrap: 'wrap',
+                                            gap: 20,
+                                            width: '100%',
+                                            margin: '15px 10px 0',
+                                        }}
+                                    >
+                                        <Loading styles={{ height: '4vh' }} />
+                                        <Loading
+                                            styles={{ width: '60%', height: '3vh' }}
+                                        />
+                                        <Loading
+                                            styles={{ width: '40%', height: '2vh' }}
+                                        />
+                                    </div>
+                                );
                             }}
-                        >
-                            <Loading styles={{ height: '4vh' }} />
-                            <Loading styles={{ width: '60%', height: '3vh' }} />
-                            <Loading styles={{ width: '40%', height: '2vh' }} />
-                        </div>
+                        </Media>
                     ) : (
                         <h2 className={cx('title_header')}>
                             <span className={cx('title_header_section')}>
@@ -161,17 +205,19 @@ function AlbumSinger() {
                                 <span>Cập nhật • {timer}</span>
                                 <span>{favorite} người yêu thích</span>
                             </span>
-                            <ButtonEffectPlay
-                                sizes="wider"
-                                data={dataFullSongs}
-                                isSlugNameFromLocation={slugDataBanner}
-                            >
-                                {!slugDataBanner
-                                    ? 'PHÁT NGẪU NHIÊN'
-                                    : isPlaying
-                                    ? 'TẠM DỪNG'
-                                    : 'TIẾP TỤC PHÁT'}
-                            </ButtonEffectPlay>
+                            <span className={cx('btn_effect')}>
+                                <ButtonEffectPlay
+                                    sizes="wider"
+                                    data={dataFullSongs}
+                                    isSlugNameFromLocation={slugDataBanner}
+                                >
+                                    {!slugDataBanner
+                                        ? 'PHÁT NGẪU NHIÊN'
+                                        : isPlaying
+                                        ? 'TẠM DỪNG'
+                                        : 'TIẾP TỤC PHÁT'}
+                                </ButtonEffectPlay>
+                            </span>
                         </h2>
                     )}
                 </div>
@@ -190,6 +236,15 @@ function AlbumSinger() {
                             containerRef={ListSongRef}
                         />
                     </div>
+                </div>
+            </div>
+            <div>
+                <TitlePage
+                    title="Nghệ Sĩ Tham Gia"
+                    className={cx('title_partic_artist')}
+                />
+                <div className={cx('partic_artists')}>
+                    <RenderArtist data={filteredFavoriteArtists} isPageAlbum={true} />
                 </div>
             </div>
         </div>

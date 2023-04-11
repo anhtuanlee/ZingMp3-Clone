@@ -7,16 +7,16 @@ import { combinedStatusSelector } from '../../../redux/selector';
 import styles from './TitlePage.module.scss';
 
 const cx = classNames.bind(styles);
-const TitlePage = memo(({ title, sizes, styles, data }) => {
+const TitlePage = memo(({ title, sizes, styles, data, className }) => {
     const { isLoadingPage } = useSelector(combinedStatusSelector);
-    
+
     return isLoadingPage ? (
         <header className={cx('header_title')} style={styles}>
             <Loading styles={{ width: '30%', height: '4vh' }} />
         </header>
     ) : (
-        <header className={cx('header_title')} style={styles}>
-            <h3>{title}</h3>
+        <header className={cx('header_title',className)} style={styles}>
+            <h3 className={cx('title_section')}>{title}</h3>
             {sizes && <ButtonEffectPlay sizes={sizes} data={data} />}
         </header>
     );

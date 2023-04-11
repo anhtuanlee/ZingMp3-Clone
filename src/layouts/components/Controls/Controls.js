@@ -6,17 +6,31 @@ import styles from './Controls.module.scss';
 import ControlsCenter from './ControlsCenter';
 import ControlsLeft from './ControlsLeft';
 import ControlsRight from './ControlsRight';
+import Media from 'react-media'; 
 
 const cx = classNames.bind(styles);
 function Controls() {
     const audioRef = useRef();
     return (
-        <div className={cx('wrapper')}>
-            <AudioElement ref={audioRef} />
-            <ControlsLeft />
-            <ControlsCenter audioRef={audioRef} />
-            <ControlsRight audioRef={audioRef} />
-        </div>
+        <Media query="(max-width:900px)">
+            {(matches) => {
+                return matches ? (
+                    <div className={cx('wrapper')}>
+                        <AudioElement ref={audioRef} />
+                        <ControlsLeft />
+                        <ControlsCenter audioRef={audioRef} />
+                        <ControlsRight audioRef={audioRef} isTablet />
+                    </div>
+                ) : (
+                    <div className={cx('wrapper')}>
+                        <AudioElement ref={audioRef} />
+                        <ControlsLeft />
+                        <ControlsCenter audioRef={audioRef} />
+                        <ControlsRight audioRef={audioRef} />
+                    </div>
+                );
+            }}
+        </Media>
     );
 }
 

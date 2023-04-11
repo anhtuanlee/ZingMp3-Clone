@@ -14,7 +14,7 @@ function Category() {
         });
         navigate('..');
     }, [navigate]);
-    return <h3>Category Pages</h3>;
+    return <h3> </h3>;
 }
 
 export default Category;

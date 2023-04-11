@@ -6,7 +6,7 @@ import Images from '../../../components/Image';
 import { combinedStatusSelector } from '../../../redux/selector';
 import styles from '../Account.module.scss';
 import Loading from '../../Loading';
-
+import TitlePage from '../../../layouts/components/TitlePage/TitlePage';
 const cx = classNames.bind(styles);
 
 function HeaderPageSinger({ data = [] }) {
@@ -37,11 +37,7 @@ function HeaderPageSinger({ data = [] }) {
                 <Images src={singer_info?.image_music} className={cx('image_singer')} />
 
                 <div className={cx('singer_info')}>
-                    <div className={cx('singer_name')}>
-                        <h1> {singer_info?.name_singer}</h1>
-
-                        <ButtonEffectPlay data={data} sizes="large" />
-                    </div>
+                    <TitlePage title={`${singer_info?.name_singer}`} data={data} sizes='large' />
                     <span className={cx('extra_title')}>{follower} người quan tâm</span>
                 </div>
             </div>

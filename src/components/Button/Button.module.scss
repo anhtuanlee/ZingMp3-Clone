@@ -47,7 +47,7 @@
     height: 35px;
     font-size: 20px;
     padding: 15px;
-    margin: 0 10px;
+    margin: 0 7px;
     &:hover {
         background-color: var(--border-player);
     }
@@ -86,6 +86,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 0 5px;
     &:hover {
         color: var(--purple-primary);
         border-color: var(--purple-primary);
@@ -160,8 +161,7 @@
 }
 
 .effectHoverReverse {
-    font-size: 23px;
-    margin-left: 10px;
+    font-size: 23px; 
     border: none;
     outline: none;
     padding: 10px;

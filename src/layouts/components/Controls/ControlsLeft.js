@@ -6,6 +6,8 @@ import Images from '../../../components/Image';
 import { combinedStatusSelector } from '../../../redux/selector';
 import styles from './Controls.module.scss';
 import { useEffect } from 'react';
+import Media from 'react-media';
+
 const cx = classNames.bind(styles);
 
 function ControlsLeft({ styleImg, styleTitle }) {
@@ -20,10 +22,8 @@ function ControlsLeft({ styleImg, styleTitle }) {
             index = 0;
         }
         return sliced;
-    } 
-    useEffect(() => {
-        
-    })
+    }
+    useEffect(() => {});
     return (
         <div className={cx('player_control_left')}>
             <figure className={cx('item_img')}>
@@ -46,7 +46,19 @@ function ControlsLeft({ styleImg, styleTitle }) {
                 </Link>
             </div>
             <div className={cx('media_custom')}>
-                <ActionBtnAlbum playlistSong song={songCurrent} />
+                <Media query="(max-width: 1000px)">
+                    {(matches) => {
+                        return matches ? (
+                            <ActionBtnAlbum
+                                playlistSong
+                                song={songCurrent}
+                                sizeTablet={true}
+                            />
+                        ) : (
+                            <ActionBtnAlbum playlistSong song={songCurrent} />
+                        );
+                    }}
+                </Media>
             </div>
         </div>
     );

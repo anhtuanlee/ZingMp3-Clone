@@ -37,59 +37,72 @@
                 column-gap: 20px;
                 padding-top: 20px;
 
-                .item_theme {
-                    .item_card_img {
-                        overflow: hidden;
-                        margin-bottom: 10px;
-                        border-radius: 4px;
-                        aspect-ratio: 9 / 6;
-                        position: relative;
+                @media (max-width: 900px) {
+                    grid-template-columns: repeat(3, 1fr);
+                }
+                @media (max-width: 600px) {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
+            .item_theme {
+                .item_card_img {
+                    overflow: hidden;
+                    margin-bottom: 10px;
+                    border-radius: 4px;
+                    aspect-ratio: 9 / 6;
+                    position: relative;
+                    display: flex;
+                    justify-content: center;
+                    top: 0;
+                    left: 0;
+
+                    &:hover img {
+                        transform: scale(1.1);
+                        transition: all linear 0.3s;
+                    }
+                    img {
+                        transition: all linear 0.3s;
+                    }
+                    .item_card_hover {
+                        position: absolute;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        flex-direction: column;
+                        gap: 10px;
                         top: 0;
                         left: 0;
+                        bottom: 0;
+                        right: 0;
+                        background-color: var(--modal-layout-bg);
 
-                        &:hover img {
-                            transform: scale(1.1);
-                            transition: all linear 0.3s;
-                        }
-                        img {
-                            transition: all linear 0.3s;
-                        }
-                        .item_card_hover {
-                            position: absolute;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            flex-direction: column;
-                            gap: 10px;
-                            top: 0;
-                            left: 0;
-                            bottom: 0;
-                            right: 0;
-                            background-color: var(--modal-layout-bg);
-
-                            //custom btn
-                            .btn_card_theme_primary {
-                                background-color: var(--purple-primary);
-                                &:hover {
-                                    color: var(--white);
-                                    filter: brightness(0.9);
-                                }
-                            }
-                            .btn_card_theme_border {
-                                background-color: rgba(0, 0, 0, 0.3);
-                                border-color: hsla(0, 0%, 100%, 0.5);
+                        //custom btn
+                        .btn_card_theme_primary {
+                            background-color: var(--purple-primary);
+                            margin: 0;
+                            width: 60%;
+                            &:hover {
+                                color: var(--white);
+                                filter: brightness(0.9);
                             }
                         }
+                        .btn_card_theme_border {
+                            margin: 0;
+                            width: 60%;
+                            background-color: rgba(0, 0, 0, 0.3);
+                            border-color: hsla(0, 0%, 100%, 0.5);
+                        }
                     }
+                }
 
-                    .item_title {
-                        text-align: start;
-                    }
+                .item_title {
+                    text-align: start;
                 }
             }
         }
     }
 }
+
 .themeActive {
     border: 1px solid var(--purple-primary);
 }

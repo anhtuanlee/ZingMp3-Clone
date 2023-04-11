@@ -5,11 +5,22 @@
     margin: 20px 0;
 }
 .container_singer_popular {
-    display: flex; 
+    display: flex;
     margin-top: 20px;
+    width: 100%;
+
+    @media (max-width: 1130px) {
+        //tablet
+        overflow: hidden;
+    }
     .item {
-        width: 20%; 
-        padding: 0 12px; 
+        padding: 0 12px;
+        width: 20%;
+        flex-shrink: 0;
+        @media (max-width: 1130px) {
+            //tablet
+            width: 25%;
+        }
         .item_title {
             font-size: 14px;
             padding: 10px 0;

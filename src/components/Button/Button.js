@@ -32,16 +32,16 @@ function Button({
     // Icons,
     Icons,
     LeftIcons,
-    RightIcons = false,
+    RightIcons,
     //element
-    href = false,
-    to = false,
+    href,
+    to,
     children,
     //TippyCustom ,
-    extraTitle = false,
+    extraTitle,
     nestest,
     //css ,
-    spederate = false,
+    spederate,
     isLoading,
     className,
     ...passProps
@@ -70,6 +70,7 @@ function Button({
         sizes,
         className,
     );
+
     let Comp = 'button';
     const props = { ...passProps };
     if (href) {
@@ -79,7 +80,7 @@ function Button({
         props.to = to;
         Comp = Link;
     }
-    return extraTitle ? ( // when have extraTitlte, content will be extraTitle
+    return typeof extraTitle === 'string' ? ( // when have extraTitlte, content will be extraTitle
         <Tippy duration={[100, 0]} content={extraTitle} zIndex={9999999}>
             <Comp className={classnames} {...props} onClick={onHandle}>
                 {LeftIcons && (
@@ -162,7 +163,7 @@ Button.propTypes = {
     href: PropTypes.string,
     to: PropTypes.string,
     children: PropTypes.node,
-    extraTitle: PropTypes.string,
+    extraTitle: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
     nestest: PropTypes.object,
     className: PropTypes.string,
     spederate: PropTypes.bool,

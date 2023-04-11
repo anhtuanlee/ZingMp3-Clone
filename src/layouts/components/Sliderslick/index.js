@@ -11,6 +11,7 @@ import Arrow from './Arrow';
 import { useSelector } from 'react-redux';
 import { combinedStatusSelector } from '../../../redux/selector';
 import Loading from '../../../pages/Loading';
+import Media from 'react-media';
 
 const cx = classNames.bind(styles);
 function SliderSlick() {
@@ -38,12 +39,25 @@ function SliderSlick() {
         {
             loop: true,
             drag: false,
+
             slides: {
                 perView: 3,
                 spacing: 15,
             },
-        },
+            breakpoints: {
+                '(max-width: 400px)': {
+                    slides: { perView: 1, spacing: 5 },
+                    drag: true,
+                },
 
+                '(min-width: 400px)': {
+                    slides: { perView: 2, spacing: 10 },
+                },
+                '(min-width: 1130px)': {
+                    slides: { perView: 3, spacing: 15 },
+                },
+            },
+        },
         [
             (slider) => {
                 let timeout;
@@ -81,13 +95,23 @@ function SliderSlick() {
             },
         ],
     );
-
     return isLoadingPage ? (
-        <div style={{ display: 'flex', gap: 20, padding: '32px 60px 0' }}>
-            <Loading styles={{ height: '25vh' }} />
-            <Loading styles={{ height: '25vh' }} />
-            <Loading styles={{ height: '25vh' }} />
-        </div>
+        <Media query="(min-width: 1130px)">
+            {(matches) => {
+                return matches ? (
+                    <div style={{ display: 'flex', gap: 20, paddingTop: 32 }}>
+                        <Loading styles={{ height: '25vh' }} />
+                        <Loading styles={{ height: '25vh' }} />
+                        <Loading styles={{ height: '25vh' }} />
+                    </div>
+                ) : (
+                    <div style={{ display: 'flex', gap: 20, paddingTop: 32 }}>
+                        <Loading styles={{ height: '25vh' }} />
+                        <Loading styles={{ height: '25vh' }} />
+                    </div>
+                );
+            }}
+        </Media>
     ) : (
         <div className={cx('wrapper')}>
             <div ref={sliderRef} className="keen-slider">

@@ -7,6 +7,7 @@ import { combinedStatusSelector } from '../../../redux/selector';
 import { statusSlice } from '../../../redux/sliceReducer';
 import InputProgress from '../InputProgress';
 import styles from './Controls.module.scss';
+import Media from 'react-media';
 const cx = classNames.bind(styles);
 
 function ControlsRight({ audioRef }) {
@@ -22,7 +23,7 @@ function ControlsRight({ audioRef }) {
                     icon: Mv,
                     disable: songCurrent?.link_mv ? false : true,
                     type: 'mv',
-                    extraTitle: 'MV'
+                    extraTitle: 'MV',
                 },
 
                 {
@@ -32,7 +33,7 @@ function ControlsRight({ audioRef }) {
                 {
                     icon: isVolume ? Volumn : VolumnOff,
                     type: 'volume',
-                    extraTitle: 'Âm Lượng'
+                    extraTitle: 'Âm Lượng',
                 },
             ],
         },
@@ -68,28 +69,49 @@ function ControlsRight({ audioRef }) {
     const renderBtnsRight = () => {
         const result = lastData.map((item, index) => {
             return (
-                <div
-                    className={cx('controls_item')}
-                    key={index}
-                    onMouseOver={() => {
-                        if (item.type === 'vol') {
-                            setStyles(true);
-                        }
+                <Media query="(max-width: 960px)" key={index}>
+                    {(matches) => {
+                        return (
+                            <div
+                                className={cx('controls_item')}
+                                onMouseOver={() => {
+                                    if (item.type === 'volume') {
+                                        setStyles(true);
+                                    }
+                                }}
+                            >
+                                <Button
+                                    circle_hide
+                                    Icons={item.icon}
+                                    disable={item.disable}
+                                    extraTitle={!matches && item.extraTitle}
+                                    onHandle={() => handle(item.type)}
+                                />
+                                {item.type === 'volume' && (
+                                    <div
+                                        className={cx(
+                                            'player_input_vol',
+                                            matches && style
+                                                ? 'inputVolumeTablet'
+                                                : matches && !style && 'inputVolumeOff',
+                                            // custom volume in tablet
+                                        )}
+                                        onMouseOut={() => {
+                                            setStyles(false);
+                                        }}
+                                    >
+                                        <InputProgress
+                                            classes={classes}
+                                            volumeType={true}
+                                            max={10}
+                                            audioRef={audioRef}
+                                        />
+                                    </div>
+                                )}
+                            </div>
+                        );
                     }}
-                    onMouseLeave={() => {
-                        if (item.type === 'vol') {
-                            setStyles(false);
-                        }
-                    }}
-                >
-                    <Button
-                        circle_hide
-                        Icons={item.icon}
-                        disable={item.disable}
-                        extraTitle={item.extraTitle}
-                        onHandle={() => handle(item.type)}
-                    />
-                </div>
+                </Media>
             );
         });
         return result;
@@ -100,21 +122,14 @@ function ControlsRight({ audioRef }) {
             <div className={cx('player_controls_right_container')}>
                 {renderBtnsRight()}
             </div>
-            <div className={cx('player_input_vol')}>
-                <InputProgress
-                    classes={classes}
-                    volumeType={true}
-                    max={10}
-                    audioRef={audioRef}
-                />
-            </div>
+
             <div className={cx('devide')}></div>
             <div className={cx('btn_playlist_queue')}>
                 <Button
                     Icons={ListQueue}
                     onHandle={hnadleListQueue}
                     className={cx(isPlayerQueue ? 'queueOn' : 'queueOff')}
-                    extraTitle='Danh Sách Phát'
+                    extraTitle="Danh Sách Phát"
                 />
             </div>
         </div>

@@ -14,6 +14,8 @@ import { combinedStatusSelector } from '../../../redux/selector';
 import { loginSlice, themeSlice } from '../../../redux/sliceReducer';
 import Menu from '../Menu';
 import styles from './Header.module.scss';
+import Media from 'react-media';
+import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -27,54 +29,82 @@ function Header({ styles, isScrollHeader }) {
     };
     const handleLogin = () => {
         dispatch(loginSlice.actions.setIsLogin(true));
-    };  
+    };
+
     return (
-        <header className={cx('wrapper', styles, isScrollHeader > 133 ? 'isScroll' : '')}>
-            <div className={cx('inner')}>
-                <div className={cx('button_controls_left')}>
-                    <div>
-                        <FontAwesomeIcon
-                            icon={faArrowLeft}
-                            className={cx('icon-arrow-prev')}
-                        />
-                    </div>
-                    <div>
-                        <FontAwesomeIcon
-                            icon={faArrowRight}
-                            className={cx('icon-arrow-next')}
-                        />
-                    </div>
-                    <Search />
-                </div>
-                <div className={cx('button_controls_right')}>
-                    <Button primary LeftIcons={DowloadIcon} sizes="normal">
-                        Dowload
-                    </Button>
-                    <Button
-                        circle
-                        Icons={ButtonTheme}
-                        extraTitle={'Chủ đề'}
-                        onHandle={onChangeTheme}
-                    />
+        <Media query="(max-width: 400px)">
+            {(matches) => {
+                return !matches ? (
+                    <header
+                        className={cx(
+                            'wrapper',
+                            styles,
+                            isScrollHeader > 133 ? 'isScroll' : '',
+                        )}
+                    >
+                        <div className={cx('inner')}>
+                            <div className={cx('button_controls_left')}>
+                                <span>
+                                    <FontAwesomeIcon
+                                        icon={faArrowLeft}
+                                        className={cx('icon-arrow-prev')}
+                                    />
+                                </span>
+                                <span>
+                                    <FontAwesomeIcon
+                                        icon={faArrowRight}
+                                        className={cx('icon-arrow-next')}
+                                    />
+                                </span>
+                                <div className={cx('search_form')}>
+                                    <Search />
+                                </div>
+                            </div>
+                            <div className={cx('button_controls_right')}>
+                                <Button primary LeftIcons={DowloadIcon} sizes="normal">
+                                    Dowload
+                                </Button>
+                                <Button
+                                    circle
+                                    Icons={ButtonTheme}
+                                    extraTitle={'Chủ đề'}
+                                    onHandle={onChangeTheme}
+                                />
 
-                    <Button circle Icons={IconsVIP} extraTitle={'Nâng cấp VIP'} />
+                                <Button
+                                    circle
+                                    Icons={IconsVIP}
+                                    extraTitle={'Nâng cấp VIP'}
+                                />
 
-                    <Menu items={MENU_SETTING_HEADER}>
-                        <Button circle Icons={Setting} extraTitle={'Cài đặt'} />
-                    </Menu>
+                                <Menu items={MENU_SETTING_HEADER}>
+                                    <Button
+                                        circle
+                                        Icons={Setting}
+                                        extraTitle={'Cài đặt'}
+                                    />
+                                </Menu>
 
-                    {dataUser.accessToken ? (
-                        <Menu items={MENU_USER_HEADER} visible={false}>
-                            <Images className={cx('avatar')} src={dataUser.data.image} />
-                        </Menu>
-                    ) : (
-                        <Button purplePrimary onHandle={handleLogin}>
-                            Đăng Nhập
-                        </Button>
-                    )}
-                </div>
-            </div>
-        </header>
+                                {dataUser.accessToken ? (
+                                    <Menu items={MENU_USER_HEADER} visible={false}>
+                                        <Images
+                                            className={cx('avatar')}
+                                            src={dataUser.data.image}
+                                        />
+                                    </Menu>
+                                ) : (
+                                    <Button purplePrimary onHandle={handleLogin}>
+                                        Đăng Nhập
+                                    </Button>
+                                )}
+                            </div>
+                        </div>
+                    </header>
+                ) : (
+                    'hello'
+                );
+            }}
+        </Media>
     );
 }
 Header.propTypes = {

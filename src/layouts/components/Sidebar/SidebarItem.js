@@ -3,7 +3,7 @@ import Button from '../../../components/Button';
 import styles from './Sidebar.module.scss';
 
 const cx = classNames.bind(styles);
-function SidebarItem({ data, onClick, isActive, dataset }) {
+function SidebarItem({ data, onClick, isActive, dataset, isTablet }) {
     return (
         <li
             className={cx('sidebar_item', isActive ? 'isActive' : '')}
@@ -11,12 +11,12 @@ function SidebarItem({ data, onClick, isActive, dataset }) {
             data-index={dataset}
         >
             <Button
-                LeftIcons={data.icon}
+                Icons={data.icon}
                 title={data.title}
                 to={data.to}
                 spederate={data.spederate}
             >
-                {data.title}
+                {!isTablet && data.title}
             </Button>
         </li>
     );

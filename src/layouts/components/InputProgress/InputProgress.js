@@ -16,7 +16,7 @@ function InputProgress({
     classes,
     audioRef,
     audioType,
-    volumeType,
+    volumeType, 
 }) {
     const dispatch = useDispatch();
     const { isVolume, songCurrent, volume } = useSelector(combinedStatusSelector);

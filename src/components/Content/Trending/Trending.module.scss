@@ -1,4 +1,4 @@
-.wrapper { 
+.wrapper {
     padding-bottom: 30px;
     .title_section {
         display: flex;
@@ -24,7 +24,14 @@
     }
     .container_list_song {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        column-gap: 20px;
+        column-gap: 20px; 
+        justify-content: center;
+        align-items: center;
+        grid-template-columns:1fr 1fr 1fr; 
+        align-items: center;
+        @media (max-width: 1300px) {
+            //tablet
+            grid-template-columns: repeat(2, 1fr);
+        }
     }
 }

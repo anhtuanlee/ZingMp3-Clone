@@ -19,8 +19,7 @@ export const loginSlice = createSlice({
             state.user.accessToken = action.payload;
         },
         setDataUser: (state, action) => {
-            state.user.data = action.payload;
-            console.log(state.user.data._id , USER_ID_STORAGE)
+            state.user.data = action.payload; 
             if (state.user.data._id !== USER_ID_STORAGE) {
                 state.user.listFavorite = [];
             }

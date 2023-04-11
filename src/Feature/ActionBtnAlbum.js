@@ -2,12 +2,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { combinedStatusSelector } from '../redux/selector';
 
 import Button from '../components/Button';
-import { Heart, HeartFull, More, Play } from '../components/Icons';
+import { Download, Heart, HeartFull, More, Play } from '../components/Icons';
 import WaveSong from '../components/Icons/WaveSong';
 import { featureSlice, loginSlice, statusSlice } from '../redux/sliceReducer';
 import styles from './PlayListSong.module.scss';
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
+import Menu from '../layouts/components/Menu/Menu';
 const cx = classNames.bind(styles);
 
 export const ActionBtnAlbum = ({
@@ -19,6 +20,7 @@ export const ActionBtnAlbum = ({
     HomePageTrending,
     playlistSong,
     isListQueue,
+    sizeTablet,
 }) => {
     const dispatch = useDispatch();
     const { slugDataBanner, dataSongs, isPlaying, songCurrent, dataUser } =
@@ -33,6 +35,9 @@ export const ActionBtnAlbum = ({
         songCurrent?.slug_name_singer === item?.slug_banner_singer_popular;
 
     const [isFavorite, setIsFavorite] = useState(false);
+    const [isMore, setIsMore] = useState(false);
+
+    //***handleEvent******/
 
     const handleLike = () => {
         if (playlistSong) {
@@ -68,7 +73,9 @@ export const ActionBtnAlbum = ({
             }
         }
     };
-
+    const handleSelectMoreSong = () => {
+        setIsMore(true);
+    };
     const BUTTON_HOVER = [
         {
             extraTitle: isFavorite ? 'Xóa khỏi thư viện ' : 'Thêm vào thư viện',
@@ -104,6 +111,9 @@ export const ActionBtnAlbum = ({
             switch (btn.type) {
                 case 'play':
                     return dispatch(statusSlice.actions.isPlayingChange(!isPlaying));
+                case 'more':
+                    handleSelectMoreSong();
+                    break;
                 default:
                     console.log('default');
             }
@@ -132,13 +142,23 @@ export const ActionBtnAlbum = ({
                 case 'like':
                     e.preventDefault();
                     handleLike();
-                    break; 
+                    break;
+                case 'more':
+                    e.preventDefault();
+                    handleSelectMoreSong();
+                    break;
                 default:
                     console.log('default');
             }
         }
     };
-
+    const MENU_SELECT = [
+        {
+            title: 'Tải xuống',
+            type: 'dowload',
+            icon: Download,
+        },
+    ]; 
     const renderBtnHover = () => {
         const result = BUTTON_HOVER.map((btn, index) => {
             const shouldRenderButton = !singleBtn || btn.type === 'play';
@@ -157,12 +177,44 @@ export const ActionBtnAlbum = ({
                                     title={item?.title}
                                     onHandle={(e) => onHandle(e, btn)}
                                 />
+                                {isMore && (
+                                    <Menu
+                                        items={MENU_SELECT}
+                                        visible={true}
+                                        placement="top-start"
+                                        song={song}
+                                    />
+                                )}
+                            </div>
+                        );
+                    }
+                } else if (sizeTablet) {
+                    if (btn.type === 'like') {
+                        return (
+                            <div key={index}>
+                                <Button
+                                    active={isFavorite && btn.type === 'like'}
+                                    Icons={btn.icon}
+                                    extraTitle={btn.extraTitle}
+                                    circle_hide={btn.circle_hide}
+                                    border_nothover={btn.border_nothover}
+                                    title={item?.title}
+                                    onHandle={(e) => onHandle(e, btn)}
+                                />
+                                {isMore && (
+                                    <Menu
+                                        items={MENU_SELECT}
+                                        visible={true}
+                                        placement="top-start"
+                                        song={song}
+                                    />
+                                )}
                             </div>
                         );
                     }
                 } else if (btn.type === 'more' || btn.type === 'like') {
                     return (
-                        <div key={index}>
+                        <div key={index} onMouseLeave={() => setIsMore(false)}>
                             <Button
                                 active={isFavorite && btn.type === 'like'}
                                 Icons={btn.icon}
@@ -173,6 +225,15 @@ export const ActionBtnAlbum = ({
                                 onHandle={(e) => onHandle(e, btn)}
                                 isListQueue={isListQueue}
                             />
+                            {isMore && btn.type === 'more' && (
+                                <Menu
+                                    items={MENU_SELECT}
+                                    visible={true}
+                                    placement="top-start"
+                                    song={song}
+                                    isListQueue={isListQueue}
+                                />
+                            )}
                         </div>
                     );
                 }

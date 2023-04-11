@@ -6,6 +6,10 @@
 .sidbar {
     height: calc(100vh - 90px);
     width: 240px;
+    @media (max-width: 1130px) {
+        //tablet
+        width: 70px;
+    }
 }
 
 .main_page {
@@ -13,6 +17,11 @@
     width: calc(100% - 240px);
     background-color: var(--primary);
     overflow: hidden scroll;
+
+    @media (max-width: 1130px) {
+        //tablet
+        width: calc(100% - 70px);
+    }
     .box {
         position: absolute;
         top: 0;

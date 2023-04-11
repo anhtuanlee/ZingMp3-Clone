@@ -24,15 +24,15 @@ function AudioElement(props, ref) {
         }
     };
     const handleEndMusic = () => {
-        if (currentIndex < dataSongs.length - 1) {
-            if (isRepeat) {
-                dispatch(featureSlice.actions.setTimes({ currentTime: 0 }));
-                ref.current.play();
-            } else {
-                currentIndex++;
-            }
+        if (isRepeat) {
+            dispatch(featureSlice.actions.setTimes({ currentTime: 0 }));
+            ref.current.play();
         } else {
-            currentIndex = 0;
+            if (currentIndex < dataSongs.length - 1) {
+                currentIndex++;
+            } else {
+                currentIndex = 0;
+            }
         }
         dispatch(featureSlice.actions.setCurrentID(currentIndex));
         dispatch(featureSlice.actions.setSongCurrent(dataSongs[currentIndex]));

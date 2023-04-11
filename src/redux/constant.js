@@ -65,7 +65,7 @@ export const MENU_SETTING_HEADER = [
     {
         title: 'Chất lượng nhạc',
         icon: Quality,
-        children: {
+        /*         children: {
             data: [
                 {
                     title: 'SQ•128',
@@ -76,12 +76,12 @@ export const MENU_SETTING_HEADER = [
                     content: 'Kết hợp tốt trong việc sử dụng dữ liệu và âm thanh',
                 },
             ],
-        },
+        }, */
     },
     {
         title: 'Giao diện',
         icon: ThemeMusic,
-        children: {
+        /*   children: {
             data: [
                 {
                     title: 'Luôn phát toàn màn hình',
@@ -90,32 +90,28 @@ export const MENU_SETTING_HEADER = [
                     title: 'Hiệu ứng',
                 },
             ],
-        },
+        }, */
     },
     {
         title: 'Giới thiệu',
         icon: Info,
         textblur: true,
         spederate: true,
-        href: 'http://google.com',
     },
     {
         title: 'Liên hệ',
         icon: Phone,
         textblur: true,
-        href: 'http://google.com',
     },
     {
         title: 'Quảng cáo',
         icon: Ads,
         textblur: true,
-        href: 'http://google.com',
     },
     {
         title: 'Thỏa thuận sử dụng',
         icon: Dieukhoan,
         textblur: true,
-        href: 'http://google.com',
     },
 ];
 
@@ -267,6 +263,7 @@ export const BANNER_SINGER_POPULAR = [
         title: 'Những Bài Hát Hay Nhất Của Sơn Tùng MTP',
     },
 ];
+
 export const BANNER_ALBUM_HOT = [
     {
         src: require('../assets/images/BannerAlbumHot/banner-album-hot-nhac-edm.jpg'),

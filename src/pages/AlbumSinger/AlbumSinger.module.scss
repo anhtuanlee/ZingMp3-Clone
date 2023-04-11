@@ -1,5 +1,4 @@
 .wrapper {
-    padding: var(--padding-section);
     padding-top: 20px;
     margin-bottom: 90px;
     height: 100vh;
@@ -7,16 +6,47 @@
 .container_playlist_detail {
     width: 100%;
     display: flex;
+
+    @media (max-width: 1200px) {
+        //tablet
+        flex-direction: column;
+    }
     .title_section {
         width: 300px;
         height: 600px;
         padding-top: 30px;
+
+        @media (max-width: 1200px) {
+            //tablet
+            width: 100%;
+            height: auto;
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            padding-bottom: 20px;
+            .img_banner {
+                width: 200px;
+                height: 200px;
+            }
+        }
         .title_header {
             display: flex;
             justify-content: center;
             padding: 16px 0;
             flex-wrap: wrap;
             text-align: center;
+            flex-direction: column;
+            align-items: center;
+            @media (max-width: 1200px) {
+                //tablet
+                flex-direction: column;
+                align-items: flex-start;
+                text-align: start;
+                margin-left: 20px;
+                .btn_effect {
+                    padding: 20px 0;
+                }
+            }
             .title_header_section {
                 margin-right: 10px;
             }
@@ -24,7 +54,7 @@
                 font-size: 12px;
                 color: var(--text-secondary);
                 font-weight: 500;
-                padding: 10px 0; 
+                padding: 10px 0;
                 display: flex;
                 flex-direction: column;
                 gap: 10px;
@@ -46,6 +76,9 @@
     .container_listsong_full {
         flex: 2;
         padding-left: 20px;
+        @media (max-width: 1200px) {
+            padding: 0;
+        }
         .title_songs_list {
             height: 46px;
             display: flex;
@@ -58,12 +91,31 @@
             border-bottom: 1px solid var(--border-playerdary);
         }
         .list_song {
-            height: calc(100vh - 240px);
+            height: calc(100vh - 250px);
             overflow-y: scroll;
+
+            @media (max-width: 1200px) {
+                //tablet
+                height: auto;
+                overflow-y: unset;
+            }
         }
     }
 }
+.title_partic_artist {
+    font-size: 20px;
+}
+.partic_artists {
+    // artist list
+    display: flex;
+    padding-bottom: 30px;
+    width: 100%;
 
+    overflow: hidden;
+    @media (max-width: 1200px) {
+        //tablet 
+    }
+}
 // custom scrollbar
 .list_song::-webkit-scrollbar {
     width: 6px;
