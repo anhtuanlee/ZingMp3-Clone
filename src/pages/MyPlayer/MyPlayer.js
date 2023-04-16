@@ -1,23 +1,21 @@
+import { useEffect } from 'react';
 import classNames from 'classnames/bind';
-import { useEffect, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import { RenderFullListSong } from '../../Feature/HandleEvent/handleEvent';
-import TitlePage from '../../layouts/components/TitlePage/TitlePage';
-import { combinedStatusSelector } from '../../redux/selector';
+
 import {
     featureSlice,
     loginSlice,
     sidebarSlice,
     statusSlice,
 } from '../../redux/sliceReducer';
-import { getProfileUser } from '../../services/userApi';
 import styles from './MyPlayer.module.scss';
-import Images from '../../components/Image';
-import { ArrowRight, Next, Random } from '../../components/Icons';
-import Button from '../../components/Button/Button';
-import { getSingerDataApi } from '../../services';
+import { ArrowRight } from '../../components/Icons';
 import RenderArtist from '../../Feature/RenderArtist';
+import { combinedStatusSelector } from '../../redux/selector';
+import TitlePage from '../../layouts/components/TitlePage/TitlePage'; 
+import { getProfileUser, getSongFavorite } from '../../services/userApi';
+import { RenderFullListSong } from '../../Feature/HandleEvent/handleEvent';
 
 const cx = classNames.bind(styles);
 
@@ -25,11 +23,8 @@ function MyPlayer() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { dataUser, isLoadingPage } = useSelector(combinedStatusSelector);
-    const listFavorite = useMemo(() => {
-        return dataUser.listFavorite;
-    }, [dataUser.listFavorite]);
 
-    const listArtist = listFavorite.filter((item, index, arr) => {
+    const listArtist = dataUser?.listFavorite.filter((item, index, arr) => {
         // filter list artist
         const newList = arr.findIndex(
             (it) => it.slug_name_singer === item.slug_name_singer,
@@ -66,24 +61,31 @@ function MyPlayer() {
             );
         }
     }, []);
-    // save user id to check after login . if same will use listFavorite old, and change [] when new user id
-    useEffect(() => {
-        if (dataUser.data._id) {
-            localStorage.setItem('dataUserID', JSON.stringify(dataUser.data._id));
-        }
-    }, [dataUser.data.length]);
 
+    useEffect(() => {
+        //getDataSongFavorite of user
+        const fetch = async () => {
+            const result = await getSongFavorite(dataUser.accessToken).then((data) => {
+                if (data.data) {
+                    const dataMusic = data.data.map((song) => song.music);
+                    dispatch(loginSlice.actions.setListSongFavorite(dataMusic));
+                }
+            });
+            return result;
+        };
+        fetch();
+    }, []);
     return (
-        dataUser.data.image && (
-            <div className={cx('wrapper')}>
-                <div className={cx('container')}>
-                    <div className={cx('title_section')}>
-                        <TitlePage
-                            title={`Thư Viện của ${dataUser?.data.user_name}`}
-                            sizes="medium"
-                            data={listFavorite}
-                        />
-                    </div>
+        <div className={cx('wrapper')}>
+            <div className={cx('container')}>
+                <div className={cx('title_section')}>
+                    <TitlePage
+                        title="Thư Viện"
+                        sizes="medium"
+                        data={dataUser?.listFavorite}
+                    />
+                </div>
+                <>
                     <div>
                         <TitlePage styles={{ fontSize: '25px' }} title="Nghệ Sĩ" />
 
@@ -96,18 +98,21 @@ function MyPlayer() {
                     </div>
                     <div className={cx('playlist_favorite')}>
                         <TitlePage styles={{ fontSize: '25px' }} title="Playlist" />
-                        {!isLoadingPage && (
+                        {!isLoadingPage && dataUser.listFavorite.length > 0 && (
                             <div className={cx('title_songs_list')}>
                                 <span>BÀI HÁT</span>
                                 <span>ALBUM</span>
                                 <span>THỜI GIAN</span>
                             </div>
                         )}
-                        <RenderFullListSong data={listFavorite} />
+                        {!dataUser.listFavorite.length && !isLoadingPage > 0 && (
+                            <h3>Hiện chưa có bài hát nào.... </h3>
+                        )}
+                        <RenderFullListSong data={dataUser?.listFavorite} />
                     </div>
-                </div>
+                </>
             </div>
-        )
+        </div>
     );
 }
 

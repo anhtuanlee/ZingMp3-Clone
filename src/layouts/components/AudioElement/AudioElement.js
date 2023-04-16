@@ -1,32 +1,38 @@
-import React, { forwardRef, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+import { useAudio } from '../../../hooks';
+import { getMusicName, newSongApi } from '../../../services';
 import { combinedStatusSelector } from '../../../redux/selector';
 import { featureSlice, statusSlice } from '../../../redux/sliceReducer';
-import { getMusicName, newSongApi } from '../../../services';
 
-function AudioElement(props, ref) {
+function AudioElement() {
     const dispatch = useDispatch();
-    const { isRepeat, isPlaying, dataSongs, songCurrent } =
+    const { isRepeat, isPlaying, dataSongs, songCurrent, isRandom } =
         useSelector(combinedStatusSelector);
-
+    
     let { currentIndex } = useSelector(combinedStatusSelector); // ?
 
     const currentSongChange = dataSongs[currentIndex];
-
+    const audioRef = useAudio();
     //Event
-    const handleTimeUpdate = (e) => {
-        dispatch(featureSlice.actions.setTimes(e.target.currentTime));
-        localStorage.setItem('currentTime', JSON.stringify(e.target.currentTime));
+    const handleTimeUpdate = () => {
+        dispatch(featureSlice.actions.setTimes(audioRef.current.currentTime));
+
+        localStorage.setItem('currentTime', JSON.stringify(audioRef.current.currentTime));
     };
     const handleCanPlay = () => {
         if (isPlaying) {
-            ref && ref.current.play();
+            audioRef?.current && audioRef?.current.play();
         }
     };
     const handleEndMusic = () => {
         if (isRepeat) {
             dispatch(featureSlice.actions.setTimes({ currentTime: 0 }));
-            ref.current.play();
+            audioRef?.current.play();
+        } else if (isRandom) {
+            const randomId = Math.floor(Math.random() * dataSongs.length);
+            currentIndex = randomId;
         } else {
             if (currentIndex < dataSongs.length - 1) {
                 currentIndex++;
@@ -34,6 +40,7 @@ function AudioElement(props, ref) {
                 currentIndex = 0;
             }
         }
+
         dispatch(featureSlice.actions.setCurrentID(currentIndex));
         dispatch(featureSlice.actions.setSongCurrent(dataSongs[currentIndex]));
     };
@@ -84,13 +91,15 @@ function AudioElement(props, ref) {
 
     return (
         <audio
-            ref={ref}
+            ref={audioRef}
+            controls
+            hidden
             src={songCurrent?.src_music}
-            onTimeUpdate={(e) => handleTimeUpdate(e)}
+            onTimeUpdate={handleTimeUpdate}
             onEnded={handleEndMusic}
             onCanPlay={handleCanPlay}
         />
     );
 }
 
-export default forwardRef(AudioElement);
+export default React.memo(AudioElement);

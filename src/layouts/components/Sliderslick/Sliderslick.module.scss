@@ -1,13 +1,16 @@
 .wrapper {
     width: 100% !important;
-    padding-top: 32px; 
     padding-top: 32px;
+    padding-top: 32px;
+
+    @media (max-width: 600px) {
+        padding-bottom: 50px;
+    }
 }
 .card_banners img {
     border-radius: 8px;
     .slide-right {
-        -webkit-animation: slide-right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)
-            both;
+        -webkit-animation: slide-right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
         animation: slide-right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
     }
 }
@@ -15,3 +18,4 @@
     width: 100%;
     padding-bottom: 56, 25%;
 }
+ 

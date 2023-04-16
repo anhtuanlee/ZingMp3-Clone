@@ -24,6 +24,10 @@
         //tablet
         grid-template-columns: repeat(4, 1fr); 
     }
+    @media (max-width: 600px) {
+        //mobile 
+        grid-template-columns: repeat(3, 1fr); 
+    }
     .item_partner {
         background-color: #f7f7f7;
         line-height: 0;

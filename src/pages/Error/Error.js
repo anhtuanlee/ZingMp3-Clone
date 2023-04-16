@@ -2,10 +2,13 @@ import classNames from 'classnames/bind';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Button from '../../components/Button';
+
 import { sidebarSlice } from '../../redux/sliceReducer';
+import Button from '../../components/Button';
 import styles from './Error.module.scss';
+
 const cx = classNames.bind(styles);
+
 function ErrorPage() {
     const dispatch = useDispatch();
     useEffect(() => {

@@ -1,12 +1,13 @@
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import ControlsLeft from '../../layouts/components/Controls/ControlsLeft';
-import { combinedStatusSelector } from '../../redux/selector';
-import { statusSlice } from '../../redux/sliceReducer';
+
 import Button from '../Button';
 import { Close } from '../Icons';
 import styles from './MvPlayer.module.scss';
+import { statusSlice } from '../../redux/sliceReducer';
+import { combinedStatusSelector } from '../../redux/selector';
+import ControlsLeft from '../../layouts/components/Controls/ControlsLeft';
 
 const cx = classNames.bind(styles);
 
@@ -14,13 +15,12 @@ function MvPlayer() {
     const dispatch = useDispatch();
     const { songCurrent, isContentHide } = useSelector(combinedStatusSelector);
     const [urlMv, setUrlMv] = useState('');
-    const handleCloseMv = () => {
+
+    const handleCloseMv = async (ms) => {
         dispatch(statusSlice.actions.isCheckBeforeContentHide(true));
-        setTimeout(() => {
-            dispatch(statusSlice.actions.isMvPlayerChange(false));
-            dispatch(statusSlice.actions.isCheckBeforeContentHide(false));
-            // delay time dispath
-        }, 300);
+        await new Promise((rel) => setTimeout(rel, ms));
+        dispatch(statusSlice.actions.isMvPlayerChange(false));
+        dispatch(statusSlice.actions.isCheckBeforeContentHide(false));
     };
     useEffect(() => {
         setUrlMv(songCurrent?.link_mv);
@@ -32,7 +32,7 @@ function MvPlayer() {
                     <div className={cx('title_singer')}>
                         <ControlsLeft styleImg="border" styleTitle={cx('title_mv')} />
                     </div>
-                    <Button circle Icons={Close} onHandle={handleCloseMv} />
+                    <Button circle Icons={Close} onHandle={() => handleCloseMv(300)} />
                 </header>
                 <div className={cx('content_section')}>
                     {/* play_mv */}

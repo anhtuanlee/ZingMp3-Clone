@@ -7,7 +7,7 @@ export const get = async (path, options = {}) => {
     const res = await request.get(path, options);
     return res.data;
 };
-export const post = async (path, options = {}) => {
-    const res = await request.post(path, options);
+export const post = async (path, body = {}, header = {}) => {
+    const res = await request.post(path, body, header);
     return res.data;
 };

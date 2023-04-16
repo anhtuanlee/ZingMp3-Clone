@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import styles from './Loading.module.scss';
 
@@ -11,3 +12,9 @@ function Loading({ children, styles, className }) {
 }
 
 export default Loading;
+
+Loading.propTypes = {
+    styles: PropTypes.object,
+    className: PropTypes.string,
+    children: PropTypes.node,
+};

@@ -1,17 +1,19 @@
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { RenderFullListSong } from '../../Feature/HandleEvent/handleEvent';
-import TitlePage from '../../layouts/components/TitlePage/TitlePage';
-import { sidebarSlice, statusSlice } from '../../redux/sliceReducer';
-import { newSongApi } from '../../services';
+
 import styles from './NewSongs.module.scss';
+import { newSongApi } from '../../services';
+import { sidebarSlice, statusSlice } from '../../redux/sliceReducer';
+import TitlePage from '../../layouts/components/TitlePage/TitlePage';
+import { RenderFullListSong } from '../../Feature/HandleEvent/handleEvent';
+
 const cx = classNames.bind(styles);
 
 function NewUpdate() {
     const [dataNewSong, setDataNewSong] = useState([]);
     const dispatch = useDispatch();
-    const isRank = true;
+     
     useEffect(() => {
         dispatch(statusSlice.actions.isPageLoadingChange(true));
         const fetchNewSong = async () => {
@@ -31,7 +33,7 @@ function NewUpdate() {
             <TitlePage title="Nhạc Mới" sizes="large" data={dataNewSong} />
 
             <div className={cx('content_section')}>
-                <RenderFullListSong data={dataNewSong} isRank={isRank} />
+                <RenderFullListSong data={dataNewSong} isRank />
             </div>
         </div>
     );

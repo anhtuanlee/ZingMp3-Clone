@@ -20,7 +20,13 @@
 
     .button_select_national {
         display: flex;
-        padding: 20px 0;
+        padding: 20px 0; 
+        width: 100%;
+        gap: 20px;
+          @media (max-width: 600px) {
+            //mobile
+            
+        }
     }
     .container_list_song {
         display: grid;
@@ -29,9 +35,13 @@
         align-items: center;
         grid-template-columns:1fr 1fr 1fr; 
         align-items: center;
-        @media (max-width: 1300px) {
+        @media (max-width: 1200px) {
             //tablet
             grid-template-columns: repeat(2, 1fr);
+        }
+        @media (max-width: 600px) {
+            //tablet
+            grid-template-columns: repeat(1, 1fr);
         }
     }
 }

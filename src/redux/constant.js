@@ -186,7 +186,7 @@ export const BANNER_SLIDERS = [
     },
     {
         banner: images.bannerSlider[1],
-        to: '/',
+        to: '/  ',
     },
     {
         banner: images.bannerSlider[2],

@@ -1,15 +1,19 @@
+import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
-import Header from '../../layouts/components/Header';
+import { useParams } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+
 import Sidebar from '../components/Sidebar';
 import styles from './DefaultLayout.module.scss';
-import { useEffect, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import Header from '../../layouts/components/Header';
+
 const cx = classNames.bind(styles);
+
 function DefaultLayout({ children }) {
     const ref = useRef();
     const wrapperRef = useRef();
     const [isScroll, setScroll] = useState();
-    const params = useParams()
+    const params = useParams();
     //handle Scroll in main page
 
     useEffect(() => {
@@ -23,11 +27,11 @@ function DefaultLayout({ children }) {
         return () => instance.removeEventListener('scroll', handleScroll);
     }, []);
     useEffect(() => {
-        const instance = ref.current
-        if(params) {
-            instance.scrollTo(0,0)
+        const instance = ref.current;
+        if (params) {
+            instance.scrollTo(0, 0);
         }
-    },[params])
+    }, [params]);
     return (
         <div className={cx('wrapper')} ref={wrapperRef}>
             <div className={cx('sidbar')}>
@@ -44,3 +48,6 @@ function DefaultLayout({ children }) {
 }
 
 export default DefaultLayout;
+DefaultLayout.propTypes = {
+    children: PropTypes.node,
+};

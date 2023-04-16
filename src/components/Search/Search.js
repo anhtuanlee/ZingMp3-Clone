@@ -1,26 +1,25 @@
+import PropTypes from 'prop-types';
 import React, { useEffect, useRef, useState } from 'react';
 import { faSearch, faXmark } from '@cseitz/fontawesome-svg-light';
-import Tippy from '@tippyjs/react/headless';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { useDebounce } from '../../hooks';
-import { SearchApi } from '../../services';
-import { AccountPropose } from '../Propose';
 import PlayListSong from '../../Feature/PlayListSong';
-import classNames from 'classnames/bind';
+import { AccountPropose } from '../Propose';
+import { SearchApi } from '../../services';
+import { useDebounce } from '../../hooks';
 import styles from './Search.module.scss';
+import classNames from 'classnames/bind';
 import { Loading } from '../Icons';
 
 const cx = classNames.bind(styles);
 
-function Search() {
+function Search({ visibleHeaderMobile, handleSearchForm }) {
     const [value, setValue] = useState('');
     const [searchResult, setSearchResult] = useState([]);
     const [visible, setVisible] = useState(false);
     const [loadingSearch, setLoadingSearch] = useState();
     const debounce = useDebounce(value, 500);
     const containerRef = useRef();
-
     useEffect(() => {
         const Fetch = async () => {
             if (value) {
@@ -42,9 +41,10 @@ function Search() {
             setSearchResult([]);
         }
     };
-    const handleFocus = () => {
+    const handleFocus = (e) => {
         setVisible(true);
     };
+
     const handleOffResult = (e) => {
         if (containerRef?.current) {
             if (containerRef.current?.contains(e.target)) {
@@ -67,11 +67,16 @@ function Search() {
     }, [visible, containerRef.current]);
     return (
         <div className={cx('wrapper')} ref={containerRef}>
-            <div className={cx('search_input', visible === true ? 'isCollap' : '')}>
+            <div
+                className={cx(
+                    'search_input',
+                    visible || visibleHeaderMobile ? 'isCollap' : '',
+                )}
+            >
                 <FontAwesomeIcon icon={faSearch} className={cx('button_search')} />
                 <input
                     value={value}
-                    onFocus={handleFocus}
+                    onFocus={(e) => handleFocus(e)}
                     onChange={(e) => handleType(e)}
                     placeholder="Tìm kiếm bài hát, nghệ sĩ, lời bài hát..."
                 />
@@ -88,7 +93,7 @@ function Search() {
                     </div>
                 )}
 
-                {visible && (
+                {(visible || visibleHeaderMobile) && (
                     <div className={cx('result_search')}>
                         {/* kiểm tra mảng có phần tử mới gửi dữ liệu qua Account */}
                         <h4 className={cx('result_title')}>
@@ -98,7 +103,11 @@ function Search() {
                         </h4>
                         {searchResult.length > 0 && (
                             <AccountPropose
-                                onHandle={handleOffResult}
+                                onHandle={
+                                    visibleHeaderMobile
+                                        ? handleSearchForm
+                                        : handleOffResult
+                                }
                                 data={searchResult ? searchResult : undefined}
                             />
                         )}
@@ -109,7 +118,6 @@ function Search() {
                                     index={index}
                                     key={index}
                                     data={searchResult}
-                                    onHandle={handleOffResult}
                                 />
                             );
                         })}
@@ -121,3 +129,8 @@ function Search() {
 }
 
 export default React.memo(Search);
+
+Search.propTypes = {
+    visibleHeaderMobile: PropTypes.bool,
+    handleSearchForm: PropTypes.bool,
+};

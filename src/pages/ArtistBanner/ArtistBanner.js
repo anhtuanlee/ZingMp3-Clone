@@ -1,14 +1,19 @@
+import { useEffect } from 'react';
 import classNames from 'classnames/bind';
-import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { featureSlice, loginSlice, sidebarSlice, statusSlice } from '../../redux/sliceReducer';
-import { getSingerDataApi } from '../../services';
+import { useLocation, useNavigate } from 'react-router-dom';
+
+import {
+    featureSlice,
+    loginSlice,
+    sidebarSlice,
+    statusSlice,
+} from '../../redux/sliceReducer';
 import styles from './ArtistBanner.module.scss';
-import TitlePage from '../../layouts/components/TitlePage/TitlePage';
 import RenderArtist from '../../Feature/RenderArtist';
-import { combinedStatusSelector } from '../../redux/selector';
 import { getProfileUser } from '../../services/userApi';
+import { combinedStatusSelector } from '../../redux/selector';
+import TitlePage from '../../layouts/components/TitlePage/TitlePage';
 
 const cx = classNames.bind(styles);
 function ArtistBanner() {
@@ -56,6 +61,9 @@ function ArtistBanner() {
                 <div className={cx('list_card_artist')}>
                     <RenderArtist data={dataFullArtist} isPageArtist />
                 </div>
+                {!dataUser.listFavorite.length > 0 && (
+                    <h3>Hiện chưa có nghệ sĩ nào.... </h3>
+                )}
             </div>
         </div>
     );

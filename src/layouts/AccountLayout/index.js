@@ -1,8 +1,10 @@
+import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
+import { useEffect, useRef, useState } from 'react';
+
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import styles from './AccountLayout.module.scss';
-import { useEffect, useRef, useState } from 'react';
 
 const cx = classNames.bind(styles);
 function AccountLayout({ children }) {
@@ -27,7 +29,7 @@ function AccountLayout({ children }) {
                 <Sidebar />
             </div>
             <div className={cx('main_page')} ref={ref}>
-                <Header styles={cx('header_main_page')} isScrollHeader={isScroll}/>
+                <Header styles={cx('header_main_page')} isScrollHeader={isScroll} />
                 <div>{children}</div>
             </div>
         </div>
@@ -35,3 +37,7 @@ function AccountLayout({ children }) {
 }
 
 export default AccountLayout;
+
+AccountLayout.propTypes = {
+    children: PropTypes.node,
+};

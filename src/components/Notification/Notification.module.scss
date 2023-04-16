@@ -3,15 +3,18 @@
     top: 0;
     left: 0;
     z-index: 99999999;
-    padding: 10px;
+    padding: 10px; 
     .container {
         border: 1px solid transparent;
         display: flex;
         align-items: center;
         padding: 15px 10px;
         border-radius: 8px;
-        max-width: 30vw;
-        background-color: var(--white);
+        max-width: 30vw; 
+        background-color: var(--white); 
+        @media (max-width: 600px) {
+            max-width: 60vw;
+        }
         .icon_notification {
             color: transparent;
             font-size: 20px;

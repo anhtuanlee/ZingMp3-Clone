@@ -1,12 +1,13 @@
 import Tippy from '@tippyjs/react';
+import { useState } from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import Headless from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import 'tippy.js/dist/tippy.css';
+
 import Menu from '../../layouts/components/Menu';
 import styles from './Button.module.scss';
-import PropTypes from 'prop-types';
 
 const cx = classNames.bind(styles);
 
@@ -25,6 +26,7 @@ function Button({
     effectHover,
     effectHoverReverse,
     border_nothover,
+    modalControls,
     isListQueue,
     purplePrimary,
     //sizes
@@ -66,6 +68,7 @@ function Button({
             effectHoverReverse,
             isListQueue,
             purplePrimary,
+            modalControls,
         },
         sizes,
         className,
@@ -166,6 +169,19 @@ Button.propTypes = {
     extraTitle: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
     nestest: PropTypes.object,
     className: PropTypes.string,
-    spederate: PropTypes.bool,
+    spederate: PropTypes.bool, 
+    text_border: PropTypes.bool,
+    circle_hide: PropTypes.bool,
+    border: PropTypes.bool,
+    borderFixPlay: PropTypes.bool,
+    disable: PropTypes.bool,
+    active: PropTypes.bool,
+    effectHover: PropTypes.bool,
+    effectHoverReverse: PropTypes.bool,
+    border_nothover: PropTypes.bool,
+    modalControls: PropTypes.bool,
+    isListQueue: PropTypes.bool,
+    purplePrimary: PropTypes.bool,
+    isLoading: PropTypes.bool,
 };
 export default Button;

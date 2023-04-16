@@ -1,11 +1,13 @@
+import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
-import Button from '../../components/Button';
-import Images from '../Image';
-import styles from './ModalTheme.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { combinedStatusSelector } from '../../redux/selector';
+
+import Images from '../Image';
+import Button from '../../components/Button';
+import styles from './ModalTheme.module.scss';
 import { themeSlice } from '../../redux/sliceReducer';
+import { combinedStatusSelector } from '../../redux/selector';
 
 const cx = classNames.bind(styles);
 
@@ -191,3 +193,8 @@ function ModalItem({ item, themeTest }) {
 }
 
 export default ModalItem;
+
+ModalItem.propTypes = {
+    item: PropTypes.object,
+    themeTest: PropTypes.bool,
+};

@@ -9,10 +9,11 @@ import {
     RenderButtonSelect,
     RenderFullListSong,
 } from '../../Feature/HandleEvent/handleEvent';
-import TitlePage from '../../layouts/components/TitlePage/TitlePage';
-import { sidebarSlice, statusSlice } from '../../redux/sliceReducer';
-import { getTrendingDataApi } from '../../services';
 import styles from './Trending.module.scss';
+import { getTrendingDataApi } from '../../services';
+import { sidebarSlice, statusSlice } from '../../redux/sliceReducer';
+import TitlePage from '../../layouts/components/TitlePage/TitlePage';
+
 const cx = classNames.bind(styles);
 
 function Trending() {

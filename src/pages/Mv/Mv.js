@@ -8,7 +8,7 @@ function Mv() {
     useEffect(() => {
         swal({
             title: 'Thông Báo !!!',
-            text: 'Chức năng đang phát triển',
+            text: 'Chức năng đang phát triển...',
             icon: 'warning',
             buttons: 'Oki ^^!',
         });

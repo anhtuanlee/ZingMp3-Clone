@@ -1,13 +1,12 @@
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 
-import Button from '../../../components/Button/Button';
 import styles from './Menu.module.scss';
+import Button from '../../../components/Button/Button';
 
 const cx = classNames.bind(styles);
 
-function MenuItem({ data, onHandle, song }) { 
-    
+function MenuItem({ data, onHandle }) {
     const classes = cx('items', {
         textblur: data.textblur,
     });
@@ -19,7 +18,7 @@ function MenuItem({ data, onHandle, song }) {
                 LeftIcons={data.icon}
                 className={cx('icon')}
                 to={data.to}
-                onHandle={() => onHandle(data)}
+                onHandle={onHandle}
                 href={data.href}
                 title={data.title}
                 nestest={data.children}

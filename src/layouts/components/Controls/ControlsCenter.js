@@ -1,8 +1,14 @@
-import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
+import classNames from 'classnames/bind';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+import styles from './Controls.module.scss';
+import InputProgress from '../InputProgress';
 import Button from '../../../components/Button';
+import { useAudio, useTimes } from '../../../hooks';
+import { featureSlice, statusSlice } from '../../../redux/sliceReducer';
+import { combinedFeatureSelector, combinedStatusSelector } from '../../../redux/selector';
 import {
     Loading,
     Next,
@@ -12,24 +18,23 @@ import {
     Random,
     Repeat,
 } from '../../../components/Icons';
-import { useTimes } from '../../../hooks';
-import { combinedFeatureSelector, combinedStatusSelector } from '../../../redux/selector';
-import { featureSlice, statusSlice } from '../../../redux/sliceReducer';
-import InputProgress from '../InputProgress';
-import styles from './Controls.module.scss';
+
 const cx = classNames.bind(styles);
 
-function ControlsCenter({ audioRef }) {
+function ControlsCenter({
+    isMobile,
+    isControlModal, //style modal mobile
+}) {
     const dispatch = useDispatch();
     const { isPlaying, isRandom, isRepeat, dataSongs, isLoading, songCurrent } =
         useSelector(combinedStatusSelector);
     const { times } = useSelector(combinedFeatureSelector);
     let { currentIndex } = useSelector(combinedStatusSelector);
     //times display
+    const audioRef = useAudio();
     const timeRemain = useTimes(times.currentTime);
     const [randomIndex, setRandomIndex] = useState([]);
     const list = new Set(randomIndex); // List save random currentIndex and reset at full
-
     //handleChangeIndex main
     const handleSetIndexChange = (currentIndex) => {
         dispatch(statusSlice.actions.isPlayingChange(true));
@@ -37,7 +42,7 @@ function ControlsCenter({ audioRef }) {
         dispatch(featureSlice.actions.setSongCurrent(dataSongs[currentIndex]));
     };
     //handle random
-    const handleRandom = (currentIndex) => {
+    const handleRandom = (index) => {
         let random;
         const songsLength = dataSongs.length;
         do {
@@ -45,7 +50,7 @@ function ControlsCenter({ audioRef }) {
             setRandomIndex((prev) => [...prev, random]);
         } while (list.has(random));
         currentIndex = random;
-        setRandomIndex((prev) => [...prev, currentIndex]);
+        setRandomIndex((prev) => [...prev, index]);
 
         if (list.size === songsLength - 1) {
             setRandomIndex([]);
@@ -53,13 +58,12 @@ function ControlsCenter({ audioRef }) {
     };
 
     // custom handle with type
-    const handleControlMain = (type) => {
+    const handleControlMain = (type, e) => {
+        e.preventDefault();
+        e.stopPropagation();
         switch (type) {
             case 'play':
-                dispatch(statusSlice.actions.isPlayingChange(isPlaying ? false : true));
-                break;
-            case 'pause':
-                dispatch(statusSlice.actions.isPlayingChange(isPlaying ? false : true));
+                dispatch(statusSlice.actions.isPlayingChange(!isPlaying));
                 break;
             case 'next':
                 if (currentIndex < dataSongs.length - 1) {
@@ -106,7 +110,7 @@ function ControlsCenter({ audioRef }) {
                     iconLoading: isLoading ? Loading : undefined,
                     border: true,
                     circle_hide: true,
-                    type: isPlaying ? 'play' : 'pause',
+                    type: 'play',
                 },
 
                 {
@@ -124,12 +128,11 @@ function ControlsCenter({ audioRef }) {
     ];
     // play pause
     useEffect(() => {
-        if (audioRef) {
+        if (audioRef?.current.src) {
             if (isPlaying) {
-                audioRef.current.muted = false;
-                audioRef.current.play();
+                audioRef?.current.play();
             } else {
-                audioRef.current.pause();
+                audioRef?.current.pause();
             }
         }
     }, [isPlaying]);
@@ -145,43 +148,72 @@ function ControlsCenter({ audioRef }) {
     const lastData = CONTROL_BTNS_CENTER[CONTROL_BTNS_CENTER.length - 1].data;
     const renderControlsBtn = lastData.map((btn, currentIndex) => {
         const isCircleHide = btn.circle_hide;
-        return (
+        const btnOnMobile =
+            btn.type === 'next' || btn.type === 'prev' || btn.type === 'play';
+        return isMobile ? (
+            btnOnMobile && (
+                <Button
+                    circle_hide={true}
+                    extraTitle={btn.extraTitle}
+                    isLoading={btn.iconLoading ? true : false}
+                    Icons={btn.iconLoading || btn.icon}
+                    key={currentIndex}
+                    active={btn.active}
+                    onHandle={(e) => handleControlMain(btn.type, e)}
+                />
+            )
+        ) : (
             <Button
                 circle_hide={isCircleHide ? false : true}
                 border={btn?.border}
+                modalControls={isControlModal}
                 borderFixPlay={btn?.borderFixPlay} // fix play center
                 extraTitle={btn.extraTitle}
                 isLoading={btn.iconLoading ? true : false}
                 Icons={btn.iconLoading || btn.icon}
                 key={currentIndex}
                 active={btn.active}
-                onHandle={() => handleControlMain(btn.type)}
+                onHandle={(e) => handleControlMain(btn.type, e)}
             />
         );
     });
-    return (
-        <div className={cx('player_controls_center')}>
-            <div className={cx('player_controls_center_container')}>
-                <div className={cx('controls')}>{renderControlsBtn}</div>
+    return isControlModal ? (
+        <div className={cx('player_controls_center_container')}>
+            <div className={cx('progress_full')}>
+                <div className={cx('duration_bar')}>
+                    <span className={cx('time_start')}>{timeRemain} </span>
+
+                    <div className={cx('progress_container')}>
+                        <InputProgress max={100} step={1} audioType={true} />
+                    </div>
+
+                    <span className={cx('time_end')}>{songCurrent?.time_format}</span>
+                </div>
+            </div>
+            <div className={cx('controls', 'modalControls')}>{renderControlsBtn}</div>
+        </div>
+    ) : (
+        <div className={cx('player_controls_center_container')}>
+            <div className={cx('controls')}>{renderControlsBtn}</div>
+            {!isMobile && (
                 <div className={cx('progress_full')}>
                     <div className={cx('duration_bar')}>
                         <span className={cx('time_start')}>{timeRemain} </span>
+
                         <div className={cx('progress_container')}>
-                            <InputProgress
-                                max={100}
-                                step={1}
-                                audioType={true}
-                                audioRef={audioRef}
-                            />
+                            <InputProgress max={100} step={1} audioType={true} />
                         </div>
+
                         <span className={cx('time_end')}>{songCurrent?.time_format}</span>
                     </div>
                 </div>
-            </div>
+            )}
         </div>
     );
 }
+
 ControlsCenter.propTypes = {
-    audioRef: PropTypes.object,
+    isMobile: PropTypes.bool,
+    isControlModal: PropTypes.bool,
 };
-export default ControlsCenter;
+export default React.memo(ControlsCenter);

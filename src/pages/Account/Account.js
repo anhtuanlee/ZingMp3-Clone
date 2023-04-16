@@ -2,12 +2,12 @@ import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { sidebarSlice, statusSlice } from '../../redux/sliceReducer';
-import { getSingerDataApi } from '../../services';
-import Loading from '../Loading';
+
 import styles from './Account.module.scss';
-import ContentPageSinger from './ContentPageSinger/ContentPageSinger';
+import { getSingerDataApi } from '../../services';
 import HeaderPageSinger from './HeaderPageSinger/HeaderPageSinger';
+import { sidebarSlice, statusSlice } from '../../redux/sliceReducer';
+import ContentPageSinger from './ContentPageSinger/ContentPageSinger';
 
 const cx = classNames.bind(styles);
 function AccountPage() {

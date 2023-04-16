@@ -1,6 +1,9 @@
 import { useSelector } from 'react-redux';
-import Button from '../../components/Button';
+import PropTypes from 'prop-types';
+
+import PlayListSong from '../PlayListSong';
 import Loading from '../../pages/Loading';
+import Button from '../../components/Button';
 import {
     ALL_NATIONAL,
     BUTTON_RENDER_SELECT_NATIONAL,
@@ -10,7 +13,6 @@ import {
     VPOP_NATIONAL,
 } from '../../redux/constant';
 import { combinedStatusSelector } from '../../redux/selector';
-import PlayListSong from '../PlayListSong';
 
 // handle Filter song trending
 export const handleFilterSongTrending = (data, paramsFilter) => {
@@ -32,19 +34,35 @@ export const handleFilterSongTrending = (data, paramsFilter) => {
             case ALL_NATIONAL:
                 return category;
             default:
-                return category;
+                throw Error('error');
         }
     });
     return dataFilter;
 };
+
+export const handleSelectButtonNational = (item) => {
+    // handle Select Button to return type
+    const nationalMap = {
+        // fake to map with type no need used map
+        [VPOP_NATIONAL]: VPOP_NATIONAL,
+        [KPOP_NATIONAL]: KPOP_NATIONAL,
+        [USUK_NATIONAL]: USUK_NATIONAL,
+        [LOBAl]: LOBAl,
+        [ALL_NATIONAL]: ALL_NATIONAL,
+    };
+    const type = item.type;
+
+    return nationalMap[type];
+};
+
 export const RenderFullListSong = ({
     data,
     isRank,
     HomePageTrending,
     containerRef,
-    isListQueue, 
+    isListQueue,
 }) => {
-    const { isLoadingPage } = useSelector(combinedStatusSelector);
+    const { isLoadingPage } = useSelector(combinedStatusSelector); 
 
     const ComponentLoading = ({ index }) => {
         return (
@@ -100,36 +118,28 @@ export const RenderFullListSong = ({
         return isLoadingPage ? (
             <ComponentLoading key={index} />
         ) : (
-            <div key={index}>
-                <PlayListSong
-                    data={dataMap}
-                    song={item}
-                    index={index}
-                    rank={isRank}
-                    HomePageTrending={HomePageTrending}
-                    ref={containerRef}
-                    isListQueue={isListQueue} 
-                />
-            </div>
+            <PlayListSong
+                key={index}
+                data={dataMap}
+                song={item}
+                index={index}
+                isRank={isRank}
+                HomePageTrending={HomePageTrending}
+                ref={containerRef}
+                isListQueue={isListQueue}
+            />
         );
     });
     return result;
 };
-
-export const handleSelectButtonNational = (item) => {
-    // handle Select Button to return type
-    const nationalMap = {
-        // fake to map with type no need used map
-        [VPOP_NATIONAL]: VPOP_NATIONAL,
-        [KPOP_NATIONAL]: KPOP_NATIONAL,
-        [USUK_NATIONAL]: USUK_NATIONAL,
-        [LOBAl]: LOBAl,
-        [ALL_NATIONAL]: ALL_NATIONAL,
-    };
-    const type = item.type;
-
-    return nationalMap[type];
+RenderFullListSong.propTypes = {
+    data: PropTypes.array,
+    isRank: PropTypes.bool,
+    isListQueue: PropTypes.bool,
+    containerRef: PropTypes.object,
+    HomePageTrending: PropTypes.bool,
 };
+
 export const RenderButtonSelect = (
     paramsFilter,
     onHandleSelectNational,
@@ -151,15 +161,14 @@ export const RenderButtonSelect = (
                     styles={{ width: '8%', height: '2vh', margin: '0 5px' }}
                 />
             ) : (
-                <div key={index}>
-                    <Button
-                        className={item.type === paramsFilter ? 'isActive' : ''}
-                        onHandle={() => onHandleSelectNational(item)}
-                        text_border
-                    >
-                        {item.title}
-                    </Button>
-                </div>
+                <Button
+                    key={index}
+                    className={item.type === paramsFilter ? 'isActive' : ''}
+                    onHandle={() => onHandleSelectNational(item)}
+                    text_border
+                >
+                    {item.title}
+                </Button>
             );
         }
 
@@ -167,39 +176,8 @@ export const RenderButtonSelect = (
     });
     return result;
 };
-/*  const result = BUTTON_RENDER_SELECT_NATIONAL.map((item, index) => {
-    code kieu ga
-        if (isTrendingPage) {
-            if (item.type !== LOBAl) {
-                return (
-                    <div key={index}>
-                        <Button
-                            className={
-                                item.type === paramsFilter ? 'isActive' : ''
-                            }
-                            onHandle={() => onHandleSelectNational(item)}
-                            text
-                        >
-                            {item.title}
-                        </Button>
-                    </div>
-                );
-            }
-        } else {
-            if (item.type !== KPOP_NATIONAL && item.type !== USUK_NATIONAL) {
-                return (
-                    <div key={index}>
-                        <Button
-                            className={
-                                item.type === paramsFilter ? 'isActive' : ''
-                            }
-                            onHandle={() => onHandleSelectNational(item)}
-                            text
-                        >
-                            {item.title}
-                        </Button>
-                    </div>
-                );
-            }
-        }
-    }); */
+RenderButtonSelect.propTypes = {
+    paramsFilter: PropTypes.string,
+    onHandleSelectNational: PropTypes.func,
+    isTrendingPage: PropTypes.bool,
+};

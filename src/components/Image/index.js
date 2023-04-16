@@ -1,35 +1,47 @@
-import images from '../../assets';
-import classNames from 'classnames/bind';
-import styles from './Image.module.scss';
 import { useState } from 'react';
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import classNames from 'classnames/bind';
+import PropTypes from 'prop-types';
+
+import images from '../../assets';
+import styles from './Image.module.scss';
 import { combinedStatusSelector } from '../../redux/selector';
 import Loading from '../../pages/Loading/Loading';
+
 const cx = classNames.bind(styles);
+
 function Images({
     src,
     Icon,
     IconBtn,
-    stylesIcon,
+    onHandle,
     imgError,
-    isControl, // just change in control
+    isControl, // just change in control,
+    isMobile,
     alt,
     type,
     ...props
 }) {
     const [defaultImg, setDefaultImg] = useState('');
-    const userDefault = images.usersDefault;
     const { isLoading } = useSelector(combinedStatusSelector);
+    const userDefault = images.usersDefault;
+
     const handleErrorImg = () => {
         setDefaultImg(imgError || userDefault);
     };
+
     const classes = cx('wrapper', type, { Icon });
     return isLoading && isControl ? (
-        <Loading styles={{ width: '64px', height: '64px' }} />
+        <Loading
+            styles={{
+                width: isMobile ? '40px' : '64px',
+                height: isMobile ? '40px' : '64px',
+            }}
+        />
     ) : !IconBtn ? (
         <img
             className={classes}
+            onClick={onHandle}
             alt={alt}
             src={src ? src : defaultImg}
             {...props}
@@ -46,5 +58,10 @@ Images.propTypes = {
     Icon: PropTypes.bool,
     imgError: PropTypes.string,
     alt: PropTypes.string,
+    IconBtn: PropTypes.node,
+    onHandle: PropTypes.func,
+    isControl: PropTypes.bool,
+    isMobile: PropTypes.bool,
+    type: PropTypes.string,
 };
 export default Images;

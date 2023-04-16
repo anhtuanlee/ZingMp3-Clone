@@ -1,17 +1,19 @@
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import classNames from 'classnames/bind';
-import React, { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import Media from 'react-media';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import classNames from 'classnames/bind';
 import { animateScroll as scroll } from 'react-scroll';
-import { ListQueue, Play, SubTract, WaveSongPlay } from '../components/Icons';
+import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useRef, useState } from 'react';
+
 import Images from '../components/Image';
 import { convertNumber } from '../hooks/';
-import { combinedStatusSelector } from '../redux/selector';
-import { featureSlice, statusSlice } from '../redux/sliceReducer';
 import { ActionBtnAlbum } from './ActionBtnAlbum';
 import styles from './PlayListSong.module.scss';
+import { combinedStatusSelector } from '../redux/selector';
+import { featureSlice, statusSlice } from '../redux/sliceReducer';
+import { HeartFull, Play, SubTract, WaveSongPlay } from '../components/Icons';
+
 const cx = classNames.bind(styles);
 
 function PlayListSong(
@@ -19,7 +21,7 @@ function PlayListSong(
         data = [],
         song,
         index,
-        rank,
+        isRank,
         HomePageTrending = false, // styles off class
         MyPlayerPage = false,
         isListQueue,
@@ -31,6 +33,7 @@ function PlayListSong(
     const [isHover, setIsHover] = useState(false);
     const [element, setElement] = useState('');
     const songItemRef = useRef();
+    const refItem = useRef();
     const favoriteRender = convertNumber(song?.favorite);
     const handleConfig = (data, song, index, e) => {
         if (data) {
@@ -95,81 +98,112 @@ function PlayListSong(
         }
     }, [songCurrent, isPlaying]);
     return (
-        <div
-            ref={songItemRef}
-            className={cx(
-                'song_item_container',
-                songCurrent?._id === song?._id
-                    ? isListQueue
-                        ? 'isActiveListQueue'
-                        : 'isActive'
-                    : '',
-                { HomePageTrending },
-            )}
-            key={index}
-            data-index={index}
-            onDoubleClick={(e) => handleDubleClickPlaySong(e, data, song, index)}
-            onMouseOver={(e) => handleHoverMusic(e, index)}
-            onMouseLeave={handleLeaveMusic}
+        <Media
+            queries={{
+                mobile: '(max-width: 600px)',
+            }}
         >
-            {rank && <RankSong />}
-
-            <div className={cx('container_song_section')}>
-                <div className={cx('songs_item_left')}>
-                    <figure
-                        className={cx('image_song_item')}
-                        onClick={(e) => handlePlaySong(data, song, index)}
-                    >
-                        <Images src={song?.image_music} />
-                        <span className={cx('icon_inner_avatar')}>
-                            {songCurrent?._id === song?._id && isPlaying ? (
-                                <WaveSongPlay />
-                            ) : (
-                                <Play />
-                            )}
-                        </span>
-                    </figure>
-                    <div className={cx('title_song_item')}>
-                        <h4 className={cx('name_song_item')}>{song.name_music}</h4>
-                        <Link
-                            to={`/${song.slug_name_singer}`}
-                            state={song.slug_name_singer}
-                        >
-                            <span className={cx('name_singer_item')}>
-                                {song.name_singer}
-                            </span>
-                        </Link>
-
-                        {/* favorite of trending music */}
-                        {HomePageTrending && (
-                            <span className={cx('song_trending_favorite')}>
-                                <FontAwesomeIcon icon={faHeart} /> {favoriteRender}
-                            </span>
+            {(matches) => {
+                return (
+                    <div
+                        ref={songItemRef}
+                        className={cx(
+                            'song_item_container',
+                            songCurrent?._id === song?._id
+                                ? isListQueue
+                                    ? 'isActiveListQueue'
+                                    : 'isActive'
+                                : '',
+                            { HomePageTrending },
                         )}
-                    </div>
-                </div>
-                <div className={cx('song_item_right')}>
-                    {isHover && element === index.toString() && !MyPlayerPage ? ( // check element current ===  element hover will use effect
-                        <div className={cx('items_hover')}>
-                            <ActionBtnAlbum
-                                HomePageTrending={HomePageTrending}
-                                song={song}
-                                playlistSong={true}
-                                isListQueue={
-                                    songCurrent?._id === song?._id && isListQueue
-                                        ? isListQueue
-                                        : undefined
-                                }
-                            />
-                            {/* check  */}
+                        key={index}
+                        data-index={index}
+                        onDoubleClick={(e) =>
+                            !matches.mobile &&
+                            handleDubleClickPlaySong(e, data, song, index)
+                        }
+                        onClick={(e) =>
+                            matches.mobile &&
+                            handleDubleClickPlaySong(e, data, song, index)
+                        }
+                        onMouseOver={(e) => handleHoverMusic(e, index)}
+                        onMouseLeave={handleLeaveMusic}
+                    >
+                        {isRank && <RankSong />}
+
+                        <div className={cx('container_song_section')}>
+                            <div className={cx('songs_item_left')}>
+                                <figure
+                                    className={cx('image_song_item')}
+                                    onClick={(e) => handlePlaySong(data, song, index)}
+                                >
+                                    <Images src={song?.image_music} />
+                                    <span className={cx('icon_inner_avatar')}>
+                                        {songCurrent?._id === song?._id && isPlaying ? (
+                                            <WaveSongPlay />
+                                        ) : (
+                                            <Play />
+                                        )}
+                                    </span>
+                                </figure>
+                                <div className={cx('title_song_item')} ref={refItem}>
+                                    <h4 className={cx('name_song_item')}>
+                                        {song.name_music}
+                                    </h4>
+                                    <span className={cx('name_singer_item')}>
+                                        <Link
+                                            to={`/${song.slug_name_singer}`}
+                                            state={song.slug_name_singer}
+                                        >
+                                            {song.name_singer}
+                                        </Link>
+                                    </span>
+
+                                    {/* favorite of trending music */}
+                                    {HomePageTrending && (
+                                        <span className={cx('song_trending_favorite')}>
+                                            <HeartFull /> {favoriteRender}
+                                        </span>
+                                    )}
+                                </div>
+                            </div>
+                            <div className={cx('song_item_right')}>
+                                {isHover &&
+                                element === index.toString() &&
+                                !MyPlayerPage ? ( // check element current ===  element hover will use effect
+                                    <div className={cx('items_hover')}>
+                                        <ActionBtnAlbum
+                                            HomePageTrending={HomePageTrending}
+                                            song={song}
+                                            playlistSong={true}
+                                            isListQueue={
+                                                songCurrent?._id === song?._id &&
+                                                isListQueue
+                                                    ? isListQueue
+                                                    : undefined
+                                            }
+                                        />
+                                    </div>
+                                ) : (
+                                    <div className={cx('item_format_time')}>
+                                        {song.time_format}
+                                    </div>
+                                )}
+                            </div>
                         </div>
-                    ) : (
-                        <div className={cx('item_format_time')}>{song.time_format}</div>
-                    )}
-                </div>
-            </div>
-        </div>
+                    </div>
+                );
+            }}
+        </Media>
     );
 }
 
 export default React.forwardRef(PlayListSong);
+
+PlayListSong.propTypes = {
+    data: PropTypes.array,
+    song: PropTypes.object,
+    index: PropTypes.number,
+    isRank: PropTypes.bool,
+    HomePageTrending: PropTypes.bool,
+};

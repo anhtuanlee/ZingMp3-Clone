@@ -29,6 +29,7 @@
     --border-secondary: hsla(0, 0%, 100%, 0.5);
 
     --padding-section: 0 60px;
+    --height-mobile-section: calc(100vh - 70px);
     @media (max-width: 1016px) {
         //tablet
         --padding-section: 0 29px;
@@ -58,7 +59,12 @@ body {
     background-color: var(--primary);
     width: 100%;
     height: 90px;
-    z-index: 9999;
+    z-index: 9998;
+
+    @media (max-width: 600px) {
+        //mobile
+        height: 70px;
+    }
 }
 
 button,
@@ -102,19 +108,23 @@ li {
     }
 }
 .arrow {
-    width: 24px;
+    width: 60px;
     padding: 15px;
-    height: 24px;
+    height: 60px;
     border-radius: 50%;
+    display: flex;
     position: absolute;
+    font-size: 25px;
     top: 50%;
     transform: translateY(-50%);
     -webkit-transform: translateY(-50%);
     fill: #fff;
     color: var(--white);
-    background-color: hsla(0, 0%, 100%, 0.15);
+    background-color: hsla(0deg, 0%, 100%, 0.15);
     cursor: pointer;
     z-index: 9999;
+    align-items: center;
+    justify-content: center;
 
     &:hover {
         background-color: hsla(0, 0%, 100%, 0.11);

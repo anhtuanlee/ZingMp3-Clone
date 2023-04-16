@@ -1,22 +1,25 @@
-import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import classNames from 'classnames/bind';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import classNames from 'classnames/bind';
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import styles from './Trending.module.scss';
+
 import {
     handleFilterSongTrending,
     handleSelectButtonNational,
     RenderButtonSelect,
     RenderFullListSong,
 } from '../../../Feature/HandleEvent/handleEvent';
-import Loading from '../../../pages/Loading';
 import { ALL_NATIONAL } from '../../../redux/constant';
-import { combinedStatusSelector } from '../../../redux/selector';
 import { statusSlice } from '../../../redux/sliceReducer';
+import { combinedStatusSelector } from '../../../redux/selector';
 import { getTrendingDataApi } from '../../../services';
-import styles from './Trending.module.scss';
+import Loading from '../../../pages/Loading';
+
 const cx = classNames.bind(styles);
+
 function Trending() {
     const dispatch = useDispatch();
     const { isLoadingPage } = useSelector(combinedStatusSelector);
@@ -24,7 +27,7 @@ function Trending() {
     const [paramsFilter, setParamsFilter] = useState(ALL_NATIONAL);
     const [dataSelect, setDataSelect] = useState([]);
     const dataSliceRenderRender = dataSelect.slice(0, 12); // slice 12 song to render in content
-    const HomePageTrending = true;
+
     const onHandleSelectNational = (item) => {
         // handle Select National
         const selectNational = handleSelectButtonNational(item);
@@ -75,7 +78,7 @@ function Trending() {
             <div className={cx('container_list_song')}>
                 <RenderFullListSong
                     data={dataSliceRenderRender}
-                    HomePageTrending={HomePageTrending}
+                    HomePageTrending={true}
                 />
             </div>
         </div>

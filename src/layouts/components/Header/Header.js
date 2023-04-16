@@ -1,28 +1,39 @@
-import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import classNames from 'classnames/bind';
+import Media from 'react-media';
 import PropTypes from 'prop-types';
-import { ButtonTheme, DowloadIcon, IconsVIP, Setting } from '../../../components/Icons';
-
-import React from 'react';
+import { Link } from 'react-router-dom';
+import classNames from 'classnames/bind';
+import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Button from '../../../components/Button/Button';
-import Images from '../../../components/Image';
-import Search from '../../../components/Search';
-import { MENU_SETTING_HEADER, MENU_USER_HEADER } from '../../../redux/constant';
-import { combinedStatusSelector } from '../../../redux/selector';
-import { loginSlice, themeSlice } from '../../../redux/sliceReducer';
+
+import {
+    ArrowLeft,
+    ArrowRight,
+    BarSort,
+    ButtonTheme,
+    Close,
+    DowloadIcon,
+    IconsVIP,
+    SearchMobile,
+    Setting,
+} from '../../../components/Icons';
 import Menu from '../Menu';
 import styles from './Header.module.scss';
-import Media from 'react-media';
-import { useNavigate } from 'react-router-dom';
+import Images from '../../../components/Image';
+import Search from '../../../components/Search';
+import Button from '../../../components/Button/Button';
+import { combinedStatusSelector } from '../../../redux/selector';
+import { MENU_SETTING_HEADER, MENU_USER_HEADER } from '../../../redux/constant';
+import { loginSlice, statusSlice, themeSlice } from '../../../redux/sliceReducer';
 
 const cx = classNames.bind(styles);
 
 function Header({ styles, isScrollHeader }) {
     const dispatch = useDispatch();
-    const { isTheme, dataUser } = useSelector(combinedStatusSelector);
+    const btnSearchRef = useRef();
+    const { isTheme, dataUser, isSidebarMobile } = useSelector(combinedStatusSelector);
 
+    const [searchForm, setSearchForm] = useState(false);
+    const [animation, setAnimation] = useState('on');
     // handleChangeTheme
     const onChangeTheme = () => {
         dispatch(themeSlice.actions.setIsModalTheme(!isTheme));
@@ -31,10 +42,91 @@ function Header({ styles, isScrollHeader }) {
         dispatch(loginSlice.actions.setIsLogin(true));
     };
 
+    const handleSearchForm = async (e) => {
+        //  set animation delay
+        e.stopPropagation();
+        setAnimation('off');
+        await new Promise((resolve) => {
+            setTimeout(resolve, searchForm && 300);
+        });
+
+        setSearchForm(!searchForm);
+        setAnimation('on');
+    };
+
+    const handleTurnOffSearchForm = async (e) => {
+        //turnoff exclude btnSearch and set animation delay
+        e.stopPropagation();
+        setAnimation('off');
+        await new Promise((resolve) => {
+            setTimeout(resolve, searchForm && 300);
+        });
+        if (!e.target.contains(btnSearchRef.current)) {
+            setSearchForm(false);
+        }
+        setAnimation('on');
+    };
+
+    const handleSidbar = () => {
+        dispatch(statusSlice.actions.isSidebarMobile(!isSidebarMobile));
+    };
+
     return (
-        <Media query="(max-width: 400px)">
+        <Media query="(max-width: 600px)">
             {(matches) => {
-                return !matches ? (
+                return matches ? (
+                    // Mobile
+                    <header
+                        className={cx(
+                            'wrapper',
+                            styles,
+                            isScrollHeader > 133 ? 'isScroll' : '',
+                        )}
+                    >
+                        <div
+                            className={cx('inner')}
+                            onClick={(e) => handleTurnOffSearchForm(e)}
+                        >
+                            <span className={cx('btn_barsort')} onClick={handleSidbar}>
+                                <BarSort />
+                            </span>
+                            <Link to="/" className={cx('logo')}></Link>
+
+                            <div className={cx('button_controls_right')}>
+                                <span
+                                    ref={btnSearchRef}
+                                    className={cx('btn_search_header_mobile')}
+                                    onClick={handleSearchForm}
+                                >
+                                    {!searchForm ? <SearchMobile /> : <Close />}
+                                </span>
+                                <div className={cx('btn_theme')}>
+                                    <Button
+                                        circle
+                                        Icons={ButtonTheme}
+                                        extraTitle={'Chủ đề'}
+                                        onHandle={onChangeTheme}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        {searchForm && (
+                            <div
+                                className={cx('button_controls_left', animation)}
+                                ref={btnSearchRef}
+                            >
+                                <div className={cx('search_form')}>
+                                    <Search
+                                        visibleHeaderMobile={true}
+                                        handleSearchForm={(e) => handleSearchForm(e)}
+                                    />
+                                    {/* send request open search form */}
+                                </div>
+                            </div>
+                        )}
+                    </header>
+                ) : (
+                    //tablet and desktop
                     <header
                         className={cx(
                             'wrapper',
@@ -44,17 +136,11 @@ function Header({ styles, isScrollHeader }) {
                     >
                         <div className={cx('inner')}>
                             <div className={cx('button_controls_left')}>
-                                <span>
-                                    <FontAwesomeIcon
-                                        icon={faArrowLeft}
-                                        className={cx('icon-arrow-prev')}
-                                    />
+                                <span className={cx('icon-arrow-prev')}>
+                                    <ArrowLeft />
                                 </span>
-                                <span>
-                                    <FontAwesomeIcon
-                                        icon={faArrowRight}
-                                        className={cx('icon-arrow-next')}
-                                    />
+                                <span className={cx('icon-arrow-next')}>
+                                    <ArrowRight />
                                 </span>
                                 <div className={cx('search_form')}>
                                     <Search />
@@ -100,14 +186,15 @@ function Header({ styles, isScrollHeader }) {
                             </div>
                         </div>
                     </header>
-                ) : (
-                    'hello'
                 );
             }}
         </Media>
     );
 }
+
+export default React.memo(Header);
+
 Header.propTypes = {
     styles: PropTypes.string,
+    isScrollHeader: PropTypes.number,
 };
-export default React.memo(Header);

@@ -1,14 +1,21 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { combinedStatusSelector } from '../redux/selector';
-
-import Button from '../components/Button';
-import { Download, Heart, HeartFull, More, Play } from '../components/Icons';
-import WaveSong from '../components/Icons/WaveSong';
-import { featureSlice, loginSlice, statusSlice } from '../redux/sliceReducer';
-import styles from './PlayListSong.module.scss';
+import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import Button from '../components/Button';
+import styles from './PlayListSong.module.scss';
 import Menu from '../layouts/components/Menu/Menu';
+import WaveSong from '../components/Icons/WaveSong';
+import { combinedStatusSelector } from '../redux/selector';
+import { Download, Heart, HeartFull, More, Play } from '../components/Icons';
+import { featureSlice, loginSlice, statusSlice } from '../redux/sliceReducer';
+import {
+    createSongFavoriteUser,
+    getSongFavorite,
+    removeSongFavoriteUser,
+} from '../services/userApi';
+
 const cx = classNames.bind(styles);
 
 export const ActionBtnAlbum = ({
@@ -21,6 +28,7 @@ export const ActionBtnAlbum = ({
     playlistSong,
     isListQueue,
     sizeTablet,
+    modalControls,
 }) => {
     const dispatch = useDispatch();
     const { slugDataBanner, dataSongs, isPlaying, songCurrent, dataUser } =
@@ -34,16 +42,25 @@ export const ActionBtnAlbum = ({
     const isSlugNameSingerCurrent =
         songCurrent?.slug_name_singer === item?.slug_banner_singer_popular;
 
-    const [isFavorite, setIsFavorite] = useState(false);
+    const [isFavorite, setIsFavorite] = useState();
     const [isMore, setIsMore] = useState(false);
-
+    const [callData, setCallData] = useState(false);
     //***handleEvent******/
 
-    const handleLike = () => {
+    const addSongFavorite = async () => {
+        const result = await createSongFavoriteUser(dataUser.accessToken, song._id);
+        return result;
+    };
+    const removeSongFavorite = async () => {
+        const result = await removeSongFavoriteUser(dataUser.accessToken, song._id);
+        return result;
+    };
+
+    const handleLike = async () => {
         if (playlistSong) {
-            if (dataUser.listFavorite) {
+            if (dataUser.listFavorite && dataUser.accessToken) {
                 if (isFavorite) {
-                    dispatch(loginSlice.actions.setFilterSongFavorite(song));
+                    await removeSongFavorite();
                     setIsFavorite(false);
                     dispatch(
                         featureSlice.actions.setNotification({
@@ -52,7 +69,7 @@ export const ActionBtnAlbum = ({
                         }),
                     );
                 } else {
-                    dispatch(loginSlice.actions.setListSongFavorite(song));
+                    await addSongFavorite();
                     setIsFavorite(true); // update list song when handleChange like
                     dispatch(
                         featureSlice.actions.setNotification({
@@ -61,6 +78,7 @@ export const ActionBtnAlbum = ({
                         }),
                     );
                 }
+                setCallData(true);
             } else {
                 dispatch(loginSlice.actions.setIsLogin(true));
                 setIsFavorite(false);
@@ -112,6 +130,7 @@ export const ActionBtnAlbum = ({
                 case 'play':
                     return dispatch(statusSlice.actions.isPlayingChange(!isPlaying));
                 case 'more':
+                    e.stopPropagation();
                     handleSelectMoreSong();
                     break;
                 default:
@@ -141,9 +160,11 @@ export const ActionBtnAlbum = ({
                     break;
                 case 'like':
                     e.preventDefault();
+                    e.stopPropagation();
                     handleLike();
                     break;
                 case 'more':
+                    e.stopPropagation();
                     e.preventDefault();
                     handleSelectMoreSong();
                     break;
@@ -158,7 +179,7 @@ export const ActionBtnAlbum = ({
             type: 'dowload',
             icon: Download,
         },
-    ]; 
+    ];
     const renderBtnHover = () => {
         const result = BUTTON_HOVER.map((btn, index) => {
             const shouldRenderButton = !singleBtn || btn.type === 'play';
@@ -218,6 +239,7 @@ export const ActionBtnAlbum = ({
                             <Button
                                 active={isFavorite && btn.type === 'like'}
                                 Icons={btn.icon}
+                                modalControls={modalControls}
                                 extraTitle={btn.extraTitle}
                                 circle_hide={btn.circle_hide}
                                 border_nothover={btn.border_nothover}
@@ -262,7 +284,11 @@ export const ActionBtnAlbum = ({
     };
 
     useEffect(() => {
-        if (!dataUser.listFavorite || dataUser.listFavorite.length === 0) {
+        if (
+            !dataUser.listFavorite ||
+            dataUser.listFavorite.length === 0 ||
+            !dataUser.accessToken
+        ) {
             // Nếu danh sách yêu thích rỗng thì không có bài hát nào trong danh sách yêu thích
             setIsFavorite(false);
             return;
@@ -272,11 +298,38 @@ export const ActionBtnAlbum = ({
             (item) => item?._id === song?._id,
         );
         setIsFavorite(isSongFavorite);
-    }, [dataUser.listFavorite, song]);
+    }, [dataUser.listFavorite.length, song, dataUser.accessToken]);
 
     useEffect(() => {
-        localStorage.setItem('listFavoriteSong', JSON.stringify(dataUser.listFavorite));
-    }, [dataUser.listFavorite]);
+        //getDataSongFavorite of user
+        if (callData) {
+            const fetch = async () => {
+                const result = await getSongFavorite(dataUser.accessToken).then(
+                    (data) => {
+                        if (data.data) {
+                            const dataMusic = data.data.map((song) => song.music);
+                            dispatch(loginSlice.actions.setListSongFavorite(dataMusic));
+                        }
+                    },
+                );
+                return result;
+            };
+            fetch();
+        }
+    }, [isFavorite, callData]);
 
     return renderBtnHover();
+};
+
+ActionBtnAlbum.propTypes = {
+    item: PropTypes.object,
+    isLivingAlbum: PropTypes.bool,
+    singleBtn: PropTypes.bool,
+    song: PropTypes.object,
+    data: PropTypes.array,
+    HomePageTrending: PropTypes.bool,
+    playlistSong: PropTypes.bool,
+    isListQueue: PropTypes.bool,
+    sizeTablet: PropTypes.bool,
+    modalControls: PropTypes.bool,
 };

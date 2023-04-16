@@ -1,28 +1,22 @@
-import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
-import { useEffect, useRef, useState } from 'react';
+import classNames from 'classnames/bind';
 import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useRef, useState } from 'react';
+
+import { useAudio } from '../../../hooks';
+import styles from './InputProgress.module.scss';
+import { featureSlice, statusSlice } from '../../../redux/sliceReducer';
 import { CURRENT_TIME_STORAGE, SONG_RECENT_STORAGE } from '../../../config/localStorages';
 import { combinedFeatureSelector, combinedStatusSelector } from '../../../redux/selector';
-import { featureSlice, statusSlice } from '../../../redux/sliceReducer';
-import styles from './InputProgress.module.scss';
+
 const cx = classNames.bind(styles);
 
-function InputProgress({
-    max,
-    step,
-    min,
-    style,
-    classes,
-    audioRef,
-    audioType,
-    volumeType, 
-}) {
+function InputProgress({ max, step, min, style, classes, audioType, volumeType }) {
     const dispatch = useDispatch();
     const { isVolume, songCurrent, volume } = useSelector(combinedStatusSelector);
     const { times } = useSelector(combinedFeatureSelector);
     const progressRef = useRef();
-
+    const audioRef = useAudio();
     const [valueTime, setValue] = useState(() => {
         const percentValue = Math.floor(
             (CURRENT_TIME_STORAGE / SONG_RECENT_STORAGE?.seconds) * 100,
@@ -78,13 +72,9 @@ function InputProgress({
             }
         }
     }, [times.currentTime, audioRef, songCurrent]);
-    useEffect(() => {
-        if (audioRef) {
-            if (CURRENT_TIME_STORAGE !== null) {
-                audioRef.current.currentTime = CURRENT_TIME_STORAGE;
-            }
-        }
-    }, [audioRef]);
+
+    //bug
+
     // seek volume
     useEffect(() => {
         if (audioRef) {
@@ -125,7 +115,10 @@ InputProgress.propTypes = {
     max: PropTypes.number.isRequired,
     step: PropTypes.number,
     min: PropTypes.number,
-    onHandle: PropTypes.func,
+    style: PropTypes.string,
+    classes: PropTypes.string,
+    audioType: PropTypes.bool,
+    volumeType: PropTypes.bool,
 };
 
 InputProgress.defaultProps = {
@@ -134,4 +127,4 @@ InputProgress.defaultProps = {
     min: 0,
     classes: '',
 };
-export default InputProgress;
+export default React.memo(InputProgress);

@@ -1,11 +1,14 @@
-import classNames from 'classnames/bind';
-import { ImgFooter } from '../../assets/images/Footer';
-import Images from '../Image';
-import styles from './Footer.module.scss';
 import { useSelector } from 'react-redux';
-import { combinedStatusSelector } from '../../redux/selector';
+import classNames from 'classnames/bind';
+import styles from './Footer.module.scss';
+
+import Images from '../Image';
 import Loading from '../../pages/Loading/Loading';
+import { ImgFooter } from '../../assets/images/Footer';
+import { combinedStatusSelector } from '../../redux/selector';
+
 const cx = classNames.bind(styles);
+
 function Footer() {
     const { isLoadingPage } = useSelector(combinedStatusSelector);
     const renderPartner = () => {

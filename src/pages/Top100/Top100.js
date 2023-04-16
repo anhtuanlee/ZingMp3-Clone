@@ -1,11 +1,13 @@
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { RenderFullListSong } from '../../Feature/HandleEvent/handleEvent';
+
+import styles from './Top100.module.scss';
+import { getMusicTop } from '../../services/getMusicTopApi';
 import TitlePage from '../../layouts/components/TitlePage/TitlePage';
 import { sidebarSlice, statusSlice } from '../../redux/sliceReducer';
-import { getMusicTop } from '../../services/getMusicTopApi';
-import styles from './Top100.module.scss';
+import { RenderFullListSong } from '../../Feature/HandleEvent/handleEvent';
+
 const cx = classNames.bind(styles);
 
 function Top100() {

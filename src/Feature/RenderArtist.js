@@ -1,22 +1,24 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import Button from '../components/Button/Button';
-import { Random } from '../components/Icons';
+
 import Images from '../components/Image';
-import { featureSlice, statusSlice } from '../redux/sliceReducer';
+import { convertNumber } from '../hooks';
+import { Random } from '../components/Icons';
+import Loading from '../pages/Loading/Loading';
+import Button from '../components/Button/Button';
 import { getSingerDataApi } from '../services';
 import styles from './RenderArtist.module.scss';
-import { convertNumber } from '../hooks';
 import { combinedStatusSelector } from '../redux/selector';
-import Loading from '../pages/Loading/Loading';
-import React from 'react';
+import { featureSlice, statusSlice } from '../redux/sliceReducer';
+
 const cx = classNames.bind(styles);
 
 const RenderArtist = ({ data, dataFull, isPageArtist, isPageAlbum }) => {
     const dispatch = useDispatch();
     const { isLoadingPage } = useSelector(combinedStatusSelector);
-
     const handlePlayRandom = async (e, item) => {
         e.preventDefault();
         const dataListArtist = await getSingerDataApi(item.slug_name_singer).then(
@@ -161,3 +163,10 @@ const RenderArtist = ({ data, dataFull, isPageArtist, isPageAlbum }) => {
     return result;
 };
 export default React.memo(RenderArtist);
+
+RenderArtist.propTypes = {
+    data: PropTypes.array,
+    dataFull: PropTypes.array,
+    isPageArtist: PropTypes.bool,
+    isPageAlbum: PropTypes.bool,
+};

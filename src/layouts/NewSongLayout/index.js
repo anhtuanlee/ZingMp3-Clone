@@ -1,10 +1,13 @@
+import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
-import Header from '../components/Header';
-import Sidebar from '../components/Sidebar';
-
-import styles from './NewSongLayout.module.scss';
 import { useEffect, useRef, useState } from 'react';
+
+import Sidebar from '../components/Sidebar';
+import Header from '../components/Header';
+import styles from './NewSongLayout.module.scss';
+
 const cx = classNames.bind(styles);
+
 function NewSongLayout({ children }) {
     const ref = useRef();
     const [isScroll, setScroll] = useState();
@@ -39,4 +42,8 @@ function NewSongLayout({ children }) {
     );
 }
 
-export default NewSongLayout;
+export default NewSongLayout; 
+
+NewSongLayout.propTypes = {
+    children: PropTypes.node,
+};

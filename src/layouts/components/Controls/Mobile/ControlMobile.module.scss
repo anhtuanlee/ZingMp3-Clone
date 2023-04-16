@@ -1,0 +1,136 @@
+.wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9998;
+    background-color: var(--primary-bg);
+
+    .inner {
+        .btn_close_control {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            padding: 10px;
+            font-size: 25px;
+            color: var(--white);
+        }
+        .title_song_section {
+            display: flex;
+            flex-direction: column; 
+            margin-top: 20px;
+            height: 70vh;
+            align-items: center;
+            justify-content: center;
+            padding: var(--padding-section);
+        }
+        .song_img {
+            overflow: hidden;
+            width: 70vw;
+            max-width: 260px;
+            aspect-ratio: 1/1;
+            border-radius: 999px;
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.4), 0 1px 6px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px hsla(0, 14%, 5%, 0.4);
+        }
+        .song_img img {
+            height: 100%;
+            width: 100%;
+        }
+        .spinThumb {
+            animation: spin linear 15s infinite;
+        }
+        .stopThumb {
+            animation: stopSpin ease 0.5s;
+        }
+        .title_main {
+            display: flex;
+            flex-direction: column;
+            margin-top: 20px;
+            align-items: center;
+            gap: 10px;
+
+            .name_song {
+                font-size: 16px;
+                font-weight: 600;
+                color: var(--white);
+                text-shadow: -2px 1px 5px rgb(0, 0, 0);
+                text-align: center;
+            }
+            .name_singer {
+                font-size: 14px;
+                font-weight: 500;
+                color: #dbdbdbc4;
+                text-shadow: -1px 1px 2px rgb(0, 0, 0);
+            }
+            .btn_headphone {
+                margin-left: 5px;
+                color: var(--white);
+                text-shadow: -1px 1px 3px rgb(0, 0, 0);
+            }
+        }
+        
+        .controls_main {
+            position: fixed;
+            bottom: 10%;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center; 
+
+            .btn_handle {
+                position: absolute;
+                right:20px; 
+                top: -150px;
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }   
+        }
+    }
+}
+
+.on {
+    animation: slideTop ease 0.7s;
+}
+
+.off {
+    animation: slideBot ease 0.7s;
+}
+@keyframes spin {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes stopSpin {
+    from {
+        transform: rotate(180deg);
+    }
+    to {
+        transform: rotate(0);
+    }
+}
+
+@keyframes slideBot {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(100%);
+    }
+}
+@keyframes slideTop {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}

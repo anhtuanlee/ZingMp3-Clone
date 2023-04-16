@@ -25,14 +25,38 @@ export const getProfileUser = async (accessToken) => {
     return result;
 };
 
-export const setSongFavoriteUser = async (accessToken, _id) => {
-    // status error 
-    const result = await httpRequest.post('/favorite/create', {
+export const createSongFavoriteUser = async (accessToken, _id) => {
+    const result = await httpRequest.post(
+        '/favorite/create/',
+        { idMusic: _id, Response: { message: 'Create favorite success' } },
+        {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                'Content-type': 'application/json',
+            },
+        },
+    );
+    return result;
+};
+export const removeSongFavoriteUser = async (accessToken, _id) => {
+    const result = await httpRequest.post(
+        '/favorite/create/',
+        { idMusic: _id, Response: { message: '"Delete favorite success' } },
+        {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                'Content-type': 'application/json',
+            },
+        },
+    );
+    return result;
+};
+export const getSongFavorite = async (accessToken, limit = 100) => {
+    const result = await httpRequest.get('/favorite/get-authorization-token?_limit=20', {
+        _limit: limit,
         headers: {
-            'Content-type': 'application/json',
             Authorization: `Bearer ${accessToken}`,
         },
-        id_music: _id,
     });
     return result;
 };

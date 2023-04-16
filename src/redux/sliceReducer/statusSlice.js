@@ -16,8 +16,10 @@ export const statusSlice = createSlice({
         isVolume: VOLUME_STORAGE > 0 ? true : false,
         isRequirePlay: false,
         isMvPlayer: false,
+        isSidebarMobile: false,
         isPlayerQueue: false,
-        isContentHide: false, // check Container hide and send animation before hide, 
+        isContentHide: false, // check Container hide and send animation before hide,
+        isControlMusicMobile: false, // mobile section control
     },
     reducers: {
         isPlayingChange: (state, action) => {
@@ -49,6 +51,12 @@ export const statusSlice = createSlice({
         },
         isCheckBeforeContentHide: (state, action) => {
             state.isContentHide = action.payload;
+        },
+        isSidebarMobile: (state, action) => {
+            state.isSidebarMobile = action.payload;
+        },
+        isControlMusicMobile: (state, action) => {
+            state.isControlMusicMobile = action.payload;
         },
     },
 });

@@ -1,17 +1,17 @@
-import Tippy from '@tippyjs/react/headless';
-import classNames from 'classnames/bind';
-import PropTypes from 'prop-types';
 import { useState } from 'react';
-
+import PropTypes from 'prop-types';
+import { saveAs } from 'file-saver';
+import classNames from 'classnames/bind';
 import { useDispatch } from 'react-redux';
+import Tippy from '@tippyjs/react/headless';
 import { useNavigate } from 'react-router-dom';
-import { featureSlice, loginSlice } from '../../../redux/sliceReducer';
-import styles from './Menu.module.scss';
+
 import MenuItem from './MenuItem';
+import styles from './Menu.module.scss';
+import { convertNumber } from '../../../hooks';
 import Images from '../../../components/Image';
 import { Eyes, Heart } from '../../../components/Icons';
-import { convertNumber } from '../../../hooks';
-import { saveAs } from 'file-saver';
+import { featureSlice, loginSlice } from '../../../redux/sliceReducer';
 
 const cx = classNames.bind(styles);
 function Menu({
@@ -46,8 +46,7 @@ function Menu({
     const listRender = nestest ? nestest : lastItemMenu;
     const handleDownloadSong = () => {
         const url = song?.src_music;
-        const fileName = `https://res.cloudinary.com/phuockaito/video/upload/v1657265099/audio/jqtb4ojpfgzykunvt3nt.mp3
-        `;
+        const fileName = `${song?.name_music}`;
         fetch(url)
             .then((response) => response.blob())
             .then((blob) => {
@@ -61,9 +60,10 @@ function Menu({
             });
     };
 
-    const onHandle = (item) => {
+    const onHandle = (e, item) => {
         switch (item.type) {
             case 'logout':
+                navigate('..');
                 dispatch(loginSlice.actions.setAccessToken(''));
                 dispatch(
                     featureSlice.actions.setNotification({
@@ -71,9 +71,9 @@ function Menu({
                         styles: 'success',
                     }),
                 );
-                navigate('..');
                 break;
             case 'dowload':
+                e.stopPropagation();
                 handleDownloadSong();
                 break;
             default:
@@ -84,9 +84,8 @@ function Menu({
         return (
             <MenuItem
                 key={index}
-                data={item}
-                song={song}
-                onHandle={(e) => onHandle(item, e)}
+                data={item} 
+                onHandle={(e) => onHandle(e, item)}
             />
         );
     });
@@ -141,6 +140,10 @@ Menu.propTypes = {
     items: PropTypes.array,
     children: PropTypes.node,
     visible: PropTypes.bool,
-    nestest: PropTypes.object,
+    nestest: PropTypes.object, 
+    song: PropTypes.object,
+    placement: PropTypes.string,
+    className: PropTypes.string,
+    isListQueue: PropTypes.bool,
 };
 export default Menu;

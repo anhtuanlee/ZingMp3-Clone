@@ -8,9 +8,14 @@
     border: none;
     &:hover {
         border-radius: 100px;
-        padding: 3px 0;
+        padding: 3px 0; 
         cursor: pointer;
     }
+
+    @media (max-width: 600px) {
+        // mobile 
+        background-image: linear-gradient(var(--white), var(--white));  
+    } 
 }
 
 ::-webkit-slider-thumb {
@@ -20,6 +25,10 @@
     background-color: var(--purple-primary);
     transition: linear 0.1s;
     border-radius: 50%;
+    @media (max-width: 600px) {
+        // mobile 
+        background-color: var(--white);  
+    } 
 }
 .progress_input:hover::-webkit-slider-thumb {
     padding: 6px;

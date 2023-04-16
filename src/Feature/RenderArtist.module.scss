@@ -12,7 +12,11 @@
         width: 25%;
         padding: 0 12px;
     }
-
+    @media (max-width: 600px) {
+        //mobile
+        width:50%;
+        padding: 0 10px;
+    }
     &:hover span {
         color: var(--purple-primary);
     }
@@ -29,6 +33,11 @@
     @media (max-width: 1024px) {
         width: 25%;
         padding: 0 12px;
+    }
+    @media (max-width: 600px) {
+        //mobile
+        width:50%;
+        padding: 0 10px;
     }
 }
 .card_section {
@@ -66,16 +75,21 @@
     }
     &:hover .btn_random_card_artist_page_album {
         display: block;
+
+        @media (max-width: 600px) {
+            display: none;
+        }
     }
     &.card_image img {
         width: 100%;
         min-height: 130px;
         height: auto;
-        transform: scale(1.1);
+        transform: scale(1); 
+        object-fit: cover;
     }
     &:hover img {
         transition: all linear 0.4s;
-        transform: scale(1.3);
+        transform: scale(1.3); 
     }
 }
 .name_artist {
@@ -92,6 +106,10 @@
     &:hover {
         color: var(--purple-primary);
         text-decoration: underline;
+    } 
+    @media (max-width : 600px) {
+        font-size: 12px;
+        white-space: pre-wrap;
     }
 }
 // page artist

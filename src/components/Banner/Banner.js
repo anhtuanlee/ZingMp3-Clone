@@ -2,12 +2,13 @@ import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { ActionBtnAlbum } from '../../Feature/ActionBtnAlbum';
-import Loading from '../../pages/Loading';
-import { combinedStatusSelector } from '../../redux/selector';
-import Images from '../Image';
-import styles from './Banner.module.scss';
+import PropTypes from 'prop-types';
 
+import { ActionBtnAlbum } from '../../Feature/ActionBtnAlbum';
+import { combinedStatusSelector } from '../../redux/selector';
+import Loading from '../../pages/Loading';
+import styles from './Banner.module.scss';
+import Images from '../Image';
 const cx = classNames.bind(styles);
 
 // Component render img banner on home page and albumpage
@@ -154,3 +155,11 @@ function Banner({ item, index, data, isLivingAlbum, singleBtn }) {
 }
 
 export default Banner;
+
+Banner.propTypes = {
+    item: PropTypes.object,
+    index: PropTypes.number,
+    data: PropTypes.array,
+    isLivingAlbum: PropTypes.bool,
+    singleBtn: PropTypes.bool,
+};

@@ -1,12 +1,13 @@
-import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { RenderFullListSong } from '../../../Feature/HandleEvent/handleEvent';
-import { combinedStatusSelector } from '../../../redux/selector';
+
 import Loading from '../../Loading';
 import styles from '../Account.module.scss';
+import { ArrowChevonRight } from '../../../components/Icons';
+import { combinedStatusSelector } from '../../../redux/selector';
+import { RenderFullListSong } from '../../../Feature/HandleEvent/handleEvent';
 const cx = classNames.bind(styles);
 
 function ContentPageSinger({ data }) {
@@ -26,7 +27,7 @@ function ContentPageSinger({ data }) {
                             {/* clean code */}
                             <span className={cx('list_songs_section')}>
                                 <span>TẤT CẢ</span>
-                                <FontAwesomeIcon icon={faChevronRight} />
+                                <ArrowChevonRight />
                             </span>
                         </Link>
                     </div>
@@ -41,3 +42,7 @@ function ContentPageSinger({ data }) {
 }
 
 export default ContentPageSinger;
+
+ContentPageSinger.propTypes = {
+    data: PropTypes.array,
+};

@@ -1,14 +1,17 @@
 import classNames from 'classnames/bind';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+
+import styles from './Home.module.scss';
 import Content from '../../components/Content';
 import Footer from '../../components/Footer/Footer';
-import SliderSlick from '../../layouts/components/Sliderslick';
-import { combinedStatusSelector } from '../../redux/selector';
 import { sidebarSlice } from '../../redux/sliceReducer';
-import styles from './Home.module.scss';
+import { combinedStatusSelector } from '../../redux/selector';
+import SliderSlick from '../../layouts/components/Sliderslick';
+
 const cx = classNames.bind(styles);
+
 function Home() {
     const dispatch = useDispatch();
     const navigate = useNavigate();

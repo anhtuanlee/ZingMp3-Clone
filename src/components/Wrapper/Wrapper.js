@@ -1,31 +1,33 @@
 import classNames from 'classnames/bind';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { combinedStatusSelector } from '../../redux/selector';
+import PropTypes from 'prop-types';
+
 import Form from '../Form/Form';
 import ListQueue from '../ListQueue/';
-import ModalTheme from '../ModalTheme/ModalTheme';
-import MvPlayer from '../MvPlayer/MvPlayer';
 import styles from './Wrapper.module.scss';
-import Notification from '../Notification/Notification';
+import MvPlayer from '../MvPlayer/MvPlayer';
+import ModalTheme from '../ModalTheme/ModalTheme';
 import { loginSlice } from '../../redux/sliceReducer';
 import { getProfileUser } from '../../services/userApi';
+import Notification from '../Notification/Notification';
+import { combinedStatusSelector } from '../../redux/selector';
 
 const cx = classNames.bind(styles);
 function Wrapper({ children }) {
     const dispatch = useDispatch();
 
     const {
-        themeSelect,
         isTheme,
         isMvPlayer,
         isPlayerQueue,
         isLogin,
         notification,
+        themeSelect,
         dataUser,
     } = useSelector(combinedStatusSelector);
 
-    const [isNotification, setIsNotifiCation] = useState(); 
+    const [isNotification, setIsNotifiCation] = useState();
 
     const delayNotification = notification.title && isNotification;
 
@@ -109,7 +111,7 @@ function Wrapper({ children }) {
         }
         localStorage.setItem('accessToken', JSON.stringify(dataUser.accessToken));
     }, [dataUser.accessToken, dispatch]);
-     
+
     return (
         <div className={cx('wrapper')}>
             {children}
@@ -125,3 +127,7 @@ function Wrapper({ children }) {
 }
 
 export default Wrapper;
+
+Wrapper.propType = {
+    children: PropTypes.node,
+};

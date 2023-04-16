@@ -1,6 +1,5 @@
 .wrapper {
     padding-top: 20px;
-    margin-bottom: 90px;
     height: 100vh;
 }
 .container_playlist_detail {
@@ -29,6 +28,15 @@
                 height: 200px;
             }
         }
+        @media (max-width: 600px) {
+            //mobile
+            display: flex;
+            flex-direction: column;
+            background-color: var(--primary-bg);
+            border-radius: 4px;
+            box-shadow: 0 1.22656px 4.90625px rgba(0, 0, 0, 0.16);
+            margin-bottom: 20px;
+        }
         .title_header {
             display: flex;
             justify-content: center;
@@ -47,8 +55,19 @@
                     padding: 20px 0;
                 }
             }
+            @media (max-width: 600px) {
+                //mobile
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
             .title_header_section {
                 margin-right: 10px;
+
+                @media (max-width: 600px) {
+                    //mobile
+                    font-size: 18px;
+                }
             }
             .title_extra {
                 font-size: 12px;
@@ -108,12 +127,13 @@
 .partic_artists {
     // artist list
     display: flex;
-    padding-bottom: 30px;
+    padding: 20px 0 30px 0;
     width: 100%;
 
     overflow: hidden;
-    @media (max-width: 1200px) {
-        //tablet 
+    @media (max-width: 600px) {
+        //mobile
+        overflow-x: scroll;
     }
 }
 // custom scrollbar
@@ -121,7 +141,6 @@
     width: 6px;
     display: none;
 }
-
 .list_song::-webkit-scrollbar-thumb {
     border-radius: 4px;
     -webkit-box-shadow: inset 0 0 6px rgb(0 0 0 / 50%);
@@ -129,4 +148,7 @@
 .list_song::-webkit-scrollbar-track {
     -webkit-box-shadow: inset #fff;
     border-radius: 4px;
+}
+.partic_artists::-webkit-scrollbar-thumb:horizontal {
+    display: none;
 }

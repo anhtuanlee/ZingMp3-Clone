@@ -6,107 +6,162 @@
     height: 90px;
     background-color: var(--player-bg);
     width: 100%;
+
+    @media (max-width: 600px) {
+        //mobile
+        height: 70px;
+        padding: 0;
+    }
 }
 // controls left
 .player_control_left {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     width: 30%;
     flex-grow: 0;
     flex-shrink: 0;
-}
-.item_img {
-    border-radius: 4px;
-    flex-basis: auto;
-    flex-grow: 0;
-    flex-shrink: 0;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.item_img img {
-    width: 64px;
-    height: 64px;
-}
-.media_content {
-    margin-left: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    max-width: 155px;
-    flex-basis: auto;
-    flex-grow: 1;
-    flex-shrink: 1;
-
-    -webkit-mask-image: linear-gradient(270deg, transparent 0.5%, #000 10%);
-}
-.item_title {
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 1.36;
-    padding-right: 10px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    &:hover {
-        text-overflow: unset;
-        animation: slideLeft ease-out 3s infinite;
+    @media (max-width: 600px) {
+        //tablet
+        width: auto;
+        flex-basis: 200px;
+        flex-shrink: 1;
+    }
+    .item_img {
+        border-radius: 4px;
+        flex-basis: auto;
+        flex-grow: 0;
+        flex-shrink: 0;
         overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        @media (max-width: 600px) {
+            // mobile
+            margin-left: 5px;
+            border-radius: 999px;
+            animation: spinReturn linear 0.3s;
+        }
+    }
+    .spin {
+        animation: spining linear 5s infinite;
+    }
+    .item_img img {
+        width: 64px;
+        height: 64px;
+
+        @media (max-width: 600px) {
+            //mobile
+            width: 40px;
+            height: 40px;
+        }
+    }
+    .media_content {
+        margin-left: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        max-width: 100px;
+        flex-basis: auto;
+        flex-grow: 1;
+        flex-shrink: 1;
+
+        -webkit-mask-image: linear-gradient(270deg, transparent 0.5%, #000 10%);
+    }
+    .item_title {
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.36;
+        padding-right: 10px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        &:hover {
+            text-overflow: unset;
+            animation: slideLeft ease-out 3s infinite;
+            overflow: hidden;
+        }
+    }
+    .item_subtitle {
+        font-weight: 400;
+        font-size: 12px;
+        margin-top: 1px;
+        padding-right: 10px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        &:hover {
+            color: var(--link-text-hover);
+            text-decoration: underline;
+        }
+        a {
+            color: var(--text-secondary);
+        }
+    }
+    .media_custom {
+        display: flex;
+        align-items: center;
+        flex-basis: auto;
+        flex-grow: 0;
+        flex-shrink: 0;
+    }
+    .btn_controls {
+        width: 16px;
+        height: 16px;
     }
 }
-.item_subtitle {
-    font-weight: 400;
-    font-size: 12px;
-    margin-top: 1px;
-    color: var(--text-secondary);
-    padding-right: 10px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    &:hover {
-        color: var(--link-text-hover);
-        text-decoration: underline;
-    }
-}
-.media_custom {
-    display: flex;
-    align-items: center;
-    flex-basis: auto;
-    flex-grow: 0;
-    flex-shrink: 0;
-}
-.btn_controls {
-    width: 16px;
-    height: 16px;
-}
+
 //controls centerplayer_controls_center
-.player_controls_center {
+.player_controls_center_container {
     flex-grow: 1;
     max-width: 40vw;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    @media (max-width: 600px) {
+        max-width: unset;
+        flex-grow: unset;
+    }
 }
-.player_controls_center_container {
+.progress_full {
+    @media (max-width: 600px) {
+        width: 80vw;
+        margin: 10px 0;
+    }
 }
 .controls {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 50px;
+
+    @media (max-width: 600px) {
+        gap: 5px;
+    }
 }
-.progress_full {
+.modalControls {
+    // mobile
+    max-width: 80vw;
+    justify-content: space-between;
 }
 
 .time_start {
     margin: 0 10px;
-    width: 50px;
     font-size: 12px;
     font-weight: 500;
+    white-space: nowrap;
+    @media (max-width: 600px) {
+        color: var(--white);
+    }
 }
 .time_end {
     margin: 0 10px;
-    width: 50px;
     font-size: 12px;
     font-weight: 500;
+    white-space: nowrap;
+
+    @media (max-width: 600px) {
+        color: var(--white);
+    }
 }
 .duration_bar {
     display: flex;
@@ -128,7 +183,11 @@
     margin-right: 20px;
     justify-content: flex-end;
     align-items: center;
-    justify-content: center;
+    @media (max-width: 600px) {
+        //mobile
+        width: auto;
+        margin: 0 5px;
+    }
 }
 
 .player_controls_right_container {
@@ -140,7 +199,7 @@
     position: relative;
     display: flex;
     align-items: center;
-    
+
     // custom volume tablet
     .inputVolumeTablet {
         position: absolute;
@@ -174,7 +233,7 @@
     background-color: hsla(0, 0%, 100%, 0.4) !important;
     border-radius: 4px;
     color: var(--text-primary);
-    padding: 0 !important;
+    padding: 10px 5px !important;
     height: 30px;
     width: 27px;
     display: flex;
@@ -186,7 +245,7 @@
     background-color: var(--purple-primary) !important;
     border-radius: 4px;
     color: var(--white);
-    padding: 0 !important;
+    padding: 10px 5px !important; 
     height: 30px;
     width: 27px;
     font-size: 16px;
@@ -203,5 +262,22 @@
     }
     to {
         transform: translateX(-30%);
+    }
+}
+
+@keyframes spining {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+@keyframes spinReturn {
+    from {
+        transform: rotate(360deg);
+    }
+    to {
+        transform: rotate(0);
     }
 }

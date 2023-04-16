@@ -1,18 +1,18 @@
-import { AccountLayout, NewSongLayout } from '../layouts';
-import AccountPage from '../pages/Account/Account';
-import Album from '../pages/Album';
-import AlbumSinger from '../pages/AlbumSinger';
-import ArtistBanner from '../pages/ArtistBanner/ArtistBanner';
-import Category from '../pages/Category';
-import Error from '../pages/Error';
-import Following from '../pages/Following';
-import Home from '../pages/Home';
 import Mv from '../pages/Mv';
-import MyPlayer from '../pages/MyPlayer/';
+import Home from '../pages/Home';
+import Error from '../pages/Error';
+import Album from '../pages/Album';
 import NewSongs from '../pages/NewSongs';
-import Top100 from '../pages/Top100/Top100';
 import Trending from '../pages/Trending';
+import Category from '../pages/Category';
 import Zingchart from '../pages/Zingchart';
+import MyPlayer from '../pages/MyPlayer/';
+import Following from '../pages/Following';
+import Top100 from '../pages/Top100/Top100';
+import AlbumSinger from '../pages/AlbumSinger';
+import AccountPage from '../pages/Account/Account';
+import { AccountLayout, NewSongLayout } from '../layouts';
+import ArtistBanner from '../pages/ArtistBanner/ArtistBanner';
 
 const config = {
     home: {

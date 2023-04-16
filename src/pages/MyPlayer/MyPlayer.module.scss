@@ -4,7 +4,11 @@
         margin: 10px 0 30px 0;
         display: flex;
         overflow: hidden;
-        justify-content: flex-end;
+
+        @media (max-width: 600px) {
+           
+            overflow-x: scroll;
+        }
     }
 }
 .title_songs_list {
@@ -16,5 +20,11 @@
     font-size: 14px;
     font-weight: 500;
     padding: 0 20px;
-    border-bottom: 1px solid var(--border-playerdary); 
+    border-bottom: 1px solid var(--border-playerdary);
 }
+
+
+
+.container_card_artist::-webkit-scrollbar-thumb:horizontal {
+    display: none;
+} 

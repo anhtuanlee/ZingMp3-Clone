@@ -1,15 +1,17 @@
-import classNames from 'classnames/bind';
 import { useState } from 'react';
-import { Check, Close, Error, Info } from '../Icons';
+import classNames from 'classnames/bind';
+import PropTypes from 'prop-types';
+
 import styles from './Notification.module.scss';
+import { Check, Close, Error, Info } from '../Icons';
 
 const cx = classNames.bind(styles);
 
 function Notification({ title, styles }) {
-  const [isTurnOff, setIsTurnOff] = useState(false);
+    const [isTurnOff, setIsTurnOff] = useState(false);
 
     const handleTurnOffNotification = () => {
-        setIsTurnOff(true); 
+        setIsTurnOff(true);
     };
     const Icon = () => {
         if (styles === 'success') {
@@ -40,3 +42,8 @@ function Notification({ title, styles }) {
 }
 
 export default Notification;
+
+Notification.propTypes = {
+    title: PropTypes.string,
+    styles: PropTypes.string,
+};

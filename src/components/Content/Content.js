@@ -1,4 +1,3 @@
-import classNames from 'classnames/bind';
 import { BANNER_ALBUM_HOT, BANNER_SINGER_POPULAR } from '../../redux/constant';
 import Container from '../Container/Container';
 import Trending from './Trending/Trending';

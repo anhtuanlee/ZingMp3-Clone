@@ -1,10 +1,12 @@
-import classNames from 'classnames/bind';
 import React, { memo } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames/bind';
 import { useSelector } from 'react-redux';
-import ButtonEffectPlay from '../../../components/Button/config/ButtonEffectPlay';
+
+import styles from './TitlePage.module.scss';
 import Loading from '../../../pages/Loading';
 import { combinedStatusSelector } from '../../../redux/selector';
-import styles from './TitlePage.module.scss';
+import ButtonEffectPlay from '../../../components/Button/config/ButtonEffectPlay';
 
 const cx = classNames.bind(styles);
 const TitlePage = memo(({ title, sizes, styles, data, className }) => {
@@ -15,7 +17,7 @@ const TitlePage = memo(({ title, sizes, styles, data, className }) => {
             <Loading styles={{ width: '30%', height: '4vh' }} />
         </header>
     ) : (
-        <header className={cx('header_title',className)} style={styles}>
+        <header className={cx('header_title', className)} style={styles}>
             <h3 className={cx('title_section')}>{title}</h3>
             {sizes && <ButtonEffectPlay sizes={sizes} data={data} />}
         </header>
@@ -23,3 +25,11 @@ const TitlePage = memo(({ title, sizes, styles, data, className }) => {
 });
 
 export default TitlePage;
+
+TitlePage.propTypes = {
+    title: PropTypes.string,
+    sizes: PropTypes.string,
+    styles: PropTypes.object,
+    data: PropTypes.array,
+    className: PropTypes.string,
+};

@@ -1,26 +1,28 @@
 import classNames from 'classnames/bind';
+import isEmpty from 'validator/lib/isEmpty';
 import { useEffect, useRef, useState } from 'react';
-import { getProfileUser, getUserLogin, setUserRegister } from '../../services/userApi';
+import { useDispatch, useSelector } from 'react-redux';
+
 import Button from '../Button';
 import styles from './Form.module.scss';
 import { Close, Loading } from '../Icons';
-import { useDispatch, useSelector } from 'react-redux';
-import { featureSlice, loginSlice } from '../../redux/sliceReducer';
-import isEmpty from 'validator/lib/isEmpty';
 import { combinedStatusSelector } from '../../redux/selector';
+import { featureSlice, loginSlice } from '../../redux/sliceReducer';
+import { getUserLogin, setUserRegister } from '../../services/userApi';
 
 const cx = classNames.bind(styles);
 
 function Form() {
     const dispatch = useDispatch();
     const btnEnterRef = useRef();
-    const { dataUser, isLogin } = useSelector(combinedStatusSelector);
+    const { isLogin } = useSelector(combinedStatusSelector);
     // form
     const [user, setUser] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirm, setPasswordConfirm] = useState('');
     const [email, setEmail] = useState('');
 
+    //Login
     const [isLoginForm, setIsLogin] = useState(isLogin);
     const [validMsgError, setValidMsgError] = useState({});
 
@@ -32,10 +34,10 @@ function Form() {
     const onChangeForm = () => {
         setIsLogin(!isLoginForm);
         setValidMsgError(false);
+        setUser('');
         setEmail('');
         setPassword('');
         setPasswordConfirm('');
-        setUser('');
     };
     const handleCloseForm = () => {
         dispatch(loginSlice.actions.setIsLogin(false));
@@ -186,7 +188,7 @@ function Form() {
                 .catch((error) => {
                     if (error.response.status === 400)
                         setStatus({
-                            title: 'Đăng nhập không thành công',
+                            title: 'Sai tên đăng nhập hoặc mật khẩu !!!',
                             styles: 'error',
                         });
                 });
@@ -208,7 +210,9 @@ function Form() {
             );
         }
     }, [status]);
+
     useEffect(() => {
+        //enter to submit form
         const handlePressKeyEnter = (e) => {
             if (e.key === 'Enter') {
                 btnEnterRef.current.click();
@@ -232,7 +236,9 @@ function Form() {
                     onSubmit={(e) => (isLoginForm ? handleLogin(e) : handleSubmit(e))}
                 >
                     {isLoginForm ? (
-                        // login
+                        ///////////////
+                        /* Form Login */
+                        ///////////////
                         <div className={cx('form')}>
                             <div className={cx('form_input')}>
                                 <label className={cx('form_label')} htmlFor="email">
@@ -254,6 +260,7 @@ function Form() {
                                     {validMsgError.email}{' '}
                                 </span>
                             </div>
+
                             <div className={cx('form_input')}>
                                 <label className={cx('form_label')} htmlFor="password">
                                     Password
@@ -276,7 +283,9 @@ function Form() {
                             </div>
                         </div>
                     ) : (
-                        // register
+                        //////////////////
+                        /* Form Register */
+                        //////////////////
                         <div className={cx('form')}>
                             <div className={cx('form_input')}>
                                 <label className={cx('form_label')} htmlFor="userName">
@@ -298,6 +307,7 @@ function Form() {
                                     {validMsgError.user}{' '}
                                 </span>
                             </div>
+
                             <div className={cx('form_input')}>
                                 <label className={cx('form_label')} htmlFor="password">
                                     Password
@@ -318,6 +328,7 @@ function Form() {
                                     {validMsgError.password}
                                 </span>
                             </div>
+
                             <div className={cx('form_input')}>
                                 <label
                                     className={cx('form_label')}
@@ -341,6 +352,7 @@ function Form() {
                                     {validMsgError.passwordconfirm}
                                 </span>
                             </div>
+
                             <div className={cx('form_input')}>
                                 <label className={cx('form_label')} htmlFor="email">
                                     Email

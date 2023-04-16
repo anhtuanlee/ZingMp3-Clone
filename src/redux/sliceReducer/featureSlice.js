@@ -42,5 +42,6 @@ export const featureSlice = createSlice({
         setNotification: (state, action) => {
             state.notification = action.payload;
         },
+     
     },
 });

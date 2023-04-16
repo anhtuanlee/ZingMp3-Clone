@@ -13,13 +13,23 @@
         //tablet
         overflow: hidden;
     }
+    @media (max-width: 600px) {
+        //tablet 
+        flex-wrap: wrap;
+        overflow: hidden;
+    }
     .item {
         padding: 0 12px;
         width: 20%;
         flex-shrink: 0;
-        @media (max-width: 1130px) {
+        @media (max-width: 1200px) {
             //tablet
             width: 25%;
+        }
+        @media (max-width: 600px) {
+            //tablet
+            width: 50%;
+            padding: 10px;  
         }
         .item_title {
             font-size: 14px;

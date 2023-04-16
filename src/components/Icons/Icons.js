@@ -1,15 +1,16 @@
 import { faListMusic, faLoader } from '@cseitz/fontawesome-svg-duotone';
 import {
     faArrowDownToBracket,
-    faArrowRight,
     faArrowRightFromBracket,
     faArrowUpFromBracket,
     faBan,
+    faBarsSort,
     faCircleInfo,
     faCirclePlay,
     faFileLines,
     faGear,
     faGem,
+    faMagnifyingGlass,
     faMicrophone,
     faPhone,
     faRectangleAd,
@@ -19,18 +20,24 @@ import {
     faVolume,
     faVolumeXmark,
     faXmark,
+    faChevronLeft,
+    faChevronRight,
 } from '@cseitz/fontawesome-svg-light';
 import { faEye, faHeart, faWindowRestore } from '@fortawesome/free-regular-svg-icons';
 import {
+    faAnglesDown,
     faBackwardStep,
     faCheck,
     faEllipsis,
     faForwardStep,
+    faHeadphones,
+    faHeart as faHeartFull,
     faPause,
     faPlay,
     faSubtract,
     faTriangleExclamation,
-    faHeart as faHeartFull,
+    faArrowLeft,
+    faArrowRight,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import images from '../../assets';
@@ -81,6 +88,9 @@ export const LogOut = () => {
 };
 export const ArrowRight = () => {
     return <FontAwesomeIcon icon={faArrowRight} />;
+};
+export const ArrowLeft = () => {
+    return <FontAwesomeIcon icon={faArrowLeft} />;
 };
 export const Block = () => {
     return <FontAwesomeIcon icon={faBan} />;
@@ -303,4 +313,23 @@ export const Error = () => {
 };
 export const Eyes = () => {
     return <FontAwesomeIcon icon={faEye} />;
+};
+
+export const BarSort = () => {
+    return <FontAwesomeIcon icon={faBarsSort} />;
+};
+export const SearchMobile = () => {
+    return <FontAwesomeIcon icon={faMagnifyingGlass} />;
+};
+export const ArrowDown = () => {
+    return <FontAwesomeIcon icon={faAnglesDown} />;
+};
+export const HeadPhone = () => {
+    return <FontAwesomeIcon icon={faHeadphones} />;
+};
+export const ArrowChevonRight = () => {
+    return <FontAwesomeIcon icon={faChevronRight} />;
+};
+export const ArrowChevonLeft = () => {
+    return <FontAwesomeIcon icon={faChevronLeft} />;
 };

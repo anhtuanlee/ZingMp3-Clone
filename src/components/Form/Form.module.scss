@@ -8,17 +8,21 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 99999;
 
     .container_section {
         display: flex;
         flex-direction: column;
         background-color: var(--player-bg);
-        width: 50vw;
         display: flex;
         flex-direction: column;
         padding: 20px;
         border-radius: 10px;
+        width: 50vw;
 
+        @media (max-width: 600px) {
+            width: 80vw;
+        }
         .title_form {
             font-size: 25px;
             font-weight: 600;
@@ -106,7 +110,7 @@
 }
 
 .messenger_error {
-    color: red; 
+    color: red;
     font-size: 14px;
     font-weight: 400;
 }

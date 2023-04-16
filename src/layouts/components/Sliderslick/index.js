@@ -45,12 +45,12 @@ function SliderSlick() {
                 spacing: 15,
             },
             breakpoints: {
-                '(max-width: 400px)': {
-                    slides: { perView: 1, spacing: 5 },
+                '(max-width: 480px)': {
+                    slides: { perView: 1, spacing: 10 },
                     drag: true,
                 },
 
-                '(min-width: 400px)': {
+                '(min-width: 481px)': {
                     slides: { perView: 2, spacing: 10 },
                 },
                 '(min-width: 1130px)': {
@@ -96,21 +96,36 @@ function SliderSlick() {
         ],
     );
     return isLoadingPage ? (
-        <Media query="(min-width: 1130px)">
-            {(matches) => {
-                return matches ? (
-                    <div style={{ display: 'flex', gap: 20, paddingTop: 32 }}>
-                        <Loading styles={{ height: '25vh' }} />
-                        <Loading styles={{ height: '25vh' }} />
-                        <Loading styles={{ height: '25vh' }} />
-                    </div>
-                ) : (
-                    <div style={{ display: 'flex', gap: 20, paddingTop: 32 }}>
-                        <Loading styles={{ height: '25vh' }} />
-                        <Loading styles={{ height: '25vh' }} />
-                    </div>
-                );
+        <Media
+            queries={{
+                small: '(max-width: 480px)',
+                medium: '(min-width: 481px) and (max-width: 1199px)',
+                large: '(min-width: 481px) and (min-width: 1200px)',
             }}
+        >
+            {(matches) => (
+                <div>
+                    {matches.large && (
+                        <div style={{ display: 'flex', gap: 20, paddingTop: 32 }}>
+                            <Loading styles={{ height: '25vh' }} />
+                            <Loading styles={{ height: '25vh' }} />
+                            <Loading styles={{ height: '25vh' }} />
+                        </div>
+                    )}
+
+                    {matches.medium && (
+                        <div style={{ display: 'flex', gap: 20, paddingTop: 32 }}>
+                            <Loading styles={{ height: '25vh' }} />
+                            <Loading styles={{ height: '25vh' }} />
+                        </div>
+                    )}
+                    {matches.small && (
+                        <div style={{ display: 'flex', gap: 20, paddingTop: 32 }}>
+                            <Loading styles={{ height: '25vh' }} />
+                        </div>
+                    )}
+                </div>
+            )}
         </Media>
     ) : (
         <div className={cx('wrapper')}>

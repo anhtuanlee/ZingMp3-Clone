@@ -1,19 +1,17 @@
-
-
 const convertNumber = (favorite) => {
     let result;
     if (favorite / 1000000000 >= 1) {
-        result = (favorite / 1000000000).toString().slice(0, 4) + 'B';
+        result = (favorite / 1000000000).toString().split('.')[0] + 'B';
     } else {
         if (favorite / 1000000 >= 1) {
-            result = (favorite / 1000000).toString().slice(0, 4) + 'M';
+            result = (favorite / 1000000).toString().split('.')[0] + 'M';
         } else {
             if (favorite / 1000 >= 1) {
-                result = (favorite / 1000).toString().slice(0, 4) + 'K';
+                result = (favorite / 1000).toString().split('.')[0] + 'K';
             }
         }
     }
     return result;
 };
 
-export default convertNumber
+export default convertNumber;

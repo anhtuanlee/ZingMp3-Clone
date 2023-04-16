@@ -1,27 +1,58 @@
 .wrapper {
-    background-color: rgb(0, 0, 0, 0.05);
+    /*   background-color: rgb(0, 0, 0, 0.05); */
+
+    @media (max-width: 600px) {
+        height: var(--height-mobile-section);
+        overflow-y: scroll;
+    }
 }
 // Header Account Page
 .header_account_page {
-    height: 300px;  
+    margin-top: 100px;
+
+    @media (max-width: 600px) {
+        //mobile
+        height: auto;
+        margin-bottom: 30px;
+    }
     .header_box {
         padding: var(--padding-section);
+        display: flex;
+        align-items: center;
     }
-    padding-top: 135px;
     .box_singer {
         display: flex;
         align-items: center;
         justify-content: flex-start;
+
+        @media (max-width: 600px) {
+            //mobile
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
+        }
     }
     .image_singer {
         width: 140px;
         height: 140px;
         border-radius: 100px;
         margin-right: 40px;
+
+        @media (max-width: 600px) {
+            //mobile
+            width: 80px;
+            height: 80px;
+            margin-right: 20px;
+        }
     }
     .singer_info {
         display: flex;
         flex-direction: column;
+        @media (max-width: 600px) {
+            //mobile
+            justify-content: center;
+        }
     }
     .singer_name {
         font-size: 28px;
@@ -35,18 +66,21 @@
         font-size: 14px;
         margin-top: 20px;
         font-weight: 500;
+        @media (max-width: 600px) {
+            //mobile
+            margin-top: 0;
+        }
     }
 }
 
 //content Account Page
 .content_account_page {
     background-color: var(--primary);
-    height: 1000px;
 
     .container_songs_popular {
         width: 100%;
         background-color: var(--primary);
-        padding: var(--padding-section);
+        height: auto;
     }
     .title_section {
         display: flex;
@@ -74,7 +108,10 @@
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         column-gap: 28px;
+
+        @media (max-width: 600px) {
+            //mobile
+            grid-template-columns: repeat(1, 1fr);
+        }
     }
 }
-
- 

@@ -10,7 +10,8 @@ export const isRequirePlaySelector = (state) => state.status.isRequirePlay;
 export const isMvPlayerSelector = (state) => state.status.isMvPlayer;
 export const isPlayerQueueSelector = (state) => state.status.isPlayerQueue;
 export const isCheckBeforeContentHideSelector = (state) => state.status.isContentHide;
-
+export const isSidebarMobileSelector = (state) => state.status.isSidebarMobile;
+export const isControlMusicMobileSelector = (state) => state.status.isControlMusicMobile;
 //feature
 export const songCurrentSelector = (state) => state.feature.songCurrent;
 export const slugDataBannerSelector = (state) => state.feature.slugDataBanner;
@@ -19,6 +20,7 @@ export const dataSongsSelector = (state) => state.feature.dataSongs;
 export const timesSelector = (state) => state.feature.times;
 export const volumeSelector = (state) => state.feature.volume;
 export const notificationSelector = (state) => state.feature.notification;
+
 // sidebar
 export const idActiveSidebarSelector = (state) => state.sidebar.idSidebarActive;
 
@@ -56,6 +58,8 @@ export const combinedStatusSelector = createSelector(
     isLoginSelector,
     dataUserSelector,
     notificationSelector,
+    isSidebarMobileSelector,
+    isControlMusicMobileSelector,
     (
         isPlaying,
         isRepeat,
@@ -80,6 +84,8 @@ export const combinedStatusSelector = createSelector(
         isLogin,
         dataUser,
         notification,
+        isSidebarMobile,
+        isControlMusicMobile,
     ) => {
         return {
             isPlaying,
@@ -105,6 +111,8 @@ export const combinedStatusSelector = createSelector(
             isLogin,
             dataUser,
             notification,
+            isSidebarMobile,
+            isControlMusicMobile,
         };
     },
 );

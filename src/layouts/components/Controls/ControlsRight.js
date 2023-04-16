@@ -1,16 +1,18 @@
-import classNames from 'classnames/bind';
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import Button from '../../../components/Button/Button';
-import { ListQueue, Multi, Mv, Volumn, VolumnOff } from '../../../components/Icons';
-import { combinedStatusSelector } from '../../../redux/selector';
-import { statusSlice } from '../../../redux/sliceReducer';
-import InputProgress from '../InputProgress';
-import styles from './Controls.module.scss';
 import Media from 'react-media';
+import PropTypes from 'prop-types';
+import classNames from 'classnames/bind';
+import { Fragment, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import styles from './Controls.module.scss';
+import InputProgress from '../InputProgress';
+import Button from '../../../components/Button/Button';
+import { statusSlice } from '../../../redux/sliceReducer';
+import { combinedStatusSelector } from '../../../redux/selector';
+import { ListQueue, Multi, Mv, Volumn, VolumnOff } from '../../../components/Icons';
 const cx = classNames.bind(styles);
 
-function ControlsRight({ audioRef }) {
+function ControlsRight({ isMobile }) {
     const [style, setStyles] = useState(false);
     const { isVolume, songCurrent, isPlayerQueue } = useSelector(combinedStatusSelector);
 
@@ -51,7 +53,8 @@ function ControlsRight({ audioRef }) {
                 console.log('default');
         }
     };
-    const hnadleListQueue = () => {
+    const handleListQueue = (e) => {
+        e.stopPropagation();
         // handle queue list song
         if (isPlayerQueue) {
             dispatch(statusSlice.actions.isCheckBeforeContentHide(true));
@@ -69,7 +72,7 @@ function ControlsRight({ audioRef }) {
     const renderBtnsRight = () => {
         const result = lastData.map((item, index) => {
             return (
-                <Media query="(max-width: 960px)" key={index}>
+                <Media query="(max-width: 1100px)" key={index}>
                     {(matches) => {
                         return (
                             <div
@@ -104,7 +107,6 @@ function ControlsRight({ audioRef }) {
                                             classes={classes}
                                             volumeType={true}
                                             max={10}
-                                            audioRef={audioRef}
                                         />
                                     </div>
                                 )}
@@ -119,15 +121,20 @@ function ControlsRight({ audioRef }) {
 
     return (
         <div className={cx('player_control_right')}>
-            <div className={cx('player_controls_right_container')}>
-                {renderBtnsRight()}
-            </div>
+            {!isMobile && (
+                // just render in desktop and tablet
+                <Fragment>
+                    <div className={cx('player_controls_right_container')}>
+                        {renderBtnsRight()}
+                    </div>
+                    <div className={cx('devide')}></div>
+                </Fragment>
+            )}
 
-            <div className={cx('devide')}></div>
             <div className={cx('btn_playlist_queue')}>
                 <Button
                     Icons={ListQueue}
-                    onHandle={hnadleListQueue}
+                    onHandle={(e) => handleListQueue(e)}
                     className={cx(isPlayerQueue ? 'queueOn' : 'queueOff')}
                     extraTitle="Danh Sách Phát"
                 />
@@ -137,3 +144,7 @@ function ControlsRight({ audioRef }) {
 }
 
 export default ControlsRight;
+
+ControlsRight.propTypes = {
+    isMobile: PropTypes.bool,
+};

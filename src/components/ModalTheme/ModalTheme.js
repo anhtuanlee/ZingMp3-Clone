@@ -1,27 +1,25 @@
-import classNames from 'classnames/bind';
 import { useState } from 'react';
+import classNames from 'classnames/bind';
 import { useDispatch } from 'react-redux';
-import Button from '../../components/Button';
-import { MENU_THEME_LIST } from '../../redux/constant';
-import { themeSlice } from '../../redux/sliceReducer';
+
 import { Close } from '../Icons';
 import ModalItem from './ModalItem';
+import Button from '../../components/Button';
 import styles from './ModalTheme.module.scss';
+import { themeSlice } from '../../redux/sliceReducer';
+import { MENU_THEME_LIST } from '../../redux/constant';
+
 const cx = classNames.bind(styles);
 
 function ModalTheme() {
     const dispatch = useDispatch();
     const [themeTest, setThemeTest] = useState(false);
 
-    const handleTurnOffModal = () => {
+    const handleTurnOffModal = async () => {
         setThemeTest(true);
-        setTimeout(() => {
-            dispatch(themeSlice.actions.setIsModalTheme(false));
-        }, 0);
+        await new Promise((rel) => setTimeout(rel, 0));
+        dispatch(themeSlice.actions.setIsModalTheme(false));
     };
-
-  
-    const handleStop = (e) => {};
     const renderListTheme = () => {
         const result = MENU_THEME_LIST.artist.map((item, index) => {
             return <ModalItem item={item} key={index} themeTest={themeTest} />;
@@ -30,7 +28,7 @@ function ModalTheme() {
     };
 
     return (
-        <div className={cx('wrapper')} /*  onClick={handleTurnOffModal} */>
+        <div className={cx('wrapper')}>
             <div className={cx('theme_modal')}>
                 <div className={cx('main_title')}>
                     <h1>Giao Diện</h1>
@@ -46,10 +44,7 @@ function ModalTheme() {
                 <div className={cx('container')}>
                     <div>
                         <h2>Nghệ Sĩ</h2>
-                        <div
-                            className={cx('section_theme_list')}
-                            onClick={(e) => handleStop}
-                        >
+                        <div className={cx('section_theme_list')}>
                             {renderListTheme()}
                         </div>
                     </div>

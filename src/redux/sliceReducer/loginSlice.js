@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ACCESS_TOKEN_STORAGE, LIST_FAVORITE_STORAGE, USER_ID_STORAGE } from '../../config/localStorages';
+import { ACCESS_TOKEN_STORAGE } from '../../config/localStorages';
 
 export const loginSlice = createSlice({
     name: 'login',
@@ -8,7 +8,7 @@ export const loginSlice = createSlice({
         user: {
             data: {},
             accessToken: ACCESS_TOKEN_STORAGE || '',
-            listFavorite: LIST_FAVORITE_STORAGE || [],
+            listFavorite: [],
         },
     },
     reducers: {
@@ -19,23 +19,10 @@ export const loginSlice = createSlice({
             state.user.accessToken = action.payload;
         },
         setDataUser: (state, action) => {
-            state.user.data = action.payload; 
-            if (state.user.data._id !== USER_ID_STORAGE) {
-                state.user.listFavorite = [];
-            }
+            state.user.data = action.payload;
         },
         setListSongFavorite: (state, action) => {
-            if (action.payload._id) {
-                state.user.listFavorite.push(action.payload);
-            } else {
-                state.user.listFavorite = action.payload;
-            }
-        },
-        setFilterSongFavorite: (state, action) => {
-            const filterSong = state.user.listFavorite.filter((item) => {
-                return item._id !== action.payload._id;
-            });
-            state.user.listFavorite = filterSong;
+            state.user.listFavorite = action.payload;
         },
     },
 });

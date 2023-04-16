@@ -1,15 +1,17 @@
+import React from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
+
+import Button from '../Button';
+import { Pause, Play } from '../../Icons';
 import { combinedStatusSelector } from '../../../redux/selector';
 import { featureSlice, statusSlice } from '../../../redux/sliceReducer';
-import { Pause, Play } from '../../Icons';
-import Button from '../Button';
-import React from 'react';
 
 const ButtonEffectPlay = ({ children, sizes, data = [], isSlugNameFromLocation }) => {
     const dispatch = useDispatch();
     const { isPlaying, songCurrent } = useSelector(combinedStatusSelector);
-
-    const dataCheck = data[data?.length - 1]; 
+ 
+    const dataCheck = data[data?.length - 1];
     const handleTogglePlaySong = () => {
         if (data.length > 0 && dataCheck !== undefined) {
             // data from banner singer
@@ -60,3 +62,10 @@ const ButtonEffectPlay = ({ children, sizes, data = [], isSlugNameFromLocation }
     );
 };
 export default React.memo(ButtonEffectPlay);
+
+ButtonEffectPlay.propTypes = {
+    children: PropTypes.node,
+    sizes: PropTypes.string,
+    data: PropTypes.array,
+    isSlugNameFromLocation: PropTypes.string,
+};

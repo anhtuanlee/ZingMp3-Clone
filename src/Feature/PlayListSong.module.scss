@@ -4,6 +4,7 @@
     padding: 10px;
     border-bottom: 1px solid var(--border-player);
     border-radius: 5px;
+    min-width: 260px;
     &:hover {
         background-color: var(--border-player);
     }
@@ -85,6 +86,9 @@
         line-height: 1.6;
         margin-left: 10px;
         width: 40%;
+        @media (max-width: 600px) {
+            width: 40vw;
+        }
         .name_song_item {
             font-size: 14px;
             color: var(--text-primary);
@@ -94,21 +98,23 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            display: block;
         }
         .name_singer_item {
             font-size: 12px;
-            color: var(--text-secondary);
             padding: 0 4px;
             font-weight: 500;
             text-transform: none;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            display: block;
+            width: 100%;
+            display: inline-block;
             &:hover {
                 text-decoration: underline;
                 color: var(--link-text-hover);
+            }
+            a {
+                color: var(--text-secondary);
             }
         }
     }

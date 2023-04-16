@@ -1,12 +1,14 @@
 import classNames from 'classnames/bind';
-import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { RenderFullListSong } from '../../Feature/HandleEvent/handleEvent';
-import TitlePage from '../../layouts/components/TitlePage/TitlePage';
-import { sidebarSlice, statusSlice } from '../../redux/sliceReducer';
-import { getSingerDataApi } from '../../services';
+
 import styles from './Album.module.scss';
+import { getSingerDataApi } from '../../services';
+import { sidebarSlice, statusSlice } from '../../redux/sliceReducer';
+import TitlePage from '../../layouts/components/TitlePage/TitlePage';
+import { RenderFullListSong } from '../../Feature/HandleEvent/handleEvent';
+
 const cx = classNames.bind(styles);
 
 function Album() {

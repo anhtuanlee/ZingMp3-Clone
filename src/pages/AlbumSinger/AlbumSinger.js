@@ -1,21 +1,21 @@
+import Media from 'react-media';
 import classNames from 'classnames/bind';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { combinedStatusSelector } from '../../redux/selector';
 
-import { Banner } from '../../components/Banner';
-import ButtonEffectPlay from '../../components/Button/config/ButtonEffectPlay';
-import { RenderFullListSong } from '../../Feature/HandleEvent/handleEvent';
-
-import { convertNumber, useDate } from '../../hooks';
-import { featureSlice, sidebarSlice, statusSlice } from '../../redux/sliceReducer';
-import { getMusicTopView, getSingerDataApi } from '../../services';
 import Loading from '../Loading';
 import styles from './AlbumSinger.module.scss';
-import Media from 'react-media';
+import { Banner } from '../../components/Banner';
+import { convertNumber, useDate } from '../../hooks';
 import RenderArtist from '../../Feature/RenderArtist';
+import { combinedStatusSelector } from '../../redux/selector';
+import { getMusicTopView, getSingerDataApi } from '../../services';
 import TitlePage from '../../layouts/components/TitlePage/TitlePage';
+import { RenderFullListSong } from '../../Feature/HandleEvent/handleEvent';
+import ButtonEffectPlay from '../../components/Button/config/ButtonEffectPlay';
+import { featureSlice, sidebarSlice, statusSlice } from '../../redux/sliceReducer'; 
+
 const cx = classNames.bind(styles);
 
 function AlbumSinger() {
@@ -29,6 +29,7 @@ function AlbumSinger() {
 
     const [dataFullSongs, setDataSinger] = useState([]);
     const [dataInAlbum, setDataInAlbum] = useState({});
+    const favorite = convertNumber(dataInAlbum.favorite);
     const timer = useDate(dataInAlbum?.createdAt);
 
     // constants check value in store and location
@@ -133,7 +134,44 @@ function AlbumSinger() {
         dispatch(sidebarSlice.actions.setIdSidebarActive(null));
     }, [navigate, dispatch]);
 
-    const favorite = convertNumber(dataInAlbum.favorite);
+    const ComponentLoading = () => {
+        <Media query="(max-width: 1200px)">
+            {(matches) => {
+                return matches ? (
+                    <div
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'flex-start',
+                            flexDirection: 'column',
+                            gap: 20,
+                            width: '100%',
+                            margin: '15px 10px 0',
+                        }}
+                    >
+                        <Loading styles={{ height: '4vh' }} />
+                        <Loading styles={{ width: '60%', height: '3vh' }} />
+                        <Loading styles={{ width: '40%', height: '2vh' }} />
+                    </div>
+                ) : (
+                    <div
+                        style={{
+                            marginTop: 30,
+                            display: 'flex',
+                            justifyContent: 'center',
+                            flexWrap: 'wrap',
+                            gap: 20,
+                            width: '100%',
+                            margin: '15px 10px 0',
+                        }}
+                    >
+                        <Loading styles={{ height: '4vh' }} />
+                        <Loading styles={{ width: '60%', height: '3vh' }} />
+                        <Loading styles={{ width: '40%', height: '2vh' }} />
+                    </div>
+                );
+            }}
+        </Media>;
+    };
     return (
         <div className={cx('wrapper')}>
             <div className={cx('container_playlist_detail')}>
@@ -147,50 +185,7 @@ function AlbumSinger() {
                         />
                     </div>
                     {isLoadingPage || dataFullSongs.length === 0 ? (
-                        <Media query="(max-width: 1200px)">
-                            {(matches) => {
-                                return matches ? (
-                                    <div
-                                        style={{
-                                            display: 'flex',
-                                            justifyContent: 'flex-start',
-                                            flexDirection: 'column',
-                                            gap: 20,
-                                            width: '100%',
-                                            margin: '15px 10px 0',
-                                        }}
-                                    >
-                                        <Loading styles={{ height: '4vh' }} />
-                                        <Loading
-                                            styles={{ width: '60%', height: '3vh' }}
-                                        />
-                                        <Loading
-                                            styles={{ width: '40%', height: '2vh' }}
-                                        />
-                                    </div>
-                                ) : (
-                                    <div
-                                        style={{
-                                            marginTop: 30,
-                                            display: 'flex',
-                                            justifyContent: 'center',
-                                            flexWrap: 'wrap',
-                                            gap: 20,
-                                            width: '100%',
-                                            margin: '15px 10px 0',
-                                        }}
-                                    >
-                                        <Loading styles={{ height: '4vh' }} />
-                                        <Loading
-                                            styles={{ width: '60%', height: '3vh' }}
-                                        />
-                                        <Loading
-                                            styles={{ width: '40%', height: '2vh' }}
-                                        />
-                                    </div>
-                                );
-                            }}
-                        </Media>
+                        <ComponentLoading />
                     ) : (
                         <h2 className={cx('title_header')}>
                             <span className={cx('title_header_section')}>
