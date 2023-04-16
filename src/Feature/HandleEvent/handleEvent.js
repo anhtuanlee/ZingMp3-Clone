@@ -15,7 +15,8 @@ import {
 import { combinedStatusSelector } from '../../redux/selector';
 
 // handle Filter song trending
-export const handleFilterSongTrending = (data, paramsFilter) => {
+
+export const handleFilterSongTrending = (data = [], paramsFilter) => {
     const dataFilter = data.filter((item) => {
         const category = item.slug_category;
         switch (paramsFilter) {
