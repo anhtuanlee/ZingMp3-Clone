@@ -10,7 +10,7 @@ import {
 export const featureSlice = createSlice({
     name: 'feature',
     initialState: {
-        dataSongs: DATA_SONGS_RECENT ?? [],
+        dataSongs: DATA_SONGS_RECENT || [],
         volume: VOLUME_STORAGE ?? 0,
         songCurrent: SONG_RECENT_STORAGE ?? {},
         currentIndex: CURRENT_ID_STORAGE ?? 0,
@@ -42,6 +42,5 @@ export const featureSlice = createSlice({
         setNotification: (state, action) => {
             state.notification = action.payload;
         },
-     
     },
 });

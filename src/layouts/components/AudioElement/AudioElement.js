@@ -13,7 +13,7 @@ function AudioElement() {
 
     let { currentIndex } = useSelector(combinedStatusSelector); // ?
 
-    const currentSongChange = dataSongs.length > 0 && dataSongs[currentIndex];
+    const currentSongChange = dataSongs?.length > 0 && dataSongs[currentIndex];
     const audioRef = useAudio();
     //Event
     const handleTimeUpdate = () => {
