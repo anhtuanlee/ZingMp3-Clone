@@ -10,7 +10,7 @@ function AudioElement() {
     const dispatch = useDispatch();
     const { isRepeat, isPlaying, dataSongs, songCurrent, isRandom } =
         useSelector(combinedStatusSelector);
-    
+
     let { currentIndex } = useSelector(combinedStatusSelector); // ?
 
     const currentSongChange = dataSongs[currentIndex];
@@ -48,10 +48,10 @@ function AudioElement() {
     useEffect(() => {
         // get newSong
         const Fetch = async () => {
-            if (dataSongs.length === 0 || songCurrent === undefined) {
+            if (dataSongs.length === 0) {
                 const result = await newSongApi().then((data) => {
                     dispatch(featureSlice.actions.setDataSongs(data));
-                    dispatch(featureSlice.actions.setSongCurrent(data[currentIndex]));
+                    /*   dispatch(featureSlice.actions.setSongCurrent(data[currentIndex])); */
                 });
 
                 return result;

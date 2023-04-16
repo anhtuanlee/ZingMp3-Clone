@@ -62,7 +62,7 @@ export const RenderFullListSong = ({
     containerRef,
     isListQueue,
 }) => {
-    const { isLoadingPage } = useSelector(combinedStatusSelector); 
+    const { isLoadingPage } = useSelector(combinedStatusSelector);
 
     const ComponentLoading = ({ index }) => {
         return (
