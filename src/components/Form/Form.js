@@ -13,7 +13,7 @@ import { getUserLogin, setUserRegister } from '../../services/userApi';
 const cx = classNames.bind(styles);
 
 function Form() {
-    /*     const dispatch = useDispatch();
+    const dispatch = useDispatch();
     const btnEnterRef = useRef();
     const { isLogin } = useSelector(combinedStatusSelector);
     // form
@@ -27,7 +27,7 @@ function Form() {
     const [validMsgError, setValidMsgError] = useState({});
 
     //loadingForm
-    const [isLoadingForm, setLoadingForm] = useState(false);
+    const [isLoadingForm, setLoadingForm] = useState(false); 
 
     const onChangeForm = () => {
         setIsLogin(!isLoginForm);
@@ -39,7 +39,8 @@ function Form() {
     };
     const handleCloseForm = () => {
         dispatch(loginSlice.actions.setIsLogin(false));
-    }; 
+    };
+
     const onTypeUser = (e) => {
         setUser(e.target.value);
         if (e.target.value) {
@@ -210,11 +211,10 @@ function Form() {
         window.addEventListener('keypress', handlePressKeyEnter);
 
         return () => window.removeEventListener('keypress', handlePressKeyEnter);
-    }, []);  */
-
-    /* 
-    
-      <div className={cx('container_section')}>
+    }, []);
+    return (
+        <div className={cx('wrapper')}>
+            <div className={cx('container_section')}>
                 <h3 className={cx('title_form')}>
                     {isLoginForm ? 'Đăng nhập' : 'Đăng Kí'}
                     <span className={cx('btn_close')} onClick={handleCloseForm}>
@@ -226,9 +226,9 @@ function Form() {
                     onSubmit={(e) => (isLoginForm ? handleLogin(e) : handleSubmit(e))}
                 >
                     {isLoginForm ? (
-                      
-                       // Form Login 
-                      
+                        ///////////////
+                        /* Form Login */
+                        ///////////////
                         <div className={cx('form')}>
                             <div className={cx('form_input')}>
                                 <label className={cx('form_label')} htmlFor="email">
@@ -273,9 +273,9 @@ function Form() {
                             </div>
                         </div>
                     ) : (
-                       
-                        //  Form Register  
-                    
+                        //////////////////
+                        /* Form Register */
+                        //////////////////
                         <div className={cx('form')}>
                             <div className={cx('form_input')}>
                                 <label className={cx('form_label')} htmlFor="userName">
@@ -392,8 +392,8 @@ function Form() {
                     </button>
                 </form>
             </div>
-    */
-    return <div className={cx('wrapper')}></div>;
+        </div>
+    );
 }
 
 export default Form;
