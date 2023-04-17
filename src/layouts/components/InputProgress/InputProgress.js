@@ -20,7 +20,7 @@ function InputProgress({
     audioType,
     volumeType,
     isMobile,
-}) {
+}) {  
     const dispatch = useDispatch();
     const { isVolume, songCurrent, volume, isControlMusicMobile } =
         useSelector(combinedStatusSelector);

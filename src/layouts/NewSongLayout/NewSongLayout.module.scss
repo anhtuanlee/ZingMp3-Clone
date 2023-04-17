@@ -2,9 +2,12 @@
     display: flex;
     overflow: hidden;
     height: calc(100vh - 90px);
+    margin-bottom: 90px;
+
     @media (max-width: 600px) {
         //mobile
-        height: var(--height-mobile-section)
+        height: var(--height-mobile-section);
+        margin-bottom: var(--heigth-controls-mobile);
     }
 }
 .sidbar {
@@ -17,7 +20,7 @@
     @media (max-width: 600px) {
         //tablet
         width: 0;
-        height: var(--height-mobile-section)
+        height: var(--height-mobile-section);
     }
 }
 
