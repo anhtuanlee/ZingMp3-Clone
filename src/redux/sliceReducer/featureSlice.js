@@ -11,7 +11,7 @@ export const featureSlice = createSlice({
     name: 'feature',
     initialState: {
         dataSongs: DATA_SONGS_RECENT || [],
-        volume: VOLUME_STORAGE ?? 0,
+        volume: VOLUME_STORAGE || 1,
         songCurrent: SONG_RECENT_STORAGE ?? {},
         currentIndex: CURRENT_ID_STORAGE ?? 0,
         times: {

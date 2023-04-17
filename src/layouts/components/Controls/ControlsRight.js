@@ -12,7 +12,7 @@ import { combinedStatusSelector } from '../../../redux/selector';
 import { ListQueue, Multi, Mv, Volumn, VolumnOff } from '../../../components/Icons';
 const cx = classNames.bind(styles);
 
-function ControlsRight({ isMobile }) {
+function ControlsRight({ isMobile, isControlModal }) {
     const [style, setStyles] = useState(false);
     const { isVolume, songCurrent, isPlayerQueue } = useSelector(combinedStatusSelector);
 
@@ -68,7 +68,9 @@ function ControlsRight({ isMobile }) {
     };
 
     const lastData = CONTROL_BTNS_RIGHT[CONTROL_BTNS_RIGHT.length - 1].data;
+
     const classes = style ? 'blur_input' : '';
+    
     const renderBtnsRight = () => {
         const result = lastData.map((item, index) => {
             return (
@@ -107,6 +109,7 @@ function ControlsRight({ isMobile }) {
                                             classes={classes}
                                             volumeType={true}
                                             max={10}
+                                            isMobile={isMobile}
                                         />
                                     </div>
                                 )}
@@ -121,8 +124,8 @@ function ControlsRight({ isMobile }) {
 
     return (
         <div className={cx('player_control_right')}>
-            {!isMobile && (
-                // just render in desktop and tablet
+            {!isMobile && !isControlModal && (
+                // Desktop and Tablet
                 <Fragment>
                     <div className={cx('player_controls_right_container')}>
                         {renderBtnsRight()}
@@ -130,6 +133,8 @@ function ControlsRight({ isMobile }) {
                     <div className={cx('devide')}></div>
                 </Fragment>
             )}
+
+            {/* Mobile */}
 
             <div className={cx('btn_playlist_queue')}>
                 <Button

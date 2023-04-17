@@ -11,9 +11,19 @@ import { combinedFeatureSelector, combinedStatusSelector } from '../../../redux/
 
 const cx = classNames.bind(styles);
 
-function InputProgress({ max, step, min, style, classes, audioType, volumeType }) {
+function InputProgress({
+    max,
+    step,
+    min,
+    style,
+    classes,
+    audioType,
+    volumeType,
+    isMobile,
+}) {
     const dispatch = useDispatch();
-    const { isVolume, songCurrent, volume } = useSelector(combinedStatusSelector);
+    const { isVolume, songCurrent, volume, isControlMusicMobile } =
+        useSelector(combinedStatusSelector);
     const { times } = useSelector(combinedFeatureSelector);
     const progressRef = useRef();
     const audioRef = useAudio();
@@ -23,10 +33,10 @@ function InputProgress({ max, step, min, style, classes, audioType, volumeType }
         );
         return percentValue ? percentValue : 0;
     });
-
     const [valueVolume, setValueVolume] = useState(() => {
         return volume * 10;
     });
+
     const handleTypeInput = (e) => {
         if (audioRef) {
             if (audioType) {
@@ -86,7 +96,8 @@ function InputProgress({ max, step, min, style, classes, audioType, volumeType }
                     // check isVolume false and valueVolume < 0.1 when isVolume change will setValue = 0.1
                     setValueVolume(1);
                 } else {
-                    audioRef.current.volume = 0;
+                    // if isControlMusic or isMobile will auto volume is 1
+                    audioRef.current.volume = isControlMusicMobile || isMobile ? 1 : 0;
                 }
             }
             dispatch(featureSlice.actions.setVolume(audioRef.current.volume));
@@ -96,7 +107,7 @@ function InputProgress({ max, step, min, style, classes, audioType, volumeType }
                 JSON.stringify(audioRef.current.volume),
             );
         }
-    }, [isVolume, dispatch]);
+    }, [isVolume, valueVolume, dispatch]);
     return (
         <input
             type="range"

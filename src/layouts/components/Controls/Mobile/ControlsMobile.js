@@ -11,6 +11,7 @@ import { statusSlice } from '../../../../redux/sliceReducer';
 import { ActionBtnAlbum } from '../../../../Feature/ActionBtnAlbum';
 import { ArrowDown, HeadPhone } from '../../../../components/Icons';
 import { combinedStatusSelector } from '../../../../redux/selector';
+import ControlsRight from '../ControlsRight';
 
 const cx = classNames.bind(styles);
 
@@ -69,8 +70,7 @@ function ControlMobile() {
                                 <HeadPhone /> {listener}
                             </span>
                         </div>
-                    </div>
-
+                    </div> 
                     <div className={cx('controls_main')}>
                         <ControlsCenter isControlModal />
                         <div className={cx('btn_handle')}>

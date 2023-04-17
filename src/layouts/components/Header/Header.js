@@ -147,7 +147,12 @@ function Header({ styles, isScrollHeader }) {
                                 </div>
                             </div>
                             <div className={cx('button_controls_right')}>
-                                <Button primary LeftIcons={DowloadIcon} sizes="normal">
+                                <Button
+                                    className={cx('btn_download')}
+                                    primary
+                                    LeftIcons={DowloadIcon}
+                                    sizes="normal"
+                                >
                                     Dowload
                                 </Button>
                                 <Button
