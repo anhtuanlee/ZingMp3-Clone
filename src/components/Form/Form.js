@@ -116,8 +116,7 @@ function Form() {
             if (isEmpty(user?.trim())) {
                 msg.user = 'Vui lòng nhập user';
             } else {
-                const regexUser =
-                    /^[a-zA-Z0-9](_(?!(\.|_))|\.(?!(_|\.))|[a-zA-Z0-9]){6,18}[a-zA-Z0-9]$/;
+                const regexUser = /^[a-z0-9_-]{8,20}$/;
                 if (!regexUser.test(user)) msg.user = 'User phải từ 8 - 20 kí tự';
             }
 
