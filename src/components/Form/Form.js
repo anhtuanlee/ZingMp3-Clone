@@ -13,7 +13,7 @@ import { getUserLogin, setUserRegister } from '../../services/userApi';
 const cx = classNames.bind(styles);
 
 function Form() {
-    const dispatch = useDispatch();
+    /*     const dispatch = useDispatch();
     const btnEnterRef = useRef();
     const { isLogin } = useSelector(combinedStatusSelector);
     // form
@@ -77,7 +77,7 @@ function Form() {
     const validator = () => {
         const msg = {};
 
-       /*  if (isLoginForm) {
+        if (isLoginForm) {
             if (isEmpty(email)) {
                 msg.email = 'Vui lòng nhập email';
             } else {
@@ -126,7 +126,7 @@ function Form() {
                 if (!regexEmail.test(email)) msg.email = 'Vui Lòng Nhập Đúng Email';
             }
         }
- */
+
         setValidMsgError(msg);
         if (Object.keys(msg).length > 0) return false;
 
@@ -210,10 +210,11 @@ function Form() {
         window.addEventListener('keypress', handlePressKeyEnter);
 
         return () => window.removeEventListener('keypress', handlePressKeyEnter);
-    }, []);
-    return (
-        <div className={cx('wrapper')}>
-            <div className={cx('container_section')}>
+    }, []);  */
+
+    /* 
+    
+      <div className={cx('container_section')}>
                 <h3 className={cx('title_form')}>
                     {isLoginForm ? 'Đăng nhập' : 'Đăng Kí'}
                     <span className={cx('btn_close')} onClick={handleCloseForm}>
@@ -225,9 +226,9 @@ function Form() {
                     onSubmit={(e) => (isLoginForm ? handleLogin(e) : handleSubmit(e))}
                 >
                     {isLoginForm ? (
-                        ///////////////
-                        /* Form Login */
-                        ///////////////
+                      
+                       // Form Login 
+                      
                         <div className={cx('form')}>
                             <div className={cx('form_input')}>
                                 <label className={cx('form_label')} htmlFor="email">
@@ -272,9 +273,9 @@ function Form() {
                             </div>
                         </div>
                     ) : (
-                        //////////////////
-                        /* Form Register */
-                        //////////////////
+                       
+                        //  Form Register  
+                    
                         <div className={cx('form')}>
                             <div className={cx('form_input')}>
                                 <label className={cx('form_label')} htmlFor="userName">
@@ -391,8 +392,8 @@ function Form() {
                     </button>
                 </form>
             </div>
-        </div>
-    );
+    */
+    return <div className={cx('wrapper')}></div>;
 }
 
 export default Form;
