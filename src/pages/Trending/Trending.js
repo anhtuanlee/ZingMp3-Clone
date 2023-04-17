@@ -27,7 +27,6 @@ function Trending() {
         return searchParams.get('_filter'); // will return params first when reload page with data was set
     });
     const isTrendingPage = true; // check page or content
-    const isRank = true;
 
     const onHandleSelectNational = (item) => {
         const selectNational = handleSelectButtonNational(item);
@@ -47,14 +46,12 @@ function Trending() {
         dispatch(statusSlice.actions.isPageLoadingChange(true));
 
         const fetch = async () => {
-            const result = await getTrendingDataApi(100).then((data) => {
-                const dataFilter = handleFilterSongTrending(data, paramsFilter);
-                setDataSelect(dataFilter);
-                setDataApiReturn(data);
-            });
-            dispatch(statusSlice.actions.isPageLoadingChange(false));
+            const response = await getTrendingDataApi(100);
+            const dataFilter = handleFilterSongTrending(response, paramsFilter);
+            setDataSelect(dataFilter);
+            setDataApiReturn(response);
 
-            return result;
+            dispatch(statusSlice.actions.isPageLoadingChange(false));
         };
         fetch();
     }, []);

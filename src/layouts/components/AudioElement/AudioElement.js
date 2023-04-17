@@ -4,17 +4,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useAudio } from '../../../hooks';
 import { getMusicName, newSongApi } from '../../../services';
 import { combinedFeatureSelector, combinedStatusSelector } from '../../../redux/selector';
-import { featureSlice, statusSlice } from '../../../redux/sliceReducer'; 
+import { featureSlice, statusSlice } from '../../../redux/sliceReducer';
 
 function AudioElement() {
     const dispatch = useDispatch();
     const { isRepeat, isPlaying, dataSongs, songCurrent, isRandom } =
-        useSelector(combinedStatusSelector); 
+        useSelector(combinedStatusSelector);
     let { currentIndex } = useSelector(combinedStatusSelector);
     const { times } = useSelector(combinedFeatureSelector);
 
     const currentSongChange = dataSongs[currentIndex];
+
     const audioRef = useAudio();
+
     //Event
     const handleTimeUpdate = () => {
         dispatch(featureSlice.actions.setTimes(audioRef.current.currentTime));
@@ -49,12 +51,8 @@ function AudioElement() {
         // get newSong when havent data and first time use
         const Fetch = async () => {
             if (dataSongs.length === 0) {
-                const result = await newSongApi().then((data) => {
-                    dispatch(featureSlice.actions.setDataSongs(data));
-                    /*   dispatch(featureSlice.actions.setSongCurrent(data[currentIndex])); */
-                });
-
-                return result;
+                const result = await newSongApi();
+                dispatch(featureSlice.actions.setDataSongs(result));
             }
         };
         Fetch();
@@ -66,17 +64,16 @@ function AudioElement() {
             if (currentSongChange) {
                 const sluNameSinger = currentSongChange?.slug_name_music;
                 dispatch(statusSlice.actions.isLoadingChange(true));
-                const resultSong = await getMusicName(sluNameSinger).then((data) => {
-                    if (
-                        data._id !== songCurrent._id &&
-                        data._id !== '616c5aecfb6ad80023fc77c7' &&
-                        data._id !== '634850bc4880840023e41685' // song same slug_name_music
-                    ) {
-                        dispatch(featureSlice.actions.setSongCurrent(data));
-                    }
-                    dispatch(statusSlice.actions.isLoadingChange(false));
-                });
-                return resultSong;
+
+                const resultSong = await getMusicName(sluNameSinger);
+                if (
+                    resultSong._id !== songCurrent._id &&
+                    resultSong._id !== '616c5aecfb6ad80023fc77c7' &&
+                    resultSong._id !== '634850bc4880840023e41685' // song same slug_name_music
+                ) {
+                    dispatch(featureSlice.actions.setSongCurrent(resultSong));
+                }
+                dispatch(statusSlice.actions.isLoadingChange(false));
             }
         };
         fetch();

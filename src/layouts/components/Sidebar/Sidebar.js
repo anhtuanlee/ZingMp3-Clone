@@ -60,6 +60,7 @@ function Sidebar() {
         if (dataUser.accessToken) {
             navigate('..');
             dispatch(loginSlice.actions.setAccessToken(''));
+            dispatch(loginSlice.actions.setListSongFavorite([]));
             dispatch(
                 featureSlice.actions.setNotification({
                     title: 'Đăng xuất thành công',

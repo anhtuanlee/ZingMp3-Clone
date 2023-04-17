@@ -183,7 +183,6 @@ export const ActionBtnAlbum = ({
     const renderBtnHover = () => {
         const result = BUTTON_HOVER.map((btn, index) => {
             const shouldRenderButton = !singleBtn || btn.type === 'play';
-
             if (playlistSong) {
                 if (HomePageTrending) {
                     // from home page
@@ -304,15 +303,11 @@ export const ActionBtnAlbum = ({
         //getDataSongFavorite of user
         if (callData) {
             const fetch = async () => {
-                const result = await getSongFavorite(dataUser.accessToken).then(
-                    (data) => {
-                        if (data.data) {
-                            const dataMusic = data.data.map((song) => song.music);
-                            dispatch(loginSlice.actions.setListSongFavorite(dataMusic));
-                        }
-                    },
-                );
-                return result;
+                const result = await getSongFavorite(dataUser.accessToken);
+                if (result.data) {
+                    const dataMusic = result.data.map((song) => song.music);
+                    dispatch(loginSlice.actions.setListSongFavorite(dataMusic));
+                }
             };
             fetch();
         }

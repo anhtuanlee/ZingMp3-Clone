@@ -14,7 +14,7 @@ import { getMusicTopView, getSingerDataApi } from '../../services';
 import TitlePage from '../../layouts/components/TitlePage/TitlePage';
 import { RenderFullListSong } from '../../Feature/HandleEvent/handleEvent';
 import ButtonEffectPlay from '../../components/Button/config/ButtonEffectPlay';
-import { featureSlice, sidebarSlice, statusSlice } from '../../redux/sliceReducer'; 
+import { featureSlice, sidebarSlice, statusSlice } from '../../redux/sliceReducer';
 
 const cx = classNames.bind(styles);
 
@@ -47,6 +47,7 @@ function AlbumSinger() {
         return newList === index;
     });
     const filteredFavoriteArtists = [...listArtist.slice(0, 5)];
+    
     const handlReqirePlayFromBanner = (data) => {
         if (isRequirePlay) {
             const randomID = Math.floor(Math.random() * data.length);
@@ -81,19 +82,19 @@ function AlbumSinger() {
             }
         }
     }, [slugCategoryCurrent, dispatch, isBannerAlbumHot, slugBannerAlBumHot]);
-    // take data from slugNameLocation with params nickname
+    
+    // take data from slugNameLocation with params nickname 
     useEffect(() => {
         if (dataFullSongs.length === 0 && !slugBannerAlBumHot) {
             dispatch(statusSlice.actions.isPageLoadingChange(true));
             const fetch = async () => {
                 try {
-                    const result = await getSingerDataApi(nickname).then((data) => {
-                        setDataSinger(data);
-                        setDataInAlbum(data[data.length - 1]);
-                        handlReqirePlayFromBanner(data); // handle require play
-                        dispatch(statusSlice.actions.isPageLoadingChange(false));
-                    });
-                    return result;
+                    const result = await getSingerDataApi(nickname);
+                    setDataSinger(result);
+                    setDataInAlbum(result[result.length - 1]);
+                    handlReqirePlayFromBanner(result); // handle require play
+                    dispatch(statusSlice.actions.isPageLoadingChange(false)); 
+
                 } catch (error) {
                     if (error) {
                         navigate('..');
@@ -108,18 +109,21 @@ function AlbumSinger() {
     useEffect(() => {
         if (isBannerAlbumHot) {
             dispatch(statusSlice.actions.isPageLoadingChange(true));
+
             const fetchBannerAlbumHot = async () => {
-                const result = await getMusicTopView(300).then((data) => {
-                    const dataBannerAlbum = data.filter((item) => {
-                        return item?.slug_category === slugBannerAlBumHot;
-                    });
-                    const newDataFillter = dataBannerAlbum.reverse().slice(0, 29);
-                    setDataSinger(newDataFillter);
-                    setDataInAlbum(newDataFillter[newDataFillter.length - 1]);
-                    handlReqirePlayFromBanner(newDataFillter);
-                    dispatch(statusSlice.actions.isPageLoadingChange(false));
+                const result = await getMusicTopView(300);
+
+                const dataBannerAlbum = result.filter((item) => {
+                    return item?.slug_category === slugBannerAlBumHot;
                 });
-                return result;
+
+                const newDataFillter = dataBannerAlbum.reverse().slice(0, 29);
+
+                setDataSinger(newDataFillter);
+
+                setDataInAlbum(newDataFillter[newDataFillter.length - 1]);
+                handlReqirePlayFromBanner(newDataFillter);
+                dispatch(statusSlice.actions.isPageLoadingChange(false));
             };
             fetchBannerAlbumHot();
         }

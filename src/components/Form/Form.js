@@ -28,8 +28,6 @@ function Form() {
 
     //loadingForm
     const [isLoadingForm, setLoadingForm] = useState(false);
-    //status notification
-    const [status, setStatus] = useState();
 
     const onChangeForm = () => {
         setIsLogin(!isLoginForm);
@@ -41,8 +39,7 @@ function Form() {
     };
     const handleCloseForm = () => {
         dispatch(loginSlice.actions.setIsLogin(false));
-    };
-
+    }; 
     const onTypeUser = (e) => {
         setUser(e.target.value);
         if (e.target.value) {
@@ -84,15 +81,15 @@ function Form() {
             if (isEmpty(email)) {
                 msg.email = 'Vui lòng nhập email';
             } else {
-                const x = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
-                const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                const regexEmail = new RegExp(
+                    '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$',
+                );
                 if (!regexEmail.test(email)) msg.email = 'Vui Lòng Nhập Đúng Email';
             }
             if (isEmpty(password)) {
                 msg.password = 'Vui lòng nhập mật khẩu';
             } else {
-                const regexPassword = /^[a-zA-Z\d]{8,}$/;
+                const regexPassword = new RegExp('^[a-zA-Z0-9]{8,}$');
                 if (!regexPassword.test(password))
                     msg.password = 'Mật khẩu phải chứa đủ 8 kí tự';
             }
@@ -100,7 +97,7 @@ function Form() {
             if (isEmpty(password)) {
                 msg.password = 'Vui lòng nhập mật khẩu';
             } else {
-                const regexPassword = /^[a-zA-Z\d]{8,}$/;
+                const regexPassword = new RegExp('^[a-zA-Z0-9]{8,}$');
                 if (!regexPassword.test(password))
                     msg.password = 'Mật khẩu phải chứa đủ 8 kí tự';
             }
@@ -116,14 +113,16 @@ function Form() {
             if (isEmpty(user?.trim())) {
                 msg.user = 'Vui lòng nhập user';
             } else {
-                const regexUser = /^[a-z0-9_-]{8,20}$/;
+                const regexUser = new RegExp('^[a-z0-9_-]{8,20}$');
                 if (!regexUser.test(user)) msg.user = 'User phải từ 8 - 20 kí tự';
             }
 
             if (isEmpty(email)) {
                 msg.email = 'Vui lòng nhập email';
             } else {
-                const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                const regexEmail = new RegExp(
+                    '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$',
+                );
                 if (!regexEmail.test(email)) msg.email = 'Vui Lòng Nhập Đúng Email';
             }
         }
@@ -140,34 +139,30 @@ function Form() {
         const isValid = validator();
         if (!isValid) return;
 
-        const fetch = async () => {
+        const fetchSubmit = async () => {
             setLoadingForm(true);
-            const result = await setUserRegister(user, passwordConfirm, email)
-                .then((data) => {
-                    if (data) {
-                        dispatch(
-                            featureSlice.actions.setNotification({
-                                title: 'Tạo tài khoản thành công !!!',
-                                styles: 'success',
-                            }),
-                        );
-                        setIsLogin(true);
-                    }
-                })
-                .catch((err) => {
-                    if (err.response.status === 400) {
-                        dispatch(
-                            featureSlice.actions.setNotification({
-                                title: 'Tài khoản đã tồn tại !!!',
-                                styles: 'error',
-                            }),
-                        );
-                    }
-                });
+            try {
+                await setUserRegister(user, passwordConfirm, email);
+                dispatch(
+                    featureSlice.actions.setNotification({
+                        title: 'Tạo tài khoản thành công !!!',
+                        styles: 'success',
+                    }),
+                );
+                setIsLogin(true);
+            } catch (error) {
+                if (error.response.status === 400) {
+                    dispatch(
+                        featureSlice.actions.setNotification({
+                            title: 'Tài khoản đã tồn tại !!!',
+                            styles: 'error',
+                        }),
+                    );
+                }
+            }
             setLoadingForm(false);
-            return result;
         };
-        fetch();
+        fetchSubmit();
     };
 
     const handleLogin = (e) => {
@@ -175,42 +170,35 @@ function Form() {
         const isValid = validator();
 
         if (!isValid) return;
-        const fetch = async () => {
+
+        const fetchLogin = async () => {
             setLoadingForm(true);
-            const result = await getUserLogin(email, password)
-                .then((response) => {
-                    dispatch(loginSlice.actions.setDataUser(response.data));
-                    dispatch(loginSlice.actions.setAccessToken(response.accessToken));
-                    setStatus({
-                        title: 'Đăng nhập thành công',
+            try {
+                const response = await getUserLogin(email, password);
+
+                dispatch(loginSlice.actions.setDataUser(response.data));
+                dispatch(loginSlice.actions.setAccessToken(response.accessToken));
+                dispatch(
+                    featureSlice.actions.setNotification({
+                        title: 'Đăng nhập thành công !!!',
                         styles: 'success',
-                    });
-                })
-                .catch((error) => {
-                    if (error.response.status === 400)
-                        setStatus({
+                    }),
+                );
+            } catch (err) {
+                if (err.response.status === 400) {
+                    dispatch(
+                        featureSlice.actions.setNotification({
                             title: 'Sai tên đăng nhập hoặc mật khẩu !!!',
                             styles: 'error',
-                        });
-                });
+                        }),
+                    );
+                }
+            }
             setLoadingForm(false);
-            return result;
         };
 
-        return fetch();
+        fetchLogin();
     };
-
-    useEffect(() => {
-        if (status) {
-            dispatch(
-                featureSlice.actions.setNotification({
-                    title: status.title,
-                    styles: status.styles,
-                    isNotification: true,
-                }),
-            );
-        }
-    }, [status]);
 
     useEffect(() => {
         //enter to submit form

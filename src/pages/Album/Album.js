@@ -11,39 +11,27 @@ import { RenderFullListSong } from '../../Feature/HandleEvent/handleEvent';
 
 const cx = classNames.bind(styles);
 
-function Album() {
-    const navigate = useNavigate();
+function Album() { 
     const dispatch = useDispatch();
     const { nickname } = useParams();
     const [dataFullSongs, setDataSinger] = useState([]);
     const [currentSinger, setCurrentSinger] = useState('');
 
     useEffect(() => {
-        dispatch(statusSlice.actions.isPageLoadingChange(true));
         const fetch = async () => {
             if (dataFullSongs.length === 0) {
-                try {
-                    const result = await getSingerDataApi(nickname).then(
-                        (dataFullSong) => {
-                            if (Array.isArray(dataFullSong)) {
-                                setDataSinger(dataFullSong);
-                                setCurrentSinger(
-                                    dataFullSong[dataFullSong.length - 1].name_singer,
-                                );
-                                dispatch(statusSlice.actions.isPageLoadingChange(false));
-                            }
-                        },
-                    );
-                    return result;
-                } catch (error) {
-                    if (error) {
-                        navigate('..');
-                    }
+                dispatch(statusSlice.actions.isPageLoadingChange(true));
+
+                const result = await getSingerDataApi(nickname);
+                if (Array.isArray(result)) {
+                    setDataSinger(result);
+                    setCurrentSinger(result[result.length - 1].name_singer);
+                    dispatch(statusSlice.actions.isPageLoadingChange(false));
                 }
             }
         };
         fetch();
-    }, [nickname, dispatch, navigate]);
+    }, [nickname, dispatch]);
 
     useEffect(() => {
         dispatch(sidebarSlice.actions.setIdSidebarActive(null)); // not active sidebar

@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PlayListSong from '../../Feature/PlayListSong';
 import { AccountPropose } from '../Propose';
 import { SearchApi } from '../../services';
-import { useDebounce } from '../../hooks';
 import styles from './Search.module.scss';
 import classNames from 'classnames/bind';
 import { Loading } from '../Icons';
@@ -18,21 +17,8 @@ function Search({ visibleHeaderMobile, handleSearchForm }) {
     const [searchResult, setSearchResult] = useState([]);
     const [visible, setVisible] = useState(false);
     const [loadingSearch, setLoadingSearch] = useState();
-    const debounce = useDebounce(value, 500);
     const containerRef = useRef();
-    useEffect(() => {
-        const Fetch = async () => {
-            if (value) {
-                setLoadingSearch(true);
-                const result = await SearchApi(debounce).then((data) => {
-                    value && setSearchResult(data);
-                    setLoadingSearch(false);
-                });
-                return result;
-            }
-        };
-        Fetch();
-    }, [debounce]);
+
     // handle Event
     const handleType = (e) => {
         setValue(e.target.value);
@@ -62,9 +48,23 @@ function Search({ visibleHeaderMobile, handleSearchForm }) {
     };
 
     useEffect(() => {
+        const timer = setTimeout(async () => {
+            if (value) {
+                setLoadingSearch(true);
+                const result = await SearchApi(value);
+                setSearchResult(result);
+                setLoadingSearch(false);
+            }
+        }, 1000);
+
+        return () => clearTimeout(timer);
+    }, [value]);
+
+    useEffect(() => {
         window.addEventListener('click', (e) => handleOffResult(e));
         return () => window.removeEventListener('click', (e) => handleOffResult(e));
     }, [visible, containerRef.current]);
+
     return (
         <div className={cx('wrapper')} ref={containerRef}>
             <div

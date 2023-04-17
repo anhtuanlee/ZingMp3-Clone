@@ -3,15 +3,14 @@
     top: 0;
     left: 0;
     z-index: 99999999;
-    padding: 10px; 
+    padding: 10px;
     .container {
         border: 1px solid transparent;
         display: flex;
         align-items: center;
         padding: 15px 10px;
         border-radius: 8px;
-        max-width: 30vw; 
-        background-color: var(--white); 
+        background-color: var(--white);
         @media (max-width: 600px) {
             max-width: 60vw;
         }
@@ -25,7 +24,12 @@
             justify-content: space-between;
             gap: 10px;
             align-items: center;
-            color: #000 ;
+            color: #000;
+            white-space: nowrap;
+
+            @media (max-width: 600px) {
+                white-space: pre-wrap;
+            }
         }
         .btn_close {
             font-size: 20px;
@@ -91,7 +95,7 @@
 
 @keyframes slideRight {
     from {
-        transform: translateX(-100%) ;
+        transform: translateX(-100%);
     }
     to {
         transform: translate(0);
@@ -103,7 +107,7 @@
         transform: translateX(0);
     }
     to {
-        transform: translate(-100%)  ;
+        transform: translate(-100%);
     }
 }
 @keyframes fadeOut {

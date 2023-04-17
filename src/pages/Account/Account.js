@@ -20,16 +20,14 @@ function AccountPage() {
         dispatch(statusSlice.actions.isPageLoadingChange(true));
         const fetch = async () => {
             try {
-                const result = await getSingerDataApi(nickname, 6).then((data) => {
-                    setDataSinger(data);
-                    dispatch(statusSlice.actions.isPageLoadingChange(false));
-                });
-                return result;
+                const result = await getSingerDataApi(nickname, 6);
+                setDataSinger(result);
             } catch (error) {
                 if (error) {
                     navigate('..');
                 }
             }
+            dispatch(statusSlice.actions.isPageLoadingChange(false));
         };
         fetch();
     }, [nickname]);

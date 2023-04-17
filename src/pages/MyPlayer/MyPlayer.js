@@ -13,7 +13,7 @@ import styles from './MyPlayer.module.scss';
 import { ArrowRight } from '../../components/Icons';
 import RenderArtist from '../../Feature/RenderArtist';
 import { combinedStatusSelector } from '../../redux/selector';
-import TitlePage from '../../layouts/components/TitlePage/TitlePage'; 
+import TitlePage from '../../layouts/components/TitlePage/TitlePage';
 import { getProfileUser, getSongFavorite } from '../../services/userApi';
 import { RenderFullListSong } from '../../Feature/HandleEvent/handleEvent';
 
@@ -32,7 +32,7 @@ function MyPlayer() {
         return newList === index;
     });
     const filteredFavoriteArtists = [
-        ...listArtist.slice(0, 5),
+        ...listArtist.slice(0, 4),
         { image_music: null, name_singer: 'Xem tất cả', icon: ArrowRight },
     ];
     useEffect(() => {
@@ -40,11 +40,8 @@ function MyPlayer() {
         if (dataUser.accessToken) {
             dispatch(statusSlice.actions.isPageLoadingChange(true));
             const fetch = async () => {
-                const result = await getProfileUser(dataUser.accessToken).then((data) => {
-                    dispatch(statusSlice.actions.isPageLoadingChange(false));
-                });
-
-                return result;
+                await getProfileUser(dataUser.accessToken);
+                dispatch(statusSlice.actions.isPageLoadingChange(false));
             };
             fetch();
             dispatch(sidebarSlice.actions.setIdSidebarActive(0));
@@ -65,12 +62,10 @@ function MyPlayer() {
     useEffect(() => {
         //getDataSongFavorite of user
         const fetch = async () => {
-            const result = await getSongFavorite(dataUser.accessToken).then((data) => {
-                if (data.data) {
-                    const dataMusic = data.data.map((song) => song.music);
-                    dispatch(loginSlice.actions.setListSongFavorite(dataMusic));
-                }
-            });
+            const result = await getSongFavorite(dataUser.accessToken);
+            const dataMusic = result.data.map((song) => song.music);
+            dispatch(loginSlice.actions.setListSongFavorite(dataMusic));
+            
             return result;
         };
         fetch();

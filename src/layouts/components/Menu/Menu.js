@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 import MenuItem from './MenuItem';
 import styles from './Menu.module.scss';
-import { convertNumber } from '../../../hooks';
+import { convertNumber, useLogout } from '../../../hooks';
 import Images from '../../../components/Image';
 import { Eyes, Heart } from '../../../components/Icons';
 import { featureSlice, loginSlice } from '../../../redux/sliceReducer';
@@ -33,7 +33,7 @@ function Menu({
     const lastItemMenu = currentItem[currentItem.length - 1];
     const favorite = convertNumber(song?.favorite);
     const view = convertNumber(song?.view);
-
+ 
     const handleClick = () => {
         if (!nestest) {
             setVisible(!visiblecheck);
@@ -64,13 +64,14 @@ function Menu({
         switch (item.type) {
             case 'logout':
                 navigate('..');
+                dispatch(loginSlice.actions.setListSongFavorite([]));
                 dispatch(loginSlice.actions.setAccessToken(''));
                 dispatch(
                     featureSlice.actions.setNotification({
                         title: 'Đăng xuất thành công',
                         styles: 'success',
                     }),
-                );
+                ); 
                 break;
             case 'dowload':
                 e.stopPropagation();
@@ -81,13 +82,7 @@ function Menu({
         }
     };
     const resultSetting = listRender.data.map((item, index) => {
-        return (
-            <MenuItem
-                key={index}
-                data={item} 
-                onHandle={(e) => onHandle(e, item)}
-            />
-        );
+        return <MenuItem key={index} data={item} onHandle={(e) => onHandle(e, item)} />;
     });
     const handleResult = (attrs) => {
         return (
@@ -140,7 +135,7 @@ Menu.propTypes = {
     items: PropTypes.array,
     children: PropTypes.node,
     visible: PropTypes.bool,
-    nestest: PropTypes.object, 
+    nestest: PropTypes.object,
     song: PropTypes.object,
     placement: PropTypes.string,
     className: PropTypes.string,

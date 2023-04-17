@@ -4,8 +4,8 @@
     display: flex;
     align-items: center;
     padding: 8px 25px;
-    width: 100%; 
-    white-space: nowrap ;
+    width: 100%;
+    white-space: nowrap;
     @media (max-width: 1200px) {
         padding: 10px;
     }
@@ -34,7 +34,7 @@
     align-items: center;
     justify-content: center;
     padding: 10px;
-    border-radius: 50%; 
+    border-radius: 50%;
     margin: 0 4px;
     font-size: 18px;
     width: 40px;
@@ -45,10 +45,10 @@
         background-color: var(--hover-blur-bg-button);
     }
     @media (max-width: 600px) {
-        //mobile 
+        //mobile
         margin: 0;
         width: 35px;
-        height: 35px; 
+        height: 35px;
     }
 }
 .circle_hide {
@@ -323,7 +323,7 @@
 
 .left_icon,
 .main_icon,
-.right_icon { 
+.right_icon {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -333,9 +333,11 @@
 }
 .left_icon {
     margin-right: 10px;
+    font-size: 18px;
 }
 .right_icon {
     margin-left: 10px;
+    font-size: 18px;
 }
 //custom border on button menu
 .spederate {

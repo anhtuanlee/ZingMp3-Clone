@@ -43,14 +43,11 @@ function Trending() {
     useEffect(() => {
         dispatch(statusSlice.actions.isPageLoadingChange(true));
         const fetch = async () => {
-            const response = await getTrendingDataApi(50).then((data) => {
-                const dataFilter = handleFilterSongTrending(data, paramsFilter);
-                setDataTrending(data);
-                setDataSelect(dataFilter); // default when reload page will use paramFilter recent to render data
-                dispatch(statusSlice.actions.isPageLoadingChange(false));
-            });
-
-            return response;
+            const response = await getTrendingDataApi(50);
+            const dataFilter = handleFilterSongTrending(response, paramsFilter);
+            setDataTrending(response);
+            setDataSelect(dataFilter); // default when reload page will use paramFilter recent to render data
+            dispatch(statusSlice.actions.isPageLoadingChange(false));
         };
         fetch();
     }, []);
