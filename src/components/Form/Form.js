@@ -84,6 +84,8 @@ function Form() {
             if (isEmpty(email)) {
                 msg.email = 'Vui lòng nhập email';
             } else {
+                const x = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
                 const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
                 if (!regexEmail.test(email)) msg.email = 'Vui Lòng Nhập Đúng Email';
             }
@@ -115,7 +117,7 @@ function Form() {
                 msg.user = 'Vui lòng nhập user';
             } else {
                 const regexUser =
-                    /^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
+                    /^[a-zA-Z0-9](_(?!(\.|_))|\.(?!(_|\.))|[a-zA-Z0-9]){6,18}[a-zA-Z0-9]$/;
                 if (!regexUser.test(user)) msg.user = 'User phải từ 8 - 20 kí tự';
             }
 

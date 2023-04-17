@@ -20,7 +20,7 @@ function InputProgress({
     audioType,
     volumeType,
     isMobile,
-}) {  
+}) {
     const dispatch = useDispatch();
     const { isVolume, songCurrent, volume, isControlMusicMobile } =
         useSelector(combinedStatusSelector);
@@ -83,8 +83,6 @@ function InputProgress({
         }
     }, [times.currentTime, audioRef, songCurrent]);
 
-    //bug
-
     // seek volume
     useEffect(() => {
         if (audioRef) {
@@ -107,7 +105,8 @@ function InputProgress({
                 JSON.stringify(audioRef.current.volume),
             );
         }
-    }, [isVolume, valueVolume, dispatch]);
+    }, [isVolume, valueVolume, dispatch]); 
+    
     return (
         <input
             type="range"

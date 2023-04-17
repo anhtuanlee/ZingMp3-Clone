@@ -3,17 +3,17 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { useAudio } from '../../../hooks';
 import { getMusicName, newSongApi } from '../../../services';
-import { combinedStatusSelector } from '../../../redux/selector';
-import { featureSlice, statusSlice } from '../../../redux/sliceReducer';
+import { combinedFeatureSelector, combinedStatusSelector } from '../../../redux/selector';
+import { featureSlice, statusSlice } from '../../../redux/sliceReducer'; 
 
 function AudioElement() {
     const dispatch = useDispatch();
     const { isRepeat, isPlaying, dataSongs, songCurrent, isRandom } =
-        useSelector(combinedStatusSelector);
+        useSelector(combinedStatusSelector); 
+    let { currentIndex } = useSelector(combinedStatusSelector);
+    const { times } = useSelector(combinedFeatureSelector);
 
-    let { currentIndex } = useSelector(combinedStatusSelector); // ?
-
-    const currentSongChange = dataSongs?.length > 0 && dataSongs[currentIndex];
+    const currentSongChange = dataSongs[currentIndex];
     const audioRef = useAudio();
     //Event
     const handleTimeUpdate = () => {
@@ -46,7 +46,7 @@ function AudioElement() {
     };
 
     useEffect(() => {
-        // get newSong
+        // get newSong when havent data and first time use
         const Fetch = async () => {
             if (dataSongs.length === 0) {
                 const result = await newSongApi().then((data) => {
@@ -59,6 +59,7 @@ function AudioElement() {
         };
         Fetch();
     }, []);
+
     useEffect(() => {
         // get music api
         const fetch = async () => {
@@ -89,6 +90,13 @@ function AudioElement() {
         }
     }, [songCurrent]);
 
+    useEffect(() => {
+        if (times.currentTime) {
+            audioRef.current.currentTime = times.currentTime;
+        } else {
+            audioRef.current.currentTime = 0;
+        }
+    }, []);
     return (
         <audio
             ref={audioRef}

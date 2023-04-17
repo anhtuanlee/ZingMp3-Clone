@@ -67,18 +67,19 @@ function HeaderPageSinger({ data = [] }) {
                             style={{
                                 display: ' flex',
                                 flexDirection: 'row',
-                                gap: 30,
+                                justifyContent: 'space-between',
+                                gap:30 ,
                                 marginBottom: 20,
                             }}
                         >
                             <Loading
                                 styles={{
                                     width: 140,
-                                    paddingBottom: 140,
-                                    borderRadius: 1000,
+                                    paddingBottom:140,
+                                    borderRadius: 100,
                                 }}
                             />
-                            <div style={{ width: '90%', marginTop: 15 }}>
+                            <div style={{ width: '70%', marginTop: 15 }}>
                                 <Loading
                                     styles={{
                                         width: '60%',
