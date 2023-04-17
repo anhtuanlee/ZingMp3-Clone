@@ -77,7 +77,7 @@ function Form() {
     const validator = () => {
         const msg = {};
 
-        if (isLoginForm) {
+       /*  if (isLoginForm) {
             if (isEmpty(email)) {
                 msg.email = 'Vui lòng nhập email';
             } else {
@@ -126,7 +126,7 @@ function Form() {
                 if (!regexEmail.test(email)) msg.email = 'Vui Lòng Nhập Đúng Email';
             }
         }
-
+ */
         setValidMsgError(msg);
         if (Object.keys(msg).length > 0) return false;
 

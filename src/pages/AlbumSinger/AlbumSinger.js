@@ -47,7 +47,7 @@ function AlbumSinger() {
         return newList === index;
     });
     const filteredFavoriteArtists = [...listArtist.slice(0, 5)];
-    
+
     const handlReqirePlayFromBanner = (data) => {
         if (isRequirePlay) {
             const randomID = Math.floor(Math.random() * data.length);
@@ -82,8 +82,8 @@ function AlbumSinger() {
             }
         }
     }, [slugCategoryCurrent, dispatch, isBannerAlbumHot, slugBannerAlBumHot]);
-    
-    // take data from slugNameLocation with params nickname 
+
+    // take data from slugNameLocation with params nickname
     useEffect(() => {
         if (dataFullSongs.length === 0 && !slugBannerAlBumHot) {
             dispatch(statusSlice.actions.isPageLoadingChange(true));
@@ -93,8 +93,7 @@ function AlbumSinger() {
                     setDataSinger(result);
                     setDataInAlbum(result[result.length - 1]);
                     handlReqirePlayFromBanner(result); // handle require play
-                    dispatch(statusSlice.actions.isPageLoadingChange(false)); 
-
+                    dispatch(statusSlice.actions.isPageLoadingChange(false));
                 } catch (error) {
                     if (error) {
                         navigate('..');
@@ -139,42 +138,45 @@ function AlbumSinger() {
     }, [navigate, dispatch]);
 
     const ComponentLoading = () => {
-        <Media query="(max-width: 1200px)">
-            {(matches) => {
-                return matches ? (
-                    <div
-                        style={{
-                            display: 'flex',
-                            justifyContent: 'flex-start',
-                            flexDirection: 'column',
-                            gap: 20,
-                            width: '100%',
-                            margin: '15px 10px 0',
-                        }}
-                    >
-                        <Loading styles={{ height: '4vh' }} />
-                        <Loading styles={{ width: '60%', height: '3vh' }} />
-                        <Loading styles={{ width: '40%', height: '2vh' }} />
-                    </div>
-                ) : (
-                    <div
-                        style={{
-                            marginTop: 30,
-                            display: 'flex',
-                            justifyContent: 'center',
-                            flexWrap: 'wrap',
-                            gap: 20,
-                            width: '100%',
-                            margin: '15px 10px 0',
-                        }}
-                    >
-                        <Loading styles={{ height: '4vh' }} />
-                        <Loading styles={{ width: '60%', height: '3vh' }} />
-                        <Loading styles={{ width: '40%', height: '2vh' }} />
-                    </div>
-                );
-            }}
-        </Media>;
+        return (
+            <Media query="(max-width: 1200px)">
+                {(matches) => {
+                    return matches ? (
+                        <div
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'flex-start',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                gap: 20,
+                                width: '100%',
+                                height: '30vh',
+                                margin: '15px 10px 0',
+                            }}
+                        >
+                            <Loading styles={{ height: '4vh' }} />
+                            <Loading styles={{ width: '90%', height: '3vh' }} />
+                            <Loading styles={{ width: '80%', height: '2vh' }} />
+                        </div>
+                    ) : (
+                        <div
+                            style={{ 
+                                display: 'flex',
+                                justifyContent: 'center',
+                                flexWrap: 'wrap',
+                                gap: 20,
+                                width: '100%',
+                                margin: '15px 10px 0',
+                            }}
+                        >
+                            <Loading styles={{ height: '4vh' }} />
+                            <Loading styles={{ width: '60%', height: '3vh' }} />
+                            <Loading styles={{ width: '40%', height: '2vh' }} />
+                        </div>
+                    );
+                }}
+            </Media>
+        );
     };
     return (
         <div className={cx('wrapper')}>
