@@ -159,7 +159,7 @@ function ModalItem({ item, themeTest }) {
 
         localStorage.setItem('themeRecent', JSON.stringify(themeSelect));
     }, [themeCurrent, dispatch, themeTest, themeSelect]);
-    console.log(themeCurrent);
+
     return (
         <div
             className={cx('item_theme')}
