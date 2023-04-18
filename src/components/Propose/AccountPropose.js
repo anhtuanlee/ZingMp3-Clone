@@ -10,9 +10,10 @@ const cx = classNames.bind(styles);
 
 function AccountPropose({ data = [], onHandle }) {
     // random image of
-    const result = data[0];
+    const result = Array.isArray(data) && data[data.length - 1];
     // fix word not synce
     const datacate = result.category.split(' ');
+
     const category = datacate.map((item) => {
         const result = item.charAt(0).toUpperCase() + item.slice(1) + ' ';
         return result;

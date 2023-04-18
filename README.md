@@ -5,23 +5,23 @@
 
 ### Random Song
 
-Random songs that don't overlap and play back when they're all played
+- Random songs that don't overlap and play back when they're all played
 
 ### Has cool controls
 
-Lets you switch loop, pause, resume, mute, unmute anytime.
+- Lets you switch loop, pause, resume, mute, unmute anytime.
 
 ### Has cool thumbnails
 
-Response your commands with cool thumbnails on hide.
+- Response your commands with cool thumbnails on hide.
 
 ### Login, Register, List Song Favorite
 
-You can register to login and add your favorite songs
+- You can register to login and add your favorite songs
 
 ### Change Theme
 
-Can use the theme with the singer's image
+- Can use the theme with the singer's image
 
 ### Fast & Smooth
 

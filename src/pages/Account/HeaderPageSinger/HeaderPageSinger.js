@@ -14,14 +14,10 @@ const cx = classNames.bind(styles);
 
 function HeaderPageSinger({ data = [] }) {
     const { isLoadingPage } = useSelector(combinedStatusSelector);
-    const [follower, setFollower] = useState();
-    const singer_info = data[data.length - 1];
 
-    useEffect(() => {
-        const follower = singer_info?.favorite.toString();
-        const result = follower?.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, '.'); // add dot between 3 num
-        setFollower(result);
-    }, [singer_info?.favorite]);
+    const singer_info = data[data.length - 1];
+    const follower = singer_info?.favorite.toLocaleString();
+
     const ComponentLoading = () => {
         return (
             <Media query="(max-width: 600px)">
@@ -68,14 +64,14 @@ function HeaderPageSinger({ data = [] }) {
                                 display: ' flex',
                                 flexDirection: 'row',
                                 justifyContent: 'space-between',
-                                gap:30 ,
+                                gap: 30,
                                 marginBottom: 20,
                             }}
                         >
                             <Loading
                                 styles={{
                                     width: 140,
-                                    paddingBottom:140,
+                                    paddingBottom: 140,
                                     borderRadius: 100,
                                 }}
                             />

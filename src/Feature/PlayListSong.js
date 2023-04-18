@@ -16,6 +16,7 @@ import { HeartFull, Play, SubTract, WaveSongPlay } from '../components/Icons';
 
 const cx = classNames.bind(styles);
 
+
 function PlayListSong(
     {
         data = [],
@@ -34,7 +35,8 @@ function PlayListSong(
     const [element, setElement] = useState('');
     const songItemRef = useRef();
     const refItem = useRef();
-    const favoriteRender = convertNumber(song?.favorite);
+    const favoriteRender = convertNumber(song?.favorite);  
+    
     const handleConfig = (data, song, index, e) => {
         if (data) {
             if (song._id === songCurrent._id) {

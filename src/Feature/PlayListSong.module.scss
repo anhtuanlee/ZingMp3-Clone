@@ -140,7 +140,11 @@
     .items_hover {
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: center; 
+
+        @media (max-width: 600px) {
+            gap: 5px;
+        }
     }
     .item_format_time {
         margin-right: 10px;

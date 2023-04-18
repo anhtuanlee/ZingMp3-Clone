@@ -55,7 +55,7 @@ function Search({ visibleHeaderMobile, handleSearchForm }) {
                 setSearchResult(result);
                 setLoadingSearch(false);
             }
-        }, 1000);
+        }, 500);
 
         return () => clearTimeout(timer);
     }, [value]);
@@ -106,7 +106,7 @@ function Search({ visibleHeaderMobile, handleSearchForm }) {
                                 onHandle={
                                     visibleHeaderMobile
                                         ? handleSearchForm
-                                        : handleOffResult
+                                        : () => setVisible(false)
                                 }
                                 data={searchResult ? searchResult : undefined}
                             />
