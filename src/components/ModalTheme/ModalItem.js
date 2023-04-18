@@ -17,6 +17,7 @@ function ModalItem({ item, themeTest }) {
 
     const [isHoverCard, setIsHoverCard] = useState(false);
     const [themeCurrent, setThemeCurrent] = useState({});
+
     const handleHover = () => {
         setIsHoverCard(true);
     };
@@ -25,12 +26,18 @@ function ModalItem({ item, themeTest }) {
         setIsHoverCard(false);
     };
 
-    const handleActiveTheme = () => {
+    const handleActiveTheme = async () => {
+        // wait change theme on store after update theme current
         dispatch(themeSlice.actions.setTheme(item));
-        setThemeCurrent(undefined);
+        await new Promise((res) => setTimeout(res, 0));
+        setThemeCurrent({});
     };
-    const handleTestTheme = () => {
-        if (item?.title !== themeCurrent.title) {
+    const handleTestTheme = async () => {
+        if (item?.title !== themeCurrent?.title) {
+            setThemeCurrent(item);
+        } else {
+            setThemeCurrent({});
+            await new Promise((resolve) => setTimeout(resolve, 0));
             setThemeCurrent(item);
         }
     };
@@ -81,67 +88,67 @@ function ModalItem({ item, themeTest }) {
             );
             document.documentElement.style.setProperty(
                 '--newsonglayout-bg',
-                themeCurrent?.properties.newSongLayout,
+                themeCurrent?.properties?.newSongLayout,
             );
             document.documentElement.style.setProperty(
                 '--border-player',
-                themeSelect?.properties.borderPlayer,
+                themeCurrent?.properties?.borderPlayer,
             );
             document.documentElement.style.setProperty(
                 '--background-section-size',
-                themeSelect?.properties?.backgrondSize ?? '1920px auto',
+                themeCurrent?.properties?.backgrondSize ?? '1920px auto',
             );
         } else {
             if (themeSelect.title) {
                 document.documentElement.style.setProperty(
                     '--purple-primary',
-                    themeSelect?.properties.purplePrimary,
+                    themeSelect?.properties?.purplePrimary,
                 );
                 document.documentElement.style.setProperty(
                     '--primary',
-                    themeSelect?.properties.layoutBg ?? 'trenparent',
+                    themeSelect?.properties?.layoutBg ?? 'trenparent',
                 );
 
                 document.documentElement.style.setProperty(
                     '--sidebar-bg',
-                    themeSelect?.properties.sidebarBg ?? 'rgba(0,0,0,0.25)',
+                    themeSelect?.properties?.sidebarBg ?? 'rgba(0,0,0,0.25)',
                 );
                 document.documentElement.style.setProperty(
                     '--text-primary',
-                    themeSelect?.properties.textPrimary,
+                    themeSelect?.properties?.textPrimary,
                 );
                 document.documentElement.style.setProperty(
                     '--text-secondary',
-                    themeSelect?.properties.textSecondary,
+                    themeSelect?.properties?.textSecondary,
                 );
 
                 document.documentElement.style.setProperty(
                     '--layout-header-bg',
-                    themeSelect?.properties.layoutHeaderBg,
+                    themeSelect?.properties?.layoutHeaderBg,
                 );
                 document.documentElement.style.setProperty(
                     '--primary-bg',
-                    themeSelect?.properties.primaryBg,
+                    themeSelect?.properties?.primaryBg,
                 );
                 document.documentElement.style.setProperty(
                     '--player-bg',
-                    themeSelect?.properties.playerBg,
+                    themeSelect?.properties?.playerBg,
                 );
                 document.documentElement.style.setProperty(
                     '--background-section',
-                    `url(${themeSelect?.properties.backgroundImg})`,
+                    `url(${themeSelect?.properties?.backgroundImg})`,
                 );
                 document.documentElement.style.setProperty(
                     '--link-text-hover',
-                    themeSelect?.properties.textHover,
+                    themeSelect?.properties?.textHover,
                 );
                 document.documentElement.style.setProperty(
                     '--newsonglayout-bg',
-                    themeSelect?.properties.newSongLayout,
+                    themeSelect?.properties?.newSongLayout,
                 );
                 document.documentElement.style.setProperty(
                     '--border-player',
-                    themeSelect?.properties.borderPlayer,
+                    themeSelect?.properties?.borderPlayer,
                 );
                 document.documentElement.style.setProperty(
                     '--background-section-size',
@@ -151,8 +158,8 @@ function ModalItem({ item, themeTest }) {
         }
 
         localStorage.setItem('themeRecent', JSON.stringify(themeSelect));
-    }, [themeCurrent, themeTest, themeSelect]);
-
+    }, [themeCurrent, dispatch, themeTest, themeSelect]);
+    console.log(themeCurrent);
     return (
         <div
             className={cx('item_theme')}

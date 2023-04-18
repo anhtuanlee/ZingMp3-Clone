@@ -17,7 +17,7 @@ function ModalTheme() {
 
     const handleTurnOffModal = async () => {
         setThemeTest(true);
-        await new Promise((rel) => setTimeout(rel, 0));
+        await new Promise((rel) => setTimeout(rel, 50));
         dispatch(themeSlice.actions.setIsModalTheme(false));
     };
     const renderListTheme = () => {

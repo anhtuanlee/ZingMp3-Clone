@@ -35,41 +35,41 @@ function Wrapper({ children }) {
         if (themeSelect.title) {
             document.documentElement.style.setProperty(
                 '--purple-primary',
-                themeSelect.properties.purplePrimary,
+                themeSelect.properties?.purplePrimary,
             );
             document.documentElement.style.setProperty(
                 '--primary',
-                themeSelect.properties.layoutBg ?? 'trenparent',
+                themeSelect.properties?.layoutBg ?? 'trenparent',
             );
 
             document.documentElement.style.setProperty(
                 '--sidebar-bg',
-                themeSelect.properties.sidebarBg ?? 'rgba(0,0,0,0.25)',
+                themeSelect.properties?.sidebarBg ?? 'rgba(0,0,0,0.25)',
             );
             document.documentElement.style.setProperty(
                 '--text-primary',
-                themeSelect.properties.textPrimary,
+                themeSelect.properties?.textPrimary,
             );
             document.documentElement.style.setProperty(
                 '--text-secondary',
-                themeSelect.properties.textSecondary,
+                themeSelect.properties?.textSecondary,
             );
 
             document.documentElement.style.setProperty(
                 '--layout-header-bg',
-                themeSelect.properties.layoutHeaderBg,
+                themeSelect.properties?.layoutHeaderBg,
             );
             document.documentElement.style.setProperty(
                 '--primary-bg',
-                themeSelect.properties.primaryBg,
+                themeSelect.properties?.primaryBg,
             );
             document.documentElement.style.setProperty(
                 '--player-bg',
-                themeSelect.properties.playerBg,
+                themeSelect.properties?.playerBg,
             );
             document.documentElement.style.setProperty(
                 '--background-section',
-                `url(${themeSelect.properties.backgroundImg})`,
+                `url(${themeSelect.properties?.backgroundImg})`,
             );
             document.documentElement.style.setProperty(
                 '--background-section-size',
@@ -81,11 +81,11 @@ function Wrapper({ children }) {
             );
             document.documentElement.style.setProperty(
                 '--link-text-hover',
-                themeSelect?.properties.textHover,
+                themeSelect?.properties?.textHover,
             );
             document.documentElement.style.setProperty(
                 '--border-player',
-                themeSelect?.properties.borderPlayer,
+                themeSelect?.properties?.borderPlayer,
             );
         }
     }, []);
@@ -93,7 +93,7 @@ function Wrapper({ children }) {
         setIsNotifiCation(true);
         const timer = setTimeout(() => {
             setIsNotifiCation(false);
-        }, 1500);
+        }, 2000);
         return () => clearTimeout(timer);
     }, [notification]);
 
