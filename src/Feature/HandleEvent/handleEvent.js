@@ -113,7 +113,7 @@ export const RenderFullListSong = ({
         );
     };
 
-    const dataClone = new Array(6).fill();
+    const dataClone = new Array(12).fill();
     const dataMap = isLoadingPage ? dataClone : data;
 
     const result = dataMap.map((item, index) => {

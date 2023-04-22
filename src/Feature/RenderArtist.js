@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
@@ -18,7 +18,8 @@ const cx = classNames.bind(styles);
 
 const RenderArtist = ({ data, dataFull, isPageArtist, isPageAlbum }) => {
     const dispatch = useDispatch();
-    const { isLoadingPage } = useSelector(combinedStatusSelector);
+    const { isLoadingPage } = useSelector(combinedStatusSelector); 
+
     const handlePlayRandom = async (e, item) => {
         e.preventDefault();
         const dataListArtist = await getSingerDataApi(item.slug_name_singer).then(

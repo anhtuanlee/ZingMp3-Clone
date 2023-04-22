@@ -22,9 +22,7 @@
         width: 50%;
         padding: 0 10px;
     }
-    &:hover span {
-        color: var(--purple-primary);
-    }
+
 }
 // page album
 .card_page_album {
@@ -116,6 +114,7 @@
         color: var(--purple-primary);
         text-decoration: underline;
     }
+    
     @media (max-width: 600px) {
         font-size: 12px;
         white-space: pre-wrap;
@@ -156,4 +155,7 @@
     &:hover {
         color: var(--purple-primary);
     }
+    &:hover span {
+        color: var(--purple-primary)
+    } 
 }
