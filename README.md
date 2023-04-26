@@ -23,10 +23,13 @@ The presented user interface is related to the Zing Mp3 Music website. It uses t
 
 ## Screenshots
 
-![image](https://user-images.githubusercontent.com/105347995/234451015-dd299ed8-3bf2-4213-aa8d-f5696e90a194.png)
-![image](https://user-images.githubusercontent.com/105347995/234451084-3fafa94f-1332-4e2b-be3f-89bf6fc887a1.png)
-![image](https://user-images.githubusercontent.com/105347995/234451215-2b874476-d26e-470f-9c9e-be6f9a1de0ed.png)
-![image](https://user-images.githubusercontent.com/105347995/234451919-16d3b285-4390-442f-9591-7a23b2cb967e.png)
+![image](https://user-images.githubusercontent.com/105347995/234636858-88d4b32d-e329-4b9a-a304-ffed0f3e1056.png)
+![image](https://user-images.githubusercontent.com/105347995/234637058-e1b11ad7-b3bf-43d1-a688-daa65fda3a27.png)
+![image](https://user-images.githubusercontent.com/105347995/234637272-24258484-e2f1-4c2d-9adc-1a81038f6dee.png)
+![image](https://user-images.githubusercontent.com/105347995/234637441-7b6c16bd-f8c8-45b3-a1d7-2039f2087b81.png) 
+![image](https://user-images.githubusercontent.com/105347995/234637804-435b6c82-0e17-4cb4-91cf-aa6a09b3fafa.png)
+![image](https://user-images.githubusercontent.com/105347995/234638072-83de6510-dc3a-46be-b414-0c8abdc7e6e6.png)
+
 
 ## Development
 
