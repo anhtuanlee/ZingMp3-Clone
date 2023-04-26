@@ -5,7 +5,8 @@
     height: 3px;
     background-image: linear-gradient(var(--purple-primary), var(--purple-primary));
     background-repeat: no-repeat;
-    border: none;
+        border: none;
+
     &:hover {
         border-radius: 100px;
         padding: 3px 0; 
@@ -23,7 +24,7 @@
     height: 0px;
     width: 0px;
     background-color: var(--purple-primary);
-    transition: linear 0.1s;
+    transition: linear 0.1s; 
     border-radius: 50%;
     @media (max-width: 600px) {
         // mobile 

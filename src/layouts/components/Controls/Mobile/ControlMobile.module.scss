@@ -38,7 +38,8 @@
         }
         .song_img img {
             height: 100%;
-            width: 100%;
+            width: 100%; 
+            object-fit: cover;
         }
         .spinThumb {
             animation: spin linear 15s infinite;
@@ -70,6 +71,7 @@
                 margin-left: 5px;
                 color: var(--white);
                 text-shadow: -1px 1px 3px rgb(0, 0, 0);
+                font-size: 12px;
             }
         }
         

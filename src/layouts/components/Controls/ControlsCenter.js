@@ -7,8 +7,12 @@ import styles from './Controls.module.scss';
 import InputProgress from '../InputProgress';
 import Button from '../../../components/Button';
 import { useAudio, useTimes } from '../../../hooks';
-import { featureSlice, statusSlice } from '../../../redux/sliceReducer';
-import { combinedFeatureSelector, combinedStatusSelector } from '../../../redux/selector';
+import { featureSlice, radioSlice, statusSlice } from '../../../redux/sliceReducer';
+import {
+    combindStatusRadio,
+    combinedFeatureSelector,
+    combinedStatusSelector,
+} from '../../../redux/selector';
 import {
     Loading,
     Next,
@@ -29,6 +33,8 @@ function ControlsCenter({
     const { isPlaying, isRandom, isRepeat, dataSongs, isLoading, songCurrent } =
         useSelector(combinedStatusSelector);
     const { times } = useSelector(combinedFeatureSelector);
+    const { isPlayingRadio, urlRadio, radioDetails } = useSelector(combindStatusRadio);
+
     let { currentIndex } = useSelector(combinedStatusSelector);
     //times display
     const audioRef = useAudio();
@@ -61,9 +67,12 @@ function ControlsCenter({
     const handleControlMain = (type, e) => {
         e.preventDefault();
         e.stopPropagation();
+
         switch (type) {
             case 'play':
-                dispatch(statusSlice.actions.isPlayingChange(!isPlaying));
+                urlRadio
+                    ? dispatch(radioSlice.actions.setIsPlayingRadio(!isPlayingRadio))
+                    : dispatch(statusSlice.actions.isPlayingChange(!isPlaying));
                 break;
             case 'next':
                 if (currentIndex < dataSongs.length - 1) {
@@ -100,13 +109,21 @@ function ControlsCenter({
                     active: isRandom ? true : false,
                     extraTitle: isRandom ? 'Tắt phát ngẫu nhiên' : 'Bật phát ngẫu nhiên',
                     type: 'random',
+                    disable: urlRadio ? true : false,
                 },
                 {
                     icon: Prev,
                     type: 'prev',
+                    disable: urlRadio ? true : false,
                 },
                 {
-                    icon: isPlaying && !isLoading ? Pause : Play,
+                    icon: urlRadio
+                        ? isPlayingRadio
+                            ? Pause
+                            : Play
+                        : isPlaying && !isLoading
+                        ? Pause
+                        : Play,
                     iconLoading: isLoading ? Loading : undefined,
                     border: true,
                     circle_hide: true,
@@ -116,12 +133,14 @@ function ControlsCenter({
                 {
                     icon: Next,
                     type: 'next',
+                    disable: urlRadio ? true : false,
                 },
                 {
                     icon: Repeat,
                     active: isRepeat ? true : false,
                     extraTitle: !isRepeat ? 'Bật phát lại một bài' : 'Tắt phát lại',
                     type: 'repeat',
+                    disable: urlRadio ? true : false,
                 },
             ],
         },
@@ -160,6 +179,7 @@ function ControlsCenter({
                     key={currentIndex}
                     active={btn.active}
                     onHandle={(e) => handleControlMain(btn.type, e)}
+                    disable={btn.disable}
                 />
             )
         ) : (
@@ -173,29 +193,32 @@ function ControlsCenter({
                 Icons={btn.iconLoading || btn.icon}
                 key={currentIndex}
                 active={btn.active}
+                disable={btn.disable}
                 onHandle={(e) => handleControlMain(btn.type, e)}
             />
         );
     });
     return isControlModal ? (
         <div className={cx('player_controls_center_container')}>
-            <div className={cx('progress_full')}>
-                <div className={cx('duration_bar')}>
-                    <span className={cx('time_start')}>{timeRemain} </span>
+            {!urlRadio && (
+                <div className={cx('progress_full')}>
+                    <div className={cx('duration_bar')}>
+                        <span className={cx('time_start')}>{timeRemain} </span>
 
-                    <div className={cx('progress_container')}>
-                        <InputProgress max={100} step={1} audioType={true} />
+                        <div className={cx('progress_container')}>
+                            <InputProgress max={100} step={1} audioType={true} />
+                        </div>
+
+                        <span className={cx('time_end')}>{songCurrent?.time_format}</span>
                     </div>
-
-                    <span className={cx('time_end')}>{songCurrent?.time_format}</span>
                 </div>
-            </div>
+            )}
             <div className={cx('controls', 'modalControls')}>{renderControlsBtn}</div>
         </div>
     ) : (
         <div className={cx('player_controls_center_container')}>
             <div className={cx('controls')}>{renderControlsBtn}</div>
-            {!isMobile && (
+            {!isMobile && !urlRadio && (
                 <div className={cx('progress_full')}>
                     <div className={cx('duration_bar')}>
                         <span className={cx('time_start')}>{timeRemain} </span>

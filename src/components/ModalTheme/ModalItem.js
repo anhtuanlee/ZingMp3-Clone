@@ -98,6 +98,10 @@ function ModalItem({ item, themeTest }) {
                 '--background-section-size',
                 themeCurrent?.properties?.backgrondSize ?? '1920px auto',
             );
+            document.documentElement.style.setProperty(
+                '--sidebar-popup-bg',
+                themeCurrent?.properties?.sidebarPoup,
+            );
         } else {
             if (themeSelect.title) {
                 document.documentElement.style.setProperty(
@@ -153,6 +157,10 @@ function ModalItem({ item, themeTest }) {
                 document.documentElement.style.setProperty(
                     '--background-section-size',
                     themeSelect?.properties?.backgrondSize ?? '1920px auto',
+                );
+                document.documentElement.style.setProperty(
+                    '--sidebar-popup-bg',
+                    themeSelect?.properties?.sidebarPoup,
                 );
             }
         }

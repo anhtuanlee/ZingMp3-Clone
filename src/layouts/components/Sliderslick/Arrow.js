@@ -1,9 +1,8 @@
-import { faChevronLeft, faChevronRight } from '@cseitz/fontawesome-svg-light';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Media from 'react-media';
-import { ArrowChevonLeft, ArrowChevonRight } from '../../../components/Icons';
+import { ArrowChevonLeft, ArrowChevonRight } from '../../../components/Icons'; 
 
-function Arrow(props) {
+function Arrow(props) { 
+    
     return (
         <Media query="(min-width:600px)">
             {(matches) => {

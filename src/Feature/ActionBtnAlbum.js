@@ -2,14 +2,15 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import Button from '../components/Button';
 import styles from './PlayListSong.module.scss';
 import Menu from '../layouts/components/Menu/Menu';
 import WaveSong from '../components/Icons/WaveSong';
-import { combinedStatusSelector } from '../redux/selector';
+import { combindStatusRadio, combinedStatusSelector } from '../redux/selector';
 import { Download, Heart, HeartFull, More, Play } from '../components/Icons';
-import { featureSlice, loginSlice, statusSlice } from '../redux/sliceReducer';
+import { featureSlice, loginSlice, radioSlice, statusSlice } from '../redux/sliceReducer';
 import {
     createSongFavoriteUser,
     getSongFavorite,
@@ -33,6 +34,7 @@ export const ActionBtnAlbum = ({
     const dispatch = useDispatch();
     const { slugDataBanner, dataSongs, isPlaying, songCurrent, dataUser } =
         useSelector(combinedStatusSelector); // slug_name in
+    const { isPlayingRadio } = useSelector(combindStatusRadio);
 
     const isSlugCategory = slugDataBanner === item?.slug_banner_album_hot;
     const isSlugNameSinger = slugDataBanner === item?.slug_banner_singer_popular;
@@ -62,32 +64,17 @@ export const ActionBtnAlbum = ({
                 if (isFavorite) {
                     await removeSongFavorite();
                     setIsFavorite(false);
-                    dispatch(
-                        featureSlice.actions.setNotification({
-                            styles: 'success',
-                            title: 'Đã xóa bài hát khỏi thư viện',
-                        }),
-                    );
+                    toast.info('Đã xóa bài hát khỏi thư viện');
                 } else {
                     await addSongFavorite();
                     setIsFavorite(true); // update list song when handleChange like
-                    dispatch(
-                        featureSlice.actions.setNotification({
-                            styles: 'success',
-                            title: 'Đã thêm bài hát vào thư viện',
-                        }),
-                    );
+                    toast.info('Đã thêm bài hát vào thư viện');
                 }
                 setCallData(true);
             } else {
                 dispatch(loginSlice.actions.setIsLogin(true));
                 setIsFavorite(false);
-                dispatch(
-                    featureSlice.actions.setNotification({
-                        title: 'Vui lòng đăng nhập để sử dụng chức năng này',
-                        styles: 'info',
-                    }),
-                );
+                toast.info('Vui lòng đăng nhập để sử dụng chức năng này');
             }
         }
     };
@@ -120,15 +107,18 @@ export const ActionBtnAlbum = ({
     ];
     const onHandle = (e, btn) => {
         if (
-            (isSlugCategory && isSlugCategoryCurrent) ||
-            (isSlugNameSinger && isSlugNameSingerCurrent)
+            (isSlugCategory && isSlugCategoryCurrent && !isPlayingRadio) ||
+            (isSlugNameSinger && isSlugNameSingerCurrent && !isPlayingRadio)
         ) {
             // check itemcurrent and item saved in album
 
             e.preventDefault();
             switch (btn.type) {
                 case 'play':
-                    return dispatch(statusSlice.actions.isPlayingChange(!isPlaying));
+                    return (
+                        dispatch(radioSlice.actions.setIsPlayingRadio(false)) &&
+                        dispatch(statusSlice.actions.isPlayingChange(!isPlaying))
+                    );
                 case 'more':
                     e.stopPropagation();
                     handleSelectMoreSong();
@@ -139,7 +129,7 @@ export const ActionBtnAlbum = ({
         } else {
             switch (btn.type) {
                 case 'play':
-                    if (isLivingAlbum) {
+                    if (isLivingAlbum) { 
                         const randomID = Math.floor(Math.random() * data?.length);
                         /*check action in home page  ? if true will update data new song , if false will request play and 
                         dispath data to album

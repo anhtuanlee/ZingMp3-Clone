@@ -17,9 +17,7 @@ export const songCurrentSelector = (state) => state.feature.songCurrent;
 export const slugDataBannerSelector = (state) => state.feature.slugDataBanner;
 export const currentIndexSelector = (state) => state.feature.currentIndex;
 export const dataSongsSelector = (state) => state.feature.dataSongs;
-export const timesSelector = (state) => state.feature.times;
-export const volumeSelector = (state) => state.feature.volume;
-export const notificationSelector = (state) => state.feature.notification;
+export const volumeSelector = (state) => state.feature.volume; 
 
 // sidebar
 export const idActiveSidebarSelector = (state) => state.sidebar.idSidebarActive;
@@ -57,9 +55,8 @@ export const combinedStatusSelector = createSelector(
     isCheckBeforeContentHideSelector,
     isLoginSelector,
     dataUserSelector,
-    notificationSelector,
     isSidebarMobileSelector,
-    isControlMusicMobileSelector,
+    isControlMusicMobileSelector, 
     (
         isPlaying,
         isRepeat,
@@ -83,9 +80,8 @@ export const combinedStatusSelector = createSelector(
         isContentHide,
         isLogin,
         dataUser,
-        notification,
         isSidebarMobile,
-        isControlMusicMobile,
+        isControlMusicMobile, 
     ) => {
         return {
             isPlaying,
@@ -110,16 +106,34 @@ export const combinedStatusSelector = createSelector(
             isContentHide,
             isLogin,
             dataUser,
-            notification,
             isSidebarMobile,
-            isControlMusicMobile,
+            isControlMusicMobile, 
         };
     },
 );
 
 // slice selector because when time change will render all selector in combine
+export const timesSelector = (state) => state.feature.times;
+
 export const combinedFeatureSelector = createSelector(timesSelector, (times) => {
     return {
         times,
     };
 });
+
+const isPlayingRadioSelector = (state) => state.radio.isPlayingRadio;
+const urlRadioSelector = (state) => state.radio.urlRadio;
+const radioDetailsSelector = (state) => state.radio.radioDetails;
+
+export const combindStatusRadio = createSelector(
+    isPlayingRadioSelector,
+    urlRadioSelector,
+    radioDetailsSelector,
+    (isPlayingRadio, urlRadio, radioDetails) => {
+        return {
+            isPlayingRadio,
+            urlRadio,
+            radioDetails,
+        };
+    },
+);

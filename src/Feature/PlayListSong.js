@@ -11,11 +11,10 @@ import { convertNumber } from '../hooks/';
 import { ActionBtnAlbum } from './ActionBtnAlbum';
 import styles from './PlayListSong.module.scss';
 import { combinedStatusSelector } from '../redux/selector';
-import { featureSlice, statusSlice } from '../redux/sliceReducer';
+import { featureSlice, radioSlice, statusSlice } from '../redux/sliceReducer';
 import { HeartFull, Play, SubTract, WaveSongPlay } from '../components/Icons';
 
 const cx = classNames.bind(styles);
-
 
 function PlayListSong(
     {
@@ -35,8 +34,8 @@ function PlayListSong(
     const [element, setElement] = useState('');
     const songItemRef = useRef();
     const refItem = useRef();
-    const favoriteRender = convertNumber(song?.favorite);  
-    
+    const favoriteRender = convertNumber(song?.favorite);
+
     const handleConfig = (data, song, index, e) => {
         if (data) {
             if (song._id === songCurrent._id) {
@@ -47,6 +46,9 @@ function PlayListSong(
             dispatch(featureSlice.actions.setDataSongs(data));
             dispatch(featureSlice.actions.setSongCurrent(data[index]));
             dispatch(featureSlice.actions.setCurrentID(index));
+            // turn off radio when play playlist
+            dispatch(radioSlice.actions.setUrlRadio(''));
+            dispatch(radioSlice.actions.setIsPlayingRadio(false));
         }
     };
     const handlePlaySong = (data, song, index) => {

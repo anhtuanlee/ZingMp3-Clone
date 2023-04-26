@@ -1,10 +1,11 @@
-import Media from 'react-media';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
+import PropTypes from 'prop-types';
 import React, { useRef, useState } from 'react';
+import Media from 'react-media';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 
+import Button from '../../../components/Button/Button';
 import {
     ArrowLeft,
     ArrowRight,
@@ -16,24 +17,30 @@ import {
     SearchMobile,
     Setting,
 } from '../../../components/Icons';
-import Menu from '../Menu';
-import styles from './Header.module.scss';
 import Images from '../../../components/Image';
 import Search from '../../../components/Search';
-import Button from '../../../components/Button/Button';
-import { combinedStatusSelector } from '../../../redux/selector';
 import { MENU_SETTING_HEADER, MENU_USER_HEADER } from '../../../redux/constant';
-import { loginSlice, statusSlice, themeSlice } from '../../../redux/sliceReducer';
+import { combinedStatusSelector } from '../../../redux/selector';
+import {
+    loginSlice,
+    statusSlice,
+    themeSlice
+} from '../../../redux/sliceReducer';
+import Menu from '../Menu';
+import styles from './Header.module.scss';
 
 const cx = classNames.bind(styles);
 
 function Header({ styles, isScrollHeader }) {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const btnSearchRef = useRef();
     const { isTheme, dataUser, isSidebarMobile } = useSelector(combinedStatusSelector);
-
     const [searchForm, setSearchForm] = useState(false);
     const [animation, setAnimation] = useState('on');
+
+    const hostsIdx = window.history.state.idx;
+    const hostLength = window.history.length;
     // handleChangeTheme
     const onChangeTheme = () => {
         dispatch(themeSlice.actions.setIsModalTheme(!isTheme));
@@ -66,7 +73,6 @@ function Header({ styles, isScrollHeader }) {
         }
         setAnimation('on');
     };
-
     const handleSidbar = () => {
         dispatch(statusSlice.actions.isSidebarMobile(!isSidebarMobile));
     };
@@ -136,10 +142,22 @@ function Header({ styles, isScrollHeader }) {
                     >
                         <div className={cx('inner')}>
                             <div className={cx('button_controls_left')}>
-                                <span className={cx('icon-arrow-prev')}>
+                                <span
+                                    className={cx(
+                                        'icon-arrow-prev',
+                                        hostsIdx === 0 && 'disabled',
+                                    )}
+                                    onClick={() => hostsIdx > 0 && navigate(-1)}
+                                >
                                     <ArrowLeft />
                                 </span>
-                                <span className={cx('icon-arrow-next')}>
+                                <span
+                                    className={cx(
+                                        'icon-arrow-next',
+                                        hostsIdx === hostLength - 2 && 'disabled',
+                                    )}
+                                    onClick={() => navigate(1)}
+                                >
                                     <ArrowRight />
                                 </span>
                                 <div className={cx('search_form')}>

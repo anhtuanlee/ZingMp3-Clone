@@ -1,24 +1,24 @@
-import styled from 'styled-components';
-import React, { useState } from 'react';
 import classNames from 'classnames/bind';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
 
-import ControlsCenter from '../ControlsCenter';
-import { convertNumber } from '../../../../hooks';
-import styles from './ControlMobile.module.scss';
-import Images from '../../../../components/Image';
-import { statusSlice } from '../../../../redux/sliceReducer';
 import { ActionBtnAlbum } from '../../../../Feature/ActionBtnAlbum';
 import { ArrowDown, HeadPhone } from '../../../../components/Icons';
-import { combinedStatusSelector } from '../../../../redux/selector';
-import ControlsRight from '../ControlsRight';
+import Images from '../../../../components/Image';
+import { convertNumber } from '../../../../hooks';
+import { combindStatusRadio, combinedStatusSelector } from '../../../../redux/selector';
+import { statusSlice } from '../../../../redux/sliceReducer';
+import ControlsCenter from '../ControlsCenter';
+import styles from './ControlMobile.module.scss';
 
 const cx = classNames.bind(styles);
 
 function ControlMobile() {
+    const dispatch = useDispatch();
     const { songCurrent, isPlaying, isControlMusicMobile } =
         useSelector(combinedStatusSelector);
-    const dispatch = useDispatch();
+    const { isPlayingRadio, urlRadio, radioDetails } = useSelector(combindStatusRadio);
 
     const [animation, setAnimation] = useState('on');
 
@@ -30,13 +30,16 @@ function ControlMobile() {
         dispatch(statusSlice.actions.isControlMusicMobile(false));
         setAnimation('on');
     };
-    const listener = convertNumber(songCurrent?.view);
+    const listener = convertNumber(
+        urlRadio ? radioDetails.activeUsers : songCurrent?.view,
+    );
     const Background = styled.div`
         position: absolute;
         inset: 0;
         filter: blur(40px);
         objec-fit: cover;
-        background: url(${songCurrent?.image_music}) center center/cover no-repeat;
+        background: url(${urlRadio ? radioDetails.thumbnail : songCurrent?.image_music})
+            center center/cover no-repeat;
         z-index: -1;
     `;
     return (
@@ -54,32 +57,41 @@ function ControlMobile() {
                         <figure
                             className={cx(
                                 'song_img',
-                                isPlaying ? 'spinThumb' : 'stopThumb',
+                                isPlayingRadio || isPlaying ? 'spinThumb' : 'stopThumb',
                             )}
                         >
-                            <Images src={songCurrent?.image_music} />
+                            <Images
+                                src={
+                                    urlRadio
+                                        ? radioDetails.thumbnailH
+                                        : songCurrent?.image_music
+                                }
+                            />
                         </figure>
                         <div className={cx('title_main')}>
                             <span className={cx('name_song')}>
-                                {songCurrent?.name_music}
+                                {urlRadio ? radioDetails.title : songCurrent?.name_music}
                             </span>
                             <span className={cx('name_singer')}>
                                 {songCurrent?.name_singer}
                             </span>
                             <span className={cx('btn_headphone')}>
-                                <HeadPhone /> {listener}
+                                <HeadPhone />{' '}
+                                {urlRadio ? `${listener} người đang nghe` : listener}
                             </span>
                         </div>
-                    </div> 
+                    </div>
                     <div className={cx('controls_main')}>
                         <ControlsCenter isControlModal />
-                        <div className={cx('btn_handle')}>
-                            <ActionBtnAlbum
-                                playlistSong
-                                song={songCurrent}
-                                modalControls
-                            />
-                        </div>
+                        {!urlRadio && (
+                            <div className={cx('btn_handle')}>
+                                <ActionBtnAlbum
+                                    playlistSong
+                                    song={songCurrent}
+                                    modalControls
+                                />
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

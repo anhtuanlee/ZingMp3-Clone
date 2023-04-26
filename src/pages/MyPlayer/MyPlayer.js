@@ -16,6 +16,7 @@ import { combinedStatusSelector } from '../../redux/selector';
 import TitlePage from '../../layouts/components/TitlePage/TitlePage';
 import { getProfileUser, getSongFavorite } from '../../services/userApi';
 import { RenderFullListSong } from '../../Feature/HandleEvent/handleEvent';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -47,15 +48,9 @@ function MyPlayer() {
             dispatch(sidebarSlice.actions.setIdSidebarActive(0));
         } else {
             navigate('..');
-            dispatch(sidebarSlice.actions.setIdSidebarActive(1));
-
-            dispatch(loginSlice.actions.setIsLogin(true));
-            dispatch(
-                featureSlice.actions.setNotification({
-                    title: 'Vui lòng đăng nhập để sử dụng chức năng này!',
-                    styles: 'info',
-                }),
-            );
+            dispatch(sidebarSlice.actions.setIdSidebarActive(1)); 
+            dispatch(loginSlice.actions.setIsLogin(true)); 
+            toast.info('Vui lòng đăng nhập để sử dụng chức năng này!');
         }
     }, []);
 
@@ -65,7 +60,7 @@ function MyPlayer() {
             const result = await getSongFavorite(dataUser.accessToken);
             const dataMusic = result.data.map((song) => song.music);
             dispatch(loginSlice.actions.setListSongFavorite(dataMusic));
-            
+
             return result;
         };
         fetch();

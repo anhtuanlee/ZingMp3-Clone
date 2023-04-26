@@ -142,42 +142,42 @@ export const SIDEBAR_MENU = [
         icon: Discover,
         to: '/',
     },
-    {
+    /* {
         title: '#zingchart',
         icon: Chart,
         to: '/zing-chart',
-    },
+    }, */
     {
         title: 'Radio',
         icon: Radio,
-        to: '/the-loai-video',
+        to: '/radio',
     },
-    {
+    /*  {
         title: 'Theo Dõi',
         icon: Following,
         to: '/following',
-    },
+    }, */
     {
         title: 'Nhạc Mới',
         icon: NewSong,
         spederate: true,
         to: '/new-songs',
     },
-    {
+    /*  {
         title: 'Thể Loại',
         icon: Category,
         to: '/category',
-    },
+    }, */
     {
         title: 'Top 100',
         icon: Star,
         to: '/top-100-song',
     },
-    {
+    /*  {
         title: 'MV',
         icon: Mv,
         to: '/the-loai-video',
-    },
+    }, */
 ];
 export const BANNER_SLIDERS = [
     {
@@ -366,6 +366,7 @@ export const MENU_THEME_LIST = {
                 newSongLayout: 'tranparent',
                 borderPlayer: 'rgba(0,0,0,0.15)',
                 backgrondSize: 'cover',
+                sidebarPoup: '#cce0e0',
             },
         },
         {
@@ -386,6 +387,7 @@ export const MENU_THEME_LIST = {
                 newSongLayout:
                     'url(https://zjs.zmdcdn.me/zmp3-desktop/releases/v1.9.9/static/media/new-release-bg.73d8f976.jpg)',
                 borderPlayer: 'hsla(0,0%,100%,0.1)',
+                sidebarPoup: '#2a213a',
             },
         },
         {
@@ -404,6 +406,7 @@ export const MENU_THEME_LIST = {
                 purplePrimary: '#D08011',
                 newSongLayout: 'tranparent',
                 borderPlayer: 'rgba(0,0,0,0.05)',
+                sidebarPoup: '#604a45',
             },
         },
 
@@ -423,6 +426,7 @@ export const MENU_THEME_LIST = {
                 purplePrimary: '#8919AE',
                 newSongLayout: 'tranparent',
                 borderPlayer: 'rgba(0,0,0,0.1)',
+                sidebarPoup: '#f2f2f2',
             },
         },
         {
@@ -441,6 +445,7 @@ export const MENU_THEME_LIST = {
                 purplePrimary: '#8D22C3',
                 newSongLayout: 'tranparent',
                 borderPlayer: 'rgba(0,0,0,0.15)',
+                sidebarPoup: '#f2f2f2',
             },
         },
         {
@@ -459,6 +464,7 @@ export const MENU_THEME_LIST = {
                 purplePrimary: '#3560F5',
                 newSongLayout: 'tranparent',
                 borderPlayer: 'hsla(0,0%,100%,0.1)',
+                sidebarPoup: '#1d2a49',
             },
         },
         {
@@ -467,8 +473,7 @@ export const MENU_THEME_LIST = {
             properties: {
                 backgroundImg: require('../assets/images/LisTheme/img-background_ui.jpg'),
                 colorPrimary: '#EFEDEB',
-                textHover: '#AC3E82',
-
+                textHover: '#AC3E82', 
                 layoutBg: 'tranparent',
                 layoutHeaderBg: 'rgb(241, 221, 216, 0.8)',
                 playerBg: '#F5E6E0',
@@ -478,6 +483,7 @@ export const MENU_THEME_LIST = {
                 purplePrimary: '#C24793',
                 newSongLayout: 'tranparent',
                 borderPlayer: 'rgba(0,0,0,0.1)',
+                sidebarPoup: '#f2f2f2',
             },
         },
         {
@@ -496,6 +502,7 @@ export const MENU_THEME_LIST = {
                 purplePrimary: '#D14781',
                 newSongLayout: 'tranparent',
                 borderPlayer: 'rgba(0,0,0,0.1)',
+                sidebarPoup: '#fbd3d2',
             },
         },
     ],

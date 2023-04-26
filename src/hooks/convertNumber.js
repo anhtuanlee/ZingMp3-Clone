@@ -16,6 +16,8 @@ const convertNumber = (favorite) => {
             if (favorite / thousand >= 1) {
                 const listSplit = (favorite / thousand).toString().split('.');
                 result = `${listSplit[0]}K`;
+            } else {
+                result = favorite
             }
         }
     }

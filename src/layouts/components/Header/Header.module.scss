@@ -111,11 +111,15 @@
     max-width: 440px;
     min-width: 280px;
 }
-.icon-arrow-prev {
-    margin-right: 20px;
-}
+.icon-arrow-prev,
 .icon-arrow-next {
     margin-right: 20px;
+    color: var(--text-primary); 
+    font-size: 18px;
+
+}
+.disabled {
+    color: rgba(215, 212, 212, 0.527);
 }
 .avatar {
     width: 40px;

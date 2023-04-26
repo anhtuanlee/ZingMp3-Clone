@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useAudio } from '../../../hooks';
 import { getMusicName, newSongApi } from '../../../services';
 import { combinedFeatureSelector, combinedStatusSelector } from '../../../redux/selector';
-import { featureSlice, statusSlice } from '../../../redux/sliceReducer';
+import { featureSlice, radioSlice, statusSlice } from '../../../redux/sliceReducer';
 
 function AudioElement() {
     const dispatch = useDispatch();
@@ -26,6 +26,10 @@ function AudioElement() {
     const handleCanPlay = () => {
         if (isPlaying) {
             audioRef?.current && audioRef?.current.play();
+            dispatch(radioSlice.actions.setIsPlayingRadio(false));
+            dispatch(radioSlice.actions.setRadioDetails({}));
+        } else {
+            audioRef?.current && audioRef?.current.pause();
         }
     };
     const handleEndMusic = () => {
@@ -99,6 +103,7 @@ function AudioElement() {
             ref={audioRef}
             controls
             hidden
+            autoPlay={isPlaying}
             src={songCurrent?.src_music}
             onTimeUpdate={handleTimeUpdate}
             onEnded={handleEndMusic}

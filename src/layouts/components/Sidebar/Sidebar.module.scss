@@ -3,7 +3,9 @@
     width: 240px;
     top: 0;
     bottom: 90px;
+    z-index: 10000;
     background-color: var(--sidebar-bg);
+    transition: all ease-out .3s;
     @media (max-width: 600px) {
         background-color: transparent;
         bottom: 60px;
@@ -37,12 +39,20 @@
             border-left: 3px solid transparent;
         }
     }
+    .poup_tablet_item {
+        &.poup_tablet_item a {
+            color: var(--text-primary);
+            border-left: 3px solid transparent;
+        }
+    }
+
     .sidebar_item.isActive a {
         background-color: var(--border-player);
         color: var(--text-primary) !important;
         border-left: 3px solid var(--purple-primary);
     }
 }
+
 // responsive tablet
 .tablet {
     display: flex;
@@ -50,6 +60,7 @@
     flex-direction: column;
     overflow: hidden;
     width: 70px;
+    transition: all ease-out 0.3s;
     .logo {
         width: 70px;
         margin-top: 10px;
@@ -64,6 +75,7 @@
     .menu_main {
         display: flex;
         flex-direction: column;
+        width: 100%;
     }
     .sidebar_item {
         font-size: 13px;
@@ -71,7 +83,6 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 7px 0;
         &.sidebar_item:hover a {
             color: var(--purple-primary);
         }
@@ -86,7 +97,22 @@
         border-left: 3px solid var(--purple-primary);
     }
 }
+.btn_arrow_sidebar {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-size: 20px;
+    background-color: hsla(0, 0%, 100%, 0.201);
+    color: var(--text-primary);
+    box-shadow: 0 0px 4px rgba(0, 0, 0, 0.3);
+}
+.poup_tablet {
+    background-color: var(--sidebar-popup-bg);
 
+    .logo {
+        background-image: url('https://zmp3-static.zmdcdn.me/skins/zmp3-v6.1/images/backgrounds/logo-light.svg');
+    }
+}
 //responsive mobile
 .mobile {
     position: fixed;
@@ -137,7 +163,7 @@
             display: flex;
             justify-content: flex-end;
         }
-         .user {
+        .user {
             display: flex;
             flex-direction: row;
             align-items: center;

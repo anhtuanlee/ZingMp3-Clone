@@ -6,6 +6,7 @@
     --purple-primary: #9b4de0;
     --primary-blur-bg: rgba(0, 0, 0, 0.05);
     --sidebar-bg: #231b2e;
+    --sidebar-popup-bg: #2a213a;
     --layout-header-bg: rgba(23, 15, 35, 0.666);
     --modal-layout-bg: rgba(0, 0, 0, 0.5);
     --player-bg: #130c1c;
@@ -50,7 +51,7 @@ html {
 body {
     font-family: 'Inter', sans-serif;
     color: var(--text-primary);
-    overflow: overlay;
+    overflow: overlay; 
 }
 // controls_container
 .control_music {
@@ -166,3 +167,18 @@ svg.svg-inline--fa.fa-play {
 .swiper-wrapper {
     width: 100vw;
 }
+
+// toast msg
+.Toastify__toast-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.Toastify__toast {
+    border-radius: 4px;
+}
+
+//hide horizonScroll
+::-webkit-scrollbar-thumb:horizontal {
+    display: none;
+  }

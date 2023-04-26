@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { saveAs } from 'file-saver';
+import { toast } from 'react-toastify';
 import classNames from 'classnames/bind';
 import { useDispatch } from 'react-redux';
 import Tippy from '@tippyjs/react/headless';
@@ -51,12 +52,7 @@ function Menu({
             .then((response) => response.blob())
             .then((blob) => {
                 saveAs(blob, fileName);
-                dispatch(
-                    featureSlice.actions.setNotification({
-                        styles: 'success',
-                        title: 'Tải xuống thành công',
-                    }),
-                );
+                toast.success('Tải xuống thành công')
             });
     };
 
@@ -66,12 +62,7 @@ function Menu({
                 navigate('..');
                 dispatch(loginSlice.actions.setListSongFavorite([]));
                 dispatch(loginSlice.actions.setAccessToken(''));
-                dispatch(
-                    featureSlice.actions.setNotification({
-                        title: 'Đăng xuất thành công',
-                        styles: 'success',
-                    }),
-                ); 
+                toast.info('Đăng xuất thành công')
                 break;
             case 'dowload':
                 e.stopPropagation();

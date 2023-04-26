@@ -5,3 +5,14 @@
     background-attachment: fixed;
     position: relative; 
 }
+
+// toast 
+
+.toast_msg {
+    z-index: 99999;
+    
+    @media (max-width: 480px) {
+        max-width: 70vw;  
+        margin: 10px 0;
+    }
+}

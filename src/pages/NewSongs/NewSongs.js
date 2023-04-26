@@ -17,15 +17,14 @@ function NewUpdate() {
     useEffect(() => {
         dispatch(statusSlice.actions.isPageLoadingChange(true));
         const fetchNewSong = async () => {
-            const result = await newSongApi(100).then((data) => {
-                setDataNewSong(data);
-                dispatch(statusSlice.actions.isPageLoadingChange(false));
-            });
+            const result = await newSongApi(100) 
+            setDataNewSong(result);
+            dispatch(statusSlice.actions.isPageLoadingChange(false));
             return result;
         };
         fetchNewSong();
 
-        dispatch(sidebarSlice.actions.setIdSidebarActive(5));
+        dispatch(sidebarSlice.actions.setIdSidebarActive(3));
     }, [dispatch]);
 
     return (

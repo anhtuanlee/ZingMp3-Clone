@@ -16,15 +16,13 @@ function Top100() {
     useEffect(() => {
         dispatch(statusSlice.actions.isPageLoadingChange(true));
         const fetchNewSong = async () => {
-            const result = await getMusicTop().then((data) => {
-                setDataNewSong(data);
-                dispatch(statusSlice.actions.isPageLoadingChange(false));
-            });
-            return result;
+            const result = await getMusicTop();
+            setDataNewSong(result);
+            dispatch(statusSlice.actions.isPageLoadingChange(false));
         };
         fetchNewSong();
 
-        dispatch(sidebarSlice.actions.setIdSidebarActive(7));
+        dispatch(sidebarSlice.actions.setIdSidebarActive(4));
     }, [dispatch]);
 
     return (

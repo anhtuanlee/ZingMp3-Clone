@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import Button from '../Button';
 import { Pause, Play } from '../../Icons';
@@ -10,7 +11,7 @@ import { featureSlice, statusSlice } from '../../../redux/sliceReducer';
 const ButtonEffectPlay = ({ children, sizes, data = [], isSlugNameFromLocation }) => {
     const dispatch = useDispatch();
     const { isPlaying, songCurrent } = useSelector(combinedStatusSelector);
- 
+
     const dataCheck = data[data?.length - 1];
     const handleTogglePlaySong = () => {
         if (data.length > 0 && dataCheck !== undefined) {
@@ -32,12 +33,7 @@ const ButtonEffectPlay = ({ children, sizes, data = [], isSlugNameFromLocation }
             }
         } else {
             // if not data will send  response
-            dispatch(
-                featureSlice.actions.setNotification({
-                    styles: 'warning',
-                    title: 'Bạn chưa thích bài hát nào ...',
-                }),
-            );
+            toast.warn('Bạn chưa thích bài hát nào ...');
         }
     };
 

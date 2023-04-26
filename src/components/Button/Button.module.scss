@@ -15,6 +15,7 @@
 .modalControls {
     color: var(--white);
 }
+ 
 .primary {
     border-radius: 999px;
     display: flex;
@@ -130,6 +131,13 @@
         border-color: var(--white);
     }
 }
+.typeSideBar {
+    height: 48px; 
+    width: 100%;
+    @media (max-width:600px) {
+        height: 36px;
+    }
+}
 .border_nothover {
     // boder banner playlist song
     font-size: 18px;
@@ -146,8 +154,8 @@
 .borderFixPlay {
     padding-left: 3px;
 }
-.disable {
-    filter: brightness(70%);
+.disable { 
+    opacity: 0.3;
     cursor: no-drop;
     padding: 4px;
 }
@@ -268,6 +276,10 @@
     width: 100px;
     display: flex;
     justify-content: center;
+
+    @media (max-width: 480px) {
+        border-radius: 6px;
+    }
 }
 .small {
     padding: 0;
@@ -341,9 +353,10 @@
 }
 //custom border on button menu
 .spederate {
-    border-top: 1px solid #493961;
+    border-top: 1px solid #493961;  
     width: 100%;
     padding-top: 12px;
+    margin: 10px 0; 
 }
 
 @keyframes spin {

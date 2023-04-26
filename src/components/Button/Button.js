@@ -19,6 +19,7 @@ function Button({
     text,
     text_border,
     circle_hide,
+    typeSideBar,
     border,
     borderFixPlay,
     disable,
@@ -69,6 +70,7 @@ function Button({
             isListQueue,
             purplePrimary,
             modalControls,
+            typeSideBar,
         },
         sizes,
         className,
@@ -82,6 +84,11 @@ function Button({
     } else if (to) {
         props.to = to;
         Comp = Link;
+    }
+
+    if (disable) {
+        onHandle = () => {};
+        extraTitle = false;
     }
     return typeof extraTitle === 'string' ? ( // when have extraTitlte, content will be extraTitle
         <Tippy duration={[100, 0]} content={extraTitle} zIndex={9999999}>
@@ -169,7 +176,7 @@ Button.propTypes = {
     extraTitle: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
     nestest: PropTypes.object,
     className: PropTypes.string,
-    spederate: PropTypes.bool, 
+    spederate: PropTypes.bool,
     text_border: PropTypes.bool,
     circle_hide: PropTypes.bool,
     border: PropTypes.bool,

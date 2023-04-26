@@ -8,6 +8,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     display: block;
+    cursor: pointer;
     &:hover {
         color: var(--purple-primary);
     }
@@ -28,6 +29,7 @@
 
 .item_card {
     position: relative;
+    cursor: pointer;
     .item_img {
         overflow: hidden;
         border-radius: 5px;

@@ -1,0 +1,86 @@
+.wrapper {
+}
+
+.inner {
+    position: relative;
+    overflow: hidden;
+
+    .container_section {
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        margin: 0 10px;
+        transform: translateX(0);
+
+        @media (max-width: 600px) {
+            overflow-x: scroll;
+        }
+    }
+
+    .next {
+        transition: all linear 0.3s;
+        transform: translateX(-100%);
+
+        @media (max-width: 600px) {
+            transform: translateX(0);
+        }
+    }
+
+    .prev {
+        transition: all linear 0.3s;
+        transform: translateX(0);
+
+        @media (max-width: 600px) {
+            transform: translateX(0);
+        }
+    }
+
+    .container {
+        display: flex;
+        gap: 20px;
+        flex-direction: column;
+    }
+
+    .title_section {
+        font-size: 30px;
+    }
+
+    //btn chevon
+    .btn_chevon {
+        position: absolute;
+        background-color: var(--white);
+        color: var(--black);
+        top: 50%;
+        transform: translateY(-100%);
+        z-index: 1;
+
+        &:hover {
+            background-color: var(--white);
+            filter: brightness(0.9);
+        }
+
+        @media (max-width: 600px) {
+            display: none;
+        }
+    }
+
+    .left {
+        left: 0;
+    }
+
+    .right {
+        right: 0;
+    }
+
+    .disable {
+        opacity: 0.1;
+    }
+}
+
+.container_loading {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}

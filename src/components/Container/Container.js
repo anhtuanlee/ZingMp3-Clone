@@ -8,14 +8,14 @@ import Loading from '../../pages/Loading';
 import { combinedStatusSelector } from '../../redux/selector';
 
 const cx = classNames.bind(styles);
-function Container({ listData, titleSection }) {
+function Container({ listData, titleSection, isPodcast }) {
     const { isLoadingPage } = useSelector(combinedStatusSelector);
 
     const RenderBanner = () => {
         const check = listData.map((item, index) => {
             return (
                 <div className={cx('item')} key={index}>
-                    <Banner item={item} index={index} />
+                    <Banner item={item} index={index} isPodcast={isPodcast} />
                 </div>
             );
         });
@@ -39,4 +39,5 @@ export default Container;
 Container.propTypes = {
     listData: PropTypes.array,
     titleSection: PropTypes.string,
+    isPodcast: PropTypes.bool,
 };

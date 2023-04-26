@@ -8,15 +8,13 @@
     display: flex;
     margin-top: 20px;
     width: 100%;
-
+    overflow: hidden;
     @media (max-width: 1130px) {
-        //tablet
-        overflow: hidden;
+        //tablet 
     }
     @media (max-width: 600px) {
         //tablet 
-        flex-wrap: wrap;
-        overflow: hidden;
+        flex-wrap: wrap; 
     }
     .item {
         padding: 0 12px;

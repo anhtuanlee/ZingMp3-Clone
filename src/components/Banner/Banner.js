@@ -1,18 +1,20 @@
 import classNames from 'classnames/bind';
+import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 
+import { toast } from 'react-toastify';
 import { ActionBtnAlbum } from '../../Feature/ActionBtnAlbum';
-import { combinedStatusSelector } from '../../redux/selector';
 import Loading from '../../pages/Loading';
-import styles from './Banner.module.scss';
+import { combinedStatusSelector } from '../../redux/selector';
 import Images from '../Image';
+import styles from './Banner.module.scss';
+
 const cx = classNames.bind(styles);
 
 // Component render img banner on home page and albumpage
-function Banner({ item, index, data, isLivingAlbum, singleBtn }) {
+function Banner({ item, index, data, isLivingAlbum, singleBtn, isPodcast }) {
     const [indexHover, setIndexHover] = useState(false);
     const [isHover, setIsHover] = useState(false);
     const { slugDataBanner, isPlaying, songCurrent, isLoadingPage } =
@@ -68,6 +70,7 @@ function Banner({ item, index, data, isLivingAlbum, singleBtn }) {
             }
         }
     }, [isPlaying]);
+
     return isLoadingPage ? (
         <Loading
             styles={{
@@ -84,36 +87,51 @@ function Banner({ item, index, data, isLivingAlbum, singleBtn }) {
                 onMouseOver={handleHover}
                 onMouseLeave={handleLeave}
             >
-                <Link
-                    to={`/album/${
-                        item?.slug_banner_singer_popular || item?.slug_banner_album_hot
-                    }`}
-                    state={{
-                        src: item?.src,
-                        title: item?.title,
-                        slug_banner_singer_popular: item?.slug_banner_singer_popular,
-                        slug_banner_album_hot: item?.slug_banner_album_hot,
-                        isBannerAlbumHot: item?.slug_banner_album_hot ? true : false,
-                    }}
-                >
-                    <figure className={cx('item_img')}>
-                        <Images src={item?.src} />
+                {isPodcast ? (
+                    <figure
+                        onClick={() =>
+                            toast.error('Không thể phát do không gọi được API :< ')
+                        }
+                        className={cx('item_img')}
+                    >
+                        <Images src={item?.src || item.thumbnailM} />
                     </figure>
-                    <div className={cx('item_action_hover')} onMouseOver={handleHover}>
-                        {indexHover === index && isHover && (
-                            <ActionBtnAlbum
-                                key={index}
-                                item={item}
-                                isLivingAlbum={isLivingAlbum}
-                                data={data}
-                                singleBtn={singleBtn}
-                                index={index}
-                            />
-                        )}
-                    </div>
-                </Link>
+                ) : (
+                    <Link
+                        to={`/album/${
+                            item?.slug_banner_singer_popular ||
+                            item?.slug_banner_album_hot
+                        }`}
+                        state={{
+                            src: item?.src,
+                            title: item?.title,
+                            slug_banner_singer_popular: item?.slug_banner_singer_popular,
+                            slug_banner_album_hot: item?.slug_banner_album_hot,
+                            isBannerAlbumHot: item?.slug_banner_album_hot ? true : false,
+                        }}
+                    >
+                        <figure className={cx('item_img')}>
+                            <Images src={item?.src} />
+                        </figure>
+                        <div
+                            className={cx('item_action_hover')}
+                            onMouseOver={handleHover}
+                        >
+                            {indexHover === index && isHover && !isPodcast && (
+                                <ActionBtnAlbum
+                                    key={index}
+                                    item={item}
+                                    isLivingAlbum={isLivingAlbum}
+                                    data={data}
+                                    singleBtn={singleBtn}
+                                    index={index}
+                                />
+                            )}
+                        </div>
+                    </Link>
+                )}
             </div>
-            {!isLivingAlbum && (
+            {!isLivingAlbum && !isPodcast && (
                 <div>
                     <Link
                         title={item.title}
@@ -149,6 +167,16 @@ function Banner({ item, index, data, isLivingAlbum, singleBtn }) {
                         )}
                     </span>
                 </div>
+            )}
+            {isPodcast && (
+                <h3
+                    onClick={() =>
+                        toast.error('Không thể phát do không gọi được API :< ')
+                    }
+                    className={cx('item_title')}
+                >
+                    {item.title}
+                </h3>
             )}
         </div>
     );

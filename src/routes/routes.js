@@ -38,8 +38,8 @@ export const privateRoutes = [
         layout: config.newupdate.layout,
     },
     {
-        path: config.following.path,
-        component: config.following.component,
+        path: config.radio.path,
+        component: config.radio.component,
     },
     {
         path: config.category.path,

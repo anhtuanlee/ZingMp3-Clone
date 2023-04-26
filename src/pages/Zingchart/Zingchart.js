@@ -12,8 +12,7 @@ function Zingchart() {
             icon: 'warning',
             buttons: 'Oki ^^!',
         });
-        navigate('..');
-    });
+    }, []);
     return <></>;
 }
 

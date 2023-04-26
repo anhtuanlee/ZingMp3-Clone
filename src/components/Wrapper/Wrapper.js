@@ -1,35 +1,25 @@
 import classNames from 'classnames/bind';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-import Form from '../Form/Form';
-import ListQueue from '../ListQueue/';
-import styles from './Wrapper.module.scss';
-import MvPlayer from '../MvPlayer/MvPlayer';
-import ModalTheme from '../ModalTheme/ModalTheme';
+import { combinedStatusSelector } from '../../redux/selector';
 import { loginSlice } from '../../redux/sliceReducer';
 import { getProfileUser } from '../../services/userApi';
-import Notification from '../Notification/Notification';
-import { combinedStatusSelector } from '../../redux/selector';
+import Form from '../Form/Form';
+import ListQueue from '../ListQueue/';
+import ModalTheme from '../ModalTheme/ModalTheme';
+import MvPlayer from '../MvPlayer/MvPlayer';
+import styles from './Wrapper.module.scss';
 
 const cx = classNames.bind(styles);
 function Wrapper({ children }) {
     const dispatch = useDispatch();
 
-    const {
-        isTheme,
-        isMvPlayer,
-        isPlayerQueue,
-        isLogin,
-        notification,
-        themeSelect,
-        dataUser,
-    } = useSelector(combinedStatusSelector);
-
-    const [isNotification, setIsNotifiCation] = useState();
-
-    const delayNotification = notification.title && isNotification;
+    const { isTheme, isMvPlayer, isPlayerQueue, isLogin, themeSelect, dataUser } =
+        useSelector(combinedStatusSelector);
 
     useEffect(() => {
         if (themeSelect.title) {
@@ -87,15 +77,12 @@ function Wrapper({ children }) {
                 '--border-player',
                 themeSelect?.properties?.borderPlayer,
             );
+            document.documentElement.style.setProperty(
+                '--sidebar-popup-bg',
+                themeSelect?.properties?.sidebarPoup,
+            );
         }
     }, []);
-    useEffect(() => {
-        setIsNotifiCation(true);
-        const timer = setTimeout(() => {
-            setIsNotifiCation(false);
-        }, 2000);
-        return () => clearTimeout(timer);
-    }, [notification]);
 
     useEffect(() => {
         if (dataUser.accessToken) {
@@ -114,10 +101,14 @@ function Wrapper({ children }) {
 
     return (
         <div className={cx('wrapper')}>
+            <ToastContainer
+                theme="light"
+                position="top-left"
+                limit={3}
+                autoClose={3000}
+                className={cx('toast_msg')}
+            />
             {children}
-            {delayNotification && (
-                <Notification title={notification.title} styles={notification.styles} />
-            )}
             {isTheme && <ModalTheme />}
             {isMvPlayer && <MvPlayer />}
             {isPlayerQueue && <ListQueue />}

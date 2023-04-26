@@ -19,7 +19,7 @@ const TitlePage = memo(({ title, sizes, styles, data, className }) => {
     ) : (
         <header className={cx('header_title', className)} style={styles}>
             <h3 className={cx('title_section')}>{title}</h3>
-            {sizes && <ButtonEffectPlay sizes={sizes} data={data} />}
+            {data && <ButtonEffectPlay sizes={sizes} data={data} />}
         </header>
     );
 });

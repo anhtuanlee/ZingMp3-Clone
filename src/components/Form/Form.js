@@ -1,14 +1,15 @@
 import classNames from 'classnames/bind';
-import isEmpty from 'validator/lib/isEmpty';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import isEmpty from 'validator/lib/isEmpty';
 
-import Button from '../Button';
-import styles from './Form.module.scss';
-import { Close, Loading } from '../Icons';
 import { combinedStatusSelector } from '../../redux/selector';
-import { featureSlice, loginSlice } from '../../redux/sliceReducer';
+import { loginSlice } from '../../redux/sliceReducer';
 import { getUserLogin, setUserRegister } from '../../services/userApi';
+import Button from '../Button';
+import { Close, Loading } from '../Icons';
+import styles from './Form.module.scss';
 
 const cx = classNames.bind(styles);
 
@@ -27,7 +28,7 @@ function Form() {
     const [validMsgError, setValidMsgError] = useState({});
 
     //loadingForm
-    const [isLoadingForm, setLoadingForm] = useState(false); 
+    const [isLoadingForm, setLoadingForm] = useState(false);
 
     const onChangeForm = () => {
         setIsLogin(!isLoginForm);
@@ -144,21 +145,12 @@ function Form() {
             setLoadingForm(true);
             try {
                 await setUserRegister(user, passwordConfirm, email);
-                dispatch(
-                    featureSlice.actions.setNotification({
-                        title: 'Tạo tài khoản thành công !!!',
-                        styles: 'success',
-                    }),
-                );
+
+                toast.success('Tạo tài khoản thành công !!!');
                 setIsLogin(true);
             } catch (error) {
                 if (error.response.status === 400) {
-                    dispatch(
-                        featureSlice.actions.setNotification({
-                            title: 'Tài khoản đã tồn tại !!!',
-                            styles: 'error',
-                        }),
-                    );
+                    toast.info('Tài khoản đã tồn tại !!!');
                 }
             }
             setLoadingForm(false);
@@ -176,23 +168,12 @@ function Form() {
             setLoadingForm(true);
             try {
                 const response = await getUserLogin(email, password);
-
                 dispatch(loginSlice.actions.setDataUser(response.data));
                 dispatch(loginSlice.actions.setAccessToken(response.accessToken));
-                dispatch(
-                    featureSlice.actions.setNotification({
-                        title: 'Đăng nhập thành công !!!',
-                        styles: 'success',
-                    }),
-                );
+                toast.success('Đăng nhập thành công !!!');
             } catch (err) {
                 if (err.response.status === 400) {
-                    dispatch(
-                        featureSlice.actions.setNotification({
-                            title: 'Sai tên đăng nhập hoặc mật khẩu !!!',
-                            styles: 'error',
-                        }),
-                    );
+                    toast.error('Sai tên đăng nhập hoặc mật khẩu !!!');
                 }
             }
             setLoadingForm(false);
@@ -208,9 +189,9 @@ function Form() {
                 btnEnterRef.current.click();
             }
         };
-        window.addEventListener('keypress', handlePressKeyEnter);
+        window.addEventListener('keyenter', handlePressKeyEnter);
 
-        return () => window.removeEventListener('keypress', handlePressKeyEnter);
+        return () => window.removeEventListener('keyenter', handlePressKeyEnter);
     }, []);
     return (
         <div className={cx('wrapper')}>

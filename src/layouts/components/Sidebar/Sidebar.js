@@ -1,30 +1,30 @@
-import Media from 'react-media';
 import classNames from 'classnames/bind';
+import Media from 'react-media';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
-import SidebarItem from './SidebarItem';
-import styles from './Sidebar.module.scss';
-import Images from '../../../components/Image';
-import { Close } from '../../../components/Icons';
 import Button from '../../../components/Button/Button';
+import { ArrowChevonLeft, ArrowChevonRight, Close } from '../../../components/Icons';
+import Images from '../../../components/Image';
 import { SIDEBAR_MENU } from '../../../redux/constant';
 import { combinedStatusSelector } from '../../../redux/selector';
-import {
-    featureSlice,
-    loginSlice,
-    sidebarSlice,
-    statusSlice,
-    themeSlice,
-} from '../../../redux/sliceReducer';
+import { loginSlice, sidebarSlice, statusSlice } from '../../../redux/sliceReducer';
+import styles from './Sidebar.module.scss';
+import SidebarItem from './SidebarItem';
+import { useState } from 'react';
 
 const cx = classNames.bind(styles);
 
 function Sidebar() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { idActive, dataUser, isSidebarMobile, isTheme } =
-        useSelector(combinedStatusSelector);
+    const { idActive, dataUser, isSidebarMobile } = useSelector(combinedStatusSelector);
+    const [isOpenSideBar, setOpenSideBar] = useState(false);
+    const imgError =
+        'https://digimedia.web.ua.pt/wp-content/uploads/2017/05/default-user-image.png';
+
+     
     const RenderMenuMain = ({ isTablet }) => {
         const result = SIDEBAR_MENU.map((item, index) => {
             const handleClickActive = (e, index) => {
@@ -47,6 +47,7 @@ function Sidebar() {
                     data={item}
                     key={index}
                     dataset={index}
+                    isOpenSideBar={isOpenSideBar}
                     isActive={index === idActive ? true : false} // check isActive ?
                     onClick={(e) => handleClickActive(e, index)}
                     isTablet={isTablet}
@@ -61,12 +62,7 @@ function Sidebar() {
             navigate('..');
             dispatch(loginSlice.actions.setAccessToken(''));
             dispatch(loginSlice.actions.setListSongFavorite([]));
-            dispatch(
-                featureSlice.actions.setNotification({
-                    title: 'Đăng xuất thành công',
-                    styles: 'success',
-                }),
-            );
+            toast.info('Đăng xuất thành công');
             dispatch(statusSlice.actions.isSidebarMobile(false));
         } else {
             dispatch(loginSlice.actions.setIsLogin(true));
@@ -75,11 +71,10 @@ function Sidebar() {
     const handleCloseSideBar = () => {
         dispatch(statusSlice.actions.isSidebarMobile(false));
     };
-    const onChangeTheme = () => {
-        dispatch(themeSlice.actions.setIsModalTheme(!isTheme));
+    const handleOpenSideBar = () => {
+        setOpenSideBar(!isOpenSideBar);
     };
-    const imgError =
-        'https://digimedia.web.ua.pt/wp-content/uploads/2017/05/default-user-image.png';
+
     return (
         <Media
             queries={{
@@ -139,14 +134,19 @@ function Sidebar() {
                     )}
                     {/* tablet */}
                     {matches.medium && (
-                        <div className={cx('wrapper', 'tablet')}>
+                        <div className={cx('wrapper', isOpenSideBar ? 'poup_tablet' : 'tablet')}>
                             <div className={cx('inner')}>
                                 <Link to="/" className={cx('logo')} />
                             </div>
-
                             <ul className={cx('menu_main')}>
                                 <RenderMenuMain isTablet={true} />
                             </ul>
+                            <Button
+                                Icons={isOpenSideBar ? ArrowChevonLeft : ArrowChevonRight}
+                                circle
+                                className={cx('btn_arrow_sidebar')}
+                                onHandle={handleOpenSideBar}
+                            />
                         </div>
                     )}
                     {/* desktop */}
