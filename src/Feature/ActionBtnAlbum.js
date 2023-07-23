@@ -20,7 +20,7 @@ import {
 const cx = classNames.bind(styles);
 
 export const ActionBtnAlbum = ({
-    item,
+    item, 
     isLivingAlbum,
     singleBtn,
     song,
@@ -29,7 +29,7 @@ export const ActionBtnAlbum = ({
     playlistSong,
     isListQueue,
     sizeTablet,
-    modalControls,
+    modalControls  , 
 }) => {
     const dispatch = useDispatch();
     const { slugDataBanner, dataSongs, isPlaying, songCurrent, dataUser } =

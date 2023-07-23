@@ -91,17 +91,18 @@ function Form() {
             if (isEmpty(password)) {
                 msg.password = 'Vui lòng nhập mật khẩu';
             } else {
-                const regexPassword = new RegExp('^[a-zA-Z0-9]{8,}$');
+                const regexPassword = new RegExp('^.{8,}$');
                 if (!regexPassword.test(password))
-                    msg.password = 'Mật khẩu phải chứa đủ 8 kí tự';
+                    msg.password = 'Mật khẩu phải lớn hơn 8 kí tự và có kiểu hoa và thường';
             }
         } else {
             if (isEmpty(password)) {
                 msg.password = 'Vui lòng nhập mật khẩu';
             } else {
-                const regexPassword = new RegExp('^[a-zA-Z0-9]{8,}$');
+                const regexPassword = new RegExp('^.{8,}$');
+
                 if (!regexPassword.test(password))
-                    msg.password = 'Mật khẩu phải chứa đủ 8 kí tự';
+                    msg.password = 'Mật khẩu phải lớn hơn 8 kí tự và có kiểu hoa và thường';
             }
 
             if (isEmpty(passwordConfirm)) {
